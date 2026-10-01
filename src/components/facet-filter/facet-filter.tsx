@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@nomos/internal/dropdown-menu'
+} from '@nomos/components/dropdown-menu/dropdown-menu'
 import { cn } from '@nomos/lib/cn'
 
 /**

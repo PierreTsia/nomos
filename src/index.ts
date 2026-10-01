@@ -32,6 +32,25 @@ export { Dialog } from '@nomos/components/dialog/dialog'
 export type { DialogProps } from '@nomos/components/dialog/dialog'
 export { dialogManifest } from '@nomos/components/dialog/manifest'
 
+export {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '@nomos/components/dropdown-menu/dropdown-menu'
+export { dropdownMenuManifest } from '@nomos/components/dropdown-menu/manifest'
+
 export { EmptyState } from '@nomos/components/empty-state/empty-state'
 export type { EmptyStateProps } from '@nomos/components/empty-state/empty-state'
 export { emptyStateManifest } from '@nomos/components/empty-state/manifest'

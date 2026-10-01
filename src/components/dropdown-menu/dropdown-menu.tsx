@@ -4,6 +4,11 @@ import { Check, ChevronRight, Circle } from "lucide-react"
 
 import { cn } from "@nomos/lib/cn"
 
+/**
+ * Le menu flottant : un déclencheur et une surface d'items (simples, à cocher, radio, ou
+ * un sous-menu). Présenté en parts importables séparément ; aucun libellé n'est propre au
+ * cœur. La couche flottante (empilement, mouvement) vient des tokens (ADR 0027).
+ */
 const DropdownMenu = DropdownMenuPrimitive.Root
 
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger
