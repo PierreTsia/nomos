@@ -3,6 +3,12 @@ import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
 import { cn } from "@nomos/lib/cn"
 
+/**
+ * L'infobulle : un texte d'aide attaché à un déclencheur, au survol et au focus. La
+ * famille se compose — `TooltipProvider` (le délai partagé), `Tooltip` (la racine),
+ * `TooltipTrigger`, `TooltipContent` — ; aucun texte n'est propre au cœur. La couche
+ * flottante (empilement, mouvement) vient des tokens (ADR 0027).
+ */
 const TooltipProvider = TooltipPrimitive.Provider
 
 const Tooltip = TooltipPrimitive.Root

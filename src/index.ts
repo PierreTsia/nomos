@@ -128,7 +128,13 @@ export {
   SheetTrigger,
 } from '@nomos/components/sheet/sheet'
 export { sheetManifest } from '@nomos/components/sheet/manifest'
-export { TooltipProvider } from '@nomos/internal/tooltip'
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@nomos/components/tooltip/tooltip'
+export { tooltipManifest } from '@nomos/components/tooltip/manifest'
 
 export {
   Select,

@@ -129,7 +129,10 @@
     "ToggleProps",
     "TokensDocument",
     "Tone",
+    "Tooltip",
+    "TooltipContent",
     "TooltipProvider",
+    "TooltipTrigger",
     "Tree",
     "TreeNode",
     "TreeProps",
@@ -185,6 +188,7 @@
     "toggleVariantsConfig",
     "tokensResource",
     "toneClasses",
+    "tooltipManifest",
     "treeManifest",
     "useToast",
     "validateCatalogue"
@@ -234,6 +238,7 @@
       "render_toast",
       "render_toggle",
       "render_toggle-group",
+      "render_tooltip",
       "render_tree"
     ],
     "resources": [
@@ -273,6 +278,7 @@
       "nomos://component/toast",
       "nomos://component/toggle",
       "nomos://component/toggle-group",
+      "nomos://component/tooltip",
       "nomos://component/tree",
       "nomos://tokens",
       "ui://nomos/alert",
@@ -314,6 +320,7 @@
       "ui://nomos/toast",
       "ui://nomos/toggle",
       "ui://nomos/toggle-group",
+      "ui://nomos/tooltip",
       "ui://nomos/tree"
     ]
   },

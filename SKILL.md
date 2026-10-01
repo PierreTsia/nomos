@@ -28,6 +28,9 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
   `onValueChange`, sinon un affichage.
 - **Lister des événements datés** → `Timeline` (frise, présentation seule ; le format de
   la date vient de l'app).
+- **Nommer un contrôle iconique, glisser une aide courte** → `Tooltip` en famille (un
+  `TooltipProvider` autour de plusieurs, `Tooltip`, `TooltipTrigger`, `TooltipContent`).
+  Jamais pour une information essentielle : elle n'est ni au clavier seul ni au tactile.
 
 ### Agir, saisir
 
@@ -142,6 +145,7 @@ timeline
 toast
 toggle
 toggle-group
+tooltip
 tree
 <!-- inventaire : fin -->
 
