@@ -1,5 +1,11 @@
 # @nomosui/react
 
+## 0.4.1
+
+### Patch Changes
+
+- b004755: Publish through OIDC trusted publishing on npm (no tokens). No API change.
+
 ## 0.4.0
 
 ### Minor Changes
