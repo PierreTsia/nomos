@@ -8,6 +8,8 @@ on:
 jobs:
   required:
     runs-on: ubuntu-latest
+    # Dependency bumps are handled by Dependabot, not by a changeset.
+    if: github.actor != 'dependabot[bot]'
     steps:
       - uses: actions/checkout@v4
         with:
