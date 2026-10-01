@@ -24,7 +24,7 @@ import {
 } from '@nomos/components/table/table'
 import { Button } from '@nomos/components/button/button'
 import { dataTableFeatures, type DataTableFeatures } from '@nomos/features/data-table-features'
-import { Sheet, SheetContent } from '@nomos/internal/sheet'
+import { Sheet, SheetContent } from '@nomos/components/sheet/sheet'
 
 /**
  * La coquille de table à facettes : barre d'outils, corps trié/paginé, sélection
