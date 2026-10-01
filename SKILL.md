@@ -52,6 +52,10 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
   `Skeleton`.
 - **Prévenir sans bloquer** → `Toast` via `useToast().show({ message })` (la file et
   l'auto-dismiss vivent dans `ToastProvider`).
+- **Regrouper des actions derrière un déclencheur compact** → `DropdownMenu` en parts
+  (`DropdownMenuTrigger`, `DropdownMenuContent`, `DropdownMenuItem`, à cocher, radio,
+  sous-menu ; les libellés et les actions viennent de l'app). Pour choisir une valeur de
+  formulaire, c'est un `Select`.
 - **Demander une décision dans une modale centrée** → `Dialog` (déclencheur, titre,
   description, corps, pied ; le libellé de fermeture vient de l'app). L'empilement, le
   voile et le mouvement viennent des tokens, jamais d'une valeur en dur.
@@ -109,6 +113,7 @@ counter
 data-table-pagination
 data-table-toolbar
 dialog
+dropdown-menu
 empty-state
 facet-filter
 field

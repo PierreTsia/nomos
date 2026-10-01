@@ -10,6 +10,8 @@ import { Card } from '@nomos/components/card/card'
 import { cardManifest } from '@nomos/components/card/manifest'
 import { Dialog } from '@nomos/components/dialog/dialog'
 import { dialogManifest } from '@nomos/components/dialog/manifest'
+import { DropdownMenu } from '@nomos/components/dropdown-menu/dropdown-menu'
+import { dropdownMenuManifest } from '@nomos/components/dropdown-menu/manifest'
 import { Chip, chipSizeClasses } from '@nomos/components/chip/chip'
 import { chipManifest } from '@nomos/components/chip/manifest'
 import { EmptyState } from '@nomos/components/empty-state/empty-state'
@@ -119,6 +121,11 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: dialogManifest,
     component: Dialog as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: dropdownMenuManifest,
+    component: DropdownMenu as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: {},
   },
   {
