@@ -44,12 +44,12 @@ try {
   writeFileSync(
     path.join(tmp, 'import.mjs'),
     [
-      "import { Button, Badge, catalogue } from '@nomos/react'",
+      "import { Button, Badge, catalogue } from '@nomosui/react'",
       "import { createRequire } from 'node:module'",
       "if (typeof Button !== 'function') { console.error('Button absent'); process.exit(1) }",
       "if (!Array.isArray(catalogue) || catalogue.length === 0) { console.error('catalogue vide'); process.exit(1) }",
       "const require = createRequire(import.meta.url)",
-      "for (const css of ['tokens/theme.css', 'tokens/tokens.generated.css', 'tokens/tokens.json']) require.resolve(`@nomos/react/${css}`)",
+      "for (const css of ['tokens/theme.css', 'tokens/tokens.generated.css', 'tokens/tokens.json']) require.resolve(`@nomosui/react/${css}`)",
       "console.log('core import ok')",
     ].join('\n'),
   )

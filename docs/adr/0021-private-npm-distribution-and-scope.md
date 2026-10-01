@@ -1,7 +1,7 @@
 # Nomos distribution: private npm publication, scope `@pierretsia/nomos`
 
 > **Superseded by ADR 0026.** Nomos now publishes to **public** npm, scope
-> `@nomos/*`, from a dedicated public repo (`PierreTsia/nomos`). The private
+> `@nomosui/*`, from a dedicated public repo (`PierreTsia/nomos`). The private
 > GitHub Packages registry and the `@pierretsia/nomos` scope are retired. Kept for
 > the record.
 
@@ -52,5 +52,5 @@ scope. It is that decision that this ADR **supersedes**.
 
 - ADR 0002 (shareable), 0003 (package), 0007 (the skill is a deliverable), 0017
   (the name Nomos; decision 3 on the scope, **superseded**).
-- ADR 0026 (**supersedes** this ADR: public npm, scope `@nomos/*`, dedicated
+- ADR 0026 (**supersedes** this ADR: public npm, scope `@nomosui/*`, dedicated
   repo).

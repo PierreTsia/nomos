@@ -17,14 +17,14 @@ identity. We decide: the **design system** is called **Nomos**.
 
 3. **The name lives in the code, everywhere.** Consistent rename (no derived
    synonym):
-   - the package scope → a Nomos scope (finally **`@nomos/react`**, ADR 0026);
+   - the package scope → a Nomos scope (finally **`@nomosui/react`**, ADR 0026);
    - alias `@ds` → **`@nomos`**, `@ds/derived` → **`@nomos/derived`**;
    - CSS token prefix `--ds-*` → **`--nomos-*`** (`cssNamespace` in
      `tokens/tokens.json`, derived by `scripts/build-tokens.mjs`);
    - MCP server → **`nomos`**, URIs `design-system://` → **`nomos://`**.
 
    > **Decision 3 on the scope** is **superseded**: first by ADR 0021, then by
-   > ADR 0026 (public scope `@nomos/react`). The name, spelling, `--nomos-*`
+   > ADR 0026 (public scope `@nomosui/react`). The name, spelling, `--nomos-*`
    > prefix, MCP server and `nomos://` URIs stay unchanged.
 
 4. **The package folder stays as it is.** It is a path, not the brand; renaming it
@@ -38,7 +38,7 @@ identity. We decide: the **design system** is called **Nomos**.
 ## Collisions (checked on 2026-10-01)
 
 - **npm**: `nomos` exists at `0.0.0` **without a description** — a placeholder, not
-  a competitor. The package is **scoped** (`@nomos/react`), therefore with no
+  a competitor. The package is **scoped** (`@nomosui/react`), therefore with no
   global collision; no publication is planned (ADR 0002). Nothing blocking.
 - **Domain**: `nomos.design` does not respond (probably free); `nomos.dev` and
   `nomos.io` are taken. With no marketing surface for now, no action.

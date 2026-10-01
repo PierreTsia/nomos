@@ -1,4 +1,4 @@
-# @nomos/react
+# @nomosui/react
 
 ## 0.3.3
 

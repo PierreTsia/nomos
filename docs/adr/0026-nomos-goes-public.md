@@ -15,8 +15,8 @@ and **refines** ADR 0025 (the CSS and theme follow the heart, simply re-scoped).
 
 ## Decisions
 
-1. **The channel: public npm (`npmjs.com`), scope `@nomos/*`.** The package
-   publishes publicly under an organisation scope `@nomos` (npm org `@nomos`). The
+1. **The channel: public npm (`npmjs.com`), scope `@nomosui/*`.** The package
+   publishes publicly under an organisation scope `@nomosui` (npm org `@nomosui`). The
    unscoped npm name `nomos` stays unavailable — a third party holds a `0.0.0`
    placeholder there (ADR 0017, collisions). No more GitHub Packages, no more
    `read:packages`.
@@ -32,9 +32,9 @@ and **refines** ADR 0025 (the CSS and theme follow the heart, simply re-scoped).
    ADRs, CONTRIBUTING, skill, commits — switches to **English**. The private
    dashboard's prose stays French; only the **Nomos** artifacts flip.
 
-4. **The package name: `@nomos/react`.** The name `nomos` (spelling, CSS prefix
+4. **The package name: `@nomosui/react`.** The name `nomos` (spelling, CSS prefix
    `--nomos-*`, MCP server `nomos`, `nomos://` URIs) does not move (ADR 0017). Only
-   the **scope** changes: `@nomos/react` replaces `@pierretsia/nomos` — this
+   the **scope** changes: `@nomosui/react` replaces `@pierretsia/nomos` — this
    supersedes ADR 0017 decision 3 and ADR 0021 decision 2. The migration is
    **breaking** for both consumers (scope rename **and** registry change).
 

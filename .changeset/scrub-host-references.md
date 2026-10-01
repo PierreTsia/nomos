@@ -1,5 +1,5 @@
 ---
-'@nomos/react': minor
+'@nomosui/react': minor
 ---
 
 Drop the host-app references from the public contracts: the DTCG `$extensions` vendor key
