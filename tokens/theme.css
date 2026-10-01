@@ -5,7 +5,14 @@
  *
  * L'app l'importe (`src/styles/globals.css`) et le build des vues l'inline
  * (`src/mcp/view.css`) : une seule définition du raccord, deux rendus.
+ *
+ * Le paquet est consommé compilé : les classes des composants vivent dans `dist`, que le
+ * Tailwind du consommateur ne scanne pas (il ignore `node_modules`). Cette source déclare
+ * le paquet à lui-même — sans elle, un consommateur qui ne scanne que son propre code perd
+ * `bg-popover`, `z-popover`, `shadow-md`… et la surcouche se rend transparente (ADR 0027).
  */
+@source '../dist/index.js';
+
 @theme {
   /*
     La densité (ADR 0008) multiplie l'échelle d'espacement : toutes les marges, tous les

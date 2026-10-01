@@ -13,6 +13,10 @@
 @source '../internal';
 @source './composites.tsx';
 
+/* Le raccord porte aussi la source du paquet compilé (pour les consommateurs). Les vues,
+ * elles, restent sur leur liste curatée : on exclut le bundle. */
+@source not '../../dist/index.js';
+
 @layer base {
   *,
   ::after,
