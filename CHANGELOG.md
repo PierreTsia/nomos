@@ -1,4 +1,4 @@
-# @pierretsia/nomos
+# @nomos/react
 
 ## 0.3.3
 

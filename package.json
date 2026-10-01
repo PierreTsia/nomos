@@ -1,5 +1,5 @@
 {
-  "name": "@pierretsia/nomos",
+  "name": "@nomos/react",
   "private": false,
   "version": "0.3.3",
   "type": "module",
@@ -9,8 +9,8 @@
     "url": "https://github.com/PierreTsia/nomos.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "exports": {
     ".": {

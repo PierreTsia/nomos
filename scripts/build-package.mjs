@@ -165,7 +165,7 @@ function assertSelfContained() {
   for (const jsPath of [path.join(DIST, 'index.js'), path.join(DIST, 'mcp', 'bin.js')]) {
     const js = readFileSync(jsPath, 'utf8')
     if (js.includes('@nomos/')) throw new Error(`${path.relative(DS, jsPath)} garde un alias @nomos/*`)
-    if (js.includes('@pierretsia/nomos/')) {
+    if (js.includes('@nomos/react/')) {
       throw new Error(`${path.relative(DS, jsPath)} garde une auto-référence de paquet`)
     }
   }
