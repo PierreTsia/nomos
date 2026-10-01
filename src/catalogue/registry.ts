@@ -2,6 +2,10 @@ import type { ComponentType } from 'react'
 
 import { Alert } from '@nomos/components/alert/alert'
 import { alertManifest } from '@nomos/components/alert/manifest'
+import { Accordion } from '@nomos/components/accordion/accordion'
+import { accordionManifest } from '@nomos/components/accordion/manifest'
+import { Collapsible } from '@nomos/components/collapsible/collapsible'
+import { collapsibleManifest } from '@nomos/components/collapsible/manifest'
 import { Badge, badgeVariantsConfig } from '@nomos/components/badge/badge'
 import { badgeManifest } from '@nomos/components/badge/manifest'
 import { Button, buttonVariantsConfig } from '@nomos/components/button/button'
@@ -108,6 +112,21 @@ export const catalogueEntries: CatalogueEntry[] = [
     manifest: alertManifest,
     component: Alert as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: { tone: { variants: { tone: toneClasses }, defaultVariants: { tone: 'info' } } },
+  },
+  {
+    manifest: accordionManifest,
+    component: Accordion as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {
+      type: {
+        variants: { type: { single: {}, multiple: {} } },
+        defaultVariants: { type: 'single' },
+      },
+    },
+  },
+  {
+    manifest: collapsibleManifest,
+    component: Collapsible as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
   },
   {
     manifest: badgeManifest,

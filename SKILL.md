@@ -59,6 +59,9 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
 - **Un contenu riche ou interactif dans une surface flottante au clic** → `Popover`
   (`PopoverTrigger`, `PopoverContent`, `PopoverAnchor` pour s'ancrer ailleurs). Pour un
   texte court au survol, c'est une `Tooltip`.
+- **Révéler un détail à la demande** → `Collapsible` (`CollapsibleTrigger`,
+  `CollapsibleContent`) ; **des sections repliables, une à la fois** → `Accordion`
+  (`AccordionItem`, `AccordionTrigger`, `AccordionContent`, `type` single/multiple).
 - **Prévenir sans bloquer** → `Toast` via `useToast().show({ message })` (la file et
   l'auto-dismiss vivent dans `ToastProvider`).
 - **Regrouper des actions derrière un déclencheur compact** → `DropdownMenu` en parts
@@ -112,12 +115,14 @@ brique ajoutée au catalogue sans être ici fait rougir, et une ligne qui n'exis
 aussi.
 
 <!-- inventaire : début — tenu par src/mcp/skill.test.ts -->
+accordion
 alert
 badge
 button
 card
 checkbox
 chip
+collapsible
 counter
 data-table-pagination
 data-table-toolbar
