@@ -10,6 +10,21 @@ export type { AlertProps } from '@nomos/components/alert/alert'
 export { alertManifest } from '@nomos/components/alert/manifest'
 
 export {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  AlertDialogPortal,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@nomos/components/alert-dialog/alert-dialog'
+export { alertDialogManifest } from '@nomos/components/alert-dialog/manifest'
+
+export {
   Accordion,
   AccordionContent,
   AccordionHeader,
