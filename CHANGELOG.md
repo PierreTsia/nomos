@@ -1,5 +1,18 @@
 # @nomosui/react
 
+## 0.4.0
+
+### Minor Changes
+
+- 478e83b: The package publishes publicly as **`@nomosui/react`** (it was `@pierretsia/nomos`, on the
+  private GitHub Packages registry). Import specifiers and the install source change; the
+  JavaScript API, the token interface, the MCP contract and the skill are unchanged.
+- f8c30ed: Drop the host-app references from the public contracts: the DTCG `$extensions` vendor key
+  moves from `org.agent-os` to `org.nomos`, and the MCP view DOM ids move from `agent-os-view`
+  / `agent-os-view-data` to `nomos-view` / `nomos-view-data` (the reference host frame id
+  follows). A consumer reading `$extensions` in `tokens.json`, or targeting those ids, must
+  update. The file names and the token/API/MCP shapes are otherwise unchanged.
+
 ## 0.3.3
 
 ### Patch Changes
