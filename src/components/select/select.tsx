@@ -4,6 +4,11 @@ import { Check, ChevronDown, ChevronUp } from "lucide-react"
 
 import { cn } from "@nomos/lib/cn"
 
+/**
+ * Le sélecteur : un déclencheur et une liste flottante d'options, à choisir unique. Les
+ * libellés viennent de l'app (aucun texte propre au cœur). Présenté en parts importables
+ * séparément ; la couche flottante (empilement, mouvement) vient des tokens (ADR 0027).
+ */
 const Select = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group

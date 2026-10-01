@@ -40,6 +40,9 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
   **choisir une seule option parmi quelques-unes** → `RadioGroup` ; **une bascule
   ponctuelle** (mode, filtre) → `Toggle`, **un segment** → `ToggleGroup`. Tous sont
   contrôlés par props : l'état reste dans l'app.
+- **Choisir une valeur unique parmi une liste d'options** → `Select` en parts
+  (`SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem` ; les libellés et les
+  valeurs viennent de l'app). Pour des actions, c'est un `DropdownMenu`.
 
 ### Structurer
 
@@ -128,6 +131,7 @@ progress-bar
 radio
 rating
 search-field
+select
 separator
 sheet
 skeleton

@@ -44,6 +44,8 @@ import { RadioGroup } from '@nomos/components/radio/radio'
 import { radioManifest } from '@nomos/components/radio/manifest'
 import { SearchField } from '@nomos/components/search-field/search-field'
 import { searchFieldManifest } from '@nomos/components/search-field/manifest'
+import { Select } from '@nomos/components/select/select'
+import { selectManifest } from '@nomos/components/select/manifest'
 import { Separator } from '@nomos/components/separator/separator'
 import { separatorManifest } from '@nomos/components/separator/manifest'
 import { Sheet, sheetVariantsConfig } from '@nomos/components/sheet/sheet'
@@ -159,6 +161,11 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: searchFieldManifest,
     component: SearchField as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: selectManifest,
+    component: Select as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: {},
   },
   {

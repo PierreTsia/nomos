@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@nomos/internal/select'
+} from '@nomos/components/select/select'
 
 /**
  * La pagination d'une table, en atome autonome : elle ne connaît pas TanStack, seulement
