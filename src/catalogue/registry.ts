@@ -8,6 +8,8 @@ import { Button, buttonVariantsConfig } from '@nomos/components/button/button'
 import { buttonManifest } from '@nomos/components/button/manifest'
 import { Card } from '@nomos/components/card/card'
 import { cardManifest } from '@nomos/components/card/manifest'
+import { Dialog } from '@nomos/components/dialog/dialog'
+import { dialogManifest } from '@nomos/components/dialog/manifest'
 import { Chip, chipSizeClasses } from '@nomos/components/chip/chip'
 import { chipManifest } from '@nomos/components/chip/manifest'
 import { EmptyState } from '@nomos/components/empty-state/empty-state'
@@ -110,6 +112,11 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: cardManifest,
     component: Card as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: dialogManifest,
+    component: Dialog as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: {},
   },
   {

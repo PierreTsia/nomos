@@ -28,6 +28,10 @@ export {
 } from '@nomos/components/card/card'
 export { cardManifest } from '@nomos/components/card/manifest'
 
+export { Dialog } from '@nomos/components/dialog/dialog'
+export type { DialogProps } from '@nomos/components/dialog/dialog'
+export { dialogManifest } from '@nomos/components/dialog/manifest'
+
 export { EmptyState } from '@nomos/components/empty-state/empty-state'
 export type { EmptyStateProps } from '@nomos/components/empty-state/empty-state'
 export { emptyStateManifest } from '@nomos/components/empty-state/manifest'

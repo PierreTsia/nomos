@@ -52,6 +52,9 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
   `Skeleton`.
 - **Prévenir sans bloquer** → `Toast` via `useToast().show({ message })` (la file et
   l'auto-dismiss vivent dans `ToastProvider`).
+- **Demander une décision dans une modale centrée** → `Dialog` (déclencheur, titre,
+  description, corps, pied ; le libellé de fermeture vient de l'app). L'empilement, le
+  voile et le mouvement viennent des tokens, jamais d'une valeur en dur.
 - **Parcourir une hiérarchie** → `Tree` (navigation, un nœud actif) ou `SelectionTree`
   (sélection multiple) ; ouverture et sélection sont contrôlées par props, le focus
   clavier (rôle `tree`, flèches) est interne.
@@ -102,6 +105,7 @@ chip
 counter
 data-table-pagination
 data-table-toolbar
+dialog
 empty-state
 facet-filter
 field
