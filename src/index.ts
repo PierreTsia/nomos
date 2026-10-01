@@ -24,6 +24,16 @@ export {
 } from '@nomos/components/alert-dialog/alert-dialog'
 export { alertDialogManifest } from '@nomos/components/alert-dialog/manifest'
 
+export { Avatar } from '@nomos/components/avatar/avatar'
+export type { AvatarProps } from '@nomos/components/avatar/avatar'
+export { avatarManifest } from '@nomos/components/avatar/manifest'
+
+export { ScrollArea, ScrollBar } from '@nomos/components/scroll-area/scroll-area'
+export { scrollAreaManifest } from '@nomos/components/scroll-area/manifest'
+
+export { Tabs, TabsContent, TabsList, TabsTrigger } from '@nomos/components/tabs/tabs'
+export { tabsManifest } from '@nomos/components/tabs/manifest'
+
 export {
   Accordion,
   AccordionContent,

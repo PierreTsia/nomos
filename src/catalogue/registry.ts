@@ -4,6 +4,12 @@ import { Alert } from '@nomos/components/alert/alert'
 import { alertManifest } from '@nomos/components/alert/manifest'
 import { AlertDialog } from '@nomos/components/alert-dialog/alert-dialog'
 import { alertDialogManifest } from '@nomos/components/alert-dialog/manifest'
+import { Avatar } from '@nomos/components/avatar/avatar'
+import { avatarManifest } from '@nomos/components/avatar/manifest'
+import { ScrollArea } from '@nomos/components/scroll-area/scroll-area'
+import { scrollAreaManifest } from '@nomos/components/scroll-area/manifest'
+import { Tabs } from '@nomos/components/tabs/tabs'
+import { tabsManifest } from '@nomos/components/tabs/manifest'
 import { Accordion } from '@nomos/components/accordion/accordion'
 import { accordionManifest } from '@nomos/components/accordion/manifest'
 import { Collapsible } from '@nomos/components/collapsible/collapsible'
@@ -118,6 +124,21 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: alertDialogManifest,
     component: AlertDialog as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: avatarManifest,
+    component: Avatar as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: scrollAreaManifest,
+    component: ScrollArea as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: tabsManifest,
+    component: Tabs as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: {},
   },
   {
