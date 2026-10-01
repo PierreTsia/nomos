@@ -227,11 +227,41 @@
   animation: nomos-slide-out-bottom var(--nomos-motion-duration-slow) var(--nomos-motion-ease-in) both;
 }
 
+/*
+  Le repli de hauteur (`Collapsible`, `Accordion`) : la hauteur mesurée par Radix arrive
+  par `--nomos-collapse-height`, que le composant relie à sa variable Radix. Le mouvement
+  reste celui des tokens (ADR 0027).
+*/
+@keyframes nomos-collapse-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--nomos-collapse-height);
+  }
+}
+@keyframes nomos-collapse-up {
+  from {
+    height: var(--nomos-collapse-height);
+  }
+  to {
+    height: 0;
+  }
+}
+@utility animate-collapse-down {
+  animation: nomos-collapse-down var(--nomos-motion-duration-base) var(--nomos-motion-ease-out);
+}
+@utility animate-collapse-up {
+  animation: nomos-collapse-up var(--nomos-motion-duration-base) var(--nomos-motion-ease-in);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-overlay-in,
   .animate-overlay-out,
   .animate-content-in,
   .animate-content-out,
+  .animate-collapse-down,
+  .animate-collapse-up,
   [class*='animate-slide-'] {
     animation: none;
   }
