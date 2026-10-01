@@ -136,10 +136,13 @@ export {
   SelectGroup,
   SelectItem,
   SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from '@nomos/internal/select'
+} from '@nomos/components/select/select'
+export { selectManifest } from '@nomos/components/select/manifest'
 
 export { CompactMeter, Meter } from '@nomos/components/meter/meter'
 export type { CompactMeterProps, MeterProps } from '@nomos/components/meter/meter'
