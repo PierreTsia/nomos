@@ -60,6 +60,8 @@ import { Textarea } from '@nomos/components/textarea/textarea'
 import { textareaManifest } from '@nomos/components/textarea/manifest'
 import { Toast } from '@nomos/components/toast/toast'
 import { toastManifest } from '@nomos/components/toast/manifest'
+import { TooltipProvider } from '@nomos/components/tooltip/tooltip'
+import { tooltipManifest } from '@nomos/components/tooltip/manifest'
 import { Toggle, toggleVariantsConfig } from '@nomos/components/toggle/toggle'
 import { toggleManifest } from '@nomos/components/toggle/manifest'
 import { ToggleGroup } from '@nomos/components/toggle-group/toggle-group'
@@ -264,6 +266,11 @@ export const catalogueEntries: CatalogueEntry[] = [
     variantsConfig: {
       tone: { variants: { tone: toneClasses }, defaultVariants: { tone: 'info' } },
     },
+  },
+  {
+    manifest: tooltipManifest,
+    component: TooltipProvider as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
   },
   {
     manifest: treeManifest,

@@ -10,7 +10,6 @@
 @import '../../tokens/theme.css';
 
 @source '../components';
-@source '../internal';
 @source './composites.tsx';
 
 /* Le raccord porte aussi la source du paquet compilé (pour les consommateurs). Les vues,
