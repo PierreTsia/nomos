@@ -31,6 +31,8 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
 - **Nommer un contrôle iconique, glisser une aide courte** → `Tooltip` en famille (un
   `TooltipProvider` autour de plusieurs, `Tooltip`, `TooltipTrigger`, `TooltipContent`).
   Jamais pour une information essentielle : elle n'est ni au clavier seul ni au tactile.
+- **Représenter une personne par son image** → `Avatar` (le texte alternatif et le repli
+  viennent de l'app ; natif `<img>` + `onError`, sans dépendance).
 
 ### Agir, saisir
 
@@ -62,6 +64,9 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
 - **Révéler un détail à la demande** → `Collapsible` (`CollapsibleTrigger`,
   `CollapsibleContent`) ; **des sections repliables, une à la fois** → `Accordion`
   (`AccordionItem`, `AccordionTrigger`, `AccordionContent`, `type` single/multiple).
+- **Basculer entre des vues sœurs** → `Tabs` (`TabsList`, `TabsTrigger`, `TabsContent`) ;
+  **borner une sous-vue dense dans une hauteur fixe** → `ScrollArea` (purement cosmétique,
+  le défilement reste natif).
 - **Prévenir sans bloquer** → `Toast` via `useToast().show({ message })` (la file et
   l'auto-dismiss vivent dans `ToastProvider`).
 - **Regrouper des actions derrière un déclencheur compact** → `DropdownMenu` en parts
@@ -121,6 +126,7 @@ aussi.
 accordion
 alert
 alert-dialog
+avatar
 badge
 button
 card
@@ -146,6 +152,7 @@ popover
 progress-bar
 radio
 rating
+scroll-area
 search-field
 select
 separator
@@ -153,6 +160,7 @@ sheet
 skeleton
 switch
 table
+tabs
 textarea
 timeline
 toast
