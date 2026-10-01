@@ -1,0 +1,30 @@
+import * as React from "react"
+import * as CollapsiblePrimitive from "@radix-ui/react-collapsible"
+
+import { cn } from "@nomos/lib/cn"
+
+/**
+ * Le repli : un déclencheur et une zone de contenu qu'on ouvre et referme. Présenté en
+ * parts importables séparément ; aucun libellé n'est propre au cœur. Le repli de hauteur
+ * lit le mouvement tokenisé (ADR 0027).
+ */
+const Collapsible = CollapsiblePrimitive.Root
+
+const CollapsibleTrigger = CollapsiblePrimitive.Trigger
+
+const CollapsibleContent = React.forwardRef<
+  React.ElementRef<typeof CollapsiblePrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof CollapsiblePrimitive.Content>
+>(({ className, ...props }, ref) => (
+  <CollapsiblePrimitive.Content
+    ref={ref}
+    className={cn(
+      "overflow-hidden data-[state=closed]:animate-collapse-up data-[state=open]:animate-collapse-down [--nomos-collapse-height:var(--radix-collapsible-content-height)]",
+      className
+    )}
+    {...props}
+  />
+))
+CollapsibleContent.displayName = CollapsiblePrimitive.Content.displayName
+
+export { Collapsible, CollapsibleTrigger, CollapsibleContent }

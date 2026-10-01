@@ -9,6 +9,22 @@ export { Alert } from '@nomos/components/alert/alert'
 export type { AlertProps } from '@nomos/components/alert/alert'
 export { alertManifest } from '@nomos/components/alert/manifest'
 
+export {
+  Accordion,
+  AccordionContent,
+  AccordionHeader,
+  AccordionItem,
+  AccordionTrigger,
+} from '@nomos/components/accordion/accordion'
+export { accordionManifest } from '@nomos/components/accordion/manifest'
+
+export {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@nomos/components/collapsible/collapsible'
+export { collapsibleManifest } from '@nomos/components/collapsible/manifest'
+
 export { Badge, badgeVariants, badgeVariantsConfig } from '@nomos/components/badge/badge'
 export type { BadgeProps } from '@nomos/components/badge/badge'
 
