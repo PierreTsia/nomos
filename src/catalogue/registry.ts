@@ -40,6 +40,8 @@ import { Meter } from '@nomos/components/meter/meter'
 import { meterManifest } from '@nomos/components/meter/manifest'
 import { NumberField } from '@nomos/components/number-field/number-field'
 import { numberFieldManifest } from '@nomos/components/number-field/manifest'
+import { Popover } from '@nomos/components/popover/popover'
+import { popoverManifest } from '@nomos/components/popover/manifest'
 import { RadioGroup } from '@nomos/components/radio/radio'
 import { radioManifest } from '@nomos/components/radio/manifest'
 import { SearchField } from '@nomos/components/search-field/search-field'
@@ -158,6 +160,11 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: numberFieldManifest,
     component: NumberField as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: popoverManifest,
+    component: Popover as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: {},
   },
   {

@@ -56,6 +56,9 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
   du cœur ; `onClose` va avec `closeLabel`).
 - **Séparer deux contenus** → `Separator` ; **tenir la place d'un contenu qui charge** →
   `Skeleton`.
+- **Un contenu riche ou interactif dans une surface flottante au clic** → `Popover`
+  (`PopoverTrigger`, `PopoverContent`, `PopoverAnchor` pour s'ancrer ailleurs). Pour un
+  texte court au survol, c'est une `Tooltip`.
 - **Prévenir sans bloquer** → `Toast` via `useToast().show({ message })` (la file et
   l'auto-dismiss vivent dans `ToastProvider`).
 - **Regrouper des actions derrière un déclencheur compact** → `DropdownMenu` en parts
@@ -130,6 +133,7 @@ input
 label
 meter
 number-field
+popover
 progress-bar
 radio
 rating

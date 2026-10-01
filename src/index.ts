@@ -69,6 +69,14 @@ export { inputManifest } from '@nomos/components/input/manifest'
 export { NumberField } from '@nomos/components/number-field/number-field'
 export { numberFieldManifest } from '@nomos/components/number-field/manifest'
 
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverContent,
+  PopoverTrigger,
+} from '@nomos/components/popover/popover'
+export { popoverManifest } from '@nomos/components/popover/manifest'
+
 export { SearchField } from '@nomos/components/search-field/search-field'
 export type { SearchFieldProps } from '@nomos/components/search-field/search-field'
 export { searchFieldManifest } from '@nomos/components/search-field/manifest'
