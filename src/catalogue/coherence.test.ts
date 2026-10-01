@@ -1,7 +1,7 @@
 import { existsSync, readdirSync, statSync } from 'node:fs'
 import path from 'node:path'
 import { createElement } from 'react'
-import { render, screen } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 
 import { catalogue } from '@nomos/catalogue/registry'
 
@@ -132,7 +132,9 @@ describe('le catalogue et les composants du cœur', () => {
           )
           expect(container.innerHTML, `${manifest.name} : \`${prop.name}\` acceptée`).not.toBe('')
         }
-        document.body.innerHTML = ''
+        // `cleanup` (pas `document.body.innerHTML = ''`) : un composant qui rend dans un
+        // portail — `Dialog` — laisserait sinon React retirer un nœud déjà détaché.
+        cleanup()
       }
     }
   })
