@@ -14,5 +14,8 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./vitest.setup.ts'],
+    // Le catalogue grandit : les tests qui listent outils et ressources approchent le
+    // défaut de 5 s. Une marge large évite un flake sans masquer une vraie lenteur.
+    testTimeout: 10000,
   },
 })

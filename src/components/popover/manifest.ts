@@ -10,7 +10,7 @@ import {
 /**
  * Le manifeste de la bulle contextuelle (ADR 0005). Le catalogue enregistre la racine
  * `Popover` ; les parts se composent dans l'exemple. La surface flottante lit le
- * `z-index` tokenisé (ADR 0027), jamais un `z-50` en dur.
+ * `z-index` tokenisé (ADR 0027), jamais une valeur d’empilement en dur.
  */
 export const popoverManifest: ComponentManifest = {
   name: 'popover',
@@ -69,7 +69,7 @@ export const popoverManifest: ComponentManifest = {
     },
     {
       name: 'onOpenChange',
-      type: '() => void',
+      type: '(open: boolean) => void',
       required: false,
       check: 'accepted',
       description: 'Rappelé quand l’utilisateur demande à ouvrir ou fermer.',

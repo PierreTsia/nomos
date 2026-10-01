@@ -47,7 +47,7 @@ describe('les vues MCP Apps', () => {
   })
 
   it('sert un overlay stylé et animé : voile, empilement et mouvement des tokens (ADR 0027)', () => {
-    // Le scan des vues couvre `../internal`, sinon le panneau sortirait non stylé.
+    // Le scan des vues couvre `../components`, sinon le panneau sortirait non stylé.
     expect(VIEW_CSS).toContain('.bg-scrim')
     expect(VIEW_CSS).toContain('var(--nomos-z-overlay)')
     expect(VIEW_CSS).toContain('@keyframes nomos-fade-in')

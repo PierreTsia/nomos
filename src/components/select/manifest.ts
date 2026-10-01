@@ -11,7 +11,7 @@ import {
 /**
  * Le manifeste du sélecteur (ADR 0005). Le catalogue enregistre la racine `Select` ; les
  * parts se composent dans l'exemple. La liste flottante lit le `z-index` tokenisé
- * (ADR 0027), jamais un `z-50` en dur.
+ * (ADR 0027), jamais une valeur d’empilement en dur.
  */
 export const selectManifest: ComponentManifest = {
   name: 'select',

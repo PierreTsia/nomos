@@ -82,7 +82,7 @@ export const dialogManifest: ComponentManifest = {
     },
     {
       name: 'onOpenChange',
-      type: '() => void',
+      type: '(open: boolean) => void',
       required: false,
       check: 'accepted',
       description: 'Rappelé quand l’utilisateur demande à ouvrir ou fermer.',
