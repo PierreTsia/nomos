@@ -5,6 +5,12 @@ import { X } from "lucide-react"
 
 import { cn } from "@nomos/lib/cn"
 
+/**
+ * Le panneau latéral : un déclencheur, un voile et une surface ancrée à un bord. Les
+ * quatre côtés vivent dans la variante `side` — `side="bottom"` est le **drawer**. La
+ * couche flottante (empilement, voile, mouvement) vient des tokens (ADR 0027), jamais
+ * d'une valeur en dur. Présenté en parts importables séparément.
+ */
 const Sheet = SheetPrimitive.Root
 
 const SheetTrigger = SheetPrimitive.Trigger
@@ -28,24 +34,27 @@ const SheetOverlay = React.forwardRef<
 ))
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
 
-const sheetVariants = cva(
-  "fixed z-overlay gap-4 bg-background p-6 shadow-lg",
-  {
-    variants: {
-      side: {
-        top: "inset-x-0 top-0 border-b data-[state=closed]:animate-slide-out-top data-[state=open]:animate-slide-in-top",
-        bottom:
-          "inset-x-0 bottom-0 border-t data-[state=closed]:animate-slide-out-bottom data-[state=open]:animate-slide-in-bottom",
-        left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:animate-slide-out-left data-[state=open]:animate-slide-in-left sm:max-w-sm",
-        right:
-          "inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:animate-slide-out-right data-[state=open]:animate-slide-in-right sm:max-w-sm",
-      },
+/**
+ * La config des variantes est exportée à côté de `sheetVariants` : le catalogue la lit
+ * pour vérifier que le manifeste ne dérive pas des props réelles (ADR 0005).
+ */
+export const sheetVariantsConfig = {
+  variants: {
+    side: {
+      top: "inset-x-0 top-0 border-b data-[state=closed]:animate-slide-out-top data-[state=open]:animate-slide-in-top",
+      bottom:
+        "inset-x-0 bottom-0 border-t data-[state=closed]:animate-slide-out-bottom data-[state=open]:animate-slide-in-bottom",
+      left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:animate-slide-out-left data-[state=open]:animate-slide-in-left sm:max-w-sm",
+      right:
+        "inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:animate-slide-out-right data-[state=open]:animate-slide-in-right sm:max-w-sm",
     },
-    defaultVariants: {
-      side: "right",
-    },
-  }
-)
+  },
+  defaultVariants: {
+    side: "right" as const,
+  },
+}
+
+const sheetVariants = cva("fixed z-overlay gap-4 bg-background p-6 shadow-lg", sheetVariantsConfig)
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,

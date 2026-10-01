@@ -96,7 +96,19 @@ export {
   type DataTableFeatures,
 } from '@nomos/features/data-table-features'
 
-export { SheetDescription, SheetHeader, SheetTitle } from '@nomos/internal/sheet'
+export {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetOverlay,
+  SheetPortal,
+  SheetTitle,
+  SheetTrigger,
+} from '@nomos/components/sheet/sheet'
+export { sheetManifest } from '@nomos/components/sheet/manifest'
 export { TooltipProvider } from '@nomos/internal/tooltip'
 
 export {

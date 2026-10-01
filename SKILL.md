@@ -55,6 +55,9 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
 - **Demander une décision dans une modale centrée** → `Dialog` (déclencheur, titre,
   description, corps, pied ; le libellé de fermeture vient de l'app). L'empilement, le
   voile et le mouvement viennent des tokens, jamais d'une valeur en dur.
+- **Montrer un contenu ancré à un bord** → `Sheet` en parts (`SheetTrigger`, `SheetContent`
+  avec `side`, `SheetHeader`, `SheetFooter`) ; `side="bottom"` est le **drawer** — le même
+  panneau, un côté différent, pas un atome à part.
 - **Parcourir une hiérarchie** → `Tree` (navigation, un nœud actif) ou `SelectionTree`
   (sélection multiple) ; ouverture et sélection sont contrôlées par props, le focus
   clavier (rôle `tree`, flèches) est interne.
@@ -121,6 +124,7 @@ radio
 rating
 search-field
 separator
+sheet
 skeleton
 switch
 table

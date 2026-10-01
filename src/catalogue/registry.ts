@@ -44,6 +44,8 @@ import { SearchField } from '@nomos/components/search-field/search-field'
 import { searchFieldManifest } from '@nomos/components/search-field/manifest'
 import { Separator } from '@nomos/components/separator/separator'
 import { separatorManifest } from '@nomos/components/separator/manifest'
+import { Sheet, sheetVariantsConfig } from '@nomos/components/sheet/sheet'
+import { sheetManifest } from '@nomos/components/sheet/manifest'
 import { Skeleton } from '@nomos/components/skeleton/skeleton'
 import { skeletonManifest } from '@nomos/components/skeleton/manifest'
 import { Switch } from '@nomos/components/switch/switch'
@@ -196,6 +198,11 @@ export const catalogueEntries: CatalogueEntry[] = [
     manifest: separatorManifest,
     component: Separator as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: {},
+  },
+  {
+    manifest: sheetManifest,
+    component: Sheet as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: { side: sheetVariantsConfig },
   },
   {
     manifest: skeletonManifest,

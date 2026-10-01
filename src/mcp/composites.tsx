@@ -15,7 +15,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@nomos/internal/sheet'
+} from '@nomos/components/sheet/sheet'
 
 /**
  * Les **scènes composites** (ADR 0013) : plusieurs briques du catalogue assemblées en une
