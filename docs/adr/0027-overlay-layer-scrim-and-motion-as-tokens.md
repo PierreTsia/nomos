@@ -48,11 +48,11 @@ slots the whole floating layer depends on.
 
 - `z-50` and `bg-black/80` disappear from `src/`; the internals read the new
   slots, so a skin changes layer order and scrim without a fork.
-- `view.css` adds `@source '../internal'`: a promoted overlay's classes — the
-  utilities and their keyframes — are compiled into `VIEW_CSS`, so the
-  overlay scene (`ui://nomos/composite/overlay`) renders **styled and animated**
-  in a view. A test fails if that CSS loses `.bg-scrim`, `--nomos-z-overlay` or
-  the keyframes.
+- `view.css` scans `src/components` (where the overlay parts live): a promoted
+  overlay's classes — the utilities and their keyframes — are compiled into
+  `VIEW_CSS`, so the overlay scene (`ui://nomos/composite/overlay`) renders
+  **styled and animated** in a view. A test fails if that CSS loses `.bg-scrim`,
+  `--nomos-z-overlay` or the keyframes.
 - The generated artifacts move with the source: `tokens.generated.css`,
   `tokens.resource.json` and `surface.generated.json` (new token slots) are
   replayed and committed, same regime as ADR 0004.

@@ -13,7 +13,7 @@ import {
 /**
  * Le manifeste du menu flottant (ADR 0005). Le catalogue enregistre la racine
  * `DropdownMenu` ; les parts se composent dans l'exemple. Le menu flottant lit le
- * `z-index` tokenisé (ADR 0027), jamais un `z-50` en dur.
+ * `z-index` tokenisé (ADR 0027), jamais une valeur d’empilement en dur.
  */
 export const dropdownMenuManifest: ComponentManifest = {
   name: 'dropdown-menu',
@@ -77,7 +77,7 @@ export const dropdownMenuManifest: ComponentManifest = {
     },
     {
       name: 'onOpenChange',
-      type: '() => void',
+      type: '(open: boolean) => void',
       required: false,
       check: 'accepted',
       description: 'Rappelé quand l’utilisateur demande à ouvrir ou fermer.',
