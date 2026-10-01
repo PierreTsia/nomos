@@ -29,9 +29,9 @@ describe('les vues MCP Apps', () => {
     expect(view).toContain('--nomos-color-background')
     expect(view).toContain('il y a 2 heures')
     expect(view).toContain(
-      'id="agent-os-view" data-component="freshness" data-theme="dark" data-density="comfortable"',
+      'id="nomos-view" data-component="freshness" data-theme="dark" data-density="comfortable"',
     )
-    expect(view).toContain('id="agent-os-view-data"')
+    expect(view).toContain('id="nomos-view-data"')
     expect(view).toContain('"client":true')
     expect(APP_VIEW_MIME).toBe('text/html;profile=mcp-app')
     expect(appViewUri('freshness')).toBe('ui://nomos/freshness')
@@ -61,8 +61,8 @@ describe('les vues MCP Apps', () => {
   })
 
   it('le pont émet des intentions, et `set-view` ne fait que poser des attributs', () => {
-    document.body.innerHTML = '<div id="agent-os-view"></div>'
-    const root = document.getElementById('agent-os-view') as HTMLElement
+    document.body.innerHTML = '<div id="nomos-view"></div>'
+    const root = document.getElementById('nomos-view') as HTMLElement
     const posted: unknown[] = []
 
     installViewBridge(window, root, (action, detail) => {
@@ -84,8 +84,8 @@ describe('les vues MCP Apps', () => {
   })
 
   it('le pont relaie les données poussées par l’hôte (ADR 0023)', () => {
-    document.body.innerHTML = '<div id="agent-os-view"></div>'
-    const root = document.getElementById('agent-os-view') as HTMLElement
+    document.body.innerHTML = '<div id="nomos-view"></div>'
+    const root = document.getElementById('nomos-view') as HTMLElement
     const received: Record<string, unknown>[] = []
 
     installViewBridge(window, root, () => {}, (data) => received.push(data))
@@ -102,14 +102,14 @@ describe('les vues MCP Apps', () => {
   it('l’hôte de référence sandboxe la vue et lui pousse son apparence', () => {
     const host = buildReferenceHost({
       viewUri: appViewUri('freshness'),
-      viewHtml: '<div id="agent-os-view">vue</div>',
+      viewHtml: '<div id="nomos-view">vue</div>',
       theme: 'light',
       density: 'compact',
     })
 
     expect(host).toContain('sandbox="allow-scripts"')
     expect(host).not.toContain('allow-same-origin')
-    expect(host).toContain('&lt;div id=&quot;agent-os-view&quot;&gt;')
+    expect(host).toContain('&lt;div id=&quot;nomos-view&quot;&gt;')
     expect(host).toContain("theme: 'light'")
     expect(host).toContain("density: 'compact'")
   })

@@ -1,11 +1,11 @@
 ---
 name: nomos
-description: Choisir la brique du design system d'agent-os (Nomos) pour un usage donné — atomes (Badge, Chip, Meter, Freshness, Table, Button, Input, champ, blocs de formulaire), coquille de table, vocabulaire de tons, tokens et densité — et interroger le catalogue par le serveur MCP local, y compris les vues `ui://` rendues en conversation.
+description: Choisir la brique du design system Nomos pour un usage donné — atomes (Badge, Chip, Meter, Freshness, Table, Button, Input, champ, blocs de formulaire), coquille de table, vocabulaire de tons, tokens et densité — et interroger le catalogue par le serveur MCP local, y compris les vues `ui://` rendues en conversation.
 ---
 
-# Le design system d'agent-os (Nomos)
+# Le design system Nomos
 
-Un **cœur app-agnostique** (`packages/design-system/`) : il ne connaît ni l'état d'une
+Un **cœur app-agnostique** (la racine de ce dépôt) : il ne connaît ni l'état d'une
 app, ni son i18n, ni son router, ni ses query-params. Dès qu'il faut nommer un produit
 pour expliquer une brique, elle appartient à l'app, pas au cœur.
 
@@ -133,7 +133,7 @@ tree
 Le serveur MCP local sert le même inventaire que la page de style, en lecture seule :
 
 ```sh
-npm run mcp -w @pierretsia/nomos   # stdio, sans jeton
+npm run mcp   # stdio, sans jeton
 ```
 
 - `list_components { query? }` — quelles briques existent, et laquelle correspond à un mot.

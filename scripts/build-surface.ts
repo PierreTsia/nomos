@@ -8,7 +8,7 @@ import { composites } from '@nomos/mcp/composites'
 import { TOKENS_URI, componentUri } from '@nomos/mcp/server'
 
 /**
- * Le **snapshot de la surface publique** de Nomos (#58, ADR à venir). Il liste ce dont un
+ * Le **snapshot de la surface publique** de Nomos (ADR 0024). Il liste ce dont un
  * consommateur dépend — les exports JS, les noms d'outils et d'URIs MCP, les littéraux des
  * messages, les emplacements de tokens — et un `surface:check` en CI rougit à toute dérive :
  * **on ne peut pas changer la surface sans éditer ce fichier dans la même PR**, c'est l'acte
@@ -47,7 +47,7 @@ const tokens = JSON.parse(read('tokens/tokens.resource.json')) as {
 
 const surface = {
   $description:
-    'Surface publique de @pierretsia/nomos (#58). Un consommateur en dépend : ne la changez pas sans le vouloir, et éditez ce fichier dans la même PR.',
+    'Surface publique de Nomos. Un consommateur en dépend : ne la changez pas sans le vouloir, et éditez ce fichier dans la même PR.',
   exports: indexExports(),
   mcp: {
     tools: [

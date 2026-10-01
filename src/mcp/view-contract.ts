@@ -5,8 +5,8 @@
  */
 
 export const VIEW_SOURCE = 'nomos'
-export const VIEW_ROOT_ID = 'agent-os-view'
-export const VIEW_DATA_ID = 'agent-os-view-data'
+export const VIEW_ROOT_ID = 'nomos-view'
+export const VIEW_DATA_ID = 'nomos-view-data'
 
 /** La vue **émet des intentions** : elle ne mute jamais l'état de l'hôte. */
 export type ViewIntent = {

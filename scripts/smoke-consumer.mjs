@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Le smoke du paquet **consommé** (#60) : `npm pack` le paquet, l'installe dans un projet
+ * Le smoke du paquet **consommé** : `npm pack` le paquet, l'installe dans un projet
  * neuf, et vérifie ce qu'un consommateur obtient vraiment — importer une brique, démarrer
  * le serveur MCP (`nomos-mcp`) et lire une vue `ui://`. Attrape les régressions de
  * *packaging* (fichier manquant, export cassé, bin qui ne démarre pas) que les tests
@@ -69,7 +69,7 @@ try {
       "if (tools.length < 30) { console.error(`trop peu d'outils: ${tools.length}`); process.exit(1) }",
       "const view = await client.readResource({ uri: 'ui://nomos/badge' })",
       "const html = view.contents[0].text",
-      "if (!html.includes('agent-os-view') || !html.includes('.bg-primary')) { console.error('vue incomplète'); process.exit(1) }",
+      "if (!html.includes('nomos-view') || !html.includes('.bg-primary')) { console.error('vue incomplète'); process.exit(1) }",
       "await client.close()",
       "console.log('mcp ok')",
     ].join('\n'),

@@ -24,7 +24,7 @@ if (rootElement && dataElement) {
   const emit = (action: string, detail?: unknown) => emitIntent(window, action, detail)
   const viewRoot = createRoot(rootElement)
 
-  ;(window as unknown as { __agentOsViewMounted?: string | null }).__agentOsViewMounted =
+  ;(window as unknown as { __nomosViewMounted?: string | null }).__nomosViewMounted =
     data.name ?? null
 
   const render = (props: Record<string, unknown>): void => {

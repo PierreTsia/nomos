@@ -28,7 +28,7 @@ export interface TokensResource {
   slots: Record<string, Record<string, string>>
 }
 
-/** Les modes déclarés par la source (`$extensions["org.agent-os"].modes`). */
+/** Les modes déclarés par la source (`$extensions["org.nomos"].modes`). */
 export function modes(doc: TokensDocument): string[]
 
 /** Le mode par défaut, qui doit être l'un des modes déclarés. */

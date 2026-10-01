@@ -1,5 +1,5 @@
 {
-  "$description": "Surface publique de @pierretsia/nomos (#58). Un consommateur en dépend : ne la changez pas sans le vouloir, et éditez ce fichier dans la même PR.",
+  "$description": "Surface publique de Nomos. Un consommateur en dépend : ne la changez pas sans le vouloir, et éditez ce fichier dans la même PR.",
   "exports": [
     "Alert",
     "AlertProps",

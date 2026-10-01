@@ -14,17 +14,17 @@
 const ALIAS = /^\{([^}]+)\}$/
 
 export function modes(doc) {
-  const declared = doc?.$extensions?.['org.agent-os']?.modes
+  const declared = doc?.$extensions?.['org.nomos']?.modes
   if (!Array.isArray(declared) || declared.length === 0) {
     throw new Error(
-      'tokens.json : `$extensions["org.agent-os"].modes` doit déclarer au moins un mode.',
+      'tokens.json : `$extensions["org.nomos"].modes` doit déclarer au moins un mode.',
     )
   }
   return [...declared]
 }
 
 export function defaultMode(doc) {
-  const declared = doc?.$extensions?.['org.agent-os']?.defaultMode
+  const declared = doc?.$extensions?.['org.nomos']?.defaultMode
   const all = modes(doc)
   if (!declared || !all.includes(declared)) {
     throw new Error(
@@ -36,17 +36,17 @@ export function defaultMode(doc) {
 
 /** Les densités déclarées (ADR 0008) : un nom et son multiplicateur d'espacement. */
 export function densities(doc) {
-  const declared = doc?.$extensions?.['org.agent-os']?.densities
+  const declared = doc?.$extensions?.['org.nomos']?.densities
   if (!declared || typeof declared !== 'object' || Object.keys(declared).length === 0) {
     throw new Error(
-      'tokens.json : `$extensions["org.agent-os"].densities` doit déclarer au moins une densité.',
+      'tokens.json : `$extensions["org.nomos"].densities` doit déclarer au moins une densité.',
     )
   }
   return declared
 }
 
 export function defaultDensity(doc) {
-  const declared = doc?.$extensions?.['org.agent-os']?.defaultDensity
+  const declared = doc?.$extensions?.['org.nomos']?.defaultDensity
   const all = Object.keys(densities(doc))
   if (!declared || !all.includes(declared)) {
     throw new Error(
@@ -156,7 +156,7 @@ export function cssName(path, namespace) {
 
 /** L'ensemble des emplacements sémantiques d'un mode, `nom CSS -> valeur`. */
 export function slotsFor(doc, mode) {
-  const namespace = doc?.$extensions?.['org.agent-os']?.cssNamespace ?? '--nomos'
+  const namespace = doc?.$extensions?.['org.nomos']?.cssNamespace ?? '--nomos'
   const slots = {}
   for (const [path, token] of semanticTokens(doc)) {
     slots[cssName(path, namespace)] = cssValue(resolve(doc, path, mode), token.$type)
@@ -168,8 +168,8 @@ export function slotsFor(doc, mode) {
 export function buildResource(doc) {
   const resource = {
     $description:
-      "La ressource `design-system/tokens` : la source unique aplatie, un inventaire par mode. Dérivée de packages/design-system/tokens/tokens.json — ne pas éditer.",
-    namespace: doc?.$extensions?.['org.agent-os']?.cssNamespace ?? '--nomos',
+      "La ressource `tokens` : la source unique aplatie, un inventaire par mode. Dérivée de `tokens/tokens.json` — ne pas éditer.",
+    namespace: doc?.$extensions?.['org.nomos']?.cssNamespace ?? '--nomos',
     defaultMode: defaultMode(doc),
     modes: modes(doc),
     densities: densities(doc),
@@ -181,8 +181,8 @@ export function buildResource(doc) {
 }
 
 const HEADER = `/*
- * Généré par packages/design-system/scripts/build-tokens.mjs — ne pas éditer à la main.
- * Source unique : packages/design-system/tokens/tokens.json (format DTCG, ADR 0004).
+ * Généré par scripts/build-tokens.mjs — ne pas éditer à la main.
+ * Source unique : tokens/tokens.json (format DTCG, ADR 0004).
  * Rejouer : npm run tokens
  */`
 
@@ -196,7 +196,7 @@ const HEADER = `/*
  * défilement, champs) restent au thème du système dans un thème forcé.
  */
 export function renderCss(doc) {
-  const namespace = doc?.$extensions?.['org.agent-os']?.cssNamespace ?? '--nomos'
+  const namespace = doc?.$extensions?.['org.nomos']?.cssNamespace ?? '--nomos'
   const def = defaultMode(doc)
   const other = modes(doc).find((m) => m !== def)
 

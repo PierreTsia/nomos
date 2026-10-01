@@ -5,7 +5,7 @@
  * pas une dépendance.
  */
 
-export const HOST_FRAME_ID = 'agent-os-view-frame'
+export const HOST_FRAME_ID = 'nomos-view-frame'
 
 export function escapeAttr(value: string): string {
   return value
@@ -22,7 +22,7 @@ function hostScript(theme: string, density: string, data?: Record<string, unknow
   var SOURCE = 'nomos'
   var DATA = ${dataLiteral}
   var intents = []
-  window.__agentOsIntents = intents
+  window.__nomosIntents = intents
   // Le listener est posé tout de suite : une vue peut émettre son \`ready\` avant que le
   // parent n'ait fini de se construire, et on ne veut pas le rater.
   window.addEventListener('message', function (event) {

@@ -8,7 +8,7 @@ import { cn } from '@nomos/lib/cn'
  * c'est ce qui en fait un atome et pas un détail interne à la table (ADR 0010).
  *
  * Aucun libellé ne vient de l'app : l'appelant passe le texte du seuil. Le cœur ne
- * connaît ni l'i18n d'agent-os ni un mot produit.
+ * connaît ni l'i18n de l'app ni un mot produit.
  */
 
 function clamp01(value: number): number {
