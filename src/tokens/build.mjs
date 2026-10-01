@@ -133,6 +133,7 @@ export function cssValue(value, type) {
   if (typeof value === 'number') return String(value)
   if (Array.isArray(value)) {
     if (type === 'fontFamily') return value.map((f) => (f.includes(' ') ? `"${f}"` : f)).join(', ')
+    if (type === 'cubicBezier' && value.length === 4) return `cubic-bezier(${value.join(', ')})`
     throw new Error(
       type
         ? `tokens.json : valeur tableau non rendue pour le type \`${type}\`.`
@@ -141,8 +142,9 @@ export function cssValue(value, type) {
   }
   if (value && typeof value === 'object') {
     if (value.colorSpace === 'hsl') {
-      const [h, s, l] = value.components
-      return `${h} ${s}% ${l}%`
+      const [h, s, l, a] = value.components
+      const base = `${h} ${s}% ${l}%`
+      return a === undefined ? base : `${base} / ${a}`
     }
     if ('value' in value && 'unit' in value) return `${value.value}${value.unit}`
   }

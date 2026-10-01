@@ -188,6 +188,7 @@
       "render_radio",
       "render_rating",
       "render_scene_form",
+      "render_scene_overlay",
       "render_scene_status",
       "render_search-field",
       "render_separator",
@@ -243,6 +244,7 @@
       "ui://nomos/checkbox",
       "ui://nomos/chip",
       "ui://nomos/composite/form",
+      "ui://nomos/composite/overlay",
       "ui://nomos/composite/status",
       "ui://nomos/counter",
       "ui://nomos/data-table-pagination",
@@ -315,6 +317,7 @@
         "--nomos-color-primary",
         "--nomos-color-primary-foreground",
         "--nomos-color-ring",
+        "--nomos-color-scrim",
         "--nomos-color-secondary",
         "--nomos-color-secondary-foreground",
         "--nomos-color-status-attention",
@@ -329,6 +332,12 @@
         "--nomos-color-status-success-ink",
         "--nomos-color-status-warning",
         "--nomos-color-status-warning-ink",
+        "--nomos-motion-duration-base",
+        "--nomos-motion-duration-fast",
+        "--nomos-motion-duration-slow",
+        "--nomos-motion-ease-in",
+        "--nomos-motion-ease-out",
+        "--nomos-motion-ease-standard",
         "--nomos-radius-chip",
         "--nomos-radius-control",
         "--nomos-radius-field",
@@ -355,7 +364,11 @@
         "--nomos-type-size-title",
         "--nomos-type-weight-medium",
         "--nomos-type-weight-regular",
-        "--nomos-type-weight-strong"
+        "--nomos-type-weight-strong",
+        "--nomos-z-overlay",
+        "--nomos-z-popover",
+        "--nomos-z-toast",
+        "--nomos-z-tooltip"
       ],
       "light": [
         "--nomos-color-accent",
@@ -376,6 +389,7 @@
         "--nomos-color-primary",
         "--nomos-color-primary-foreground",
         "--nomos-color-ring",
+        "--nomos-color-scrim",
         "--nomos-color-secondary",
         "--nomos-color-secondary-foreground",
         "--nomos-color-status-attention",
@@ -390,6 +404,12 @@
         "--nomos-color-status-success-ink",
         "--nomos-color-status-warning",
         "--nomos-color-status-warning-ink",
+        "--nomos-motion-duration-base",
+        "--nomos-motion-duration-fast",
+        "--nomos-motion-duration-slow",
+        "--nomos-motion-ease-in",
+        "--nomos-motion-ease-out",
+        "--nomos-motion-ease-standard",
         "--nomos-radius-chip",
         "--nomos-radius-control",
         "--nomos-radius-field",
@@ -416,7 +436,11 @@
         "--nomos-type-size-title",
         "--nomos-type-weight-medium",
         "--nomos-type-weight-regular",
-        "--nomos-type-weight-strong"
+        "--nomos-type-weight-strong",
+        "--nomos-z-overlay",
+        "--nomos-z-popover",
+        "--nomos-z-toast",
+        "--nomos-z-tooltip"
       ]
     }
   }

@@ -107,6 +107,11 @@ describe('tokens.json — la source unique', () => {
     )
   })
 
+  it('porte l’alpha et la courbe dans le token, pas dans la classe (ADR 0027)', () => {
+    expect(cssValue({ colorSpace: 'hsl', components: [0, 0, 0, 0.8] })).toBe('0 0% 0% / 0.8')
+    expect(cssValue([0.4, 0, 0.2, 1], 'cubicBezier')).toBe('cubic-bezier(0.4, 0, 0.2, 1)')
+  })
+
   it('refuse un tableau sans type plutôt que de rendre un blanc', () => {
     expect(() => cssValue(['ui-sans-serif'])).toThrow(/exige le `\$type`/)
   })

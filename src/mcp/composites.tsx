@@ -8,6 +8,14 @@ import { Field } from '@nomos/components/field/field'
 import { Form } from '@nomos/components/form/form'
 import { Input } from '@nomos/components/input/input'
 import { NumberField } from '@nomos/components/number-field/number-field'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@nomos/internal/sheet'
 
 /**
  * Les **scènes composites** (ADR 0013) : plusieurs briques du catalogue assemblées en une
@@ -83,6 +91,29 @@ export const composites: Composite[] = [
             </Alert>
           </CardContent>
         </Card>
+      </div>
+    ),
+  },
+  {
+    name: 'overlay',
+    title: 'Couche flottante',
+    summary:
+      "Un panneau ouvert : le voile, l'empilement et le mouvement viennent des tokens (ADR 0027).",
+    render: (props = {}) => (
+      <div style={{ padding: 16 }}>
+        <Sheet open>
+          <SheetTrigger asChild>
+            <Button>{String(props.trigger ?? 'Ouvrir')}</Button>
+          </SheetTrigger>
+          <SheetContent side={(props.side as 'top' | 'bottom' | 'left' | 'right') ?? 'right'}>
+            <SheetHeader>
+              <SheetTitle>{String(props.title ?? 'Panneau')}</SheetTitle>
+              <SheetDescription>
+                {String(props.body ?? 'Une couche flottante servie comme vue.')}
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </div>
     ),
   },

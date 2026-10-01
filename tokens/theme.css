@@ -43,6 +43,7 @@
   --color-card-foreground: hsl(var(--nomos-color-card-foreground));
 
   --color-brand: var(--nomos-color-brand);
+  --color-scrim: hsl(var(--nomos-color-scrim));
 
   --color-status-info: hsl(var(--nomos-color-status-info));
   --color-status-info-ink: hsl(var(--nomos-color-status-info-ink));
@@ -60,4 +61,171 @@
   --radius-lg: var(--nomos-radius-control);
   --radius-md: var(--nomos-radius-field);
   --radius-sm: var(--nomos-radius-chip);
+}
+
+/*
+  L'empilement et le mouvement (ADR 0027). Les noms sont ceux du cœur, les valeurs sont
+  des tokens : `z-overlay` lit `--nomos-z-overlay`, chaque animation lit une durée et une
+  courbe. Aucune valeur de temps n'est écrite ici — une app les remplace par le skin.
+  `prefers-reduced-motion` neutralise les animations sans toucher au reste.
+*/
+@utility z-overlay {
+  z-index: var(--nomos-z-overlay);
+}
+@utility z-popover {
+  z-index: var(--nomos-z-popover);
+}
+@utility z-tooltip {
+  z-index: var(--nomos-z-tooltip);
+}
+@utility z-toast {
+  z-index: var(--nomos-z-toast);
+}
+
+@keyframes nomos-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes nomos-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes nomos-content-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes nomos-content-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+@keyframes nomos-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes nomos-slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes nomos-slide-in-top {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes nomos-slide-in-bottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes nomos-slide-out-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes nomos-slide-out-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes nomos-slide-out-top {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+@keyframes nomos-slide-out-bottom {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@utility animate-overlay-in {
+  animation: nomos-fade-in var(--nomos-motion-duration-base) var(--nomos-motion-ease-out) both;
+}
+@utility animate-overlay-out {
+  animation: nomos-fade-out var(--nomos-motion-duration-fast) var(--nomos-motion-ease-in) both;
+}
+@utility animate-content-in {
+  animation: nomos-content-in var(--nomos-motion-duration-base) var(--nomos-motion-ease-out) both;
+}
+@utility animate-content-out {
+  animation: nomos-content-out var(--nomos-motion-duration-fast) var(--nomos-motion-ease-in) both;
+}
+@utility animate-slide-in-right {
+  animation: nomos-slide-in-right var(--nomos-motion-duration-slow) var(--nomos-motion-ease-out) both;
+}
+@utility animate-slide-in-left {
+  animation: nomos-slide-in-left var(--nomos-motion-duration-slow) var(--nomos-motion-ease-out) both;
+}
+@utility animate-slide-in-top {
+  animation: nomos-slide-in-top var(--nomos-motion-duration-slow) var(--nomos-motion-ease-out) both;
+}
+@utility animate-slide-in-bottom {
+  animation: nomos-slide-in-bottom var(--nomos-motion-duration-slow) var(--nomos-motion-ease-out) both;
+}
+@utility animate-slide-out-right {
+  animation: nomos-slide-out-right var(--nomos-motion-duration-slow) var(--nomos-motion-ease-in) both;
+}
+@utility animate-slide-out-left {
+  animation: nomos-slide-out-left var(--nomos-motion-duration-slow) var(--nomos-motion-ease-in) both;
+}
+@utility animate-slide-out-top {
+  animation: nomos-slide-out-top var(--nomos-motion-duration-slow) var(--nomos-motion-ease-in) both;
+}
+@utility animate-slide-out-bottom {
+  animation: nomos-slide-out-bottom var(--nomos-motion-duration-slow) var(--nomos-motion-ease-in) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-overlay-in,
+  .animate-overlay-out,
+  .animate-content-in,
+  .animate-content-out,
+  [class*='animate-slide-'] {
+    animation: none;
+  }
 }
