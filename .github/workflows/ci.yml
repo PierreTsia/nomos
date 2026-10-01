@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run lint
+      - run: npm run typecheck
+
+      # The distributable package must build and stay self-sufficient: the build fails if
+      # the JS keeps an internal alias or if a type does not resolve.
+      - run: npm run build:package
+
+      # Committed generated artifacts. CI fails if one has drifted from its source
+      # (tokens, MCP view, view CSS, public surface).
+      - run: npm run tokens:check
+      - run: npm run view:check
+      - run: npm run view-css:check
+      - run: npm run surface:check
+
+      # The package is installed in a fresh project and exercised as a consumer would:
+      # import the core, start the MCP bin, read a view.
+      - run: npm run smoke:consumer

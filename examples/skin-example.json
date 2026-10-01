@@ -1,0 +1,19 @@
+{
+  "$description": "Exemple de skin d'app (ADR 0022) : un overlay de tokens sémantiques posé sur le défaut du cœur. Seuls les emplacements qui diffèrent sont ici ; le reste hérite. Rend une vue visiblement distincte du défaut — c'est la preuve du mécanisme de thème.",
+  "semantic": {
+    "color": {
+      "primary": {
+        "$type": "color",
+        "$value": { "colorSpace": "hsl", "components": [280, 80, 55] }
+      },
+      "ring": {
+        "$type": "color",
+        "$value": { "colorSpace": "hsl", "components": [280, 80, 55] }
+      },
+      "brand": {
+        "$type": "color",
+        "$value": "hsl(280 80% 55%)"
+      }
+    }
+  }
+}

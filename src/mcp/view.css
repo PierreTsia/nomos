@@ -1,0 +1,29 @@
+/*
+ * Le CSS des vues MCP Apps (ADR 0022) : le raccord Tailwind → tokens du cœur + les
+ * utilitaires que les composants emploient. **Aucune valeur de token ici** : la vue inline
+ * ce CSS à côté des valeurs du skin, et le namespace `--nomos-*` reste fixe.
+ *
+ * Compilé par `scripts/build-view-css.mjs` en `view-css.generated.ts`. Les sources sont
+ * limitées aux composants du cœur et aux scènes composites : jamais le code de l'app.
+ */
+@import 'tailwindcss' source(none);
+@import '../../tokens/theme.css';
+
+@source '../components';
+@source './composites.tsx';
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

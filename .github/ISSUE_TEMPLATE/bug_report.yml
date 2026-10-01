@@ -1,0 +1,32 @@
+name: Bug report
+description: Report something that is broken in Nomos.
+labels: [bug]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: A minimal reproduction — a snippet, a sandbox, or exact steps.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Nomos version
+      placeholder: e.g. 0.4.0
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: React version, browser, OS.
+    validations:
+      required: false

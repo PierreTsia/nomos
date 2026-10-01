@@ -1,0 +1,26 @@
+name: Changeset
+
+# A change to the package requires a changeset: the version note and the breaking change
+# cannot ship silently. A PR that touches the sources without a `.changeset/*.md` fails.
+on:
+  pull_request:
+
+jobs:
+  required:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: A changeset is required for a change to the package
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          changed="$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")"
+          if echo "$changed" | grep -qE '^(src/|tokens/|package.json|bin/)'; then
+            if ! echo "$changed" | grep -qE '^\.changeset/[^/]+\.md$'; then
+              echo "::error::This change touches the package but adds no changeset. Run \`npx changeset\`."
+              exit 1
+            fi
+          fi
+          echo "ok"

@@ -1,0 +1,63 @@
+/*
+ * Le raccord Tailwind → tokens du cœur (ADR 0003, 0022) : des noms, aucune valeur.
+ * Les valeurs vivent dans `tokens.generated.css`, dérivé de `tokens.json` (ADR 0004).
+ * App-agnostique : un skin (ADR 0022) change les **valeurs**, jamais ces noms.
+ *
+ * L'app l'importe (`src/styles/globals.css`) et le build des vues l'inline
+ * (`src/mcp/view.css`) : une seule définition du raccord, deux rendus.
+ */
+@theme {
+  /*
+    La densité (ADR 0008) multiplie l'échelle d'espacement : toutes les marges, tous les
+    paddings, toutes les hauteurs et les tailles d'icône que Tailwind dérive de
+    `--spacing` suivent `--nomos-density`. Les composants n'ont aucun nombre propre à
+    changer, et le mode se pose sur la racine (`data-density`), donc il est scopable.
+  */
+  --spacing: calc(0.25rem * var(--nomos-density, 1));
+
+  --color-border: hsl(var(--nomos-color-border));
+  --color-input: hsl(var(--nomos-color-input));
+  --color-ring: hsl(var(--nomos-color-ring));
+  --color-background: hsl(var(--nomos-color-background));
+  --color-foreground: hsl(var(--nomos-color-foreground));
+
+  --color-primary: hsl(var(--nomos-color-primary));
+  --color-primary-foreground: hsl(var(--nomos-color-primary-foreground));
+
+  --color-secondary: hsl(var(--nomos-color-secondary));
+  --color-secondary-foreground: hsl(var(--nomos-color-secondary-foreground));
+
+  --color-destructive: hsl(var(--nomos-color-destructive));
+  --color-destructive-foreground: hsl(var(--nomos-color-destructive-foreground));
+
+  --color-muted: hsl(var(--nomos-color-muted));
+  --color-muted-foreground: hsl(var(--nomos-color-muted-foreground));
+
+  --color-accent: hsl(var(--nomos-color-accent));
+  --color-accent-foreground: hsl(var(--nomos-color-accent-foreground));
+
+  --color-popover: hsl(var(--nomos-color-popover));
+  --color-popover-foreground: hsl(var(--nomos-color-popover-foreground));
+
+  --color-card: hsl(var(--nomos-color-card));
+  --color-card-foreground: hsl(var(--nomos-color-card-foreground));
+
+  --color-brand: var(--nomos-color-brand);
+
+  --color-status-info: hsl(var(--nomos-color-status-info));
+  --color-status-info-ink: hsl(var(--nomos-color-status-info-ink));
+  --color-status-progress: hsl(var(--nomos-color-status-progress));
+  --color-status-progress-ink: hsl(var(--nomos-color-status-progress-ink));
+  --color-status-attention: hsl(var(--nomos-color-status-attention));
+  --color-status-attention-ink: hsl(var(--nomos-color-status-attention-ink));
+  --color-status-warning: hsl(var(--nomos-color-status-warning));
+  --color-status-warning-ink: hsl(var(--nomos-color-status-warning-ink));
+  --color-status-danger: hsl(var(--nomos-color-status-danger));
+  --color-status-danger-ink: hsl(var(--nomos-color-status-danger-ink));
+  --color-status-success: hsl(var(--nomos-color-status-success));
+  --color-status-success-ink: hsl(var(--nomos-color-status-success-ink));
+
+  --radius-lg: var(--nomos-radius-control);
+  --radius-md: var(--nomos-radius-field);
+  --radius-sm: var(--nomos-radius-chip);
+}
