@@ -10,6 +10,7 @@
 @import '../../tokens/theme.css';
 
 @source '../components';
+@source '../internal';
 @source './composites.tsx';
 
 @layer base {

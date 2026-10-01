@@ -58,7 +58,8 @@ npm run smoke:consumer    # installs the tarball in a fresh project and exercise
 
 The structural decisions live in `docs/adr/`. Start with 0002 (app-agnostic core), 0003 (the
 theme interface), 0004 (`tokens.json` as the single source), 0005 (the catalogue manifest),
-0017 (the name), 0024 (the public surface) and 0026 (Nomos goes public).
+0017 (the name), 0024 (the public surface), 0026 (Nomos goes public) and 0027 (overlay:
+layer, scrim and motion as tokens).
 
 ## License
 

@@ -12,6 +12,7 @@ import {
 } from '@nomos/mcp/app-view'
 import { buildReferenceHost } from '@nomos/mcp/reference-host'
 import { installViewBridge } from '@nomos/mcp/view/bridge'
+import { VIEW_CSS } from '@nomos/mcp/view-css.generated'
 import { VIEW_SOURCE } from '@nomos/mcp/view-contract'
 
 /**
@@ -43,6 +44,16 @@ describe('les vues MCP Apps', () => {
     expect(view).toContain('.bg-primary')
     expect(view).toContain('.inline-flex')
     expect(view).toContain('var(--nomos-color-primary)')
+  })
+
+  it('sert un overlay stylé et animé : voile, empilement et mouvement des tokens (ADR 0027)', () => {
+    // Le scan des vues couvre `../internal`, sinon le panneau sortirait non stylé.
+    expect(VIEW_CSS).toContain('.bg-scrim')
+    expect(VIEW_CSS).toContain('var(--nomos-z-overlay)')
+    expect(VIEW_CSS).toContain('@keyframes nomos-fade-in')
+    expect(VIEW_CSS).toContain('@keyframes nomos-slide-in-right')
+
+    expect(compositeViewFor('overlay')).toContain('data-component="composite:overlay"')
   })
 
   it('laisse un élément React pré-rendu seul (pas de vue client)', () => {
