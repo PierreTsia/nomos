@@ -1,9 +1,9 @@
 # The public surface of Nomos
 
-Nomos is in production at a consumer (GymLogic): a **public** repo that pins a
-version of a **private** package. A surface change can therefore break its
-production without warning. Yet "breaking" was undefined — several surfaces
-coexist, and nothing said which were protected.
+Nomos is aimed at an external consumer (GymLogic, a **public** repo): it would
+pin a version of a **private** package. A surface change could therefore break it
+without warning. Yet "breaking" was undefined — several surfaces coexist, and
+nothing said which were protected.
 
 ## Decisions
 

@@ -2,11 +2,11 @@
 
 Nomos has an app-agnostic heart (ADR 0002) designed to be shared, but it lives
 inside a **private dashboard repository** and ships through a **private** registry
-(ADR 0021). Its only real external consumer, the **public** GymLogic repo,
-therefore pins a **private** package behind a `read:packages` token — the
-contradiction this ADR removes. Nomos gets its own public repo, publishes to
-public npm, and is **built in public**; the private dashboard is its first
-consumer, GymLogic the second.
+(ADR 0021). Its intended first external consumer, the **public** GymLogic repo,
+has not adopted it yet and could not do so cleanly while the package stayed
+private — the contradiction this ADR removes. Nomos gets its own public repo,
+publishes to public npm, and is **built in public**; the private dashboard is its
+first consumer, GymLogic the second.
 
 This ADR **supersedes** ADR 0021 (private publication and the `@pierretsia/nomos`
 scope) and **decision 3** of ADR 0017 (package scope). It **amends** ADR 0024 (the
