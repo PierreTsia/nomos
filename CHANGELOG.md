@@ -1,5 +1,11 @@
 # @nomosui/react
 
+## 0.5.1
+
+### Patch Changes
+
+- 9450a83: Bump the internal `lucide-react` icon dependency to `^1.49.0`, and replay the generated MCP view. Lucide is an internal detail — it is not re-exported — so no public API, token or MCP contract changes.
+
 ## 0.5.0
 
 ### Minor Changes
