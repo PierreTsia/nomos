@@ -62,6 +62,8 @@ import { Label } from '@nomos/components/label/label'
 import { labelManifest } from '@nomos/components/label/manifest'
 import { Link } from '@nomos/components/link/link'
 import { linkManifest } from '@nomos/components/link/manifest'
+import { Navbar } from '@nomos/components/navbar/navbar'
+import { navbarManifest } from '@nomos/components/navbar/manifest'
 import { Meter } from '@nomos/components/meter/meter'
 import { meterManifest } from '@nomos/components/meter/manifest'
 import { NumberField } from '@nomos/components/number-field/number-field'
@@ -266,6 +268,11 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: linkManifest,
     component: Link as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: navbarManifest,
+    component: Navbar as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: {},
   },
   {
