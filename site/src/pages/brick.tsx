@@ -1,6 +1,7 @@
 import { Badge, Card, CardContent, CardHeader, CardTitle } from '@nomosui/react'
 
 import { findBrick } from '../catalogue'
+import { PrevNext } from '../components/prev-next'
 import { ManifestDocs } from './manifest'
 import { Preview } from './preview'
 
@@ -45,9 +46,7 @@ export function BrickPage({ name }: { name: string }) {
 
       <ManifestDocs manifest={brick.entry.manifest} />
 
-      <a href="#/" className="text-sm text-muted-foreground underline-offset-4 hover:underline">
-        ← All bricks
-      </a>
+      <PrevNext name={brick.name} />
     </article>
   )
 }

@@ -1,5 +1,6 @@
 import { Footer, Link, Navbar } from '@nomosui/react'
 
+import { Sidebar } from './components/sidebar'
 import { DocsPage } from './pages/docs'
 import { Landing } from './pages/landing'
 import { BrickPage } from './pages/brick'
@@ -54,10 +55,18 @@ export function App() {
       />
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8">
-        {route.kind === 'home' ? <Landing /> : null}
-        {route.kind === 'tokens' ? <TokensPage /> : null}
-        {route.kind === 'brick' ? <BrickPage name={route.name} /> : null}
-        {route.kind === 'docs' ? <DocsPage slug={route.slug} /> : null}
+        {route.kind === 'home' ? (
+          <Landing />
+        ) : (
+          <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
+            <Sidebar route={route} />
+            <div className="min-w-0 flex-1">
+              {route.kind === 'tokens' ? <TokensPage /> : null}
+              {route.kind === 'brick' ? <BrickPage name={route.name} /> : null}
+              {route.kind === 'docs' ? <DocsPage slug={route.slug} /> : null}
+            </div>
+          </div>
+        )}
       </main>
 
       <Footer
