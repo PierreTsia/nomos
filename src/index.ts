@@ -129,6 +129,10 @@ export { searchFieldManifest } from '@nomos/components/search-field/manifest'
 export { Label } from '@nomos/components/label/label'
 export { labelManifest } from '@nomos/components/label/manifest'
 
+export { Link } from '@nomos/components/link/link'
+export type { LinkProps } from '@nomos/components/link/link'
+export { linkManifest } from '@nomos/components/link/manifest'
+
 export { Fieldset } from '@nomos/components/fieldset/fieldset'
 export { fieldsetManifest } from '@nomos/components/fieldset/manifest'
 
