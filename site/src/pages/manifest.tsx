@@ -1,21 +1,24 @@
 import { Badge, Card, CardContent, CardHeader, CardTitle } from '@nomosui/react'
 import type { ComponentManifest } from '@nomosui/react'
 
+import { useI18n } from '../i18n'
+
 export function ManifestDocs({ manifest }: { manifest: ComponentManifest }) {
+  const { t } = useI18n()
   return (
     <div className="flex flex-col gap-8">
       <section className="flex flex-col gap-3">
         <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-          Props · {manifest.props.length}
+          {t.manifest.props(manifest.props.length)}
         </h2>
         <div className="overflow-x-auto rounded-md border border-border">
           <table className="w-full text-left text-sm">
             <thead className="bg-muted/50 text-muted-foreground">
               <tr>
-                <th className="px-4 py-2 font-medium">Name</th>
-                <th className="px-4 py-2 font-medium">Type</th>
-                <th className="px-4 py-2 font-medium">Default</th>
-                <th className="px-4 py-2 font-medium">Description</th>
+                <th className="px-4 py-2 font-medium">{t.manifest.name}</th>
+                <th className="px-4 py-2 font-medium">{t.manifest.type}</th>
+                <th className="px-4 py-2 font-medium">{t.manifest.defaultValue}</th>
+                <th className="px-4 py-2 font-medium">{t.manifest.description}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
@@ -46,7 +49,7 @@ export function ManifestDocs({ manifest }: { manifest: ComponentManifest }) {
       {manifest.variants.length > 0 ? (
         <section className="flex flex-col gap-3">
           <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-            Variants · {manifest.variants.length}
+            {t.manifest.variants(manifest.variants.length)}
           </h2>
           <div className="flex flex-col gap-3">
             {manifest.variants.map((variant) => (
@@ -57,7 +60,7 @@ export function ManifestDocs({ manifest }: { manifest: ComponentManifest }) {
                       <code>{variant.name}</code>
                     </CardTitle>
                     {variant.default ? (
-                      <Badge variant="secondary">default: {variant.default}</Badge>
+                      <Badge variant="secondary">{t.manifest.defaultBadge(variant.default)}</Badge>
                     ) : null}
                   </div>
                 </CardHeader>
@@ -79,7 +82,7 @@ export function ManifestDocs({ manifest }: { manifest: ComponentManifest }) {
 
       <section className="flex flex-col gap-3">
         <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-          Usages · {manifest.usages.length}
+          {t.manifest.usages(manifest.usages.length)}
         </h2>
         <div className="flex flex-col gap-3">
           {manifest.usages.map((usage, index) => (
@@ -89,12 +92,12 @@ export function ManifestDocs({ manifest }: { manifest: ComponentManifest }) {
               </CardHeader>
               <CardContent className="flex flex-col gap-2 text-sm">
                 <p>
-                  <span className="text-muted-foreground">use </span>
+                  <span className="text-muted-foreground">{t.manifest.use} </span>
                   <code>{usage.use}</code>
                 </p>
                 {usage.avoid ? (
                   <p>
-                    <span className="text-muted-foreground">avoid </span>
+                    <span className="text-muted-foreground">{t.manifest.avoid} </span>
                     <code>{usage.avoid}</code>
                   </p>
                 ) : null}

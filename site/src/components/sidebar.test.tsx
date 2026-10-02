@@ -3,6 +3,7 @@ import { catalogue } from '@nomosui/react'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import { bricks, levels } from '../catalogue'
+import { en } from '../i18n/en'
 import { docsSlugs } from '../router'
 import { PrevNext } from './prev-next'
 import { SidebarNav } from './sidebar'
@@ -29,7 +30,7 @@ describe('catalogue sidebar', () => {
 
     for (const level of levels) {
       if (bricks.some((brick) => brick.level === level)) {
-        expect(screen.getByText(level)).toBeTruthy()
+        expect(screen.getByText(en.levels[level])).toBeTruthy()
       }
     }
   })

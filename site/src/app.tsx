@@ -1,6 +1,8 @@
 import { Footer, Link, Navbar } from '@nomosui/react'
 
 import { Sidebar } from './components/sidebar'
+import { useI18n } from './i18n'
+import { LanguageSwitch } from './i18n/language-switch'
 import { DocsPage } from './pages/docs'
 import { Landing } from './pages/landing'
 import { BrickPage } from './pages/brick'
@@ -26,6 +28,7 @@ function Wordmark() {
 
 export function App() {
   const route = useRoute()
+  const { t } = useI18n()
 
   return (
     <div className="flex min-h-dvh flex-col bg-background text-foreground">
@@ -35,21 +38,22 @@ export function App() {
         nav={
           <>
             <Link href="#/tokens" className={quietLink}>
-              Tokens
+              {t.nav.tokens}
             </Link>
             <Link href="#/docs/getting-started" className={quietLink}>
-              Docs
+              {t.nav.docs}
             </Link>
           </>
         }
         actions={
           <>
             <Link href={NPM} target="_blank" rel="noreferrer" className={quietLink}>
-              npm
+              {t.nav.npm}
             </Link>
             <Link href={REPO} target="_blank" rel="noreferrer" className={quietLink}>
-              GitHub
+              {t.nav.github}
             </Link>
+            <LanguageSwitch />
           </>
         }
       />
@@ -75,23 +79,23 @@ export function App() {
         links={
           <>
             <Link href={REPO} target="_blank" rel="noreferrer" className={quietLink}>
-              GitHub
+              {t.nav.github}
             </Link>
             <Link href={NPM} target="_blank" rel="noreferrer" className={quietLink}>
-              npm
+              {t.nav.npm}
             </Link>
             <Link href="#/" className={quietLink}>
-              Catalog
+              {t.footer.catalog}
             </Link>
             <Link href="#/tokens" className={quietLink}>
-              Tokens
+              {t.footer.tokens}
             </Link>
             <Link href="#/docs/getting-started" className={quietLink}>
-              Docs
+              {t.footer.docs}
             </Link>
           </>
         }
-        legal="Nomos · νόμος, the laws of the interface · MIT"
+        legal={t.footer.legal}
       />
     </div>
   )
