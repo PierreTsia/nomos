@@ -298,6 +298,8 @@ export { cn } from '@nomos/lib/cn'
 export { TONES, toneClasses } from '@nomos/lib/tone'
 export type { Tone } from '@nomos/lib/tone'
 
+export type { LucideIcon } from 'lucide-react'
+
 export { resolveSkin } from '@nomos/tokens/skin'
 export { renderCss } from '@nomos/tokens/build.mjs'
 export type { TokensDocument } from '@nomos/tokens/build.mjs'
