@@ -112,7 +112,8 @@ export function DocsPage({ slug }: { slug: DocsSlug }) {
       <header className="flex flex-col gap-2">
         <h1 className="text-2xl font-semibold">Docs</h1>
         <p className="max-w-2xl text-muted-foreground">
-          The README and the ADRs, made navigable — the boundary rule and the contributing flow.
+          Install it, wire the tokens, and learn the one rule that keeps the seams clean: imports
+          go one way.
         </p>
       </header>
 

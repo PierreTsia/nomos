@@ -8,8 +8,8 @@ export function TokensPage() {
       <header className="flex flex-col gap-2">
         <h1 className="text-2xl font-semibold">Tokens</h1>
         <p className="max-w-2xl text-muted-foreground">
-          The semantic slots every brick speaks in — names, never values (ADR 0003, 0004). A skin
-          fills the values.
+          The names every component speaks in. The values live in one file, and a skin replaces
+          them (ADR 0003, 0004).
         </p>
       </header>
 
