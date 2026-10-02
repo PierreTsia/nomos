@@ -100,6 +100,10 @@ export { Chip } from '@nomos/components/chip/chip'
 export type { ChipProps } from '@nomos/components/chip/chip'
 export { chipManifest } from '@nomos/components/chip/manifest'
 
+export { Kicker, kickerVariantsConfig } from '@nomos/components/kicker/kicker'
+export type { KickerProps } from '@nomos/components/kicker/kicker'
+export { kickerManifest } from '@nomos/components/kicker/manifest'
+
 export { Freshness } from '@nomos/components/freshness/freshness'
 export type { FreshnessProps } from '@nomos/components/freshness/freshness'
 export { freshnessManifest } from '@nomos/components/freshness/manifest'

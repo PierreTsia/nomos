@@ -26,6 +26,8 @@ import { DropdownMenu } from '@nomos/components/dropdown-menu/dropdown-menu'
 import { dropdownMenuManifest } from '@nomos/components/dropdown-menu/manifest'
 import { Chip, chipSizeClasses } from '@nomos/components/chip/chip'
 import { chipManifest } from '@nomos/components/chip/manifest'
+import { Kicker, kickerVariantsConfig } from '@nomos/components/kicker/kicker'
+import { kickerManifest } from '@nomos/components/kicker/manifest'
 import { EmptyState } from '@nomos/components/empty-state/empty-state'
 import { emptyStateManifest } from '@nomos/components/empty-state/manifest'
 import { Checkbox } from '@nomos/components/checkbox/checkbox'
@@ -193,6 +195,11 @@ export const catalogueEntries: CatalogueEntry[] = [
       tone: { variants: { tone: toneClasses }, defaultVariants: { tone: 'neutral' } },
       size: { variants: { size: chipSizeClasses }, defaultVariants: { size: 'default' } },
     },
+  },
+  {
+    manifest: kickerManifest,
+    component: Kicker as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: { tone: kickerVariantsConfig },
   },
   {
     manifest: freshnessManifest,
