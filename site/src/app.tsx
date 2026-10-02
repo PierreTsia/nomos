@@ -1,35 +1,29 @@
-import {
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@nomosui/react'
+import { Landing } from './pages/landing'
+import { BrickPage } from './pages/brick'
+import { TokensPage } from './pages/tokens'
+import { useRoute } from './router'
 
 export function App() {
-  return (
-    <main className="min-h-dvh bg-background p-8 text-foreground">
-      <div className="mx-auto flex max-w-2xl flex-col gap-6">
-        <header className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold">Nomos</h1>
-          <Badge variant="secondary">catalogue site</Badge>
-        </header>
+  const route = useRoute()
 
-        <Card>
-          <CardHeader>
-            <CardTitle>The public site, generated from the catalogue</CardTitle>
-            <CardDescription>
-              A consumer of <code>@nomosui/react</code> — the ancillary skeleton of ADR 0028.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex gap-2">
-            <Button>Primary</Button>
-            <Button variant="outline">Outline</Button>
-          </CardContent>
-        </Card>
-      </div>
-    </main>
+  return (
+    <div className="min-h-dvh bg-background text-foreground">
+      <header className="border-b border-border">
+        <nav className="mx-auto flex max-w-4xl items-center gap-4 px-8 py-4">
+          <a href="#/" className="font-semibold">
+            Nomos
+          </a>
+          <a href="#/tokens" className="text-sm text-muted-foreground hover:text-foreground">
+            Tokens
+          </a>
+          <span className="ml-auto text-xs text-muted-foreground">generated from the catalogue</span>
+        </nav>
+      </header>
+      <main className="mx-auto max-w-4xl px-8 py-8">
+        {route.kind === 'home' ? <Landing /> : null}
+        {route.kind === 'tokens' ? <TokensPage /> : null}
+        {route.kind === 'brick' ? <BrickPage name={route.name} /> : null}
+      </main>
+    </div>
   )
 }
