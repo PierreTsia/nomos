@@ -14,3 +14,7 @@ npm-debug.log*
 .idea
 .vscode/*
 !.vscode/extensions.json
+
+# Local opencode tooling
+.opencode/
+tui.json
