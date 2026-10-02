@@ -1,3 +1,4 @@
+import { DocsPage } from './pages/docs'
 import { Landing } from './pages/landing'
 import { BrickPage } from './pages/brick'
 import { TokensPage } from './pages/tokens'
@@ -16,6 +17,12 @@ export function App() {
           <a href="#/tokens" className="text-sm text-muted-foreground hover:text-foreground">
             Tokens
           </a>
+          <a
+            href="#/docs/getting-started"
+            className="text-sm text-muted-foreground hover:text-foreground"
+          >
+            Docs
+          </a>
           <span className="ml-auto text-xs text-muted-foreground">generated from the catalogue</span>
         </nav>
       </header>
@@ -23,6 +30,7 @@ export function App() {
         {route.kind === 'home' ? <Landing /> : null}
         {route.kind === 'tokens' ? <TokensPage /> : null}
         {route.kind === 'brick' ? <BrickPage name={route.name} /> : null}
+        {route.kind === 'docs' ? <DocsPage slug={route.slug} /> : null}
       </main>
     </div>
   )
