@@ -53,16 +53,22 @@
   --color-scrim: hsl(var(--nomos-color-scrim));
 
   --color-status-info: hsl(var(--nomos-color-status-info));
+  --color-status-info-surface: hsl(var(--nomos-color-status-info-surface));
   --color-status-info-ink: hsl(var(--nomos-color-status-info-ink));
   --color-status-progress: hsl(var(--nomos-color-status-progress));
+  --color-status-progress-surface: hsl(var(--nomos-color-status-progress-surface));
   --color-status-progress-ink: hsl(var(--nomos-color-status-progress-ink));
   --color-status-attention: hsl(var(--nomos-color-status-attention));
+  --color-status-attention-surface: hsl(var(--nomos-color-status-attention-surface));
   --color-status-attention-ink: hsl(var(--nomos-color-status-attention-ink));
   --color-status-warning: hsl(var(--nomos-color-status-warning));
+  --color-status-warning-surface: hsl(var(--nomos-color-status-warning-surface));
   --color-status-warning-ink: hsl(var(--nomos-color-status-warning-ink));
   --color-status-danger: hsl(var(--nomos-color-status-danger));
+  --color-status-danger-surface: hsl(var(--nomos-color-status-danger-surface));
   --color-status-danger-ink: hsl(var(--nomos-color-status-danger-ink));
   --color-status-success: hsl(var(--nomos-color-status-success));
+  --color-status-success-surface: hsl(var(--nomos-color-status-success-surface));
   --color-status-success-ink: hsl(var(--nomos-color-status-success-ink));
 
   --radius-lg: var(--nomos-radius-control);
