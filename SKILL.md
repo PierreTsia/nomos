@@ -33,6 +33,8 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
   Jamais pour une information essentielle : elle n'est ni au clavier seul ni au tactile.
 - **Représenter une personne par son image** → `Avatar` (le texte alternatif et le repli
   viennent de l'app ; natif `<img>` + `onError`, sans dépendance).
+- **Coiffer un titre d'une accroche courte** → `Kicker` (un libellé en majuscules, un point
+  de ton optionnel via `dot` ; le texte est injecté par l'appelant).
 
 ### Agir, saisir
 
@@ -145,6 +147,7 @@ fieldset
 form
 freshness
 input
+kicker
 label
 meter
 number-field
