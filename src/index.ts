@@ -115,6 +115,14 @@ export { CopyButton, copyButtonVariantsConfig } from '@nomos/components/copy-but
 export type { CopyButtonProps } from '@nomos/components/copy-button/copy-button'
 export { copyButtonManifest } from '@nomos/components/copy-button/manifest'
 
+export { Code } from '@nomos/components/code/code'
+export type { CodeProps } from '@nomos/components/code/code'
+export { codeManifest } from '@nomos/components/code/manifest'
+
+export { CodeBlock } from '@nomos/components/code-block/code-block'
+export type { CodeBlockProps } from '@nomos/components/code-block/code-block'
+export { codeBlockManifest } from '@nomos/components/code-block/manifest'
+
 export { Freshness } from '@nomos/components/freshness/freshness'
 export type { FreshnessProps } from '@nomos/components/freshness/freshness'
 export { freshnessManifest } from '@nomos/components/freshness/manifest'
