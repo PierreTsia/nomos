@@ -40,6 +40,8 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
 
 - **Agir** → `Button` (`variant` = le ton, `size` = la densité ; `asChild` pour poser le
   style sur un lien).
+- **Naviguer vers une URL** → `Link` (un `<a>` ; `href` et libellé injectés, le cœur ne
+  porte aucun routing ; `asChild` pour poser le style sur un composant de routing de l'app).
 - **Saisir une ligne** → `Input` ; **un nombre borné** → `NumberField` (`step`, `min`,
   `max` du natif) ; **chercher avec icône et effacement** → `SearchField` ; **plusieurs
   lignes** → `Textarea`.
@@ -149,6 +151,7 @@ freshness
 input
 kicker
 label
+link
 meter
 number-field
 popover
