@@ -42,6 +42,8 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
   style sur un lien).
 - **Naviguer vers une URL** → `Link` (un `<a>` ; `href` et libellé injectés, le cœur ne
   porte aucun routing ; `asChild` pour poser le style sur un composant de routing de l'app).
+- **Copier un texte** → `CopyButton` (`value` à copier, `label`/`copiedLabel` et `icon`
+  injectés ; le libellé transitoire revient seul après ~2 s).
 - **Saisir une ligne** → `Input` ; **un nombre borné** → `NumberField` (`step`, `min`,
   `max` du natif) ; **chercher avec icône et effacement** → `SearchField` ; **plusieurs
   lignes** → `Textarea`.
@@ -137,6 +139,7 @@ card
 checkbox
 chip
 collapsible
+copy-button
 counter
 data-table-pagination
 data-table-toolbar
