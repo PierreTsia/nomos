@@ -15,6 +15,7 @@ Routes (hash-based, no router dependency):
 - `#/` — the landing page, every brick grouped by level, from the catalogue.
 - `#/brick/<name>` — one page per brick.
 - `#/tokens` — the semantic slots, read from the single source (`tokens.json`).
+- `#/docs/<slug>` — getting started, the boundary rule, contributing.
 
 Each brick page renders its **manifest**: a live preview (from the example), then
 the props, variants and usages — the same data the MCP serves, readable by a
