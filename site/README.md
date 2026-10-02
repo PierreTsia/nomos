@@ -15,8 +15,10 @@ Routes (hash-based, no router dependency):
 - `#/brick/<name>` — one page per brick.
 - `#/tokens` — the semantic slots, read from the single source (`tokens.json`).
 
-The showcase (props, variants, usages, rendered example) fills the brick pages in
-#40.
+Each brick page renders its **manifest**: a live preview (from the example), then
+the props, variants and usages — the same data the MCP serves, readable by a
+human. `src/pages/manifest.test.tsx` asserts every documented variant and usage
+renders.
 
 ```sh
 npm ci
