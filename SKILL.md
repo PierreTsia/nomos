@@ -27,7 +27,8 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
 - **Recueillir ou montrer une note** → `Rating` : interactif seulement si l'app fournit
   `onValueChange`, sinon un affichage.
 - **Lister des événements datés** → `Timeline` (frise, présentation seule ; le format de
-  la date vient de l'app).
+  la date vient de l'app). Un point porte un état — `done` (défaut) ou `past` (grisé) —
+  et un `past` exige un `stateLabel` fourni par l'app : la couleur seule ne suffit pas.
 - **Nommer un contrôle iconique, glisser une aide courte** → `Tooltip` en famille (un
   `TooltipProvider` autour de plusieurs, `Tooltip`, `TooltipTrigger`, `TooltipContent`).
   Jamais pour une information essentielle : elle n'est ni au clavier seul ni au tactile.

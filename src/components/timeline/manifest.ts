@@ -13,7 +13,13 @@ export const timelineManifest: ComponentManifest = {
     items: [
       { id: 'a', at: '2026-10-01 09:12', label: 'sync health', detail: 'les deux produits, 0 gap' },
       { id: 'b', at: '2026-10-01 08:40', label: 'sync prs', detail: '3 PR routées' },
-      { id: 'c', at: '2026-09-30 18:05', label: 'sync triage' },
+      {
+        id: 'c',
+        at: '2026-09-30 18:05',
+        label: 'sync triage',
+        state: 'past',
+        stateLabel: 'passé',
+      },
     ],
   },
   variants: [],
@@ -23,7 +29,10 @@ export const timelineManifest: ComponentManifest = {
       type: 'TimelineItem[]',
       required: true,
       check: 'accepted',
-      description: "Les événements : `id`, `at` (date déjà formatée), `label`, `detail?`.",
+      description:
+        "Les événements : `id`, `at` (date déjà formatée), `label`, `detail?`, " +
+        "`state?` (`done` par défaut, `past` grisé) et `stateLabel?` (le texte accessible " +
+        "de l'état, obligatoire pour `past` — la couleur seule ne suffit pas).",
     },
     {
       name: 'ariaLabel',
@@ -50,6 +59,11 @@ export const timelineManifest: ComponentManifest = {
       when: 'un seul événement, sans suite',
       use: 'une ligne simple, pas une frise',
       avoid: 'une frise d’un seul point, qui suggère une chronologie inexistante',
+    },
+    {
+      when: 'marquer un point comme passé',
+      use: "state: 'past' avec un stateLabel fourni par l’app (ex. « passé »)",
+      avoid: 'se fier à la couleur seule : le point est aria-hidden, l’état doit être lu',
     },
   ],
 }
