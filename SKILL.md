@@ -63,6 +63,8 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
   par l'app — aucun `href` ni mot produit dans le cœur (ADR 0030).
 - **Un état vide, ou une panne à nommer** → `EmptyState` (la carte centrée ; le `detail`
   brut nomme la vraie panne, plutôt qu'un zéro silencieux).
+- **Un pied de page** (marque, rangée de liens, ligne légale) → `Footer` : des emplacements
+  injectés (`brand`, `links`, `legal`), sans routing ni libellé propre au cœur.
 - **Une information inline** qui demande l'attention sans bloquer → `Alert` (le ton vient
   du cœur ; `onClose` va avec `closeLabel`).
 - **Séparer deux contenus** → `Separator` ; **tenir la place d'un contenu qui charge** →
@@ -166,6 +168,7 @@ empty-state
 facet-filter
 field
 fieldset
+footer
 form
 freshness
 heading
