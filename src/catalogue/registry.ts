@@ -18,6 +18,10 @@ import { Badge, badgeVariantsConfig } from '@nomos/components/badge/badge'
 import { badgeManifest } from '@nomos/components/badge/manifest'
 import { Button, buttonVariantsConfig } from '@nomos/components/button/button'
 import { buttonManifest } from '@nomos/components/button/manifest'
+import { Heading, headingVariantsConfig } from '@nomos/components/heading/heading'
+import { headingManifest } from '@nomos/components/heading/manifest'
+import { Text, textVariantsConfig } from '@nomos/components/text/text'
+import { textManifest } from '@nomos/components/text/manifest'
 import { Card } from '@nomos/components/card/card'
 import { cardManifest } from '@nomos/components/card/manifest'
 import { Dialog } from '@nomos/components/dialog/dialog'
@@ -371,6 +375,16 @@ export const catalogueEntries: CatalogueEntry[] = [
     manifest: timelineManifest,
     component: Timeline as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: {},
+  },
+  {
+    manifest: headingManifest,
+    component: Heading as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: { level: headingVariantsConfig },
+  },
+  {
+    manifest: textManifest,
+    component: Text as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: { size: textVariantsConfig },
   },
 ]
 
