@@ -34,6 +34,10 @@ import { Kicker, kickerVariantsConfig } from '@nomos/components/kicker/kicker'
 import { kickerManifest } from '@nomos/components/kicker/manifest'
 import { CopyButton, copyButtonVariantsConfig } from '@nomos/components/copy-button/copy-button'
 import { copyButtonManifest } from '@nomos/components/copy-button/manifest'
+import { Code } from '@nomos/components/code/code'
+import { codeManifest } from '@nomos/components/code/manifest'
+import { CodeBlock } from '@nomos/components/code-block/code-block'
+import { codeBlockManifest } from '@nomos/components/code-block/manifest'
 import { EmptyState } from '@nomos/components/empty-state/empty-state'
 import { emptyStateManifest } from '@nomos/components/empty-state/manifest'
 import { Checkbox } from '@nomos/components/checkbox/checkbox'
@@ -213,6 +217,16 @@ export const catalogueEntries: CatalogueEntry[] = [
     manifest: copyButtonManifest,
     component: CopyButton as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: { variant: copyButtonVariantsConfig, size: copyButtonVariantsConfig },
+  },
+  {
+    manifest: codeManifest,
+    component: Code as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: codeBlockManifest,
+    component: CodeBlock as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
   },
   {
     manifest: freshnessManifest,

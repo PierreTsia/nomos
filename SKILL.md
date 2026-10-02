@@ -100,6 +100,9 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
 - **Écrire le texte courant** → `Text` : `size` lit l'échelle sémantique (`lead`, `body`,
   `caption`, `micro`), `as` choisit `p` (défaut) ou `span` pour un texte inline. Les tailles
   viennent des tokens, jamais d'un utilitaire ad-hoc.
+- **Montrer un extrait de code** → `Code` (inline, dans une phrase) ou `CodeBlock` (bloc
+  scrollable avec bouton de copie ; `code` est le texte copié, `children` le rendu, les
+  libellés sont injectés). La coloration syntaxique reste à l'app.
 
 ### Formulaire
 
@@ -147,6 +150,8 @@ button
 card
 checkbox
 chip
+code
+code-block
 collapsible
 copy-button
 counter
