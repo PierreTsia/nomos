@@ -1,9 +1,10 @@
 # Nomos site (ancillary)
 
 The public catalogue site, built from this repo and published from `main` (v1.0,
-`ROADMAP.md`). Per **ADR 0028**, `site/` is an **ancillary**: a **consumer** of
-`@nomosui/react`, outside the core's `eslint` / `tsc` / `vitest`, built by its own
-CI job. The core never imports it.
+`ROADMAP.md`). Live at <https://pierretsia.github.io/nomos/> (GitHub Pages,
+`.github/workflows/site.yml`). Per **ADR 0028**, `site/` is an **ancillary**: a
+**consumer** of `@nomosui/react`, outside the core's `eslint` / `tsc` / `vitest`,
+built by its own CI job. The core never imports it.
 
 The site is **generated from the catalogue** (ADR 0005) — never hand-maintained:
 `src/catalogue.ts` maps the package's exported `catalogue` to bricks, and
