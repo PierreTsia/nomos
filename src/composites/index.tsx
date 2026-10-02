@@ -18,10 +18,12 @@ import {
 } from '@nomos/components/sheet/sheet'
 
 /**
- * Les **scènes composites** (ADR 0013) : plusieurs briques du catalogue assemblées en une
+ * Les **scènes composites** (ADR 0019) : plusieurs briques du catalogue assemblées en une
  * vue qui a du sens pour un agent — un formulaire complet, une carte de statut. Elles ne
  * sont pas au catalogue des composants : ce sont des **rendus**, servis comme vues MCP
- * Apps (`ui://nomos/composite/<nom>`). Aucune n'écrit ni ne possède d'état.
+ * Apps (`ui://nomos/composite/<nom>`) et exposés sur la surface publique JS (ADR 0031).
+ * Aucune n'écrit ni ne possède d'état, et leurs défauts sont neutres : la copie se
+ * **injecte par props** (ADR 0002).
  */
 export type Composite = {
   name: string
@@ -34,23 +36,23 @@ export type Composite = {
 export const composites: Composite[] = [
   {
     name: 'form',
-    title: 'Formulaire',
-    summary: "Un formulaire de bout en bout — grille de champs et actions — monté avec les briques du cœur.",
+    title: 'Form',
+    summary: 'An end-to-end form — a grid of fields and actions — assembled from the core bricks.',
     render: (props = {}) => (
       <div style={{ maxWidth: 640, margin: '0 auto', padding: 16 }}>
         <Form
           columns={2}
           actions={
             <>
-              <Button variant="outline">Annuler</Button>
-              <Button>{String(props.submitLabel ?? 'Enregistrer')}</Button>
+              <Button variant="outline">Cancel</Button>
+              <Button>{String(props.submitLabel ?? 'Save')}</Button>
             </>
           }
         >
-          <Field label="Nom" htmlFor="scene-form-name">
-            <Input id="scene-form-name" defaultValue={String(props.name ?? 'élément 42')} />
+          <Field label="Name" htmlFor="scene-form-name">
+            <Input id="scene-form-name" defaultValue={String(props.name ?? 'Item 42')} />
           </Field>
-          <Field label="Score" htmlFor="scene-form-score" hint="de 1 à 5">
+          <Field label="Score" htmlFor="scene-form-score" hint="from 1 to 5">
             <NumberField
               id="scene-form-score"
               min={1}
@@ -65,8 +67,8 @@ export const composites: Composite[] = [
   },
   {
     name: 'status',
-    title: 'Carte de statut',
-    summary: "Un statut de production : une carte, une étiquette d'état et un bandeau de lacunes.",
+    title: 'Status card',
+    summary: 'A status: a card, a state badge and a gap banner.',
     render: (props = {}) => (
       <div
         style={{
@@ -81,13 +83,13 @@ export const composites: Composite[] = [
         <Card>
           <CardHeader>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <CardTitle>{String(props.product ?? 'GymLogic')}</CardTitle>
-              <Badge variant="outline">{String(props.status ?? 'disponible')}</Badge>
+              <CardTitle>{String(props.product ?? 'Product')}</CardTitle>
+              <Badge variant="outline">{String(props.status ?? 'available')}</Badge>
             </div>
           </CardHeader>
           <CardContent>
-            <Alert tone="warning" title="signaux illisibles">
-              {String(props.gap ?? 'Sentry : jeton non configuré — une lacune, pas un zéro.')}
+            <Alert tone="warning" title="missing signals">
+              {String(props.gap ?? 'Monitoring: token not configured — a gap, not a zero.')}
             </Alert>
           </CardContent>
         </Card>
@@ -96,20 +98,19 @@ export const composites: Composite[] = [
   },
   {
     name: 'overlay',
-    title: 'Couche flottante',
-    summary:
-      "Un panneau ouvert : le voile, l'empilement et le mouvement viennent des tokens (ADR 0027).",
+    title: 'Overlay',
+    summary: 'An open panel: the scrim, the stacking and the motion come from the tokens (ADR 0027).',
     render: (props = {}) => (
       <div style={{ padding: 16 }}>
         <Sheet open>
           <SheetTrigger asChild>
-            <Button>{String(props.trigger ?? 'Ouvrir')}</Button>
+            <Button>{String(props.trigger ?? 'Open')}</Button>
           </SheetTrigger>
           <SheetContent side={(props.side as 'top' | 'bottom' | 'left' | 'right') ?? 'right'}>
             <SheetHeader>
-              <SheetTitle>{String(props.title ?? 'Panneau')}</SheetTitle>
+              <SheetTitle>{String(props.title ?? 'Panel')}</SheetTitle>
               <SheetDescription>
-                {String(props.body ?? 'Une couche flottante servie comme vue.')}
+                {String(props.body ?? 'A floating layer served as a view.')}
               </SheetDescription>
             </SheetHeader>
           </SheetContent>

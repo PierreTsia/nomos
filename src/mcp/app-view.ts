@@ -4,7 +4,7 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 
 import { findComponent } from '@nomos/catalogue/registry'
-import { findComposite } from '@nomos/mcp/composites'
+import { findComposite } from '@nomos/composites'
 import { renderCss } from '@nomos/tokens/build.mjs'
 import { VIEW_CSS } from '@nomos/mcp/view-css.generated'
 import { VIEW_BUNDLE } from '@nomos/mcp/view.generated'

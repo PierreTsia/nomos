@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 
-import { compositeNames, composites, findComposite } from '@nomos/mcp/composites'
+import { compositeNames, composites, findComposite } from '@nomos/composites'
 
 /** Les scènes composites assemblent des briques du catalogue ; elles se rendent seules. */
 describe('les scènes composites', () => {

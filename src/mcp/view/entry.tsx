@@ -2,7 +2,7 @@ import { createElement, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 
 import { findComponent } from '@nomos/catalogue/registry'
-import { findComposite } from '@nomos/mcp/composites'
+import { findComposite } from '@nomos/composites'
 import { emitIntent, installViewBridge } from '@nomos/mcp/view/bridge'
 import { VIEW_DATA_ID, VIEW_ROOT_ID } from '@nomos/mcp/view-contract'
 

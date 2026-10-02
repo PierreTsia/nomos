@@ -11,7 +11,7 @@ import {
   compositeViewUri,
   loadDefaultTokens,
 } from '@nomos/mcp/app-view'
-import { composites } from '@nomos/mcp/composites'
+import { composites } from '@nomos/composites'
 import { getComponent, listComponents, listScenes, previewComponent } from '@nomos/mcp/catalogue'
 import { buildResource } from '@nomos/tokens/build.mjs'
 import { resolveSkin } from '@nomos/tokens/skin'
