@@ -290,6 +290,11 @@ export function FacetedDataTable<T extends RowData>({
     features: dataTableFeatures,
     data,
     columns,
+    // La pagination est contrôlée par l'app (URL) : TanStack ne doit pas remettre la page
+    // à zéro tout seul quand un modèle de lignes se recalcule, sinon il écrit page 0 via
+    // `onPaginationChange` et l'URL perd `page`. Les remises à page 1 voulues passent par
+    // `resetPerPage` (recherche, tri, facette, taille de page).
+    autoResetPageIndex: false,
     state: {
       sorting,
       globalFilter: current.globalFilter,

@@ -27,7 +27,7 @@ export const alertDialogManifest: ComponentManifest = {
     'de l’app.',
   level: 'bloc',
   example: {
-    open: true,
+    defaultOpen: true,
     children: createElement(
       Fragment,
       null,

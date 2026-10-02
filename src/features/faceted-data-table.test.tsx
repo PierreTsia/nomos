@@ -134,6 +134,17 @@ describe('FacetedDataTable — l’état contrôlé', () => {
     expect(await screen.findByRole('dialog')).toBeInTheDocument()
     expect(screen.getByText('détail de beta')).toBeInTheDocument()
   })
+
+  it('garde la page quand l’état contrôlé est relu (pas de retour page 1)', async () => {
+    const user = userEvent.setup()
+    render(<ControlledTable initial={{ pagination: { pageIndex: 0, pageSize: 1 } }} />)
+
+    expect(screen.getByText('1/2')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'Suivant' }))
+
+    expect(screen.getByText('2/2')).toBeInTheDocument()
+  })
 })
 
 const selection = {

@@ -24,7 +24,7 @@ export const sheetManifest: ComponentManifest = {
     '`side="bottom"` est le drawer.',
   level: 'bloc',
   example: {
-    open: true,
+    defaultOpen: true,
     children: createElement(
       Fragment,
       null,

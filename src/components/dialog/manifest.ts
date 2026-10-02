@@ -20,7 +20,7 @@ export const dialogManifest: ComponentManifest = {
     body: 'Le contenu de la modale.',
     footer: 'Actions',
     closeLabel: 'Fermer',
-    open: true,
+    defaultOpen: true,
   },
   variants: [],
   props: [
