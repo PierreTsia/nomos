@@ -1,5 +1,37 @@
 # @nomosui/react
 
+## 0.6.0
+
+### Minor Changes
+
+- 1af692a: Add `Code` and `CodeBlock`, monospace snippet primitives. `Code` renders an inline
+  `<code>` on the inset/muted surface; `CodeBlock` renders a scrollable `<pre><code>`
+  and composes `CopyButton` to copy the snippet. Syntax highlighting stays app-side.
+- 0318101: Add `CopyButton`, a clipboard primitive that copies a value and shows a transient copied label.
+- f0573d1: Add `Footer`, a site-chrome block: a brand slot, a row of links and a legal line, all injected by the app.
+- a7f5eac: Add `Heading` and `Text`, mapped to the semantic type scale. `Heading` renders `h1`..`h6`
+  from its `level` and reads the matching size token; `Text` renders a paragraph or a `span`
+  at a semantic `size`. `tokens/theme.css` now maps the type scale to Tailwind utilities
+  (`text-body`, `font-strong`, `font-sans`).
+- 384027a: Expose the `LucideIcon` type and document icons as app-side.
+  
+  Nomos now re-exports the `LucideIcon` type from `lucide-react`, so an app can
+  type the icon slots the heart offers (`icon?: LucideIcon`) without depending on
+  a curated set of the heart. The heart still exposes **no icon set**: the app
+  provides its own icons (ADR 0029).
+  
+  Migration note: this is additive. No existing export changes; the only new
+  public name is the `LucideIcon` type. An app that already passes icons into the
+  heart's slots can now type them against `LucideIcon` instead of importing the
+  type from `lucide-react` directly.
+  
+  Closes #70
+- b386c4d: Add `Kicker`, an eyebrow label: a short uppercase label with an optional tone dot.
+- cbd56b9: Add a `Link` text link primitive that renders an `<a>` with the core focus ring and `hover:underline`, plus an optional `asChild`.
+- 63db94a: Add `Navbar`, a site header block: a sticky top bar with injected `brand`, `nav` and
+  `actions` slots. The heart owns the structure only — no routing, no product word
+  (ADR 0030).
+
 ## 0.5.3
 
 ### Patch Changes
