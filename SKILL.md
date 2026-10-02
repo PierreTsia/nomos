@@ -92,6 +92,15 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
   (sélection multiple) ; ouverture et sélection sont contrôlées par props, le focus
   clavier (rôle `tree`, flèches) est interne.
 
+### Écrire
+
+- **Titrer une section** → `Heading` : `level` choisit la balise `h1`..`h6` **et** la taille
+  sémantique (display, title, lead, body, caption, micro). La hiérarchie du document se
+  décide par le niveau, jamais par la taille.
+- **Écrire le texte courant** → `Text` : `size` lit l'échelle sémantique (`lead`, `body`,
+  `caption`, `micro`), `as` choisit `p` (défaut) ou `span` pour un texte inline. Les tailles
+  viennent des tokens, jamais d'un utilitaire ad-hoc.
+
 ### Formulaire
 
 - **Mettre en page** → `Form` (grille de champs + zone d'actions, `columns` pour deux
@@ -151,6 +160,7 @@ field
 fieldset
 form
 freshness
+heading
 input
 kicker
 label
@@ -170,6 +180,7 @@ skeleton
 switch
 table
 tabs
+text
 textarea
 timeline
 toast

@@ -74,6 +74,30 @@
   --radius-lg: var(--nomos-radius-control);
   --radius-md: var(--nomos-radius-field);
   --radius-sm: var(--nomos-radius-chip);
+
+  /*
+    L'échelle typographique sémantique (ADR 0004) : `text-body`, `text-title`… lisent la
+    taille **et** l'interligne des tokens, `font-strong` lit le poids. Aucune valeur n'est
+    écrite ici — un skin change les valeurs, jamais ces noms.
+  */
+  --text-micro: var(--nomos-type-size-micro);
+  --text-micro--line-height: var(--nomos-type-leading-micro);
+  --text-caption: var(--nomos-type-size-caption);
+  --text-caption--line-height: var(--nomos-type-leading-caption);
+  --text-body: var(--nomos-type-size-body);
+  --text-body--line-height: var(--nomos-type-leading-body);
+  --text-lead: var(--nomos-type-size-lead);
+  --text-lead--line-height: var(--nomos-type-leading-lead);
+  --text-title: var(--nomos-type-size-title);
+  --text-title--line-height: var(--nomos-type-leading-title);
+  --text-display: var(--nomos-type-size-display);
+  --text-display--line-height: var(--nomos-type-leading-display);
+
+  --font-weight-regular: var(--nomos-type-weight-regular);
+  --font-weight-medium: var(--nomos-type-weight-medium);
+  --font-weight-strong: var(--nomos-type-weight-strong);
+
+  --font-sans: var(--nomos-type-family-sans);
 }
 
 /*

@@ -59,6 +59,14 @@ export { Button, buttonVariants, buttonVariantsConfig } from '@nomos/components/
 export type { ButtonProps } from '@nomos/components/button/button'
 export { buttonManifest } from '@nomos/components/button/manifest'
 
+export { Heading, headingVariants, headingVariantsConfig } from '@nomos/components/heading/heading'
+export type { HeadingLevel, HeadingProps } from '@nomos/components/heading/heading'
+export { headingManifest } from '@nomos/components/heading/manifest'
+
+export { Text, textVariants, textVariantsConfig } from '@nomos/components/text/text'
+export type { TextProps } from '@nomos/components/text/text'
+export { textManifest } from '@nomos/components/text/manifest'
+
 export {
   Card,
   CardContent,
