@@ -21,6 +21,11 @@ export default defineConfig([
     },
     rules: {
       '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+      // A context module exports both its provider component and its consumer hook.
+      'react-refresh/only-export-components': [
+        'error',
+        { allowConstantExport: true, allowCompoundComponents: true, allowExportNames: ['useI18n'] },
+      ],
     },
   },
 ])

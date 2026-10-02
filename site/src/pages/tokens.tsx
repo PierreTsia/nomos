@@ -1,16 +1,15 @@
 import { Badge } from '@nomosui/react'
 
+import { useI18n } from '../i18n'
 import { tokenGroups, tokenSlots } from '../tokens'
 
 export function TokensPage() {
+  const { t } = useI18n()
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold">Tokens</h1>
-        <p className="max-w-2xl text-muted-foreground">
-          The names every component speaks in. The values live in one file, and a skin replaces
-          them (ADR 0003, 0004).
-        </p>
+        <h1 className="text-2xl font-semibold">{t.tokens.title}</h1>
+        <p className="max-w-2xl text-muted-foreground">{t.tokens.lead}</p>
       </header>
 
       {tokenGroups.map((group) => (
