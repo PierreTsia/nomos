@@ -152,6 +152,10 @@ export { Link } from '@nomos/components/link/link'
 export type { LinkProps } from '@nomos/components/link/link'
 export { linkManifest } from '@nomos/components/link/manifest'
 
+export { Navbar } from '@nomos/components/navbar/navbar'
+export type { NavbarProps } from '@nomos/components/navbar/navbar'
+export { navbarManifest } from '@nomos/components/navbar/manifest'
+
 export { Fieldset } from '@nomos/components/fieldset/fieldset'
 export { fieldsetManifest } from '@nomos/components/fieldset/manifest'
 
