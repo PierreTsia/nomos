@@ -54,6 +54,11 @@ npm run build:package     # dist/index.js + dist/mcp/bin.js + types
 npm run smoke:consumer    # installs the tarball in a fresh project and exercises it
 ```
 
+## Roadmap
+
+The milestones — v1.0 (a public static site, docs and a component showcase) and v2.0
+(an app-bootstrapper MCP, the north star) — live in [`ROADMAP.md`](ROADMAP.md).
+
 ## Decisions
 
 The structural decisions live in `docs/adr/`. Start with 0002 (app-agnostic core), 0003 (the
