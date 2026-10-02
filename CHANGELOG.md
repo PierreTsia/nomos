@@ -1,5 +1,19 @@
 # @nomosui/react
 
+## 0.5.2
+
+### Patch Changes
+
+- d9377eb: Fix `FacetedDataTable` snapping back to page 1 when its state is controlled (for
+  example an app syncing it to the URL). TanStack's automatic page-index reset is now
+  disabled: the table only returns to page 1 on the intentional changes — search, sort,
+  facet and page size — via `resetPerPage`. A controlled table keeps the page the caller
+  gave it.
+- b3b55d2: Open the catalogued overlay examples (Dialog, Popover, Sheet, DropdownMenu,
+  AlertDialog) with `defaultOpen` instead of a controlled `open` without an
+  `onOpenChange` handler. A rendered example can now be closed; previously it was
+  controlled-open and stuck.
+
 ## 0.5.1
 
 ### Patch Changes
