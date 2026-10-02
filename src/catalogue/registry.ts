@@ -64,6 +64,8 @@ import { Link } from '@nomos/components/link/link'
 import { linkManifest } from '@nomos/components/link/manifest'
 import { Navbar } from '@nomos/components/navbar/navbar'
 import { navbarManifest } from '@nomos/components/navbar/manifest'
+import { Footer } from '@nomos/components/footer/footer'
+import { footerManifest } from '@nomos/components/footer/manifest'
 import { Meter } from '@nomos/components/meter/meter'
 import { meterManifest } from '@nomos/components/meter/manifest'
 import { NumberField } from '@nomos/components/number-field/number-field'
@@ -273,6 +275,11 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: navbarManifest,
     component: Navbar as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: footerManifest,
+    component: Footer as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: {},
   },
   {
