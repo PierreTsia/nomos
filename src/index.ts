@@ -309,6 +309,9 @@ export type {
   ComponentVariant,
 } from '@nomos/catalogue/contract'
 
+export { composites, compositeNames, findComposite } from '@nomos/composites'
+export type { Composite } from '@nomos/composites'
+
 export { cn } from '@nomos/lib/cn'
 export { TONES, toneClasses } from '@nomos/lib/tone'
 export type { Tone } from '@nomos/lib/tone'

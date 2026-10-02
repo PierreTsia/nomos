@@ -3,7 +3,7 @@ import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js'
 
 import { APP_VIEW_MIME, appViewUri, compositeViewUri } from '@nomos/mcp/app-view'
 import { componentNames } from '@nomos/mcp/catalogue'
-import { compositeNames } from '@nomos/mcp/composites'
+import { compositeNames } from '@nomos/composites'
 import { TOKENS_URI, componentUri, createDesignSystemServer } from '@nomos/mcp/server'
 
 /**

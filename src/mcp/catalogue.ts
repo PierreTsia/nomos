@@ -1,6 +1,6 @@
 import type { ComponentManifest } from '@nomos/catalogue/contract'
 import { catalogue, findComponent } from '@nomos/catalogue/registry'
-import { composites } from '@nomos/mcp/composites'
+import { composites } from '@nomos/composites'
 import { tokensResource } from '@nomos/tokens/resource'
 
 /**

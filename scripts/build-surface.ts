@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 import { catalogue } from '@nomos/catalogue/registry'
 import { appViewUri, compositeViewUri } from '@nomos/mcp/app-view'
-import { composites } from '@nomos/mcp/composites'
+import { composites } from '@nomos/composites'
 import { TOKENS_URI, componentUri } from '@nomos/mcp/server'
 
 /**

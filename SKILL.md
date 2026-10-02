@@ -226,7 +226,10 @@ aplati par mode) et `nomos://component/<nom>` (le manifeste).
 Au-delà du manifeste, chaque brique a une **vue** servie en `ui://nomos/<nom>` — un
 document auto-suffisant (`text/html;profile=mcp-app`) que l'hôte rend dans un iframe
 sandboxé. Une **scène composite** (`ui://nomos/composite/<nom>`) assemble plusieurs
-briques en un écran qui a du sens (un formulaire, une carte de statut).
+briques en un écran qui a du sens (un formulaire, une carte de statut). Les scènes
+sont aussi exportées sur la surface publique JS (`composites`, `compositeNames`,
+`findComposite`, ADR 0031) : le serveur MCP et le site rendent la **même** source,
+et leur copie par défaut est neutre — elle s'injecte par props.
 
 La vue **émet des intentions** (`ready`, `select`, `change`, `error`) et ne mute jamais
 l'état : l'hôte décide. Il lui pousse l'apparence (`set-view` : thème, densité) et les

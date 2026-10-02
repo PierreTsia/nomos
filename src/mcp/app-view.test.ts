@@ -63,7 +63,7 @@ describe('les vues MCP Apps', () => {
   })
 
   it('pré-rend une scène composite et la monte client pour recevoir des données (ADR 0023)', () => {
-    expect(renderCompositeMarkup('form')).toContain('Enregistrer')
+    expect(renderCompositeMarkup('form')).toContain('Save')
 
     const view = compositeViewFor('form')
     expect(view).toContain('data-component="composite:form"')
