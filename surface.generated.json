@@ -97,6 +97,7 @@
     "Label",
     "Link",
     "LinkProps",
+    "LucideIcon",
     "Meter",
     "MeterProps",
     "NumberField",
