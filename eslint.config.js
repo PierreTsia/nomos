@@ -6,7 +6,9 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', '**/dist', '.view-dist']),
+  // `site/` is an ancillary (ADR 0028): a consumer of the package, never linted by the
+  // core — it carries its own config and its own CI job.
+  globalIgnores(['dist', '**/dist', '.view-dist', 'site']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -33,9 +35,10 @@ export default defineConfig([
     },
   },
   {
-    // The boundary, held by tooling and not by discipline (ADR 0002, 0003). Nomos never
-    // imports app code, never through a relative path, and never the router: a relative
-    // path climbing two levels up is exactly where a boundary leaks.
+    // The boundary, held by tooling and not by discipline (ADR 0002, 0003, 0028). Nomos
+    // never imports app code, never through a relative path, never the router, and never
+    // the site ancillary: a relative path climbing two levels up is exactly where a
+    // boundary leaks.
     files: ['src/**/*.{ts,tsx}'],
     rules: {
       'no-restricted-imports': [
@@ -43,9 +46,18 @@ export default defineConfig([
         {
           patterns: [
             {
-              group: ['@/*', './*', '../*', 'react-router', 'react-router-dom', 'react-router/*'],
+              group: [
+                '@/*',
+                './*',
+                '../*',
+                'react-router',
+                'react-router-dom',
+                'react-router/*',
+                'nomos-site',
+                'site/*',
+              ],
               message:
-                'Nomos never imports app code, never through a relative path, and never the router.',
+                'Nomos never imports app code, never through a relative path, never the router, and never the site ancillary (ADR 0028).',
             },
           ],
         },
