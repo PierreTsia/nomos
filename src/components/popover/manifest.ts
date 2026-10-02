@@ -20,7 +20,7 @@ export const popoverManifest: ComponentManifest = {
     'parts importables séparément ; le contenu et ses libellés viennent de l’app.',
   level: 'primitive',
   example: {
-    open: true,
+    defaultOpen: true,
     children: createElement(
       Fragment,
       null,

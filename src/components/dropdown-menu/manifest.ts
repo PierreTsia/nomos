@@ -24,7 +24,7 @@ export const dropdownMenuManifest: ComponentManifest = {
     'fournit les libellés et les actions.',
   level: 'primitive',
   example: {
-    open: true,
+    defaultOpen: true,
     children: createElement(
       Fragment,
       null,
