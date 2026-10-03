@@ -1,5 +1,12 @@
 # @nomosui/react
 
+## 0.8.1
+
+### Patch Changes
+
+- 5c98ef5: Translate the shipped skill (`SKILL.md`) to English, so the agent-facing contract follows the
+  public repo's English policy (ADR 0026). No API change.
+
 ## 0.8.0
 
 ### Minor Changes
