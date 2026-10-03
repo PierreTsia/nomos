@@ -117,7 +117,9 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
 - **Un emplacement de champ** (libellé, contrôle, aide ou erreur) → `Field` ; **nommer un
   contrôle seul** → `Label` (`htmlFor`) ; **regrouper des champs apparentés** →
   `Fieldset` (`legend` fourni par l'app). Le message d'erreur est injecté, jamais calculé
-  par le cœur.
+  par le cœur. Le `Field` associe lui-même le contrôle à son message (`aria-invalid`,
+  `aria-describedby`) pour les contrôles du cœur : `Input`, `Textarea`, `NumberField`,
+  `SearchField` et le déclencheur de `Select`.
 
 ### Tables
 
