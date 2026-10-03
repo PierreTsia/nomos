@@ -6,6 +6,9 @@ name: Release
 on:
   push:
     branches: [main]
+  # Manual retry: a release is a push to main, but a suppressed/lost push event
+  # (bot merge, Actions hiccup) leaves an unpublished version. This replays it.
+  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
