@@ -15,6 +15,7 @@ npm-debug.log*
 .vscode/*
 !.vscode/extensions.json
 
-# Local opencode tooling
-.opencode/
+# Local opencode tooling — the committed part is the agents (gl/mij parity)
+.opencode/*
+!.opencode/agents/
 tui.json
