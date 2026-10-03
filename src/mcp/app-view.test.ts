@@ -143,6 +143,21 @@ describe('les vues MCP Apps', () => {
     expect(received).toEqual([{ children: 'A' }, { children: 'GL' }])
   })
 
+  it('ignore un structuredContent sans `props` (ADR 0023)', () => {
+    const root = viewRoot()
+    const { win, dispatch } = fakeWindow()
+    const received: Record<string, unknown>[] = []
+
+    installViewBridge(win, root, () => {}, (data) => received.push(data))
+    dispatch({
+      jsonrpc: '2.0',
+      method: UI_TOOL_RESULT,
+      params: { structuredContent: { children: 'GL' } },
+    })
+
+    expect(received).toEqual([])
+  })
+
   it('un changement de contexte de l’hôte repose le thème (SEP-1865)', () => {
     const root = viewRoot()
     const { win, dispatch } = fakeWindow()

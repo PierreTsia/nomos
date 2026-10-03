@@ -27,7 +27,6 @@ export const LOG_MESSAGE = 'notifications/message'
 /** Les intentions qu'une vue émet vers l'hôte (ADR 0033) : `select` (choix), `change`
  *  (valeur) et `error` (échec de rendu). La surface publique les fige (ADR 0024). */
 export const INTENTS = ['select', 'change', 'error'] as const
-export type Intent = (typeof INTENTS)[number]
 
 export type JsonRpcId = string | number
 
