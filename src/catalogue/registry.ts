@@ -108,6 +108,14 @@ import { Rating } from '@nomos/components/rating/rating'
 import { ratingManifest } from '@nomos/components/rating/manifest'
 import { Timeline } from '@nomos/components/timeline/timeline'
 import { timelineManifest } from '@nomos/components/timeline/manifest'
+import { Composer } from '@nomos/components/composer/composer'
+import { composerManifest } from '@nomos/components/composer/manifest'
+import { Conversation } from '@nomos/components/conversation/conversation'
+import { conversationManifest } from '@nomos/components/conversation/manifest'
+import { Message } from '@nomos/components/message/message'
+import { messageManifest } from '@nomos/components/message/manifest'
+import { TypingIndicator } from '@nomos/components/typing-indicator/typing-indicator'
+import { typingIndicatorManifest } from '@nomos/components/typing-indicator/manifest'
 
 import { componentManifestSchema, errorMessage, type ComponentManifest } from '@nomos/catalogue/contract'
 import { toneClasses } from '@nomos/lib/tone'
@@ -413,6 +421,26 @@ export const catalogueEntries: CatalogueEntry[] = [
     manifest: textManifest,
     component: Text as unknown as ComponentType<Record<string, unknown>>,
     variantsConfig: { size: textVariantsConfig },
+  },
+  {
+    manifest: conversationManifest,
+    component: Conversation as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: messageManifest,
+    component: Message as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: composerManifest,
+    component: Composer as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
+  },
+  {
+    manifest: typingIndicatorManifest,
+    component: TypingIndicator as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
   },
 ]
 

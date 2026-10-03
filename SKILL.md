@@ -132,6 +132,23 @@ pour expliquer une brique, elle appartient à l'app, pas au cœur.
   feature `FacetedDataTable` : elle possède le comportement et le **placement** du détail
   (surcouche `overlay` ou dépli `inline`), l'app fournit le contenu et les `labels`.
 
+### Conversation
+
+- **Brancher une conversation** → la feature `useChatThread({ transport, initialMessages })` :
+  elle possède la **machine à états** — ajout optimiste du tour, assemblage des deltas,
+  `send`, `stop`, `retry`/`regenerate`, `replace`, erreur — et **rien du transport**
+  (ADR 0032). L'app injecte un `ChatTransport` (une fonction `send`) : le cœur n'appelle
+  aucun modèle, ne connaît aucun endpoint, n'affiche aucune erreur réseau (ADR 0018). Un
+  message porte un rôle et des **parts** (`text`, `reasoning`, `tool`, `data`) : un signal
+  structuré est une part de premier ordre, jamais un sentinelle pêché dans la prose.
+- **La fenêtre du fil** → `Conversation` : une région `log` vivante ancrée en bas, le
+  défilement tenu par le cœur, la hauteur par l'app. **Un message** → `Message` : le
+  placement et le ton du rôle, le contenu en `parts`, et `renderPart` pour que l'app
+  garde markdown, coloration et artefact métier. **La saisie** → `Composer` : contrôlé par
+  props (`value` + `onChange`), `Entrée` envoie, `Maj+Entrée` coupe la ligne, garde IME ;
+  `busy` + `onStop` pour interrompre. **Attendre la réponse** → `TypingIndicator` (libellé
+  injecté, région `status`).
+
 ### Tons et tokens
 
 - **Un ton de statut** → `toneClasses` (`neutral`, `info`, `progress`, `attention`,
@@ -161,6 +178,8 @@ chip
 code
 code-block
 collapsible
+composer
+conversation
 copy-button
 counter
 data-table-pagination
@@ -180,6 +199,7 @@ kicker
 label
 link
 meter
+message
 navbar
 number-field
 popover
@@ -203,6 +223,7 @@ toggle
 toggle-group
 tooltip
 tree
+typing-indicator
 <!-- inventaire : fin -->
 
 ## Interroger le catalogue

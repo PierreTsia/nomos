@@ -16,6 +16,7 @@ export const en = {
     label: 'Language',
   },
   nav: {
+    catalogue: 'Catalogue',
     tokens: 'Tokens',
     docs: 'Docs',
     npm: 'npm',
@@ -29,7 +30,7 @@ export const en = {
   },
   sidebar: {
     ariaLabel: 'Catalogue',
-    tokensGroup: 'Tokens',
+    overview: 'Overview',
     docsGroup: 'Docs',
     browse: 'Browse the catalogue',
   },
@@ -108,17 +109,42 @@ export const en = {
   landing: {
     kicker: 'The laws of the interface',
     greekMeaning: 'Greek for law: the order a thing obeys',
-    lead: 'Nomos is a design system that keeps its word. Tokens named once, components built from them, and one catalog that reads the same to a person and to an agent.',
-    browseCatalog: 'Browse the catalog',
+    lead: 'Nomos is a design system that keeps its word. Tokens named once, components built from them, and one catalogue that reads the same to a person and to an agent.',
+    browseCatalog: 'Browse the catalogue',
     readDocs: 'Read the docs',
     statsBricks: (count: number) => `${count} bricks`,
     statsTiers: 'two token tiers',
     statsThemes: 'dark and light',
     statsLicense: 'MIT',
+    agent: {
+      kicker: 'agent-first',
+      title: 'A design system a machine can build with',
+      lead: 'The same inventory renders to a human and to an agent. An agent discovers a brick, reads its manifest, and writes consistent UI — no screenshot archaeology.',
+      flow: [
+        {
+          title: 'Discover',
+          body: 'The agent lists the catalogue over the MCP server and picks a brick by what it is for.',
+        },
+        {
+          title: 'Read the manifest',
+          body: 'Props, variants and usages come back as data — the very manifest this site renders.',
+        },
+        {
+          title: 'Render it',
+          body: 'It writes the component from the real API, and the ui:// view shows the result.',
+        },
+      ],
+      getsLabel: 'It reaches for',
+      gets: [
+        'The stdio MCP server (nomos-mcp)',
+        'The ui://nomos/<name> views',
+        'The shipped skill',
+      ],
+    },
     inventoryKicker: 'the inventory',
     inventoryTitle: 'One inventory, three faces',
     inventoryBody:
-      "Every component is a single manifest. The catalog, the style page and the MCP server all read it, so the docs can't drift from the code.",
+      "Every component is a single manifest. The catalogue, the style page and the MCP server all read it, so the docs can't drift from the code.",
     generated: 'generated from the catalogue',
     spec: 'spec →',
     renderings: [
@@ -134,12 +160,26 @@ export const en = {
       },
       {
         kicker: 'FOR AGENTS',
-        title: 'The same catalog, over MCP',
+        title: 'The same catalogue, over MCP',
         body: 'Your coding agent reads the inventory and writes with your components, not around them.',
       },
     ],
-    everyBrickTitle: 'Every brick',
-    everyBrickLead: (count: number) => `All ${count} of them. Pick one and its page tells the whole story.`,
+    boundary: {
+      kicker: 'the boundary',
+      title: 'Imports go one way',
+      body: 'An app may import Nomos; Nomos never imports app code. A product word belongs to the app, not the heart (ADR 0002).',
+      skinTitle: 'Values change, names do not',
+      skinBody: 'An app rebrands by filling in token values — a skin, never a fork (ADR 0022).',
+    },
+    showcaseTitle: 'A few bricks',
+    showcaseLead: 'Six of them, live. The catalogue holds every brick.',
+    browseAll: 'See the whole catalogue →',
+    entriesTitle: 'Where to go next',
+  },
+  catalogue: {
+    title: 'Catalogue',
+    lead: (count: number) =>
+      `All ${count} bricks in the inventory, grouped by level. Pick one — its page tells the whole story.`,
   },
 }
 

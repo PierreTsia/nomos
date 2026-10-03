@@ -279,6 +279,20 @@ export { toastManifest } from '@nomos/components/toast/manifest'
 export { ToastProvider, useToast } from '@nomos/features/toast'
 export type { ToastApi, ToastOptions } from '@nomos/features/toast'
 
+export { useChatThread } from '@nomos/features/chat'
+export type { ChatThread, UseChatThreadOptions } from '@nomos/features/chat'
+export type {
+  ChatDelta,
+  ChatLabels,
+  ChatMessage,
+  ChatMessageStatus,
+  ChatPart,
+  ChatRole,
+  ChatSendInput,
+  ChatStatus,
+  ChatTransport,
+} from '@nomos/features/chat'
+
 export { SelectionTree, Tree } from '@nomos/components/tree/tree'
 export type { SelectionTreeProps, TreeProps, TreeNode } from '@nomos/components/tree/tree'
 export { treeManifest } from '@nomos/components/tree/manifest'
@@ -298,6 +312,22 @@ export { ratingManifest } from '@nomos/components/rating/manifest'
 export { Timeline } from '@nomos/components/timeline/timeline'
 export type { TimelineItem, TimelineProps } from '@nomos/components/timeline/timeline'
 export { timelineManifest } from '@nomos/components/timeline/manifest'
+
+export { Conversation } from '@nomos/components/conversation/conversation'
+export type { ConversationProps } from '@nomos/components/conversation/conversation'
+export { conversationManifest } from '@nomos/components/conversation/manifest'
+
+export { Message } from '@nomos/components/message/message'
+export type { MessageProps } from '@nomos/components/message/message'
+export { messageManifest } from '@nomos/components/message/manifest'
+
+export { Composer } from '@nomos/components/composer/composer'
+export type { ComposerProps } from '@nomos/components/composer/composer'
+export { composerManifest } from '@nomos/components/composer/manifest'
+
+export { TypingIndicator } from '@nomos/components/typing-indicator/typing-indicator'
+export type { TypingIndicatorProps } from '@nomos/components/typing-indicator/typing-indicator'
+export { typingIndicatorManifest } from '@nomos/components/typing-indicator/manifest'
 
 export { catalogue, componentNames, findComponent, validateCatalogue } from '@nomos/catalogue/registry'
 export type { CatalogueEntry } from '@nomos/catalogue/registry'
