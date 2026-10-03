@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@nomos/components/select/select'
+import { Textarea } from '@nomos/components/textarea/textarea'
 
 /** L'emplacement de champ se rend seul, sans provider d'app. */
 describe('Field', () => {
@@ -90,6 +91,32 @@ describe('Field', () => {
     const trigger = screen.getByRole('combobox')
     expect(trigger).toHaveAttribute('aria-invalid', 'true')
     expect(trigger).toHaveAttribute('aria-describedby', alert.id)
+  })
+
+  it('associates the error with a Textarea control and marks it invalid', () => {
+    render(
+      <Field label="Note" htmlFor="note" error="Champ requis">
+        <Textarea id="note" />
+      </Field>,
+    )
+
+    const alert = screen.getByRole('alert')
+    const control = screen.getByLabelText('Note')
+    expect(control).toHaveAttribute('aria-invalid', 'true')
+    expect(control).toHaveAttribute('aria-describedby', alert.id)
+  })
+
+  it('keeps the caller’s aria-describedby alongside the field’s message on a Textarea', () => {
+    render(
+      <Field error="Champ requis">
+        <Textarea aria-label="Note" aria-describedby="custom" />
+      </Field>,
+    )
+
+    const alert = screen.getByRole('alert')
+    const describedBy = screen.getByLabelText('Note').getAttribute('aria-describedby')
+    expect(describedBy).toContain('custom')
+    expect(describedBy).toContain(alert.id)
   })
 
   it('keeps the caller’s aria-describedby alongside the field’s message', () => {
