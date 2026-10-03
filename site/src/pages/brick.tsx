@@ -26,7 +26,7 @@ export function BrickPage({ name }: { name: string }) {
       <header className="flex flex-col gap-2">
         <div className="flex flex-wrap items-center gap-3">
           <h1 className="text-2xl font-semibold">{brick.title}</h1>
-          <Badge variant="secondary">{brick.level}</Badge>
+          <Badge variant="secondary">{t.levels[brick.level]}</Badge>
           <code className="text-sm text-muted-foreground">{brick.name}</code>
         </div>
         <p className="max-w-2xl text-muted-foreground">{brick.summary}</p>

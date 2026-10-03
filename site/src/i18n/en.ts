@@ -8,6 +8,10 @@
  * always English (ADR 0002, 0028).
  */
 export const en = {
+  /** The browser tab title, synced on language change (`document.title`). */
+  meta: {
+    title: 'Nomos — the laws of the interface',
+  },
   language: {
     label: 'Language',
   },
@@ -48,7 +52,7 @@ export const en = {
       installBody: 'The core is @nomosui/react; React 19 is a peer.',
       wireTitle: 'Wire the tokens',
       wireBody:
-        'Import Tailwind, the token values (the single source, ADR 0004) and the raccord, in this order:',
+        'Import Tailwind, the token values (the single source, ADR 0004) and the theme bridge, in this order:',
       useTitle: 'Use a brick',
       skinTitle: 'Make it yours: the skin',
       skinBody:

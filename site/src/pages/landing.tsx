@@ -125,7 +125,7 @@ export function Landing() {
                   >
                     {brick.name}
                   </Link>
-                  <span className="text-[11px] text-muted-foreground">{brick.level}</span>
+                  <span className="text-[11px] text-muted-foreground">{t.levels[brick.level]}</span>
                 </div>
 
                 <div className="flex min-h-[130px] items-center justify-center rounded-md border border-border bg-muted/40 p-5">

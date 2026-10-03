@@ -9,8 +9,8 @@ export type Lang = 'en' | 'fr'
  * Where the language lives — a deliberate choice (issue #60): the **stored preference** only,
  * never the URL. The hash already carries the route (`#/brick/button`), and a language segment
  * would fork every link and every bookmark; the site instead reads `localStorage['nomos-lang']`
- * and leaves the routes untouched. A first-time visitor gets the browser language (fr → fr,
- * anything else → en).
+ * and leaves the routes untouched. The site is English first: a first-time visitor gets **en**,
+ * whatever the browser language; the toggle then persists the choice.
  */
 const STORAGE_KEY = 'nomos-lang'
 
@@ -19,7 +19,7 @@ const dictionaries: Record<Lang, Dictionary> = { en, fr }
 function resolveInitialLang(): Lang {
   const stored = localStorage.getItem(STORAGE_KEY)
   if (stored === 'en' || stored === 'fr') return stored
-  return navigator.language.startsWith('fr') ? 'fr' : 'en'
+  return 'en'
 }
 
 type I18n = {
@@ -45,6 +45,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = lang
+    document.title = dictionaries[lang].meta.title
   }, [lang])
 
   return (

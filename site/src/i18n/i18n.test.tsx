@@ -2,15 +2,16 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'vitest'
 
 import { Sidebar } from '../components/sidebar'
+import { BrickPage } from '../pages/brick'
 import { en } from './en'
 import { fr } from './fr'
 import { LanguageProvider } from './index'
 import { LanguageSwitch } from './language-switch'
-
 afterEach(() => {
   cleanup()
   localStorage.clear()
   document.documentElement.lang = ''
+  document.title = ''
 })
 
 /** Every key path of a dictionary, recursing into objects and arrays (functions are leaves). */
@@ -76,12 +77,14 @@ describe('language runtime', () => {
 
     expect(screen.getByText(en.sidebar.browse)).toBeTruthy()
     expect(document.documentElement.lang).toBe('en')
+    expect(document.title).toBe(en.meta.title)
 
     fireEvent.click(screen.getByRole('button', { name: 'FR' }))
 
     expect(screen.getByText(fr.sidebar.browse)).toBeTruthy()
     expect(screen.queryByText(en.sidebar.browse)).toBeNull()
     expect(document.documentElement.lang).toBe('fr')
+    expect(document.title).toBe(fr.meta.title)
     expect(localStorage.getItem('nomos-lang')).toBe('fr')
   })
 
@@ -97,7 +100,7 @@ describe('language runtime', () => {
     expect(document.documentElement.lang).toBe('fr')
   })
 
-  it('falls back to the browser language', () => {
+  it('defaults to English whatever the browser language', () => {
     const original = navigator.language
     try {
       Object.defineProperty(navigator, 'language', { value: 'fr-CA', configurable: true })
@@ -106,9 +109,23 @@ describe('language runtime', () => {
           <Sidebar route={{ kind: 'home' }} />
         </LanguageProvider>,
       )
-      expect(screen.getByText(fr.sidebar.browse)).toBeTruthy()
+      expect(screen.getByText(en.sidebar.browse)).toBeTruthy()
+      expect(document.documentElement.lang).toBe('en')
     } finally {
       Object.defineProperty(navigator, 'language', { value: original, configurable: true })
     }
+  })
+})
+
+describe('localized catalogue levels', () => {
+  it('shows the translated level, never the raw manifest key', () => {
+    render(
+      <LanguageProvider>
+        <BrickPage name="button" />
+      </LanguageProvider>,
+    )
+
+    expect(screen.getAllByText(en.levels.primitive).length).toBeGreaterThan(0)
+    expect(screen.queryByText('primitive')).toBeNull()
   })
 })

@@ -5,6 +5,9 @@ import type { Dictionary } from './en'
  * parity gate: a key added to `en.ts` and forgotten here turns the build red.
  */
 export const fr = {
+  meta: {
+    title: 'Nomos — les lois de l’interface',
+  },
   language: {
     label: 'Langue',
   },
