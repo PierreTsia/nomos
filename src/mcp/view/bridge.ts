@@ -39,7 +39,7 @@ export function emitIntent(win: Window, action: string, detail: unknown = null):
     jsonrpc: '2.0',
     id: newId(),
     method: UI_MESSAGE,
-    params: { role: 'user', content: { type: 'text', text: JSON.stringify({ action, detail }) } },
+    params: { role: 'user', content: [{ type: 'text', text: JSON.stringify({ action, detail }) }] },
   })
 }
 
@@ -63,7 +63,7 @@ function toolResultProps(result: ToolResult | undefined): Record<string, unknown
   const structured = result.structuredContent
   if (structured && typeof structured === 'object') {
     const props = (structured as Record<string, unknown>).props
-    return props && typeof props === 'object' ? (props as Record<string, unknown>) : structured
+    return props && typeof props === 'object' ? (props as Record<string, unknown>) : null
   }
   const text = result.content?.find((block) => block.type === 'text')?.text
   if (typeof text === 'string') {
@@ -135,7 +135,7 @@ export function installViewBridge(
     params: {
       protocolVersion: UI_PROTOCOL_VERSION,
       appCapabilities: { availableDisplayModes: ['inline'] },
-      clientInfo: { name: 'nomos-view', version: '0.0.0' },
+      appInfo: { name: 'nomos-view', version: '0.0.0' },
     },
   })
 }

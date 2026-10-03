@@ -302,8 +302,7 @@
       "TokenDoc",
       "appViewUri",
       "compositeViewUri",
-      "renderView",
-      "viewCss"
+      "renderView"
     ]
   },
   "mcp": {
@@ -509,7 +508,8 @@
     ],
     "intents": [
       "change",
-      "error"
+      "error",
+      "select"
     ]
   },
   "tokens": {

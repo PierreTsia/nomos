@@ -24,6 +24,11 @@ export const UI_MESSAGE = 'ui/message'
 /** A failed render is a log, not a conversation message (standard MCP logging). */
 export const LOG_MESSAGE = 'notifications/message'
 
+/** Les intentions qu'une vue émet vers l'hôte (ADR 0033) : `select` (choix), `change`
+ *  (valeur) et `error` (échec de rendu). La surface publique les fige (ADR 0024). */
+export const INTENTS = ['select', 'change', 'error'] as const
+export type Intent = (typeof INTENTS)[number]
+
 export type JsonRpcId = string | number
 
 export type JsonRpcRequest = {

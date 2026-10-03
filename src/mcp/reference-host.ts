@@ -71,7 +71,7 @@ function hostScript(theme: string, density: string, data?: Record<string, unknow
     // Une intention est un message de la vue : on la recueille et on répond (SEP-1865).
     if (message.method === 'ui/message') {
       try {
-        intents.push(JSON.parse(message.params.content.text))
+        intents.push(JSON.parse(message.params.content[0].text))
       } catch (error) {
         intents.push(message.params)
       }

@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { findComponent } from '@nomos/catalogue/registry'
 import { findComposite } from '@nomos/composites'
 import { renderCss } from '@nomos/tokens/build.mjs'
+import type { TokensDocument } from '@nomos/tokens/build.mjs'
 import { VIEW_CSS } from '@nomos/mcp/view-css.generated'
 import { VIEW_BUNDLE } from '@nomos/mcp/view.generated'
 import { VIEW_DATA_ID, VIEW_ROOT_ID } from '@nomos/mcp/view-contract'
@@ -25,7 +26,7 @@ import { VIEW_DATA_ID, VIEW_ROOT_ID } from '@nomos/mcp/view-contract'
  */
 
 /** Un document DTCG déjà parsé (le défaut du cœur ou un skin résolu). */
-export type TokenDoc = Record<string, unknown>
+export type TokenDoc = TokensDocument
 
 export const APP_VIEW_MIME = 'text/html;profile=mcp-app'
 export const appViewUri = (name: string) => `ui://nomos/${name}`

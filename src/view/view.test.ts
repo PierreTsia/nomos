@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { APP_VIEW_MIME, appViewUri, compositeViewUri, renderView, viewCss } from '@nomos/view'
+import { APP_VIEW_MIME, appViewUri, compositeViewUri, renderView } from '@nomos/view'
 
 /**
  * L'entrée publique du builder de vues (ADR 0034) : un document auto-suffisant, dans le
@@ -34,9 +34,5 @@ describe('le builder de vues public', () => {
   it('exige un nom ou une scène, et pas les deux', () => {
     expect(() => renderView({})).toThrow(/pass `name`/)
     expect(() => renderView({ name: 'badge', composite: 'form' })).toThrow(/not both/)
-  })
-
-  it('expose la couche utilitaires compilée', () => {
-    expect(viewCss).toContain('.bg-primary')
   })
 })

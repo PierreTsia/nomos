@@ -109,6 +109,7 @@ describe('les vues MCP Apps', () => {
     installViewBridge(win, root, () => {})
 
     expect(posted[0]).toMatchObject({ jsonrpc: '2.0', method: UI_INITIALIZE })
+    expect(posted[0]).toMatchObject({ params: { appInfo: { name: 'nomos-view' } } })
 
     dispatch({
       jsonrpc: '2.0',
@@ -160,9 +161,9 @@ describe('les vues MCP Apps', () => {
     expect(posted[0]).toMatchObject({
       jsonrpc: '2.0',
       method: UI_MESSAGE,
-      params: { role: 'user', content: { type: 'text' } },
+      params: { role: 'user', content: [{ type: 'text' }] },
     })
-    const text = (posted[0] as { params: { content: { text: string } } }).params.content.text
+    const text = (posted[0] as { params: { content: [{ text: string }] } }).params.content[0].text
     expect(JSON.parse(text)).toEqual({ action: 'select', detail: null })
   })
 

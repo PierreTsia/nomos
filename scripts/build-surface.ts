@@ -6,6 +6,7 @@ import { catalogue } from '@nomos/catalogue/registry'
 import { appViewUri, compositeViewUri } from '@nomos/mcp/app-view'
 import { composites } from '@nomos/composites'
 import { TOKENS_URI, componentUri } from '@nomos/mcp/server'
+import { INTENTS } from '@nomos/mcp/view-contract'
 
 /**
  * Le **snapshot de la surface publique** de Nomos (ADR 0024). Il liste ce dont un
@@ -77,10 +78,7 @@ const surface = {
   },
   messages: {
     methods: literals(read('src/mcp/view-contract.ts'), /'(ui\/[^']+|notifications\/message)'/g),
-    intents: literals(
-      read('src/mcp/view/bridge.ts') + read('src/mcp/view/entry.tsx'),
-      /emit\('([a-z]+)'/g,
-    ),
+    intents: [...INTENTS].sort(),
   },
   tokens: {
     modes: [...tokens.modes].sort(),

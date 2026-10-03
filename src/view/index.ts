@@ -7,7 +7,6 @@ import {
   compositeViewFor,
   compositeViewUri,
 } from '@nomos/mcp/app-view'
-import { VIEW_CSS } from '@nomos/mcp/view-css.generated'
 import type { TokensDocument } from '@nomos/tokens/build.mjs'
 import { resolveSkin } from '@nomos/tokens/skin'
 
@@ -43,9 +42,6 @@ export function renderView({ name, composite, skin, tokens }: RenderViewOptions)
   if (name) return appViewFor(name, doc)
   throw new Error('renderView: pass `name` (a component) or `composite` (a scene).')
 }
-
-/** La couche utilitaires compilée du cœur, telle qu'inlinée dans une vue. */
-export const viewCss: string = VIEW_CSS
 
 export { APP_VIEW_MIME, appViewUri, compositeViewUri }
 export type { TokenDoc } from '@nomos/mcp/app-view'

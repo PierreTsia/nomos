@@ -42,8 +42,9 @@ duplicating Nomos and drifting (ADR 0022 dec. 4).
 - One pipeline, two renderings: the MCP server and an external consumer assemble
   the same document from the same source (ADR 0022 dec. 4). The heart gains no
   product vocabulary and no app state.
-- No runtime dependency is added: the builder bundles its own React server
-  renderer and the committed artefacts, like the MCP bin.
+- No runtime dependency is added: the builder keeps `react`/`react-dom` external
+  (the consumer already has them, as for the heart) and inlines the committed
+  artefacts.
 
 ## References
 

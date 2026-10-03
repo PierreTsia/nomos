@@ -16,8 +16,6 @@ export interface TokensDocument {
   $extensions?: Record<string, Record<string, unknown>>
   primitive?: Record<string, unknown>
   semantic?: Record<string, unknown>
-  /** Un document DTCG reste ouvert : un builder générique peut le lire comme un record. */
-  [key: string]: unknown
 }
 
 export interface TokensResource {
