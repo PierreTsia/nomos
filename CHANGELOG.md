@@ -1,5 +1,38 @@
 # @nomosui/react
 
+## 0.9.0
+
+### Minor Changes
+
+- 172beb7: Views now speak the standard **MCP Apps** dialect (JSON-RPC 2.0 over `postMessage`,
+  ADR 0033): the `ui/initialize` handshake, the tool result pushed as
+  `ui/notifications/tool-result`, and interactions sent as a `ui/message`.
+  
+  **Migration note** — the in-house `ui://` message literals are gone:
+  
+  - `set-view` becomes the `ui/initialize` host context (`hostContext.theme`,
+    `hostContext.density`);
+  - `set-data` becomes `ui/notifications/tool-input` / `ui/notifications/tool-result`;
+  - `{ source: 'nomos', type: 'intent', action, detail }` becomes a `ui/message` request
+    whose text is `{"action","detail"}`.
+  
+  A host that does not speak MCP Apps still renders the pre-rendered fallback.
+  `reference-host.ts` migrated to the standard dialect.
+- 172beb7: The package exposes a **view entry point** and the **compiled utilities** (ADR 0034):
+  
+  - `@nomosui/react/view` — `renderView({ name | composite, skin?, tokens? })` returns the
+    self-sufficient `text/html;profile=mcp-app` document, plus `appViewUri`,
+    `compositeViewUri` and `APP_VIEW_MIME`;
+  - `@nomosui/react/view.css` — the compiled utility CSS, so no runtime Tailwind is needed.
+  
+  The builder is pure (no filesystem) and inlines the core default tokens: it runs on a
+  server and on edge. `buildAppView` / `appViewFor` / `compositeViewFor` keep their internal
+  path; the public entry is the stable one.
+  
+  **Migration note** — `TokensDocument` is now a closed document (no catch-all index
+  signature) and `resolveSkin` takes and returns it. A caller that passed a bare
+  `Record<string, unknown>` as a token document must type it as `TokensDocument`.
+
 ## 0.8.2
 
 ### Patch Changes
