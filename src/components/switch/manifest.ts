@@ -5,8 +5,8 @@ export const switchManifest: ComponentManifest = {
   name: 'switch',
   title: 'Switch',
   summary:
-    'Un interrupteur qui bascule un état tout de suite, contrôlé par props ' +
-    "(`checked` + `onCheckedChange`). Le cœur ne possède ni l'état ni l'action.",
+    'A switch that toggles a state right away, controlled by props ' +
+    "(`checked` + `onCheckedChange`). The core owns neither the state nor the action.",
   level: 'primitive',
   example: { checked: true, onCheckedChange: () => {} },
   variants: [],
@@ -16,35 +16,35 @@ export const switchManifest: ComponentManifest = {
       type: 'boolean',
       required: false,
       check: 'rendered',
-      description: 'Activé ou non ; la valeur est chez l’appelant.',
+      description: 'On or off; the value lives with the caller.',
     },
     {
       name: 'onCheckedChange',
       type: '(checked: boolean) => void',
       required: false,
       check: 'accepted',
-      description: 'Le rappel de bascule.',
+      description: 'The toggle callback.',
     },
     {
       name: 'disabled',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'Désactive l’interrupteur.',
+      description: 'Disables the switch.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'activer/désactiver une option qui prend effet immédiatement',
+      when: 'turning on/off an option that takes effect immediately',
       use: '<Switch checked={v} onCheckedChange={set} aria-label={…} />',
-      avoid: 'un `Switch` pour un choix qui exige un bouton « Enregistrer » : préférer une `Checkbox`',
+      avoid: 'a `Switch` for a choice that needs a “Save” button: prefer a `Checkbox`',
     },
   ],
 }

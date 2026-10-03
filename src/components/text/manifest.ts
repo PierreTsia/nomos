@@ -8,18 +8,18 @@ export const textManifest: ComponentManifest = {
   name: 'text',
   title: 'Text',
   summary:
-    "Le texte courant. La taille (`size`) vient de l'échelle sémantique ; `as` choisit " +
-    "l'élément rendu, un paragraphe ou un `span` inline.",
+    "Body copy. The size (`size`) comes from the semantic scale; `as` chooses " +
+    "the rendered element, a paragraph or an inline `span`.",
   level: 'primitive',
-  example: { size: 'body', children: 'Un paragraphe de texte courant.' },
+  example: { size: 'body', children: 'A paragraph of body copy.' },
   variants: [
     {
       name: 'size',
       values: ['lead', 'body', 'caption', 'micro'],
       default: 'body',
       description:
-        "La taille sémantique : `lead` pour une accroche, `body` pour le texte courant, " +
-        '`caption` et `micro` pour les mentions secondaires.',
+        "The semantic size: `lead` for a standfirst, `body` for body copy, " +
+        '`caption` and `micro` for secondary mentions.',
     },
   ],
   props: [
@@ -28,43 +28,43 @@ export const textManifest: ComponentManifest = {
       type: "'p' | 'span'",
       required: false,
       check: 'rendered',
-      description: "L'élément rendu : un paragraphe par défaut, un `span` pour un texte inline.",
+      description: "The rendered element: a paragraph by default, a `span` for inline text.",
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles de la variante.",
+      description: "The caller's classes, merged after the variant's.",
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: 'Le contenu textuel, fourni par l’app.',
+      description: 'The text content, provided by the app.',
     },
   ],
   usages: [
     {
-      when: 'un paragraphe de texte courant',
+      when: 'a paragraph of body copy',
       use: 'size="body"',
-      avoid: 'un `size` plus grand pour « faire ressortir » : la hiérarchie passe par `Heading`',
+      avoid: 'a larger `size` to "make it stand out": hierarchy goes through `Heading`',
     },
     {
-      when: 'une accroche ou un chapeau au-dessus du corps',
+      when: 'a standfirst or a lede above the body',
       use: 'size="lead"',
-      avoid: 'un `lead` pour tout le corps : il perd son rôle d’accroche',
+      avoid: 'a `lead` for the whole body: it loses its standfirst role',
     },
     {
-      when: 'une mention secondaire (légende, aide, horodatage)',
+      when: 'a secondary mention (caption, help, timestamp)',
       use: 'size="caption"',
-      avoid: 'un `caption` pour du contenu essentiel : il est fait pour être discret',
+      avoid: 'a `caption` for essential content: it is meant to be discreet',
     },
     {
-      when: 'un texte inline dans une phrase',
+      when: 'inline text within a sentence',
       use: 'as="span"',
-      avoid: 'un `span` pour un paragraphe entier : le navigateur perd la structure',
+      avoid: 'a `span` for a whole paragraph: the browser loses the structure',
     },
   ],
 }

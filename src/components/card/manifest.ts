@@ -13,8 +13,8 @@ export const cardManifest: ComponentManifest = {
   name: 'card',
   title: 'Card',
   summary:
-    'Une surface qui regroupe un contenu apparenté : un en-tête (titre, description), un ' +
-    'corps et un pied. Livrée en parts importables séparément, sans libellé propre au cœur.',
+    'A surface that groups related content: a header (title, description), a ' +
+    'body and a footer. Shipped as parts importable separately, with no label of its own in the core.',
   level: 'primitive',
   example: {
     className: 'max-w-sm',
@@ -24,10 +24,10 @@ export const cardManifest: ComponentManifest = {
       createElement(
         CardHeader,
         null,
-        createElement(CardTitle, null, 'Titre'),
-        createElement(CardDescription, null, 'Une description courte.'),
+        createElement(CardTitle, null, 'Title'),
+        createElement(CardDescription, null, 'A short description.'),
       ),
-      createElement(CardContent, null, 'Le contenu de la carte.'),
+      createElement(CardContent, null, 'The content of the card.'),
     ),
   },
   variants: [],
@@ -37,26 +37,26 @@ export const cardManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core ones.",
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: "Les parts de la carte : un en-tête, un corps, un pied.",
+      description: "The card parts: a header, a body, a footer.",
     },
   ],
   usages: [
     {
-      when: 'regrouper un titre, un corps et un pied dans une surface',
+      when: 'group a title, a body and a footer in a surface',
       use: '<Card><CardHeader><CardTitle>…</CardTitle></CardHeader><CardContent>…</CardContent></Card>',
-      avoid: 'un `<div>` stylé au coup par coup : on perd les tokens de bordure et de fond',
+      avoid: 'a one-off styled `<div>`: you lose the border and background tokens',
     },
     {
-      when: 'des cartes de résumé côte à côte dans une grille',
-      use: 'plusieurs `Card` de même niveau',
-      avoid: 'imbriquer des `Card` profondément : une carte n’est pas un layout',
+      when: 'summary cards side by side in a grid',
+      use: 'several `Card`s at the same level',
+      avoid: 'nest `Card`s deeply: a card is not a layout',
     },
   ],
 }

@@ -8,9 +8,9 @@ export const codeManifest: ComponentManifest = {
   name: 'code',
   title: 'Code',
   summary:
-    'Un extrait de code inline : une surface monospace discrète, posée dans une phrase. ' +
-    'Le fond inset, la bordure et le rayon viennent des tokens ; la coloration syntaxique ' +
-    "reste à l'app.",
+    'An inline code snippet: a discreet monospace surface, placed within a sentence. ' +
+    'The inset background, border and radius come from the tokens; syntax highlighting ' +
+    "is left to the app.",
   level: 'primitive',
   example: { children: 'npm install @nomosui/react' },
   variants: [],
@@ -20,26 +20,26 @@ export const codeManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: "Le texte de l'extrait, injecté par l'appelant.",
+      description: "The snippet text, injected by the caller.",
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'citer un identifiant, une commande ou un nom de fichier dans une phrase',
+      when: 'citing an identifier, a command or a file name within a sentence',
       use: 'Code',
-      avoid: 'un `CodeBlock` pour un mot : le bloc casse la ligne de texte',
+      avoid: 'a `CodeBlock` for a word: the block breaks the line of text',
     },
     {
-      when: "poser sa propre coloration syntaxique",
-      use: 'children avec des nœuds colorés',
-      avoid: 'attendre la coloration du cœur : elle est hors périmètre',
+      when: "applying your own syntax highlighting",
+      use: 'children with highlighted nodes',
+      avoid: 'expecting highlighting from the core: it is out of scope',
     },
   ],
 }

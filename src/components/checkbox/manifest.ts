@@ -5,8 +5,8 @@ export const checkboxManifest: ComponentManifest = {
   name: 'checkbox',
   title: 'Checkbox',
   summary:
-    "Une case à cocher, contrôlée par props (`checked` + `onCheckedChange`). Le cœur ne " +
-    "possède ni l'état ni la validation ; l'a11y vient de Radix.",
+    "A checkbox, controlled by props (`checked` + `onCheckedChange`). The core owns " +
+    "neither the state nor the validation; a11y comes from Radix.",
   level: 'primitive',
   example: { checked: true, onCheckedChange: () => {} },
   variants: [],
@@ -16,40 +16,40 @@ export const checkboxManifest: ComponentManifest = {
       type: 'boolean',
       required: false,
       check: 'rendered',
-      description: 'Cochée ou non ; la valeur est chez l’appelant.',
+      description: 'Checked or not; the value lives in the caller.',
     },
     {
       name: 'onCheckedChange',
       type: '(checked: boolean) => void',
       required: false,
       check: 'accepted',
-      description: 'Le rappel de bascule.',
+      description: 'The toggle callback.',
     },
     {
       name: 'disabled',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'Désactive la case.',
+      description: 'Disables the checkbox.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core ones.",
     },
   ],
   usages: [
     {
-      when: 'cocher une option indépendante',
+      when: 'check an independent option',
       use: '<Checkbox checked={v} onCheckedChange={set} />',
-      avoid: 'attendre un état interne : la valeur reste dans l’app',
+      avoid: 'expect internal state: the value stays in the app',
     },
     {
-      when: 'nommer la case',
-      use: 'un `Label htmlFor` ou un `aria-label`',
-      avoid: 'une case sans libellé : elle devient muette pour un lecteur d’écran',
+      when: 'name the checkbox',
+      use: 'a `Label htmlFor` or an `aria-label`',
+      avoid: 'a checkbox without a label: it becomes mute for a screen reader',
     },
   ],
 }

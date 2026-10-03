@@ -8,8 +8,8 @@ export const meterManifest: ComponentManifest = {
   name: 'meter',
   title: 'Meter',
   summary:
-    'Une barre qui situe une valeur sur une échelle, avec la marque du seuil. Se rend ' +
-    "seule, hors de toute table : une carte de santé l'utilise au même titre qu'une cellule.",
+    'A bar that positions a value on a scale, with the threshold mark. Renders on its own, ' +
+    "outside any table: a health card uses it just like a cell.",
   level: 'primitive',
   example: { label: 'spec', value: 2, max: 3, threshold: 2 },
   variants: [],
@@ -19,35 +19,35 @@ export const meterManifest: ComponentManifest = {
       type: 'number',
       required: true,
       check: 'rendered',
-      description: "La valeur mesurée, bornée à l'échelle : c'est elle qui remplit la barre.",
+      description: "The measured value, clamped to the scale: it fills the bar.",
     },
     {
       name: 'max',
       type: 'number',
       required: true,
       check: 'rendered',
-      description: "Le haut de l'échelle : 3 pour un score, 1 pour un Noul.",
+      description: "The top of the scale: 3 for a score, 1 for a Noul.",
     },
     {
       name: 'label',
       type: 'string',
       required: true,
       check: 'rendered',
-      description: "Le nom de ce qui est mesuré, à gauche de la barre.",
+      description: "The name of what is measured, to the left of the bar.",
     },
     {
       name: 'threshold',
       type: 'number | null',
       required: false,
       check: 'rendered',
-      description: "Le seuil comparé, marqué sur la barre ; absent, la barre n'a pas de marque.",
+      description: "The compared threshold, marked on the bar; absent, the bar has no mark.",
     },
     {
       name: 'confidence',
       type: 'number | null',
       required: false,
       check: 'rendered',
-      description: "La confiance attachée à la valeur, affichée en `c0.00` à droite.",
+      description: "The confidence attached to the value, displayed as `c0.00` on the right.",
     },
     {
       name: 'thresholdLabel',
@@ -55,31 +55,31 @@ export const meterManifest: ComponentManifest = {
       required: false,
       check: 'rendered',
       description:
-        "Le texte du seuil, injecté par l'appelant : le cœur n'a pas d'i18n (ADR 0010).",
+        "The threshold text, injected by the caller: the core has no i18n (ADR 0010).",
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du composant.",
+      description: "The caller's classes, merged after those of the component.",
     },
   ],
   usages: [
     {
-      when: "une carte de santé montre l'avancement d'une mesure",
+      when: "a health card shows a measurement's progress",
       use: '<Meter label="sessions" value={12} max={20} />',
-      avoid: 'la barre compacte, illisible hors d’une cellule dense',
+      avoid: 'the compact bar, unreadable outside a dense cell',
     },
     {
-      when: 'une cellule de table dense porte deux mesures côte à côte',
+      when: 'a dense table cell carries two measurements side by side',
       use: '<CompactMeter label="spec" value={2} max={3} threshold={2} />',
-      avoid: 'la barre large : elle ne tient pas dans une colonne',
+      avoid: "the wide bar: it doesn't fit in a column",
     },
     {
-      when: 'un seuil est marqué sur la barre',
-      use: 'thresholdLabel={t.meter.threshold} (le texte vient de l’app)',
-      avoid: 'un libellé en dur dans le cœur : il serait monolingue et lié à un produit',
+      when: 'a threshold is marked on the bar',
+      use: 'thresholdLabel={t.meter.threshold} (the text comes from the app)',
+      avoid: 'a hardcoded label in the core: it would be monolingual and tied to a product',
     },
   ],
 }

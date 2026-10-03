@@ -16,8 +16,8 @@ export const accordionManifest: ComponentManifest = {
   name: 'accordion',
   title: 'Accordion',
   summary:
-    'Une pile de sections repliables, ouvertes une à une (ou plusieurs). Livré en parts ' +
-    'importables séparément ; les libellés et le contenu viennent de l’app.',
+    'A stack of collapsible sections, opened one at a time (or several). Shipped as parts ' +
+    'importable separately; labels and content come from the app.',
   level: 'primitive',
   example: {
     type: 'single',
@@ -29,13 +29,13 @@ export const accordionManifest: ComponentManifest = {
         AccordionItem,
         { value: 'a' },
         createElement(AccordionTrigger, null, 'Section A'),
-        createElement(AccordionContent, null, 'Le contenu de la section A.'),
+        createElement(AccordionContent, null, 'The content of section A.'),
       ),
       createElement(
         AccordionItem,
         { value: 'b' },
         createElement(AccordionTrigger, null, 'Section B'),
-        createElement(AccordionContent, null, 'Le contenu de la section B.'),
+        createElement(AccordionContent, null, 'The content of section B.'),
       ),
     ),
   },
@@ -45,7 +45,7 @@ export const accordionManifest: ComponentManifest = {
       values: ['single', 'multiple'],
       default: 'single',
       description:
-        'Combien de sections peuvent être ouvertes — `single` pour une à la fois, `multiple` pour plusieurs.',
+        'How many sections can be open — `single` for one at a time, `multiple` for several.',
     },
   ],
   props: [
@@ -54,47 +54,47 @@ export const accordionManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'accepted',
-      description: 'Les sections : des `AccordionItem` avec leur déclencheur et leur contenu.',
+      description: 'The sections: `AccordionItem`s with their trigger and content.',
     },
     {
       name: 'defaultValue',
       type: 'string | string[]',
       required: false,
       check: 'accepted',
-      description: 'La ou les sections ouvertes au départ, quand l’app ne contrôle pas l’état.',
+      description: 'The section(s) open initially, when the app does not control the state.',
     },
     {
       name: 'value',
       type: 'string | string[]',
       required: false,
       check: 'accepted',
-      description: 'La ou les sections ouvertes, contrôlées par l’app.',
+      description: 'The section(s) open, controlled by the app.',
     },
     {
       name: 'onValueChange',
       type: '(value: string | string[]) => void',
       required: false,
       check: 'accepted',
-      description: 'Rappelé quand l’utilisateur ouvre ou ferme une section.',
+      description: 'Called when the user opens or closes a section.',
     },
     {
       name: 'collapsible',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'En `type="single"`, permet de refermer la section ouverte.',
+      description: 'In `type="single"`, allows closing the open section.',
     },
   ],
   usages: [
     {
-      when: 'des sections repliables dont une seule est ouverte à la fois',
+      when: 'collapsible sections where only one is open at a time',
       use: '<Accordion type="single"><AccordionItem value="…">…</AccordionItem></Accordion>',
-      avoid: 'un `Accordion` pour un seul repli : c’est un `Collapsible`',
+      avoid: 'an `Accordion` for a single fold: that is a `Collapsible`',
     },
     {
-      when: 'comparer plusieurs sections ouvertes',
+      when: 'compare several open sections',
       use: 'type="multiple"',
-      avoid: 'ouvrir tout par défaut : l’accordéon sert à réduire la hauteur',
+      avoid: 'open everything by default: the accordion exists to reduce height',
     },
   ],
 }

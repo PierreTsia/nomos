@@ -5,10 +5,10 @@ export const searchFieldManifest: ComponentManifest = {
   name: 'search-field',
   title: 'SearchField',
   summary:
-    "Un champ de recherche avec icône et bouton d'effacement, contrôlé par props " +
-    "(`value` + `onChange`). Le libellé « effacer » est injecté : le cœur n'a pas d'i18n.",
+    "A search field with an icon and a clear button, controlled by props " +
+    "(`value` + `onChange`). The “clear” label is injected: the core has no i18n.",
   level: 'primitive',
-  example: { value: '', onChange: () => {}, clearLabel: 'Effacer', placeholder: 'rechercher' },
+  example: { value: '', onChange: () => {}, clearLabel: 'Clear', placeholder: 'search' },
   variants: [],
   props: [
     {
@@ -16,47 +16,47 @@ export const searchFieldManifest: ComponentManifest = {
       type: 'string',
       required: true,
       check: 'accepted',
-      description: 'Le terme courant, contrôlé par l’appelant.',
+      description: 'The current term, controlled by the caller.',
     },
     {
       name: 'onChange',
       type: '(value: string) => void',
       required: true,
       check: 'accepted',
-      description: 'Le rappel de saisie **et** d’effacement (le bouton renvoie la chaîne vide).',
+      description: 'The callback for typing **and** clearing (the button returns the empty string).',
     },
     {
       name: 'clearLabel',
       type: 'string',
       required: true,
       check: 'accepted',
-      description: "Le libellé accessible du bouton d'effacement.",
+      description: "The accessible label of the clear button.",
     },
     {
       name: 'placeholder',
       type: 'string',
       required: false,
       check: 'attribute',
-      description: "Le texte d'invite, affiché tant que le champ est vide.",
+      description: 'The prompt text, shown while the field is empty.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'chercher dans une liste ou une barre d’outils',
+      when: 'searching in a list or a toolbar',
       use: "<SearchField value={v} onChange={set} clearLabel={t('clear')} />",
-      avoid: 'un `Input type="search"` nu quand il faut l’icône et l’effacement',
+      avoid: 'a bare `Input type="search"` when the icon and clearing are needed',
     },
     {
-      when: 'effacer la recherche',
-      use: 'le bouton intégré, qui rappelle `onChange("")`',
-      avoid: 'gérer l’effacement dans l’app quand le champ est déjà rempli',
+      when: 'clearing the search',
+      use: 'the built-in button, which calls `onChange("")`',
+      avoid: 'handling clearing in the app when the field already does it',
     },
   ],
 }

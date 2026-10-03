@@ -8,10 +8,10 @@ export const inputManifest: ComponentManifest = {
   name: 'input',
   title: 'Input',
   summary:
-    "Un champ de saisie d'une ligne. Il porte le style des tokens et transmet tout " +
-    "attribut HTML d'`<input>` ; la valeur et le changement restent à l'appelant.",
+    "A single-line input. It carries the token styling and forwards any " +
+    "HTML attribute of an `<input>`; the value and change handling stay with the caller.",
   level: 'primitive',
-  example: { placeholder: 'rechercher' },
+  example: { placeholder: 'search' },
   variants: [],
   props: [
     {
@@ -19,33 +19,33 @@ export const inputManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
     {
       name: 'type',
       type: 'string',
       required: false,
       check: 'attribute',
-      description: "Le type HTML du champ (`text`, `search`, `password`…).",
+      description: "The field's HTML type (`text`, `search`, `password`…).",
     },
     {
       name: 'placeholder',
       type: 'string',
       required: false,
       check: 'attribute',
-      description: "Le texte d'invite, affiché tant que le champ est vide.",
+      description: "The placeholder text, shown while the field is empty.",
     },
   ],
   usages: [
     {
-      when: 'un champ de recherche dans une barre d’outils',
+      when: 'a search field in a toolbar',
       use: '<Input type="search" placeholder={…} />',
-      avoid: 'un placeholder à la place d’un libellé durable, pour un champ de formulaire',
+      avoid: 'a placeholder instead of a lasting label, for a form field',
     },
     {
-      when: 'un champ contrôlé',
-      use: '<Input value={v} onChange={…} /> (l’état reste dans l’app)',
-      avoid: 'attendre un état interne du cœur : il n’en a pas',
+      when: 'a controlled field',
+      use: '<Input value={v} onChange={…} /> (state stays in the app)',
+      avoid: 'expecting internal state from the core: it has none',
     },
   ],
 }

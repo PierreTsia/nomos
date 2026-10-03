@@ -15,8 +15,8 @@ export const tabsManifest: ComponentManifest = {
   name: 'tabs',
   title: 'Tabs',
   summary:
-    'Une barre de déclencheurs et les panneaux correspondants, un seul visible à la fois. ' +
-    'Livré en parts importables séparément ; les libellés et le contenu viennent de l’app.',
+    'A bar of triggers and their matching panels, only one visible at a time. ' +
+    'Shipped as separately importable parts; labels and content come from the app.',
   level: 'primitive',
   example: {
     defaultValue: 'a',
@@ -26,11 +26,11 @@ export const tabsManifest: ComponentManifest = {
       createElement(
         TabsList,
         null,
-        createElement(TabsTrigger, { value: 'a' }, 'Onglet A'),
-        createElement(TabsTrigger, { value: 'b' }, 'Onglet B'),
+        createElement(TabsTrigger, { value: 'a' }, 'Tab A'),
+        createElement(TabsTrigger, { value: 'b' }, 'Tab B'),
       ),
-      createElement(TabsContent, { value: 'a' }, 'Le panneau A.'),
-      createElement(TabsContent, { value: 'b' }, 'Le panneau B.'),
+      createElement(TabsContent, { value: 'a' }, 'Panel A.'),
+      createElement(TabsContent, { value: 'b' }, 'Panel B.'),
     ),
   },
   variants: [],
@@ -40,42 +40,42 @@ export const tabsManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'accepted',
-      description: 'Les parts : une barre (`TabsList`), des déclencheurs, des panneaux.',
+      description: 'The parts: a bar (`TabsList`), triggers, panels.',
     },
     {
       name: 'defaultValue',
       type: 'string',
       required: true,
       check: 'accepted',
-      description: 'L’onglet actif au départ, quand l’app ne contrôle pas l’état.',
+      description: 'The tab active at first, when the app does not control state.',
     },
     {
       name: 'value',
       type: 'string',
       required: false,
       check: 'accepted',
-      description: 'L’onglet actif, contrôlé par l’app.',
+      description: 'The active tab, controlled by the app.',
     },
     {
       name: 'onValueChange',
       type: '(value: string) => void',
       required: false,
       check: 'accepted',
-      description: 'Rappelé quand l’utilisateur change d’onglet.',
+      description: 'Called when the user switches tabs.',
     },
     {
       name: 'orientation',
       type: "'horizontal' | 'vertical'",
       required: false,
       check: 'accepted',
-      description: 'L’axe de la barre, qui décide des flèches du clavier. Défaut horizontal.',
+      description: 'The bar axis, which decides the keyboard arrows. Horizontal by default.',
     },
   ],
   usages: [
     {
-      when: 'basculer entre des vues sœurs sans quitter la page',
+      when: 'switching between sibling views without leaving the page',
       use: '<Tabs defaultValue="…"><TabsList><TabsTrigger value="…">…</TabsTrigger></TabsList><TabsContent value="…">…</TabsContent></Tabs>',
-      avoid: 'des onglets pour une navigation : ce sont des vues sœurs, pas des routes',
+      avoid: 'tabs for navigation: they are sibling views, not routes',
     },
   ],
 }

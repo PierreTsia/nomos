@@ -8,8 +8,8 @@ export const footerManifest: ComponentManifest = {
   name: 'footer',
   title: 'Footer',
   summary:
-    'Le pied de page : une marque, une rangée de liens et une ligne légale. Des ' +
-    'emplacements injectés, sans routing ni libellé propre au cœur (ADR 0002).',
+    'The footer: a brand, a row of links and a legal line. Injected ' +
+    'slots, with no routing or core-owned text (ADR 0002).',
   level: 'bloc',
   example: {
     brand: 'Nomos',
@@ -23,40 +23,40 @@ export const footerManifest: ComponentManifest = {
       type: 'ReactNode',
       required: false,
       check: 'accepted',
-      description: 'Le wordmark ou le logo, fourni par l’appelant.',
+      description: 'The wordmark or logo, provided by the caller.',
     },
     {
       name: 'links',
       type: 'ReactNode',
       required: false,
       check: 'accepted',
-      description: 'La rangée de liens, fournie par l’appelant (des `Link`, par exemple).',
+      description: 'The row of links, provided by the caller (e.g. `Link`s).',
     },
     {
       name: 'legal',
       type: 'ReactNode',
       required: false,
       check: 'accepted',
-      description: 'La ligne légale (copyright, mentions), fournie par l’appelant.',
+      description: 'The legal line (copyright, notices), provided by the caller.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'poser un pied de page sous le contenu d’une vue',
+      when: 'place a footer below a view’s content',
       use: '<Footer brand={<Wordmark/>} links={<><Link…/><Link…/></>} legal={t(\'legal\')} />',
-      avoid: 'un `<footer>` stylé au coup par coup : on perd les tokens de bordure et de fond',
+      avoid: 'an ad-hoc styled `<footer>`: the border and background tokens are lost',
     },
     {
-      when: 'un pied minimal, sans ligne légale',
-      use: 'omettre `legal` : le bloc se réduit à la marque et aux liens',
-      avoid: 'un emplacement vide rendu pour rien — un slot absent ne rend rien',
+      when: 'a minimal footer, without the legal line',
+      use: 'omit `legal`: the block reduces to the brand and the links',
+      avoid: 'an empty slot rendered for nothing — an absent slot renders nothing',
     },
   ],
 }

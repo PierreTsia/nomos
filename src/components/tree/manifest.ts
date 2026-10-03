@@ -7,11 +7,11 @@ import type { ComponentManifest } from '@nomos/catalogue/contract'
  */
 export const treeManifest: ComponentManifest = {
   name: 'tree',
-  title: 'Arbre',
+  title: 'Tree',
   summary:
-    "Une hiérarchie de nœuds, l'ouverture et la sélection **portées par l'app** (props " +
-    "contrôlées + rappels). Deux exports : `Tree` navigue, `SelectionTree` coche plusieurs " +
-    'nœuds. Le focus clavier est interne, la donnée ne l’est jamais.',
+    "A hierarchy of nodes, with expansion and selection **carried by the app** (controlled " +
+    "props + callbacks). Two exports: `Tree` navigates, `SelectionTree` checks several " +
+    'nodes. Keyboard focus is internal, the data never is.',
   level: 'bloc',
   example: {
     nodes: [
@@ -27,7 +27,7 @@ export const treeManifest: ComponentManifest = {
     ],
     expandedIds: ['src'],
     selectedId: 'src/lib',
-    ariaLabel: 'Arborescence de démonstration',
+    ariaLabel: 'Demonstration tree',
   },
   variants: [],
   props: [
@@ -36,66 +36,66 @@ export const treeManifest: ComponentManifest = {
       type: 'TreeNode[]',
       required: true,
       check: 'accepted',
-      description: "La hiérarchie : chaque nœud a un `id`, un `label` et d'éventuels `children`.",
+      description: "The hierarchy: each node has an `id`, a `label` and optional `children`.",
     },
     {
       name: 'expandedIds',
       type: 'string[]',
       required: false,
       check: 'accepted',
-      description: "Les ids des nœuds ouverts (contrôlé) : l'app porte l'expansion, pas l'arbre.",
+      description: "The ids of open nodes (controlled): the app carries expansion, not the tree.",
     },
     {
       name: 'selectedId',
       type: 'string | null',
       required: false,
       check: 'rendered',
-      description: "Le nœud sélectionné de `Tree` (contrôlé, sélection simple).",
+      description: "The selected node of `Tree` (controlled, single selection).",
     },
     {
       name: 'onToggle',
       type: '(id: string) => void',
       required: false,
       check: 'accepted',
-      description: "Appelé pour ouvrir/fermer un nœud (flèche droite/gauche, chevron).",
+      description: "Called to open/close a node (right/left arrow, chevron).",
     },
     {
       name: 'onSelect',
       type: '(id: string) => void',
       required: false,
       check: 'accepted',
-      description: "Appelé au clic ou à Entrée/Espace — l'app décide de la suite.",
+      description: "Called on click or Enter/Space — the app decides what happens next.",
     },
     {
       name: 'ariaLabel',
       type: 'string',
       required: false,
       check: 'rendered',
-      description: "Le nom accessible de l'arbre : le cœur n'a pas d'i18n (ADR 0015).",
+      description: "The accessible name of the tree: the core has no i18n (ADR 0015).",
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du composant.",
+      description: "The caller's classes, merged after the component's.",
     },
   ],
   usages: [
     {
-      when: 'une navigation hiérarchique (fichiers, catégories) où un nœud est actif',
+      when: 'a hierarchical navigation (files, categories) where one node is active',
       use: '<Tree nodes={nodes} expandedIds={open} onToggle={…} selectedId={active} onSelect={…} />',
-      avoid: 'laisser l’arbre posséder l’état : la donnée appartient à l’app',
+      avoid: 'letting the tree own the state: the data belongs to the app',
     },
     {
-      when: 'cocher plusieurs nœuds (filtres, périmètre)',
+      when: 'checking several nodes (filters, scope)',
       use: '<SelectionTree nodes={nodes} expandedIds={open} onToggle={…} selectedIds={checked} onSelect={…} />',
-      avoid: '<Tree>, qui ne porte qu’un nœud actif à la fois',
+      avoid: '<Tree>, which carries only one active node at a time',
     },
     {
-      when: 'le nom accessible de l’arbre',
-      use: 'ariaLabel={t.tree.label} (le texte vient de l’app)',
-      avoid: 'un aria-label en dur dans le cœur : il serait monolingue',
+      when: 'the accessible name of the tree',
+      use: 'ariaLabel={t.tree.label} (the text comes from the app)',
+      avoid: 'a hardcoded aria-label in the core: it would be monolingual',
     },
   ],
 }

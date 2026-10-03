@@ -5,8 +5,8 @@ export const separatorManifest: ComponentManifest = {
   name: 'separator',
   title: 'Separator',
   summary:
-    'Un trait de bordure qui sépare deux contenus, horizontal ou vertical. Décoratif par ' +
-    'défaut : il ne porte aucun sens pour un lecteur d’écran sauf demande explicite.',
+    'A border line that separates two pieces of content, horizontal or vertical. Decorative by ' +
+    'default: it carries no meaning for a screen reader unless explicitly requested.',
   level: 'primitive',
   example: { orientation: 'horizontal' },
   variants: [],
@@ -16,33 +16,33 @@ export const separatorManifest: ComponentManifest = {
       type: "'horizontal' | 'vertical'",
       required: false,
       check: 'rendered',
-      description: 'Le sens du trait ; horizontal par défaut.',
+      description: 'The direction of the line; horizontal by default.',
     },
     {
       name: 'decorative',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'Décoratif (vrai par défaut) : masqué aux technologies d’assistance.',
+      description: 'Decorative (true by default): hidden from assistive technologies.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'séparer deux blocs dans une carte ou une barre',
+      when: 'separating two blocks in a card or a bar',
       use: '<Separator />',
-      avoid: 'une bordure manuelle : le séparateur porte la couleur de bordure des tokens',
+      avoid: 'a manual border: the separator carries the border color from the tokens',
     },
     {
-      when: 'un trait vertical entre deux contrôles alignés',
+      when: 'a vertical line between two aligned controls',
       use: '<Separator orientation="vertical" className="h-5" />',
-      avoid: 'oublier la hauteur : un séparateur vertical n’a pas de taille propre',
+      avoid: 'forgetting the height: a vertical separator has no size of its own',
     },
   ],
 }

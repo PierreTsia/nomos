@@ -18,9 +18,9 @@ export const tableManifest: ComponentManifest = {
   name: 'table',
   title: 'Table',
   summary:
-    'Une grille dense de lignes, livrée en parts importables séparément (Table, ' +
-    'TableHeader, TableBody, TableRow, TableHead, TableCell). Aucune part ne nomme un ' +
-    "produit : les libellés et les cellules viennent de l'appelant.",
+    'A dense grid of rows, shipped as separately importable parts (Table, ' +
+    'TableHeader, TableBody, TableRow, TableHead, TableCell). No part names a ' +
+    "product: labels and cells come from the caller.",
   level: 'primitive',
   example: {
     children: createElement(
@@ -32,8 +32,8 @@ export const tableManifest: ComponentManifest = {
         createElement(
           TableRow,
           null,
-          createElement(TableHead, null, 'nom'),
-          createElement(TableHead, null, 'valeur'),
+          createElement(TableHead, null, 'name'),
+          createElement(TableHead, null, 'value'),
         ),
       ),
       createElement(
@@ -55,26 +55,26 @@ export const tableManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: "Les parts de la table : un en-tête et un corps, ou une fiche dense.",
+      description: 'The table parts: a header and a body, or a dense record.',
     },
   ],
   usages: [
     {
-      when: 'une grille dense de lignes dans un pupitre',
+      when: 'a dense grid of rows in a console',
       use: '<Table><TableHeader>…</TableHeader><TableBody>…</TableBody></Table>',
-      avoid: 'un `<table>` brut : il perd les tokens de bordure, de survol et de densité',
+      avoid: 'a raw `<table>`: it loses the border, hover and density tokens',
     },
     {
-      when: 'une fiche dense hors de toute table',
-      use: 'importer Table / TableRow / TableCell séparément',
-      avoid: 'réimplémenter une grille en `<div>` : la sémantique de table est perdue',
+      when: 'a dense record outside any table',
+      use: 'importing Table / TableRow / TableCell separately',
+      avoid: 'reimplementing a grid with `<div>`: the table semantics are lost',
     },
   ],
 }

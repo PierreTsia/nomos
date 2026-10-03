@@ -7,9 +7,9 @@ export const navbarManifest: ComponentManifest = {
   name: 'navbar',
   title: 'Navbar',
   summary:
-    "La barre supérieure d'un site : une marque, des emplacements de navigation et un " +
-    "groupe d'actions en fin. Sticky en haut, bordure basse, fond du cœur. Les slots sont " +
-    'injectés — le cœur ne porte ni routing ni mot produit (ADR 0002, 0030).',
+    "A site's top bar: a brand, navigation slots, and an actions group at the end. Sticky at " +
+    'the top, bottom border, core background. Slots are injected — the core carries neither ' +
+    'routing nor product words (ADR 0002, 0030).',
   level: 'bloc',
   example: {
     brand: 'Nomos',
@@ -23,40 +23,40 @@ export const navbarManifest: ComponentManifest = {
       type: 'ReactNode',
       required: false,
       check: 'accepted',
-      description: 'La marque : un wordmark, un logo, un badge de version.',
+      description: 'The brand: a wordmark, a logo, a version badge.',
     },
     {
       name: 'nav',
       type: 'ReactNode',
       required: false,
       check: 'accepted',
-      description: 'Les emplacements de navigation, fournis par l’appelant.',
+      description: 'The navigation slots, provided by the caller.',
     },
     {
       name: 'actions',
       type: 'ReactNode',
       required: false,
       check: 'accepted',
-      description: 'Le groupe d’actions de fin : boutons, menu, avatar.',
+      description: 'The end actions group: buttons, menu, avatar.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'poser l’en-tête d’un site : marque, navigation, actions',
+      when: 'placing a site header: brand, navigation, actions',
       use: '<Navbar brand={<Wordmark/>} nav={<AppNav/>} actions={<Button…/>} />',
-      avoid: 'un `<header>` stylé au coup par coup : on perd les tokens de bordure et de fond',
+      avoid: 'a `<header>` styled ad hoc: you lose the border and background tokens',
     },
     {
-      when: 'les liens et les libellés de navigation',
-      use: 'des slots injectés par l’app (ADR 0015)',
-      avoid: 'un `href` ou un mot produit en dur dans le cœur : le routing appartient à l’app',
+      when: 'navigation links and labels',
+      use: 'slots injected by the app (ADR 0015)',
+      avoid: 'a hardcoded `href` or product word in the core: routing belongs to the app',
     },
   ],
 }

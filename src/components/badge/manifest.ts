@@ -9,8 +9,8 @@ export const badgeManifest: ComponentManifest = {
   name: 'badge',
   title: 'Badge',
   summary:
-    "Une étiquette courte et non interactive, posée à côté d'un contenu pour le qualifier. " +
-    "Tout attribut HTML est transmis tel quel à l'élément.",
+    "A short, non-interactive label placed next to content to qualify it. " +
+    "Every HTML attribute is passed through as-is to the element.",
   level: 'primitive',
   variants: [
     {
@@ -18,7 +18,7 @@ export const badgeManifest: ComponentManifest = {
       values: ['default', 'secondary', 'destructive', 'outline'],
       default: 'default',
       description:
-        "Le ton de l'étiquette — c'est ce que l'appelant choisit selon l'usage, pas selon son goût.",
+        "The tone of the label — it is what the caller chooses according to usage, not taste.",
     },
   ],
   props: [
@@ -27,38 +27,38 @@ export const badgeManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles de la variante.",
+      description: "The caller's classes, merged after the variant ones.",
     },
     {
       name: 'title',
       type: 'string',
       required: false,
       check: 'attribute',
-      description: "L'attribut HTML transmis tel quel, ici le libellé au survol.",
+      description: "The HTML attribute passed through as-is, here the hover label.",
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: "Le texte porté par l'étiquette : court, jamais une phrase.",
+      description: "The text carried by the label: short, never a sentence.",
     },
   ],
   usages: [
     {
-      when: "un statut de production qu'on doit voir au premier coup d'œil",
+      when: "a production status that must be visible at a glance",
       use: 'variant="destructive"',
-      avoid: "variant=\"outline\", qui ne se distingue pas dans une ligne déjà dense",
+      avoid: "variant=\"outline\", which does not stand out in an already dense line",
     },
     {
-      when: 'une étiquette neutre posée à côté du contenu',
+      when: 'a neutral label placed next to the content',
       use: 'variant="secondary"',
-      avoid: "variant=\"default\", réservé au ton principal de la vue",
+      avoid: "variant=\"default\", reserved for the main tone of the view",
     },
     {
-      when: "une information à qualifier sans crier (compte, catégorie)",
+      when: "information to qualify without shouting (count, category)",
       use: 'variant="outline"',
-      avoid: "variant=\"destructive\" pour qualifier sans urgence : le ton doit dire la gravité réelle",
+      avoid: "variant=\"destructive\" to qualify without urgency: the tone must state the real severity",
     },
   ],
 }

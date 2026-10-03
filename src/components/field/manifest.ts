@@ -5,10 +5,10 @@ export const fieldManifest: ComponentManifest = {
   name: 'field',
   title: 'Field',
   summary:
-    "L'emplacement d'un champ : libellé, contrôle (fourni par l'app), puis aide ou message " +
-    "d'erreur. Aucun moteur : l'app possède l'état, la validation et les textes.",
+    "A field's slot: label, control (provided by the app), then hint or error " +
+    "message. No engine: the app owns the state, validation and text.",
   level: 'primitive',
-  example: { label: 'Libellé', hint: 'Aide', children: 'champ' },
+  example: { label: 'Label', hint: 'Hint', children: 'field' },
   variants: [],
   props: [
     {
@@ -16,54 +16,54 @@ export const fieldManifest: ComponentManifest = {
       type: 'ReactNode',
       required: false,
       check: 'rendered',
-      description: "Le libellé du champ ; absent, aucun libellé n'est rendu.",
+      description: "The field label; when absent, no label is rendered.",
     },
     {
       name: 'hint',
       type: 'ReactNode',
       required: false,
       check: 'rendered',
-      description: "L'aide sous le champ, affichée quand il n'y a pas d'erreur.",
+      description: "The hint below the field, shown when there is no error.",
     },
     {
       name: 'error',
       type: 'string | null',
       required: false,
       check: 'rendered',
-      description: "Le message d'erreur, **déjà formaté** par l'app : il remplace l'aide.",
+      description: "The error message, **already formatted** by the app: it replaces the hint.",
     },
     {
       name: 'htmlFor',
       type: 'string',
       required: false,
       check: 'accepted',
-      description: "L'`id` du contrôle, transmis au libellé en attribut `for`.",
+      description: "The control's `id`, passed to the label as the `for` attribute.",
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: 'Le contrôle (Input, Select, …), fourni par l’appelant.',
+      description: 'The control (Input, Select, …), provided by the caller.',
     },
   ],
   usages: [
     {
-      when: 'poser un libellé, un contrôle et une aide',
+      when: 'lay out a label, a control and a hint',
       use: '<Field label="Adresse" hint="…"><Input … /></Field>',
-      avoid: 'attendre une validation du cœur : le message d’erreur est injecté, pas calculé',
+      avoid: 'expecting validation from the core: the error message is injected, not computed',
     },
     {
-      when: 'montrer une erreur de validation',
+      when: 'show a validation error',
       use: '<Field label="Adresse" error={message}>…</Field>',
-      avoid: 'passer la règle ou le champ fautif : le cœur ne connaît que le texte final',
+      avoid: 'passing the rule or the offending field: the core only knows the final text',
     },
   ],
 }

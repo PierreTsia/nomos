@@ -3,12 +3,12 @@ import type { ComponentManifest } from '@nomos/catalogue/contract'
 /** Le manifeste du Counter (ADR 0005). */
 export const counterManifest: ComponentManifest = {
   name: 'counter',
-  title: 'Compteur',
+  title: 'Counter',
   summary:
-    'Un nombre mis en avant, avec un suffixe et un libellé fournis par l’app. Aucun ' +
-    'formatage ni unité dans le cœur : le texte et le nombre viennent de l’appelant.',
+    'A number put forward, with a suffix and a label provided by the app. No ' +
+    'formatting or unit in the core: the text and the number come from the caller.',
   level: 'primitive',
-  example: { value: 128, suffix: 'issues', label: 'ouvertes' },
+  example: { value: 128, suffix: 'issues', label: 'open' },
   variants: [],
   props: [
     {
@@ -16,40 +16,40 @@ export const counterManifest: ComponentManifest = {
       type: 'number',
       required: true,
       check: 'rendered',
-      description: 'Le nombre mis en avant.',
+      description: 'The number put forward.',
     },
     {
       name: 'suffix',
       type: 'string',
       required: false,
       check: 'rendered',
-      description: "L'unité ou le signe qui suit le nombre, fourni par l'appelant.",
+      description: "The unit or sign that follows the number, provided by the caller.",
     },
     {
       name: 'label',
       type: 'string',
       required: false,
       check: 'rendered',
-      description: 'Le nom de ce qui est compté.',
+      description: 'The name of what is being counted.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du composant.",
+      description: "The caller's classes, merged after those of the component.",
     },
   ],
   usages: [
     {
-      when: 'un total à lire au premier coup d’œil (issues ouvertes, PR en attente)',
-      use: '<Counter value={128} suffix="issues" label="ouvertes" />',
-      avoid: 'un nombre noyé dans une phrase : le compteur est fait pour être vu seul',
+      when: 'a total to read at a glance (open issues, pending PRs)',
+      use: '<Counter value={128} suffix="issues" label="open" />',
+      avoid: 'a number buried in a sentence: the counter is meant to be seen alone',
     },
     {
-      when: 'un chiffre sans unité',
+      when: 'a figure without a unit',
       use: '<Counter value={7} />',
-      avoid: 'inventer une unité dans le cœur : elle appartient à l’app',
+      avoid: 'inventing a unit in the core: it belongs to the app',
     },
   ],
 }

@@ -19,9 +19,9 @@ export const dropdownMenuManifest: ComponentManifest = {
   name: 'dropdown-menu',
   title: 'DropdownMenu',
   summary:
-    'Un menu flottant ouvert par un déclencheur : des items simples, à cocher, radio, ou ' +
-    'un sous-menu, séparés par des traits. Livré en parts importables séparément ; l’app ' +
-    'fournit les libellés et les actions.',
+    'A floating menu opened by a trigger: simple items, checkbox, radio, or ' +
+    'a submenu, separated by separators. Shipped as parts importable separately; the app ' +
+    'provides the labels and the actions.',
   level: 'primitive',
   example: {
     defaultOpen: true,
@@ -36,11 +36,11 @@ export const dropdownMenuManifest: ComponentManifest = {
       createElement(
         DropdownMenuContent,
         { align: 'start' },
-        createElement(DropdownMenuLabel, null, 'Colonnes'),
-        createElement(DropdownMenuItem, null, 'Nom'),
-        createElement(DropdownMenuItem, null, 'Statut'),
+        createElement(DropdownMenuLabel, null, 'Columns'),
+        createElement(DropdownMenuItem, null, 'Name'),
+        createElement(DropdownMenuItem, null, 'Status'),
         createElement(DropdownMenuSeparator, null),
-        createElement(DropdownMenuItem, null, 'Réinitialiser'),
+        createElement(DropdownMenuItem, null, 'Reset'),
       ),
     ),
   },
@@ -51,21 +51,21 @@ export const dropdownMenuManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'accepted',
-      description: 'Les parts du menu : un déclencheur, une surface, des items.',
+      description: 'The parts of the menu: a trigger, a surface, items.',
     },
     {
       name: 'open',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état d’ouverture contrôlé : il vit dans l’app.',
+      description: 'The controlled open state: it lives in the app.',
     },
     {
       name: 'defaultOpen',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état d’ouverture initial, quand l’app ne le contrôle pas.',
+      description: 'The initial open state, when the app does not control it.',
     },
     {
       name: 'modal',
@@ -73,31 +73,31 @@ export const dropdownMenuManifest: ComponentManifest = {
       required: false,
       check: 'accepted',
       description:
-        'Blocage du reste de la page et piégeage du focus. Défaut `true` (menu modal).',
+        'Blocks the rest of the page and traps focus. Default `true` (modal menu).',
     },
     {
       name: 'onOpenChange',
       type: '(open: boolean) => void',
       required: false,
       check: 'accepted',
-      description: 'Rappelé quand l’utilisateur demande à ouvrir ou fermer.',
+      description: 'Called when the user asks to open or close.',
     },
   ],
   usages: [
     {
-      when: 'regrouper des actions derrière un déclencheur compact',
+      when: 'grouping actions behind a compact trigger',
       use: '<DropdownMenu><DropdownMenuTrigger>…</DropdownMenuTrigger><DropdownMenuContent>…</DropdownMenuContent></DropdownMenu>',
-      avoid: 'un `DropdownMenu` pour choisir une valeur de formulaire : c’est un `Select`',
+      avoid: 'a `DropdownMenu` for choosing a form value: that is a `Select`',
     },
     {
-      when: 'des options qui se cochent indépendamment',
-      use: 'des `DropdownMenuCheckboxItem` dans un `DropdownMenuContent`',
-      avoid: 'un `DropdownMenuItem` qui garde l’état : l’item ne le porte pas, l’app si',
+      when: 'options that check independently',
+      use: '`DropdownMenuCheckboxItem`s in a `DropdownMenuContent`',
+      avoid: 'a `DropdownMenuItem` that holds state: the item does not carry it, the app does',
     },
     {
-      when: 'un choix unique parmi quelques options',
-      use: 'un `DropdownMenuRadioGroup` de `DropdownMenuRadioItem`',
-      avoid: 'mélanger items simples et radios dans le même groupe sans les séparer',
+      when: 'a single choice among a few options',
+      use: 'a `DropdownMenuRadioGroup` of `DropdownMenuRadioItem`s',
+      avoid: 'mixing simple items and radios in the same group without separating them',
     },
   ],
 }

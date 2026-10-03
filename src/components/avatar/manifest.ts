@@ -8,11 +8,11 @@ export const avatarManifest: ComponentManifest = {
   name: 'avatar',
   title: 'Avatar',
   summary:
-    'Une image ronde avec un repli quand elle manque ou échoue. Pas de dépendance : le ' +
-    'natif `<img>` et son `onError` suffisent ; le repli et le texte alternatif viennent de l’app.',
+    'A round image with a fallback when it is missing or fails. No dependency: the ' +
+    'native `<img>` and its `onError` are enough; the fallback and the alternative text come from the app.',
   level: 'primitive',
   example: {
-    alt: 'Photo de profil',
+    alt: 'Profile photo',
     fallback: 'PT',
   },
   variants: [],
@@ -22,40 +22,40 @@ export const avatarManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'attribute',
-      description: 'L’URL de l’image ; absente, le repli s’affiche directement.',
+      description: 'The image URL; when absent, the fallback shows directly.',
     },
     {
       name: 'alt',
       type: 'string',
       required: true,
       check: 'accepted',
-      description: 'Le texte alternatif : il nomme la personne (fourni par l’app).',
+      description: 'The alternative text: it names the person (provided by the app).',
     },
     {
       name: 'fallback',
       type: 'ReactNode',
       required: true,
       check: 'rendered',
-      description: 'Le repli quand il n’y a pas d’image, ou qu’elle échoue : des initiales, une icône.',
+      description: 'The fallback when there is no image, or it fails: initials, an icon.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: 'Les classes de l’appelant, fusionnées après celles du cœur.',
+      description: 'The caller\'s classes, merged after the core ones.',
     },
   ],
   usages: [
     {
-      when: 'représenter une personne ou une entité par son image',
-      use: 'un `src` et un `fallback` (initiales) fourni par l’app',
-      avoid: 'attendre une image qui peut échouer : toujours un `fallback`',
+      when: 'represent a person or an entity by their image',
+      use: 'a `src` and a `fallback` (initials) provided by the app',
+      avoid: 'wait for an image that can fail: always a `fallback`',
     },
     {
-      when: 'une image décorative sans personne derrière',
-      use: 'une simple `<img>` de l’app',
-      avoid: 'un `Avatar` sans `alt` : il nomme une personne, il ne décore pas',
+      when: 'a decorative image with no person behind it',
+      use: 'a plain `<img>` from the app',
+      avoid: 'an `Avatar` without `alt`: it names a person, it does not decorate',
     },
   ],
 }

@@ -5,10 +5,10 @@ export const textareaManifest: ComponentManifest = {
   name: 'textarea',
   title: 'Textarea',
   summary:
-    "Un champ de saisie multiligne. Il porte le style des tokens et transmet tout attribut " +
-    "HTML de `<textarea>` ; la valeur et le changement restent à l'appelant.",
+    "A multiline input. It carries the token styles and forwards every HTML " +
+    "attribute of `<textarea>`; the value and the change stay with the caller.",
   level: 'primitive',
-  example: { placeholder: 'votre message' },
+  example: { placeholder: 'your message' },
   variants: [],
   props: [
     {
@@ -16,26 +16,26 @@ export const textareaManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'attribute',
-      description: "Le texte d'invite, affiché tant que le champ est vide.",
+      description: "The hint text, shown while the field is empty.",
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'saisir un texte de plusieurs lignes',
+      when: 'entering text over several lines',
       use: '<Textarea rows={4} placeholder={…} />',
-      avoid: 'un `<Input>` pour un texte long : le clavier et la hauteur ne s’y prêtent pas',
+      avoid: 'an `<Input>` for long text: the keyboard and the height do not suit it',
     },
     {
-      when: 'un champ contrôlé dans un `Field`',
+      when: 'a controlled field inside a `Field`',
       use: '<Field label={…}><Textarea value={v} onChange={…} /></Field>',
-      avoid: 'attendre un état interne du cœur : il n’en a pas',
+      avoid: 'expecting internal state from the core: it has none',
     },
   ],
 }

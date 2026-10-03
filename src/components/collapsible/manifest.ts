@@ -16,8 +16,8 @@ export const collapsibleManifest: ComponentManifest = {
   name: 'collapsible',
   title: 'Collapsible',
   summary:
-    'Une zone de contenu qu’on ouvre et referme derrière un déclencheur. Livré en parts ' +
-    'importables séparément ; le libellé du déclencheur et le contenu viennent de l’app.',
+    'A content area that opens and closes behind a trigger. Shipped as parts ' +
+    'importable separately; the trigger label and the content come from the app.',
   level: 'primitive',
   example: {
     defaultOpen: true,
@@ -27,9 +27,9 @@ export const collapsibleManifest: ComponentManifest = {
       createElement(
         CollapsibleTrigger,
         { className: buttonVariants({ variant: 'ghost' }) },
-        'Détails',
+        'Details',
       ),
-      createElement(CollapsibleContent, null, 'Le contenu replié.'),
+      createElement(CollapsibleContent, null, 'The collapsed content.'),
     ),
   },
   variants: [],
@@ -39,47 +39,47 @@ export const collapsibleManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'accepted',
-      description: 'Les parts du repli : un déclencheur, une zone de contenu.',
+      description: 'The parts of the collapsible: a trigger, a content area.',
     },
     {
       name: 'open',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état d’ouverture contrôlé : il vit dans l’app.',
+      description: 'The controlled open state: it lives in the app.',
     },
     {
       name: 'defaultOpen',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état d’ouverture initial, quand l’app ne le contrôle pas.',
+      description: 'The initial open state, when the app does not control it.',
     },
     {
       name: 'disabled',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'Désactive le repli : ni ouverture, ni fermeture.',
+      description: 'Disables the collapsible: neither opening nor closing.',
     },
     {
       name: 'onOpenChange',
       type: '(open: boolean) => void',
       required: false,
       check: 'accepted',
-      description: 'Rappelé quand l’utilisateur demande à ouvrir ou fermer.',
+      description: 'Called when the user asks to open or close.',
     },
   ],
   usages: [
     {
-      when: 'révéler un détail à la demande sous un déclencheur',
+      when: 'revealing a detail on demand under a trigger',
       use: '<Collapsible><CollapsibleTrigger>…</CollapsibleTrigger><CollapsibleContent>…</CollapsibleContent></Collapsible>',
-      avoid: 'un `Collapsible` pour des sections mutuellement exclusives : c’est un `Accordion`',
+      avoid: 'a `Collapsible` for mutually exclusive sections: that is an `Accordion`',
     },
     {
-      when: 'un filtre secondaire dans une barre dense',
-      use: 'un `Collapsible` discret, fermé par défaut',
-      avoid: 'ouvrir par défaut un contenu secondaire : il pousse le reste de la vue',
+      when: 'a secondary filter in a dense bar',
+      use: 'a discreet `Collapsible`, closed by default',
+      avoid: 'opening a secondary content by default: it pushes the rest of the view',
     },
   ],
 }

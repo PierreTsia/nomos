@@ -8,9 +8,9 @@ export const codeBlockManifest: ComponentManifest = {
   name: 'code-block',
   title: 'CodeBlock',
   summary:
-    'Un bloc de code monospace scrollable, avec un bouton de copie. `code` est le texte ' +
-    'brut copié, `children` le rendu (l’app peut y poser sa coloration) ; les libellés ' +
-    "sont injectés, le cœur n'a pas d'i18n.",
+    'A scrollable monospace code block, with a copy button. `code` is the raw text ' +
+    'that gets copied, `children` the rendering (the app can apply its own syntax ' +
+    "highlighting); labels are injected, the core has no i18n.",
   level: 'primitive',
   example: { code: 'npm install @nomosui/react', showCopy: true },
   variants: [],
@@ -20,28 +20,28 @@ export const codeBlockManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'accepted',
-      description: 'Le texte brut à copier, et le contenu affiché si `children` est absent.',
+      description: 'The raw text to copy, and the content displayed when `children` is absent.',
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: false,
       check: 'content',
-      description: 'Le contenu affiché ; permet à l’app de poser sa propre coloration.',
+      description: 'The content displayed; lets the app apply its own syntax highlighting.',
     },
     {
       name: 'copyLabel',
       type: 'string',
       required: false,
       check: 'accepted',
-      description: 'Le libellé du bouton de copie, injecté par l’app.',
+      description: 'The copy button label, injected by the app.',
     },
     {
       name: 'copiedLabel',
       type: 'string',
       required: false,
       check: 'accepted',
-      description: 'Le libellé transitoire affiché après la copie.',
+      description: 'The transient label shown after copying.',
     },
     {
       name: 'showCopy',
@@ -49,31 +49,31 @@ export const codeBlockManifest: ComponentManifest = {
       required: false,
       default: 'true',
       check: 'rendered',
-      description: 'Affiche le bouton de copie.',
+      description: 'Shows the copy button.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'montrer un extrait de code de plusieurs lignes',
-      use: 'CodeBlock avec `code`',
-      avoid: 'un `Code` inline : le bloc est fait pour un extrait, pas un mot',
+      when: 'showing a multi-line code snippet',
+      use: 'CodeBlock with `code`',
+      avoid: 'an inline `Code`: the block is made for a snippet, not a word',
     },
     {
-      when: 'offrir de copier l’extrait',
-      use: 'showCopy (défaut) + copyLabel/copiedLabel injectés',
-      avoid: 'un libellé produit en dur : l’app injecte le texte traduit',
+      when: 'offering to copy the snippet',
+      use: 'showCopy (default) + injected copyLabel/copiedLabel',
+      avoid: 'a hard-coded label: the app injects the translated text',
     },
     {
-      when: 'colorer la syntaxe',
-      use: 'children avec des nœuds colorés, `code` restant le texte copié',
-      avoid: 'attendre la coloration du cœur : elle est hors périmètre',
+      when: 'highlighting the syntax',
+      use: 'children with highlighted nodes, `code` remaining the copied text',
+      avoid: 'expecting highlighting from the core: it is out of scope',
     },
   ],
 }

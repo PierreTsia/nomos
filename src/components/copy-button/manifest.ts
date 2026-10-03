@@ -8,8 +8,8 @@ export const copyButtonManifest: ComponentManifest = {
   name: 'copy-button',
   title: 'CopyButton',
   summary:
-    'Un bouton qui copie un texte dans le presse-papiers et affiche un libellé ' +
-    'transitoire. Les libellés et l’icône sont injectés : le cœur n’a pas d’i18n.',
+    'A button that copies text to the clipboard and shows a transient label. ' +
+    'The labels and the icon are injected: the core has no i18n.',
   level: 'primitive',
   example: { value: 'npm install @nomosui/react' },
   variants: [
@@ -17,13 +17,13 @@ export const copyButtonManifest: ComponentManifest = {
       name: 'variant',
       values: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
       default: 'default',
-      description: "Le ton de l'action, repris du Button.",
+      description: "The action's tone, taken from the Button.",
     },
     {
       name: 'size',
       values: ['default', 'sm', 'lg', 'icon'],
       default: 'default',
-      description: 'La taille du contrôle, reprise du Button.',
+      description: 'The size of the control, taken from the Button.',
     },
   ],
   props: [
@@ -32,7 +32,7 @@ export const copyButtonManifest: ComponentManifest = {
       type: 'string',
       required: true,
       check: 'accepted',
-      description: 'Le texte à copier dans le presse-papiers.',
+      description: 'The text to copy to the clipboard.',
     },
     {
       name: 'label',
@@ -40,7 +40,7 @@ export const copyButtonManifest: ComponentManifest = {
       required: false,
       default: 'Copy',
       check: 'accepted',
-      description: 'Le libellé au repos, injecté par l’app.',
+      description: 'The resting label, injected by the app.',
     },
     {
       name: 'copiedLabel',
@@ -48,38 +48,38 @@ export const copyButtonManifest: ComponentManifest = {
       required: false,
       default: 'Copied',
       check: 'accepted',
-      description: 'Le libellé transitoire affiché après la copie.',
+      description: 'The transient label shown after copying.',
     },
     {
       name: 'icon',
       type: 'ReactNode',
       required: false,
       check: 'accepted',
-      description: 'Une icône fournie par l’appelant ; le cœur n’expose pas d’icônes.',
+      description: 'An icon provided by the caller; the core exposes no icons.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles de la variante.",
+      description: "The caller's classes, merged after those of the variant.",
     },
   ],
   usages: [
     {
-      when: 'offrir de copier une valeur courte (un identifiant, une commande)',
+      when: 'offering to copy a short value (an identifier, a command)',
       use: 'value + label',
-      avoid: 'un libellé produit en dur : l’app injecte le texte traduit',
+      avoid: 'a hard-coded label: the app injects the translated text',
     },
     {
-      when: 'signaler la copie sans changer de vue',
+      when: 'signaling the copy without changing the view',
       use: 'copiedLabel',
-      avoid: 'un toast en plus : le libellé transitoire suffit',
+      avoid: 'an extra toast: the transient label is enough',
     },
     {
-      when: 'poser une icône à côté du libellé',
+      when: 'placing an icon next to the label',
       use: 'icon',
-      avoid: 'une icône seule sans `aria-label` : le bouton devient muet',
+      avoid: 'an icon alone without `aria-label`: the button becomes mute',
     },
   ],
 }

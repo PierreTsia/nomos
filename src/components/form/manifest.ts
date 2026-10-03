@@ -5,10 +5,10 @@ export const formManifest: ComponentManifest = {
   name: 'form',
   title: 'Form',
   summary:
-    "La mise en page d'un formulaire : une grille de champs et une zone d'actions, dans un " +
-    "`<form>`. Aucune validation, aucun état, aucun texte — l'app fournit champs et actions.",
+    "A form's layout: a grid of fields and an actions area, inside a " +
+    "`<form>`. No validation, no state, no text — the app provides the fields and actions.",
   level: 'bloc',
-  example: { children: 'un champ', columns: 1, actions: 'actions' },
+  example: { children: 'a field', columns: 1, actions: 'actions' },
   variants: [],
   props: [
     {
@@ -17,40 +17,40 @@ export const formManifest: ComponentManifest = {
       required: false,
       default: '1',
       check: 'accepted',
-      description: 'Le nombre de colonnes de la grille de champs à partir du palier `md`.',
+      description: 'The number of columns of the field grid from the `md` breakpoint.',
     },
     {
       name: 'actions',
       type: 'ReactNode',
       required: false,
       check: 'accepted',
-      description: "La zone d'actions sous les champs (boutons fournis par l'app).",
+      description: "The actions area below the fields (buttons provided by the app).",
     },
     {
       name: 'onSubmit',
       type: 'FormEventHandler<HTMLFormElement>',
       required: false,
       check: 'accepted',
-      description: 'La soumission, gérée par l’appelant (le cœur ne soumet rien).',
+      description: 'The submission, handled by the caller (the core submits nothing).',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'mettre en page un formulaire contrôlé',
+      when: 'lay out a controlled form',
       use: '<Form actions={<Button type="submit">…</Button>}><Fieldset>…</Fieldset></Form>',
-      avoid: 'attendre du cœur qu’il valide, soumette ou affiche une erreur : il ne le fait pas',
+      avoid: 'expecting the core to validate, submit or show an error: it does none of that',
     },
     {
-      when: 'ranger des champs sur deux colonnes',
-      use: '<Form columns={2}> (deux colonnes à partir du palier `md`)',
-      avoid: 'une grille maison dans l’app quand le bloc la fournit déjà',
+      when: 'arrange fields in two columns',
+      use: '<Form columns={2}> (two columns from the `md` breakpoint)',
+      avoid: 'a homemade grid in the app when the block already provides one',
     },
   ],
 }

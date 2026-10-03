@@ -5,8 +5,8 @@ export const toggleManifest: ComponentManifest = {
   name: 'toggle',
   title: 'Toggle',
   summary:
-    'Un bouton à deux états : pressé ou non. Une bascule ponctuelle (mode, filtre), pas un ' +
-    'réglage qui persiste comme `Switch`. Contrôlé par props, a11y par Radix.',
+    'A two-state button: pressed or not. A momentary toggle (mode, filter), not a ' +
+    'setting that persists like `Switch`. Controlled by props, a11y by Radix.',
   level: 'primitive',
   example: { children: 'compact', defaultPressed: true },
   variants: [
@@ -14,13 +14,13 @@ export const toggleManifest: ComponentManifest = {
       name: 'variant',
       values: ['default', 'outline'],
       default: 'default',
-      description: 'Le ton du bouton — plein discret, ou bordé pour une barre d’outils.',
+      description: 'The button’s tone — a discreet solid, or outlined for a toolbar.',
     },
     {
       name: 'size',
       values: ['default', 'sm', 'lg'],
       default: 'default',
-      description: 'La taille du contrôle, du plus discret au plus large.',
+      description: 'The size of the control, from the most discreet to the widest.',
     },
   ],
   props: [
@@ -29,47 +29,47 @@ export const toggleManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: 'Le libellé ou l’icône de la bascule.',
+      description: 'The toggle’s label or icon.',
     },
     {
       name: 'pressed',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état pressé, contrôlé par l’appelant.',
+      description: 'The pressed state, controlled by the caller.',
     },
     {
       name: 'onPressedChange',
       type: '(pressed: boolean) => void',
       required: false,
       check: 'accepted',
-      description: 'Le rappel de bascule.',
+      description: 'The toggle callback.',
     },
     {
       name: 'disabled',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'Désactive la bascule.',
+      description: 'Disables the toggle.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'un mode ou un filtre qu’on active ponctuellement',
+      when: 'a mode or a filter that is enabled momentarily',
       use: '<Toggle pressed={v} onPressedChange={set}>compact</Toggle>',
-      avoid: 'un `Toggle` pour un réglage qui persiste : c’est un `Switch`',
+      avoid: 'a `Toggle` for a setting that persists: that is a `Switch`',
     },
     {
-      when: 'laisser la bascule libre de son état',
-      use: 'defaultPressed (non contrôlé)',
-      avoid: 'mélanger `pressed` et `defaultPressed` : l’un annule l’autre',
+      when: 'letting the toggle own its state',
+      use: 'defaultPressed (uncontrolled)',
+      avoid: 'mixing `pressed` and `defaultPressed`: one cancels the other',
     },
   ],
 }

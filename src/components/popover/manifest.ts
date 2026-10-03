@@ -16,8 +16,8 @@ export const popoverManifest: ComponentManifest = {
   name: 'popover',
   title: 'Popover',
   summary:
-    'Une surface flottante de contenu riche, ouverte au clic d’un déclencheur. Livrée en ' +
-    'parts importables séparément ; le contenu et ses libellés viennent de l’app.',
+    'A floating surface of rich content, opened on a trigger click. Shipped as separately ' +
+    'importable parts; the content and its labels come from the app.',
   level: 'primitive',
   example: {
     defaultOpen: true,
@@ -27,12 +27,12 @@ export const popoverManifest: ComponentManifest = {
       createElement(
         PopoverTrigger,
         { className: buttonVariants({ variant: 'outline' }) },
-        'Filtres',
+        'Filters',
       ),
       createElement(
         PopoverContent,
         { align: 'start' },
-        'Le contenu de la bulle.',
+        'The popover content.',
       ),
     ),
   },
@@ -43,21 +43,21 @@ export const popoverManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'accepted',
-      description: 'Les parts de la bulle : un déclencheur, une surface, un ancrage.',
+      description: 'The popover parts: a trigger, a surface, an anchor.',
     },
     {
       name: 'open',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état d’ouverture contrôlé : il vit dans l’app.',
+      description: 'The controlled open state: it lives in the app.',
     },
     {
       name: 'defaultOpen',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état d’ouverture initial, quand l’app ne le contrôle pas.',
+      description: 'The initial open state, when the app does not control it.',
     },
     {
       name: 'modal',
@@ -65,31 +65,31 @@ export const popoverManifest: ComponentManifest = {
       required: false,
       check: 'accepted',
       description:
-        'Blocage du reste de la page et piégeage du focus. Défaut `false` (bulle non modale).',
+        'Blocks the rest of the page and traps focus. Defaults to `false` (non-modal popover).',
     },
     {
       name: 'onOpenChange',
       type: '(open: boolean) => void',
       required: false,
       check: 'accepted',
-      description: 'Rappelé quand l’utilisateur demande à ouvrir ou fermer.',
+      description: 'Called when the user asks to open or close.',
     },
   ],
   usages: [
     {
-      when: 'un contenu riche ou interactif dans une surface flottante au clic',
+      when: 'rich or interactive content in a floating surface on click',
       use: '<Popover><PopoverTrigger>…</PopoverTrigger><PopoverContent>…</PopoverContent></Popover>',
-      avoid: 'un `Popover` pour un texte court au survol : c’est une `Tooltip`',
+      avoid: 'a `Popover` for short text on hover: that is a `Tooltip`',
     },
     {
-      when: 'ancrer la surface sur un autre élément que le déclencheur',
-      use: 'un `PopoverAnchor` autour de la cible',
-      avoid: 'déplacer la surface par des marges : l’ancrage est le rôle de l’`Anchor`',
+      when: 'anchoring the surface to an element other than the trigger',
+      use: 'a `PopoverAnchor` around the target',
+      avoid: "moving the surface with margins: anchoring is the `Anchor`'s role",
     },
     {
-      when: 'regrouper des actions plutôt qu’un contenu',
-      use: 'des `DropdownMenuItem` dans un `PopoverContent`, ou un `DropdownMenu`',
-      avoid: 'un `Popover` pour choisir une valeur de formulaire : c’est un `Select`',
+      when: 'grouping actions rather than content',
+      use: '`DropdownMenuItem`s in a `PopoverContent`, or a `DropdownMenu`',
+      avoid: 'a `Popover` to choose a form value: that is a `Select`',
     },
   ],
 }

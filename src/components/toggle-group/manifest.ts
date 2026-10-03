@@ -11,8 +11,8 @@ export const toggleGroupManifest: ComponentManifest = {
   name: 'toggle-group',
   title: 'ToggleGroup',
   summary:
-    "Un choix segmenté (`type=\"single\"`) ou multiple de bascules. Variant et taille se " +
-    "posent sur le groupe et se propagent aux items ; l'état appartient à l'appelant.",
+    "A segmented choice (`type=\"single\"`) or a multiple one of toggles. Variant and size are " +
+    "set on the group and propagate to the items; the state belongs to the caller.",
   level: 'primitive',
   example: {
     type: 'single',
@@ -21,8 +21,8 @@ export const toggleGroupManifest: ComponentManifest = {
     children: createElement(
       Fragment,
       null,
-      createElement(ToggleGroupItem, { value: 'un' }, 'un'),
-      createElement(ToggleGroupItem, { value: 'deux' }, 'deux'),
+      createElement(ToggleGroupItem, { value: 'un' }, 'one'),
+      createElement(ToggleGroupItem, { value: 'deux' }, 'two'),
     ),
   },
   variants: [
@@ -30,13 +30,13 @@ export const toggleGroupManifest: ComponentManifest = {
       name: 'variant',
       values: ['default', 'outline'],
       default: 'default',
-      description: 'Le ton des bascules du groupe.',
+      description: 'The tone of the group’s toggles.',
     },
     {
       name: 'size',
       values: ['default', 'sm', 'lg'],
       default: 'default',
-      description: 'La taille des bascules du groupe.',
+      description: 'The size of the group’s toggles.',
     },
   ],
   props: [
@@ -45,47 +45,47 @@ export const toggleGroupManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: 'Les items du groupe (`ToggleGroupItem`).',
+      description: 'The group’s items (`ToggleGroupItem`).',
     },
     {
       name: 'value',
       type: 'string',
       required: false,
       check: 'accepted',
-      description: 'La valeur sélectionnée, contrôlée par l’appelant.',
+      description: 'The selected value, controlled by the caller.',
     },
     {
       name: 'onValueChange',
       type: '(value: string) => void',
       required: false,
       check: 'accepted',
-      description: 'Le rappel de sélection.',
+      description: 'The selection callback.',
     },
     {
       name: 'disabled',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'Désactive tout le groupe.',
+      description: 'Disables the whole group.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'choisir une seule vue parmi quelques-unes (un segment)',
+      when: 'choosing a single view among a few (a segment)',
       use: '<ToggleGroup type="single" value={v} onValueChange={set}>…</ToggleGroup>',
-      avoid: 'un `Select` pour deux ou trois choix courts : un segment se lit d’un coup',
+      avoid: 'a `Select` for two or three short choices: a segment reads at a glance',
     },
     {
-      when: 'choisir plusieurs options indépendantes',
-      use: 'type="multiple" (Radix), l’état reste dans l’app',
-      avoid: 'attendre un état interne : le cœur n’en a pas',
+      when: 'choosing several independent options',
+      use: 'type="multiple" (Radix), the state stays in the app',
+      avoid: 'expecting internal state: the core has none',
     },
   ],
 }

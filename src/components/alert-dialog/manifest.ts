@@ -22,9 +22,9 @@ export const alertDialogManifest: ComponentManifest = {
   name: 'alert-dialog',
   title: 'AlertDialog',
   summary:
-    'Une modale de confirmation bloquante : un titre, une description, et deux issues — ' +
-    'agir ou annuler. Livrée en parts importables séparément ; tous les libellés viennent ' +
-    'de l’app.',
+    'A blocking confirmation modal: a title, a description, and two outcomes — ' +
+    'act or cancel. Shipped as parts importable separately; all labels come ' +
+    'from the app.',
   level: 'bloc',
   example: {
     defaultOpen: true,
@@ -34,7 +34,7 @@ export const alertDialogManifest: ComponentManifest = {
       createElement(
         AlertDialogTrigger,
         { className: buttonVariants({ variant: 'outline' }) },
-        'Supprimer',
+        'Delete',
       ),
       createElement(
         AlertDialogContent,
@@ -42,14 +42,14 @@ export const alertDialogManifest: ComponentManifest = {
         createElement(
           AlertDialogHeader,
           null,
-          createElement(AlertDialogTitle, null, 'Supprimer ?'),
-          createElement(AlertDialogDescription, null, 'Cette action est définitive.'),
+          createElement(AlertDialogTitle, null, 'Delete?'),
+          createElement(AlertDialogDescription, null, 'This action is permanent.'),
         ),
         createElement(
           AlertDialogFooter,
           null,
-          createElement(AlertDialogCancel, null, 'Annuler'),
-          createElement(AlertDialogAction, null, 'Supprimer'),
+          createElement(AlertDialogCancel, null, 'Cancel'),
+          createElement(AlertDialogAction, null, 'Delete'),
         ),
       ),
     ),
@@ -61,40 +61,40 @@ export const alertDialogManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'accepted',
-      description: 'Les parts : un déclencheur, une surface, un en-tête, un pied.',
+      description: 'The parts: a trigger, a surface, a header, a footer.',
     },
     {
       name: 'open',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état d’ouverture contrôlé : il vit dans l’app.',
+      description: 'The controlled open state: it lives in the app.',
     },
     {
       name: 'defaultOpen',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état d’ouverture initial, quand l’app ne le contrôle pas.',
+      description: 'The initial open state, when the app does not control it.',
     },
     {
       name: 'onOpenChange',
       type: '(open: boolean) => void',
       required: false,
       check: 'accepted',
-      description: 'Rappelé quand l’utilisateur demande à ouvrir ou fermer.',
+      description: 'Called when the user asks to open or close.',
     },
   ],
   usages: [
     {
-      when: 'confirmer une action destructive ou irréversible',
+      when: 'confirm a destructive or irreversible action',
       use: '<AlertDialog><AlertDialogTrigger>…</AlertDialogTrigger><AlertDialogContent>…</AlertDialogContent></AlertDialog>',
-      avoid: 'un `Dialog` pour une décision bloquante : l’`AlertDialog` ne se ferme pas au clic hors surface',
+      avoid: 'a `Dialog` for a blocking decision: the `AlertDialog` does not close on outside click',
     },
     {
-      when: 'deux issues explicites',
-      use: 'un `AlertDialogCancel` (annuler) et un `AlertDialogAction` (agir) dans le pied',
-      avoid: 'un seul bouton : une confirmation sans issue neutre piège l’utilisateur',
+      when: 'two explicit outcomes',
+      use: 'an `AlertDialogCancel` (cancel) and an `AlertDialogAction` (act) in the footer',
+      avoid: 'a single button: a confirmation with no neutral outcome traps the user',
     },
   ],
 }

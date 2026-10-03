@@ -21,14 +21,14 @@ import { VIEW_SOURCE } from '@nomos/mcp/view-contract'
  */
 describe('les vues MCP Apps', () => {
   it('pré-rend le markup d’un composant du catalogue', () => {
-    expect(renderComponentMarkup('freshness')).toContain('il y a 2 heures')
+    expect(renderComponentMarkup('freshness')).toContain('2 hours ago')
   })
 
   it('embarque tokens, markup, props et bundle, thème et densité sur sa propre racine', () => {
     const view = appViewFor('freshness')
 
     expect(view).toContain('--nomos-color-background')
-    expect(view).toContain('il y a 2 heures')
+    expect(view).toContain('2 hours ago')
     expect(view).toContain(
       'id="nomos-view" data-component="freshness" data-theme="dark" data-density="comfortable"',
     )

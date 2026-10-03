@@ -8,18 +8,18 @@ export const headingManifest: ComponentManifest = {
   name: 'heading',
   title: 'Heading',
   summary:
-    'Un titre de section. Le niveau (`level`) choisit la balise `h1`..`h6` et la taille ' +
-    "sémantique ; le texte vient de l'appelant.",
+    'A section heading. The level (`level`) chooses the `h1`..`h6` tag and the ' +
+    "semantic size; the text comes from the caller.",
   level: 'primitive',
-  example: { level: 2, children: 'Titre de section' },
+  example: { level: 2, children: 'Section heading' },
   variants: [
     {
       name: 'level',
       values: ['1', '2', '3', '4', '5', '6'],
       default: '2',
       description:
-        "Le niveau hiérarchique : il rend la balise `h1`..`h6` correspondante et lit la " +
-        "taille sémantique (display, title, lead, body, caption, micro).",
+        "The hierarchy level: it renders the corresponding `h1`..`h6` tag and reads the " +
+        "semantic size (display, title, lead, body, caption, micro).",
     },
   ],
   props: [
@@ -28,31 +28,31 @@ export const headingManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles de la variante.",
+      description: "The caller's classes, merged after the variant's.",
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: 'Le texte du titre : court, il nomme la section.',
+      description: 'The heading text: short, it names the section.',
     },
   ],
   usages: [
     {
-      when: "le titre principal d'une vue",
+      when: "a view's main heading",
       use: 'level={1}',
-      avoid: 'plusieurs `level={1}` dans une même vue : un seul titre de premier niveau',
+      avoid: 'multiple `level={1}` in the same view: only one first-level heading',
     },
     {
-      when: 'un titre de section sous le titre principal',
+      when: 'a section heading under the main heading',
       use: 'level={2}',
-      avoid: 'sauter un niveau pour grossir un titre : la hiérarchie doit rester continue',
+      avoid: 'skipping a level to make a heading bigger: the hierarchy must stay continuous',
     },
     {
-      when: 'un sous-titre de bloc ou de carte',
+      when: 'a block or card subheading',
       use: 'level={3}',
-      avoid: 'un `level` choisi pour sa taille plutôt que pour la structure du document',
+      avoid: 'a `level` chosen for its size rather than the document structure',
     },
   ],
 }

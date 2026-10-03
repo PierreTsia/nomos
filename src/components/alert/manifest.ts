@@ -6,17 +6,17 @@ export const alertManifest: ComponentManifest = {
   name: 'alert',
   title: 'Alert',
   summary:
-    'Un bandeau inline qui dit une information, un avertissement, un succès ou une erreur. ' +
-    "Le ton vient du cœur (une intention, pas une couleur) ; tout texte est fourni par l'app.",
+    'An inline banner that states an information, a warning, a success or an error. ' +
+    "The tone comes from the core (an intent, not a color); all text is provided by the app.",
   level: 'primitive',
-  example: { tone: 'info', title: 'information', children: 'un détail à lire.' },
+  example: { tone: 'info', title: 'information', children: 'a detail to read.' },
   variants: [
     {
       name: 'tone',
       values: [...TONES],
       default: 'info',
       description:
-        "L'intention du bandeau — c'est ce que l'appelant choisit selon l'usage, pas son goût.",
+        "The intent of the banner — it is what the caller chooses according to usage, not taste.",
     },
   ],
   props: [
@@ -25,61 +25,61 @@ export const alertManifest: ComponentManifest = {
       type: 'string',
       required: true,
       check: 'rendered',
-      description: 'Le titre du bandeau : court, jamais une phrase.',
+      description: 'The banner title: short, never a sentence.',
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: false,
       check: 'content',
-      description: 'Le contenu détaillé, sous le titre.',
+      description: 'The detailed content, under the title.',
     },
     {
       name: 'action',
       type: 'ReactNode',
       required: false,
       check: 'accepted',
-      description: 'Ce qu’on peut faire : un bouton, un lien.',
+      description: 'What can be done: a button, a link.',
     },
     {
       name: 'icon',
       type: 'ReactNode',
       required: false,
       check: 'accepted',
-      description: "Remplace l'icône par défaut du ton.",
+      description: "Replaces the default icon for the tone.",
     },
     {
       name: 'onClose',
       type: '() => void',
       required: false,
       check: 'accepted',
-      description: 'Affiche un bouton de fermeture et le rappelle au clic.',
+      description: 'Shows a close button and calls it on click.',
     },
     {
       name: 'closeLabel',
       type: 'string',
       required: false,
       check: 'accepted',
-      description: "Le libellé accessible du bouton de fermeture (requis avec `onClose`).",
+      description: "The accessible label of the close button (required with `onClose`).",
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core ones.",
     },
   ],
   usages: [
     {
-      when: 'signaler un état qui demande l’attention sans bloquer la vue',
+      when: 'signal a state that demands attention without blocking the view',
       use: '<Alert tone="warning" title={…}>…</Alert>',
-      avoid: 'un `Alert` pour une information décorative : le bandeau doit dire quelque chose',
+      avoid: 'an `Alert` for decorative information: the banner must say something',
     },
     {
-      when: 'un bandeau qu’on peut refermer',
-      use: 'onClose + closeLabel (les deux ensemble)',
-      avoid: 'onClose sans closeLabel : le bouton devient muet pour un lecteur d’écran',
+      when: 'a banner that can be closed',
+      use: 'onClose + closeLabel (both together)',
+      avoid: 'onClose without closeLabel: the button becomes mute for a screen reader',
     },
   ],
 }

@@ -6,8 +6,8 @@ export const kickerManifest: ComponentManifest = {
   name: 'kicker',
   title: 'Kicker',
   summary:
-    "Une étiquette d'accroche, répétée au-dessus d'un titre : un point de ton optionnel et " +
-    'un libellé court en majuscules. Le texte est injecté par l’appelant.',
+    "A kicker label, repeated above a title: an optional tone dot and " +
+    'a short uppercase label. The text is injected by the caller.',
   level: 'primitive',
   example: { tone: 'neutral', dot: true, children: 'section' },
   variants: [
@@ -15,7 +15,7 @@ export const kickerManifest: ComponentManifest = {
       name: 'tone',
       values: [...TONES],
       default: 'neutral',
-      description: "L'intention du point — ce que l'appelant choisit selon l'usage.",
+      description: "The dot's intent — what the caller chooses based on usage.",
     },
   ],
   props: [
@@ -24,33 +24,33 @@ export const kickerManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: "Le libellé d'accroche : court, jamais une phrase.",
+      description: "The kicker label: short, never a sentence.",
     },
     {
       name: 'dot',
       type: 'boolean',
       required: false,
       check: 'rendered',
-      description: 'Affiche un point de ton devant le libellé.',
+      description: 'Displays a tone dot before the label.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: 'coiffer un titre d’une accroche courte',
+      when: 'topping a title with a short kicker',
       use: '<Kicker dot>section</Kicker>',
-      avoid: 'un `Badge` : le kicker situe un titre, il ne qualifie pas un statut',
+      avoid: 'a `Badge`: the kicker positions a title, it does not qualify a status',
     },
     {
-      when: 'marquer une intention sur l’accroche',
-      use: '<Kicker tone="danger" dot>attention</Kicker>',
-      avoid: 'une couleur en dur : le ton est une intention, le token porte la valeur',
+      when: 'marking an intent on the kicker',
+      use: '<Kicker tone="danger" dot>warning</Kicker>',
+      avoid: 'a hardcoded color: tone is an intent, the token carries the value',
     },
   ],
 }

@@ -3,12 +3,12 @@ import type { ComponentManifest } from '@nomos/catalogue/contract'
 /** Le manifeste du Rating (ADR 0005). */
 export const ratingManifest: ComponentManifest = {
   name: 'rating',
-  title: 'Note',
+  title: 'Rating',
   summary:
-    'Une note sur `max` étoiles, **contrôlée**. Interactive seulement si l’app fournit ' +
-    '`onValueChange` ; sinon un affichage. A11y `radiogroup` (flèches, Home/End).',
+    'A rating out of `max` stars, **controlled**. Interactive only if the app provides ' +
+    '`onValueChange`; otherwise a display. A11y `radiogroup` (arrows, Home/End).',
   level: 'primitive',
-  example: { value: 3, max: 5, ariaLabel: 'Note', onValueChange: () => {} },
+  example: { value: 3, max: 5, ariaLabel: 'Rating', onValueChange: () => {} },
   variants: [],
   props: [
     {
@@ -16,54 +16,54 @@ export const ratingManifest: ComponentManifest = {
       type: 'number',
       required: true,
       check: 'rendered',
-      description: 'La note actuelle, de 0 à `max`.',
+      description: 'The current rating, from 0 to `max`.',
     },
     {
       name: 'max',
       type: 'number',
       required: false,
       check: 'rendered',
-      description: "Le nombre d'étoiles (5 par défaut).",
+      description: 'The number of stars (5 by default).',
     },
     {
       name: 'onValueChange',
       type: '(value: number) => void',
       required: false,
       check: 'accepted',
-      description: "Rend la note interactive quand fourni ; l'app décide de la suite.",
+      description: 'Makes the rating interactive when provided; the app decides what follows.',
     },
     {
       name: 'readOnly',
       type: 'boolean',
       required: false,
       check: 'rendered',
-      description: 'Force l’affichage seul, même si `onValueChange` est fourni.',
+      description: 'Forces display only, even if `onValueChange` is provided.',
     },
     {
       name: 'ariaLabel',
       type: 'string',
       required: false,
       check: 'rendered',
-      description: "Le nom accessible du groupe : le cœur n'a pas d'i18n.",
+      description: 'The accessible name of the group: the core has no i18n.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du composant.",
+      description: "The caller's classes, merged after the component's.",
     },
   ],
   usages: [
     {
-      when: 'recueillir une note de l’utilisateur',
+      when: 'collecting a rating from the user',
       use: '<Rating value={note} onValueChange={setNote} ariaLabel={t.rating.label} />',
-      avoid: 'laisser le Rating posséder la valeur : la donnée appartient à l’app',
+      avoid: 'letting the Rating own the value: the data belongs to the app',
     },
     {
-      when: 'montrer une note déjà posée',
+      when: 'showing an existing rating',
       use: '<Rating value={4} readOnly ariaLabel={t.rating.label} />',
-      avoid: 'un `onValueChange` sans intention de le consommer',
+      avoid: 'an `onValueChange` with no intent to consume it',
     },
   ],
 }

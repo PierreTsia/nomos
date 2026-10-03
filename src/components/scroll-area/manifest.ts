@@ -8,12 +8,12 @@ export const scrollAreaManifest: ComponentManifest = {
   name: 'scroll-area',
   title: 'ScrollArea',
   summary:
-    'Une surface bornée dont le contenu plus grand défile, avec une barre stylée. ' +
-    'Cosmétique — le défilement reste natif ; le contenu vient de l’app.',
+    'A bounded surface whose larger content scrolls, with a styled bar. ' +
+    'Cosmetic — scrolling stays native; the content comes from the app.',
   level: 'primitive',
   example: {
     className: 'h-24 w-48 rounded-md border',
-    children: 'Un contenu plus grand que la surface.',
+    children: 'Content larger than the surface.',
   },
   variants: [],
   props: [
@@ -22,28 +22,28 @@ export const scrollAreaManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'accepted',
-      description: 'Le contenu qui défile.',
+      description: 'The scrolling content.',
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: 'Les classes de l’appelant, fusionnées après celles du cœur (ici la hauteur et la largeur).',
+      description: 'The caller’s classes, merged after the core’s (here height and width).',
     },
     {
       name: 'type',
       type: "'auto' | 'always' | 'scroll' | 'hover'",
       required: false,
       check: 'accepted',
-      description: 'Quand la barre apparaît. Défaut `hover`.',
+      description: 'When the bar appears. Default `hover`.',
     },
   ],
   usages: [
     {
-      when: 'borner une sous-vue dense (journal, liste de fichiers) dans une hauteur fixe',
+      when: 'bounding a dense subview (log, file list) to a fixed height',
       use: '<ScrollArea className="h-64">…</ScrollArea>',
-      avoid: 'une `ScrollArea` qui prend toute la page : le défilement est celui du document',
+      avoid: 'a `ScrollArea` that fills the whole page: the scrolling is the document’s',
     },
   ],
 }

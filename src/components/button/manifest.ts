@@ -9,22 +9,22 @@ export const buttonManifest: ComponentManifest = {
   name: 'button',
   title: 'Button',
   summary:
-    "Un déclencheur d'action. Le ton (`variant`) dit l'importance, la taille (`size`) " +
-    'dit la densité. Tout attribut HTML de bouton est transmis tel quel.',
+    "An action trigger. The tone (`variant`) states importance, the size (`size`) " +
+    'states density. Every HTML button attribute is passed through as-is.',
   level: 'primitive',
-  example: { children: 'Bouton' },
+  example: { children: 'Button' },
   variants: [
     {
       name: 'variant',
       values: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
       default: 'default',
-      description: "Le ton de l'action : principale, dangereuse, secondaire, discrète ou lien.",
+      description: "The tone of the action: primary, dangerous, secondary, discreet or link.",
     },
     {
       name: 'size',
       values: ['default', 'sm', 'lg', 'icon'],
       default: 'default',
-      description: 'La taille du contrôle, du plus discret au plus large, ou icon-only.',
+      description: 'The size of the control, from the most discreet to the largest, or icon-only.',
     },
   ],
   props: [
@@ -33,43 +33,43 @@ export const buttonManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles de la variante.",
+      description: "The caller's classes, merged after the variant ones.",
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: "Le libellé de l'action, ou une icône seule (avec `aria-label`).",
+      description: "The action label, or an icon alone (with `aria-label`).",
     },
     {
       name: 'onClick',
       type: '(event: MouseEvent) => void',
       required: false,
       check: 'accepted',
-      description: "L'action déclenchée au clic ; le cœur ne la connaît pas.",
+      description: "The action triggered on click; the core does not know it.",
     },
   ],
   usages: [
     {
-      when: "l'action principale d'une vue",
+      when: "the main action of a view",
       use: 'variant="default"',
-      avoid: 'plusieurs `default` côte à côte : le ton principal doit rester unique',
+      avoid: 'several `default` side by side: the main tone must stay unique',
     },
     {
-      when: 'une action secondaire à côté de la principale',
+      when: 'a secondary action next to the main one',
       use: 'variant="outline"',
-      avoid: '`ghost` pour une action qu’on doit voir sans survol',
+      avoid: '`ghost` for an action that must be visible without hover',
     },
     {
-      when: 'une icône seule (fermer, paginer)',
+      when: 'a lone icon (close, paginate)',
       use: 'size="icon" + aria-label',
-      avoid: 'un `icon` sans `aria-label` : le bouton devient muet pour un lecteur d’écran',
+      avoid: 'an `icon` without `aria-label`: the button becomes mute for a screen reader',
     },
     {
-      when: 'poser le style du bouton sur un lien ou un autre élément',
-      use: 'asChild avec un seul enfant',
-      avoid: 'asChild avec plusieurs enfants : Radix Slot n’en accepte qu’un',
+      when: 'apply the button style to a link or another element',
+      use: 'asChild with a single child',
+      avoid: 'asChild with several children: Radix Slot only accepts one',
     },
   ],
 }

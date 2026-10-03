@@ -16,8 +16,8 @@ export const tooltipManifest: ComponentManifest = {
   name: 'tooltip',
   title: 'Tooltip',
   summary:
-    'Un texte d’aide attaché à un déclencheur, au survol et au focus. La famille se ' +
-    'compose — Provider (délai partagé), Root, Trigger, Content ; les textes viennent de l’app.',
+    'A help text attached to a trigger, on hover and focus. The family composes ' +
+    '— Provider (shared delay), Root, Trigger, Content; the texts come from the app.',
   level: 'primitive',
   example: {
     delayDuration: 200,
@@ -27,8 +27,8 @@ export const tooltipManifest: ComponentManifest = {
       createElement(
         Tooltip,
         { defaultOpen: true },
-        createElement(TooltipTrigger, null, 'Aide'),
-        createElement(TooltipContent, null, 'Texte d’aide'),
+        createElement(TooltipTrigger, null, 'Help'),
+        createElement(TooltipContent, null, 'Help text'),
       ),
     ),
   },
@@ -39,40 +39,40 @@ export const tooltipManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'accepted',
-      description: 'La famille : des `Tooltip` (racine), à poser dans le provider.',
+      description: 'The family: `Tooltip`s (roots), to place inside the provider.',
     },
     {
       name: 'delayDuration',
       type: 'number',
       required: false,
       check: 'accepted',
-      description: 'Le délai d’ouverture au survol, en millisecondes. Défaut 700.',
+      description: 'The opening delay on hover, in milliseconds. Default 700.',
     },
     {
       name: 'skipDelayDuration',
       type: 'number',
       required: false,
       check: 'accepted',
-      description: 'La fenêtre pendant laquelle une seconde bulle s’ouvre sans attendre.',
+      description: 'The window during which a second tooltip opens without waiting.',
     },
     {
       name: 'disableHoverableContent',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'Empêche de survoler le contenu ouvert sans qu’il se referme.',
+      description: 'Prevents hovering the open content from closing it.',
     },
   ],
   usages: [
     {
-      when: 'nommer un contrôle iconique, ou glisser une aide courte',
+      when: 'naming an icon-only control, or slipping in a short help',
       use: '<TooltipProvider><Tooltip><TooltipTrigger>…</TooltipTrigger><TooltipContent>…</TooltipContent></Tooltip></TooltipProvider>',
-      avoid: 'une `Tooltip` pour une information essentielle : elle n’est ni au clavier seul ni au tactile',
+      avoid: 'a `Tooltip` for essential information: it is neither keyboard-only nor touch accessible',
     },
     {
-      when: 'plusieurs bulles dans la même vue',
-      use: 'un seul `TooltipProvider` autour de leurs `Tooltip`',
-      avoid: 'un provider par `Tooltip` : le délai partagé perd son sens',
+      when: 'several tooltips in the same view',
+      use: 'a single `TooltipProvider` around their `Tooltip`s',
+      avoid: 'one provider per `Tooltip`: the shared delay loses its meaning',
     },
   ],
 }

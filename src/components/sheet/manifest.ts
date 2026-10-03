@@ -19,9 +19,9 @@ export const sheetManifest: ComponentManifest = {
   name: 'sheet',
   title: 'Sheet',
   summary:
-    'Un panneau ancré à un bord de l’écran, sur un voile : un déclencheur, un en-tête ' +
-    '(titre, description), un corps et un pied. Livré en parts importables séparément ; ' +
-    '`side="bottom"` est le drawer.',
+    'A panel anchored to an edge of the screen, over a scrim: a trigger, a header ' +
+    '(title, description), a body and a footer. Shipped as separately importable parts; ' +
+    '`side="bottom"` is the drawer.',
   level: 'bloc',
   example: {
     defaultOpen: true,
@@ -31,7 +31,7 @@ export const sheetManifest: ComponentManifest = {
       createElement(
         SheetTrigger,
         { className: buttonVariants({ variant: 'outline' }) },
-        'Ouvrir',
+        'Open',
       ),
       createElement(
         SheetContent,
@@ -39,10 +39,10 @@ export const sheetManifest: ComponentManifest = {
         createElement(
           SheetHeader,
           null,
-          createElement(SheetTitle, null, 'Panneau'),
-          createElement(SheetDescription, null, 'Une description courte.'),
+          createElement(SheetTitle, null, 'Panel'),
+          createElement(SheetDescription, null, 'A short description.'),
         ),
-        'Le contenu du panneau.',
+        'The panel content.',
       ),
     ),
   },
@@ -52,7 +52,7 @@ export const sheetManifest: ComponentManifest = {
       values: ['top', 'right', 'bottom', 'left'],
       default: 'right',
       description:
-        'Le bord auquel le panneau s’ancre — `bottom` est le drawer ; c’est l’usage qui décide, pas le goût.',
+        'The edge the panel anchors to — `bottom` is the drawer; usage decides, not taste.',
     },
   ],
   props: [
@@ -61,21 +61,21 @@ export const sheetManifest: ComponentManifest = {
       type: 'ReactNode',
       required: true,
       check: 'accepted',
-      description: 'Les parts du panneau : un déclencheur, une surface, un en-tête, un pied.',
+      description: 'The panel parts: a trigger, a surface, a header, a footer.',
     },
     {
       name: 'open',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état d’ouverture contrôlé : il vit dans l’app.',
+      description: 'The controlled open state: it lives in the app.',
     },
     {
       name: 'defaultOpen',
       type: 'boolean',
       required: false,
       check: 'accepted',
-      description: 'L’état d’ouverture initial, quand l’app ne le contrôle pas.',
+      description: 'The initial open state, when the app does not control it.',
     },
     {
       name: 'modal',
@@ -83,31 +83,31 @@ export const sheetManifest: ComponentManifest = {
       required: false,
       check: 'accepted',
       description:
-        'Blocage du reste de la page et piégeage du focus. Défaut `true` ; `false` pour un panneau non bloquant.',
+        'Blocking the rest of the page and trapping focus. Default `true`; `false` for a non-blocking panel.',
     },
     {
       name: 'onOpenChange',
       type: '(open: boolean) => void',
       required: false,
       check: 'accepted',
-      description: 'Rappelé quand l’utilisateur demande à ouvrir ou fermer.',
+      description: 'Called when the user asks to open or close.',
     },
   ],
   usages: [
     {
-      when: 'montrer un contenu ancré à un bord sans quitter la vue',
+      when: 'showing content anchored to an edge without leaving the view',
       use: '<Sheet><SheetTrigger>…</SheetTrigger><SheetContent side="right">…</SheetContent></Sheet>',
-      avoid: 'un `Sheet` pour une décision centrée : c’est un `Dialog`',
+      avoid: 'a `Sheet` for a centered decision: that is a `Dialog`',
     },
     {
-      when: 'un drawer (panneau bas, geste mobile)',
-      use: 'side="bottom" sur `SheetContent`',
-      avoid: 'un composant `Drawer` à part : c’est le même panneau, un côté différent',
+      when: 'a drawer (bottom panel, mobile gesture)',
+      use: 'side="bottom" on `SheetContent`',
+      avoid: 'a separate `Drawer` component: it is the same panel, a different side',
     },
     {
-      when: 'un panneau non bloquant (inspecteur, aide)',
+      when: 'a non-blocking panel (inspector, help)',
       use: 'modal={false}',
-      avoid: 'un overlay cliquable sur un panneau non modal : l’app décide de la fermeture',
+      avoid: 'a clickable overlay on a non-modal panel: the app decides about closing',
     },
   ],
 }

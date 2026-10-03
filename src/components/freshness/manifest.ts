@@ -9,11 +9,11 @@ export const freshnessManifest: ComponentManifest = {
   name: 'freshness',
   title: 'Freshness',
   summary:
-    "L'âge d'une donnée depuis sa dernière mise à jour, avec une pastille qui passe au " +
-    "rouge quand elle est périmée. Se rend seule, hors d'une table : une cellule comme un " +
-    'bandeau de provenance l’utilisent.',
+    "The age of a piece of data since its last update, with a dot that turns " +
+    "red when it is stale. Renders on its own, outside a table: both a cell and a " +
+    'provenance banner use it.',
   level: 'primitive',
-  example: { label: 'il y a 2 heures', stale: false },
+  example: { label: '2 hours ago', stale: false },
   variants: [],
   props: [
     {
@@ -21,40 +21,40 @@ export const freshnessManifest: ComponentManifest = {
       type: 'string',
       required: true,
       check: 'rendered',
-      description: "L'âge déjà formaté par l'appelant : le cœur n'a pas d'i18n.",
+      description: "The age already formatted by the caller: the core has no i18n.",
     },
     {
       name: 'stale',
       type: 'boolean',
       required: false,
       check: 'rendered',
-      description: "Vrai quand la donnée dépasse le seuil de péremption décidé par l'appelant.",
+      description: "True when the data exceeds the staleness threshold decided by the caller.",
     },
     {
       name: 'title',
       type: 'string | null',
       required: false,
       check: 'attribute',
-      description: "L'horodatage absolu, transmis comme infobulle HTML.",
+      description: "The absolute timestamp, passed as an HTML tooltip.",
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
   ],
   usages: [
     {
-      when: "une cellule dit depuis quand une donnée n'a pas bougé",
+      when: "a cell says how long ago a piece of data last moved",
       use: '<Freshness label={relativeTime(row.updated_at)} />',
-      avoid: 'un `<span>` nu : la pastille est le repère visuel de fraîcheur',
+      avoid: 'a bare `<span>`: the dot is the visual freshness marker',
     },
     {
-      when: "un bandeau dit la fraîcheur d'un instantané",
+      when: "a banner states the freshness of a snapshot",
       use: '<Freshness label={age} title={absolute} stale={olderThanADay} />',
-      avoid: 'un seuil de péremption dans le cœur : il dépend du domaine, pas du rendu',
+      avoid: 'a staleness threshold in the core: it depends on the domain, not the rendering',
     },
   ],
 }

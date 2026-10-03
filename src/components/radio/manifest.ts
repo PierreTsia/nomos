@@ -8,8 +8,8 @@ export const radioManifest: ComponentManifest = {
   name: 'radio',
   title: 'RadioGroup',
   summary:
-    'Un groupe de boutons radio où une seule option est retenue. Le cœur possède le ' +
-    'groupe et ses items ; la valeur et le rappel restent à l’appelant.',
+    'A group of radio buttons where only one option is selected. The core owns the ' +
+    'group and its items; the value and callback remain with the caller.',
   level: 'primitive',
   example: {
     value: 'a',
@@ -38,35 +38,35 @@ export const radioManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: 'Les `RadioGroupItem`, chacun avec sa valeur.',
+      description: 'The `RadioGroupItem`s, each with its value.',
     },
     {
       name: 'value',
       type: 'string',
       required: false,
       check: 'accepted',
-      description: 'La valeur retenue ; la valeur est chez l’appelant.',
+      description: 'The selected value; the value lives with the caller.',
     },
     {
       name: 'onValueChange',
       type: '(value: string) => void',
       required: false,
       check: 'accepted',
-      description: 'Le rappel de choix.',
+      description: 'The selection callback.',
     },
   ],
   usages: [
     {
-      when: 'choisir une seule option parmi quelques-unes',
+      when: 'choosing a single option among a few',
       use: '<RadioGroup value={v} onValueChange={set}><RadioGroupItem value="a" /></RadioGroup>',
-      avoid: 'des `Checkbox` pour un choix exclusif : elles autorisent plusieurs valeurs',
+      avoid: '`Checkbox`es for an exclusive choice: they allow multiple values',
     },
   ],
 }

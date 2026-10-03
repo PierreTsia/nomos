@@ -5,10 +5,10 @@ export const labelManifest: ComponentManifest = {
   name: 'label',
   title: 'Label',
   summary:
-    "Le libellé d'un champ, associé au contrôle par `htmlFor`. Le texte vient de l'appelant " +
-    "(le cœur n'a pas d'i18n) ; la typographie vient des tokens.",
+    "A field label, associated with the control via `htmlFor`. The text comes from the caller " +
+    "(the core has no i18n); the typography comes from the tokens.",
   level: 'primitive',
-  example: { children: 'Libellé' },
+  example: { children: 'Label' },
   variants: [],
   props: [
     {
@@ -16,33 +16,33 @@ export const labelManifest: ComponentManifest = {
       type: 'string',
       required: false,
       check: 'accepted',
-      description: "L'`id` du contrôle associé : clique le libellé et le champ prend le focus (rendu en attribut `for`).",
+      description: "The associated control's `id`: clicking the label focuses the field (rendered as the `for` attribute).",
     },
     {
       name: 'className',
       type: 'string',
       required: false,
       check: 'class',
-      description: "Les classes de l'appelant, fusionnées après celles du cœur.",
+      description: "The caller's classes, merged after the core's.",
     },
     {
       name: 'children',
       type: 'ReactNode',
       required: true,
       check: 'content',
-      description: "Le texte du libellé, injecté par l'app.",
+      description: "The label text, injected by the app.",
     },
   ],
   usages: [
     {
-      when: 'nommer un champ et l’associer à son contrôle',
-      use: '<Label htmlFor="email">Adresse</Label>',
-      avoid: 'un libellé sans `htmlFor` : le clic ne donne pas le focus au champ',
+      when: 'naming a field and associating it with its control',
+      use: '<Label htmlFor="email">Address</Label>',
+      avoid: 'a label without `htmlFor`: clicking does not focus the field',
     },
     {
-      when: 'poser un libellé hors d’un `Field`',
-      use: 'le même atome, avec ton propre espacement',
-      avoid: 'coder un `<label>` stylé à la main : on perd la typographie des tokens',
+      when: 'placing a label outside a `Field`',
+      use: 'the same atom, with your own spacing',
+      avoid: 'hand-coding a styled `<label>`: you lose the token typography',
     },
   ],
 }
