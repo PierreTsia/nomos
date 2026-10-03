@@ -5,7 +5,9 @@ import { cn } from '@nomos/lib/cn'
 
 /**
  * Les attributs que `Field` pose sur son contrôle : `aria-describedby` vers l'aide ou
- * l'erreur, `aria-invalid` en erreur. Le contrôle les consomme ; l'app garde le dernier mot.
+ * l'erreur, `aria-invalid` en erreur. Le contrôle les consomme : la valeur du `Field`
+ * l'emporte sur celle de l'appelant pour `aria-invalid`, et l'appelant garde son propre
+ * `aria-describedby`, tenu à côté de celui du `Field`.
  */
 export type FieldControlAria = {
   'aria-describedby'?: string
