@@ -339,25 +339,25 @@
 
 ### Patch Changes
 
-- d2e2e6a: La distribution expose le CSS et le skin (ADR 0025). Le paquet publie ses sous-exports
-  `./tokens/theme.css`, `./tokens/tokens.generated.css` et `./tokens/tokens.json`, et
-  `resolveSkin` / `renderCss` (avec `TokensDocument`) rejoignent la surface publique : une app
-  externe peut charger le raccord Tailwind et dériver son CSS du même skin que les vues
-  servies. `build:package` émet le type du module de dérivation et vérifie que chaque
-  sous-export pointe un fichier livré.
+- d2e2e6a: The distribution exposes the CSS and the skin (ADR 0025). The package publishes its
+  `./tokens/theme.css`, `./tokens/tokens.generated.css` and `./tokens/tokens.json` sub-exports,
+  and `resolveSkin` / `renderCss` (with `TokensDocument`) join the public surface: an external
+  app can load the Tailwind adapter and derive its CSS from the same skin as the served views.
+  `build:package` emits the type of the derivation module and checks that every sub-export points
+  to a shipped file.
 
 ## 0.3.2
 
 ### Patch Changes
 
-- f12ecbf: Release de coordination : la **0.3.1** est prise par un autre fil. Aucun changement de la
-  surface publique — l'alignement de version et le passage à changesets par `npx changeset publish`
-  en direct.
+- f12ecbf: Coordination release: **0.3.1** is taken by another thread. No change to the public
+  surface — the version alignment and the switch to changesets via `npx changeset publish`
+  directly.
 
 ## 0.3.1
 
 ### Patch Changes
 
-- ebf6f94: Garde-fous de release : snapshot de la surface publique (`surface.generated.json`, tenu par
-  `surface:check`), smoke du paquet consommé, et passages à changesets. Aucun changement de la
-  surface publique (API JS, emplacements de tokens, contrat MCP, skill) — outillage seul.
+- ebf6f94: Release safeguards: snapshot of the public surface (`surface.generated.json`, held by
+  `surface:check`), smoke of the consumed package, and changesets. No change to the public
+  surface (JS API, token locations, MCP contract, skill) — tooling only.
