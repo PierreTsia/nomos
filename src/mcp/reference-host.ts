@@ -1,8 +1,9 @@
 /**
- * L'hôte de référence (ADR 0013) : la forme minimale du contrat `ui://`. Il rend la vue
- * dans un iframe **sandboxé** (`allow-scripts`, jamais `allow-same-origin`), lui pousse
- * son apparence (`set-view`) et recueille ses intentions. C'est un exemple pour un hôte,
- * pas une dépendance.
+ * L'hôte de référence (ADR 0033, aligné sur MCP Apps) : la forme minimale du contrat. Il
+ * rend la vue dans un iframe **sandboxé** (`allow-scripts`, jamais `allow-same-origin`),
+ * répond à sa poignée de main (`ui/initialize`) avec son contexte, lui pousse le résultat
+ * de l'outil (`ui/notifications/tool-result`) et recueille ses intentions (`ui/message`).
+ * C'est un exemple pour un hôte, pas une dépendance.
  */
 
 export const HOST_FRAME_ID = 'nomos-view-frame'
@@ -19,36 +20,64 @@ function hostScript(theme: string, density: string, data?: Record<string, unknow
   const dataLiteral = data === undefined ? 'null' : JSON.stringify(data)
   return `
 (function () {
-  var SOURCE = 'nomos'
+  var THEME = ${JSON.stringify(theme)}
+  var DENSITY = ${JSON.stringify(density)}
   var DATA = ${dataLiteral}
   var intents = []
   window.__nomosIntents = intents
-  // Le listener est posé tout de suite : une vue peut émettre son \`ready\` avant que le
-  // parent n'ait fini de se construire, et on ne veut pas le rater.
+  function send(target, message) {
+    if (target) target.postMessage(message, '*')
+  }
+  // Le listener est posé tout de suite : une vue peut ouvrir sa poignée de main avant que
+  // le parent n'ait fini de se construire, et on ne veut pas la rater.
   window.addEventListener('message', function (event) {
-    var data = event.data
-    if (!data || data.source !== SOURCE || data.type !== 'intent') return
-    intents.push(data)
-  })
-  function wireFrame() {
-    var frame = document.getElementById('${HOST_FRAME_ID}')
-    if (!frame) return
-    frame.addEventListener('load', function () {
-      if (frame.contentWindow) {
-        frame.contentWindow.postMessage(
-          { source: SOURCE, type: 'set-view', theme: '${theme}', density: '${density}' },
-          '*',
-        )
-        // L'hôte porte les données de l'outil à la vue (ADR 0023).
-        if (DATA) frame.contentWindow.postMessage({ source: SOURCE, type: 'set-data', data: DATA }, '*')
+    var message = event.data
+    if (!message || message.jsonrpc !== '2.0') return
+    var source = event.source
+
+    // La poignée de main (SEP-1865) : l'hôte répond avec son contexte (thème, densité).
+    if (message.method === 'ui/initialize') {
+      send(source, {
+        jsonrpc: '2.0',
+        id: message.id,
+        result: {
+          protocolVersion: '2026-01-26',
+          hostCapabilities: {},
+          hostInfo: { name: 'nomos-reference-host', version: '0.0.0' },
+          hostContext: { theme: THEME, density: DENSITY, displayMode: 'inline' },
+        },
+      })
+      return
+    }
+
+    // La vue est prête : l'hôte lui porte les données de l'outil, puis son résultat (ADR 0023).
+    if (message.method === 'ui/notifications/initialized') {
+      send(source, {
+        jsonrpc: '2.0',
+        method: 'ui/notifications/tool-input',
+        params: { arguments: { props: DATA || {} } },
+      })
+      send(source, {
+        jsonrpc: '2.0',
+        method: 'ui/notifications/tool-result',
+        params: {
+          content: [{ type: 'text', text: JSON.stringify({ props: DATA || {} }) }],
+          structuredContent: { props: DATA || {} },
+        },
+      })
+      return
+    }
+
+    // Une intention est un message de la vue : on la recueille et on répond (SEP-1865).
+    if (message.method === 'ui/message') {
+      try {
+        intents.push(JSON.parse(message.params.content.text))
+      } catch (error) {
+        intents.push(message.params)
       }
-    })
-  }
-  if (document.readyState === 'loading') {
-    window.addEventListener('DOMContentLoaded', wireFrame)
-  } else {
-    wireFrame()
-  }
+      if (message.id !== undefined) send(source, { jsonrpc: '2.0', id: message.id, result: {} })
+    }
+  })
 })()
 `
 }

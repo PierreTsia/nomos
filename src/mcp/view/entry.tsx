@@ -7,10 +7,10 @@ import { emitIntent, installViewBridge } from '@nomos/mcp/view/bridge'
 import { VIEW_DATA_ID, VIEW_ROOT_ID } from '@nomos/mcp/view-contract'
 
 /**
- * L'entrée de la vue MCP App (ADR 0013, 0023). Elle est **bundlée** (`npm run build:view`)
+ * L'entrée de la vue MCP App (ADR 0023, 0033). Elle est **bundlée** (`npm run build:view`)
  * et servie dans l'iframe : elle monte le composant — ou la scène —, installe le pont, et
- * **re-rend** quand l'hôte pousse des données (`set-data`). Elle ne mute jamais l'état de
- * l'hôte : les interactions deviennent des **intentions**.
+ * **re-rend** quand l'hôte pousse le résultat de l'outil (`ui/notifications/tool-result`).
+ * Elle ne mute jamais l'état de l'hôte : les interactions deviennent des **intentions**.
  */
 type ViewData = { name?: string; props?: Record<string, unknown>; client?: boolean }
 
@@ -36,8 +36,9 @@ if (rootElement && dataElement) {
         return
       }
       const { component } = findComponent(data.name)
+      // Le pont (delegation `[data-intent]` sur la racine) porte le `select` ; le composant
+      // ne reçoit que de quoi remonter ses changements de valeur — sinon un clic émet deux fois.
       const handlers = {
-        onClick: () => emit('select'),
         onChange: (value: unknown) => emit('change', value),
       }
       const children = (props.children ?? undefined) as ReactNode

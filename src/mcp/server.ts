@@ -9,8 +9,8 @@ import {
   appViewUri,
   compositeViewFor,
   compositeViewUri,
-  loadDefaultTokens,
 } from '@nomos/mcp/app-view'
+import { loadDefaultTokens } from '@nomos/mcp/default-tokens'
 import { composites } from '@nomos/composites'
 import { getComponent, listComponents, listScenes, previewComponent } from '@nomos/mcp/catalogue'
 import { buildResource } from '@nomos/tokens/build.mjs'
@@ -168,7 +168,7 @@ export function createDesignSystemServer({
         title: `Render ${manifest.title} in conversation`,
         description: [
           'USAGE — when you need to show a design system component in the conversation, not just describe it.',
-          'INPUTS — `props` (optional): the data to display (JSON object). The host passes them to the view via `set-data`; without them, the view shows its example.',
+          'INPUTS — `props` (optional): the data to display (JSON object). The host pushes them to the view as the tool result (`ui/notifications/tool-result`); without them, the view shows its example.',
           'OUTPUT — the rendering recipe and the props; the host renders the view referenced by `_meta.ui.resourceUri`.',
           `EXAMPLES — \`render_${manifest.name} {}\` for the example; \`render_${manifest.name} {"props":{"...":…}}\` for data.`,
         ].join('\n'),
@@ -192,7 +192,7 @@ export function createDesignSystemServer({
         title: `Render ${composite.title} in conversation`,
         description: [
           'USAGE — when you need to show a design system composite scene in the conversation, not just a component.',
-          'INPUTS — `props` (optional): the scene data (JSON object), passed via `set-data`.',
+          'INPUTS — `props` (optional): the scene data (JSON object), pushed as the tool result (`ui/notifications/tool-result`).',
           'OUTPUT — the recipe and the props; the host renders the view referenced by `_meta.ui.resourceUri`.',
           `EXAMPLES — \`render_scene_${composite.name} {}\`.`,
         ].join('\n'),

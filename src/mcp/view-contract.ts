@@ -1,22 +1,64 @@
 /**
- * Le contrat de message entre une vue MCP App et son hôte (ADR 0013). Il vit hors de
- * `app-view.ts` — qui lit des fichiers côté serveur — parce que le pont est aussi
- * bundlé dans la vue, côté navigateur.
+ * The message contract between a view and its host (ADR 0033, aligning ADR 0013). It lives
+ * outside `app-view.ts` — which reads files server-side — because the bridge is also
+ * bundled in the view, browser-side. The view speaks **JSON-RPC 2.0 over `postMessage`**,
+ * the dialect MCP Apps (SEP-1865) defines.
  */
 
-export const VIEW_SOURCE = 'nomos'
 export const VIEW_ROOT_ID = 'nomos-view'
 export const VIEW_DATA_ID = 'nomos-view-data'
 
-/** La vue **émet des intentions** : elle ne mute jamais l'état de l'hôte. */
-export type ViewIntent = {
-  source: typeof VIEW_SOURCE
-  type: 'intent'
-  action: string
-  detail: unknown
+/** The MCP Apps protocol revision the view speaks. */
+export const UI_PROTOCOL_VERSION = '2026-01-26'
+
+/** Lifecycle: the view announces itself, the host answers with its context (SEP-1865). */
+export const UI_INITIALIZE = 'ui/initialize'
+export const UI_INITIALIZED = 'ui/notifications/initialized'
+/** The host pushes the tool call and its result; the view re-renders (ADR 0023). */
+export const UI_TOOL_INPUT = 'ui/notifications/tool-input'
+export const UI_TOOL_RESULT = 'ui/notifications/tool-result'
+/** The host notifies a context change (theme, display mode). */
+export const UI_HOST_CONTEXT_CHANGED = 'ui/notifications/host-context-changed'
+/** A view interaction reaches the host as a message (SEP-1865). */
+export const UI_MESSAGE = 'ui/message'
+/** A failed render is a log, not a conversation message (standard MCP logging). */
+export const LOG_MESSAGE = 'notifications/message'
+
+export type JsonRpcId = string | number
+
+export type JsonRpcRequest = {
+  jsonrpc: '2.0'
+  id: JsonRpcId
+  method: string
+  params?: unknown
 }
 
-/** L'hôte pousse l'apparence, et les données de la vue (ADR 0023). */
-export type HostMessage =
-  | { source: typeof VIEW_SOURCE; type: 'set-view'; theme?: string; density?: string }
-  | { source: typeof VIEW_SOURCE; type: 'set-data'; data: Record<string, unknown> }
+export type JsonRpcNotification = {
+  jsonrpc: '2.0'
+  method: string
+  params?: unknown
+}
+
+export type JsonRpcResponse = {
+  jsonrpc: '2.0'
+  id: JsonRpcId
+  result?: unknown
+  error?: { code: number; message: string }
+}
+
+export type JsonRpcMessage = JsonRpcRequest | JsonRpcNotification | JsonRpcResponse
+
+/** What the host tells the view about itself: at least the theme (ADR 0033). */
+export type HostContext = {
+  theme?: 'light' | 'dark'
+  /** Nomos' density (ADR 0008) rides the host context as an extra field; standard hosts omit it. */
+  density?: string
+  [key: string]: unknown
+}
+
+/** A standard MCP `CallToolResult` — the shape the host pushes on `ui/notifications/tool-result`. */
+export type ToolResult = {
+  content?: Array<{ type: string; text?: string }>
+  structuredContent?: Record<string, unknown>
+  isError?: boolean
+}

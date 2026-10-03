@@ -1,5 +1,8 @@
 # Components of the DS rendered in conversation follow an in-house `ui://` contract
 
+> **Superseded on the transport by [ADR 0033](0033-the-view-speaks-mcp-apps.md).** The view
+> now speaks the standard MCP Apps dialect; the component-layer decisions below still stand.
+
 The design system must be able to be rendered **in an agent's conversation**, not
 only described. MCP Apps is an emerging contract: at the date of this decision,
 the MCP SDK (1.31) exposes **nothing** for it — no `ui://`, `mcp-app` or

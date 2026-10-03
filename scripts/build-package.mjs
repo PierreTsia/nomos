@@ -43,7 +43,8 @@ function external(id) {
     deps.some((dep) => id === dep || id.startsWith(`${dep}/`)) ||
     id === 'react' ||
     id === 'react-dom' ||
-    id === 'react/jsx-runtime' ||
+    id.startsWith('react/') ||
+    id.startsWith('react-dom/') ||
     id.startsWith('node:')
   )
 }
@@ -91,6 +92,28 @@ async function buildMcpBin() {
         external: (id) => id.startsWith('node:'),
         output: { banner: '#!/usr/bin/env node' },
       },
+    },
+  })
+}
+
+/** Le builder de vues (ADR 0034) : l'entrée serveur/edge qui assemble un document
+ *  `ui://` dans un skin. Le défaut du cœur y est inliné — aucun `node:fs` au runtime.
+ *  React et les dépendances restent externes, comme pour le cœur : le consommateur les a
+ *  (il importe Nomos), et bundler `react-dom/server` tirerait le scheduler navigateur, qui
+ *  garde le processus Node en vie. */
+async function buildViewEntry() {
+  await build({
+    configFile: false,
+    root: DS,
+    logLevel: 'warn',
+    define: { 'process.env.NODE_ENV': '"production"' },
+    resolve: { alias },
+    build: {
+      outDir: DIST,
+      emptyOutDir: false,
+      minify: false,
+      lib: { entry: path.join(DS, 'src', 'view', 'index.ts'), formats: ['es'], fileName: () => 'view.js' },
+      rollupOptions: { external },
     },
   })
 }
@@ -162,7 +185,11 @@ function walk(dir) {
  * non distribuable (une nouvelle source d'alias, un fichier manquant).
  */
 function assertSelfContained() {
-  for (const jsPath of [path.join(DIST, 'index.js'), path.join(DIST, 'mcp', 'bin.js')]) {
+  for (const jsPath of [
+    path.join(DIST, 'index.js'),
+    path.join(DIST, 'mcp', 'bin.js'),
+    path.join(DIST, 'view.js'),
+  ]) {
     const js = readFileSync(jsPath, 'utf8')
     if (js.includes('@nomos/')) throw new Error(`${path.relative(DS, jsPath)} keeps an @nomos/* alias`)
     if (js.includes('@nomosui/react/')) {
@@ -215,6 +242,7 @@ function assertExportsShipped() {
 
 await buildCore()
 await buildMcpBin()
+await buildViewEntry()
 buildTypes()
 copyTokenTypes()
 const rewritten = rewriteTypeImports()

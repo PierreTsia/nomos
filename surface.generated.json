@@ -294,6 +294,18 @@
     "useToast",
     "validateCatalogue"
   ],
+  "view": {
+    "entry": "./view",
+    "exports": [
+      "APP_VIEW_MIME",
+      "RenderViewOptions",
+      "TokenDoc",
+      "appViewUri",
+      "compositeViewUri",
+      "renderView",
+      "viewCss"
+    ]
+  },
   "mcp": {
     "tools": [
       "get_component",
@@ -486,16 +498,18 @@
     ]
   },
   "messages": {
-    "host": [
-      "intent",
-      "set-data",
-      "set-view"
+    "methods": [
+      "notifications/message",
+      "ui/initialize",
+      "ui/message",
+      "ui/notifications/host-context-changed",
+      "ui/notifications/initialized",
+      "ui/notifications/tool-input",
+      "ui/notifications/tool-result"
     ],
     "intents": [
       "change",
-      "error",
-      "ready",
-      "select"
+      "error"
     ]
   },
   "tokens": {
