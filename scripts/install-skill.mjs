@@ -18,11 +18,11 @@ const targetDir =
   dirIndex >= 0 ? args[dirIndex + 1] : path.join(os.homedir(), '.claude', 'skills', 'nomos')
 
 if (!targetDir) {
-  console.error('usage : nomos-skill [--dir <dossier>]')
+  console.error('usage: nomos-skill [--dir <folder>]')
   process.exit(1)
 }
 
 mkdirSync(targetDir, { recursive: true })
 const dest = path.join(targetDir, 'SKILL.md')
 copyFileSync(source, dest)
-console.log(`Skill « nomos » installée : ${dest}`)
+console.log(`Skill "nomos" installed: ${dest}`)

@@ -126,7 +126,7 @@ export function findComposite(name: string): Composite {
   const composite = composites.find((candidate) => candidate.name === name)
   if (!composite) {
     throw new Error(
-      `Scènes : composite introuvable : \`${name}\` (connues : ${compositeNames.join(', ')}).`,
+      `Scenes: composite not found: \`${name}\` (known: ${compositeNames.join(', ')}).`,
     )
   }
   return composite

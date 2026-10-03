@@ -43,23 +43,23 @@ for (const target of TARGETS) {
   }
   const relative = path.relative(DS, target.file)
   if (current === next) {
-    console.log(`à jour  ${relative}`)
+    console.log(`up to date  ${relative}`)
     continue
   }
   if (check) {
     stale += 1
     const currentLine = current === null ? 0 : current.split('\n').length
-    console.log(`périmé  ${relative} (${currentLine} → ${next.split('\n').length} lignes)`)
+    console.log(`stale  ${relative} (${currentLine} → ${next.split('\n').length} lines)`)
     continue
   }
   writeFileSync(target.file, next, 'utf8')
-  console.log(`écrit   ${relative} (${next.split('\n').length} lignes)`)
+  console.log(`wrote   ${relative} (${next.split('\n').length} lines)`)
 }
 
 if (check && stale > 0) {
   console.error(
-    `\n${stale} rendu(s) périmé(s) : la source unique a changé sans que la dérivation soit rejouée.`,
+    `\n${stale} stale rendering(s): the single source changed without replaying the derivation.`,
   )
-  console.error('Rejouer : npm run tokens')
+  console.error('Replay: npm run tokens')
   process.exit(1)
 }

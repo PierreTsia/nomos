@@ -1,5 +1,5 @@
 {
-  "$description": "La ressource `tokens` : la source unique aplatie, un inventaire par mode. Dérivée de `tokens/tokens.json` — ne pas éditer.",
+  "$description": "The `tokens` resource: the single flattened source, one inventory per mode. Derived from `tokens/tokens.json` — do not edit.",
   "namespace": "--nomos",
   "defaultMode": "dark",
   "modes": [

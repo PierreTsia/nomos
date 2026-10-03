@@ -35,17 +35,17 @@ describe('le catalogue', () => {
   })
 
   it('lève sur un nom inconnu, en nommant les composants connus', () => {
-    expect(() => findComponent('grille')).toThrow(/introuvable.*badge/s)
+    expect(() => findComponent('grille')).toThrow(/not found.*badge/s)
   })
 
   it('refuse un manifeste qui ne respecte pas le contrat, en le nommant', () => {
     expect(() => validateCatalogue([entry({ manifest: { ...badgeManifest, usages: [] } })])).toThrow(
-      /badge.*contrat/s,
+      /badge.*contract/s,
     )
   })
 
   it('refuse deux composants du même nom', () => {
-    expect(() => validateCatalogue([entry(), entry()])).toThrow(/deux manifestes.*badge/)
+    expect(() => validateCatalogue([entry(), entry()])).toThrow(/two manifests.*badge/)
   })
 
   it('accepte l’index réel : c’est bien lui qui est exposé', () => {

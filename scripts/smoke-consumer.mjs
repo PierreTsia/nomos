@@ -47,14 +47,14 @@ try {
       "import { Button, Badge, catalogue } from '@nomosui/react'",
       "import { createRequire } from 'node:module'",
       "if (typeof Button !== 'function') { console.error('Button absent'); process.exit(1) }",
-      "if (!Array.isArray(catalogue) || catalogue.length === 0) { console.error('catalogue vide'); process.exit(1) }",
+      "if (!Array.isArray(catalogue) || catalogue.length === 0) { console.error('empty catalogue'); process.exit(1) }",
       "const require = createRequire(import.meta.url)",
       "for (const css of ['tokens/theme.css', 'tokens/tokens.generated.css', 'tokens/tokens.json']) require.resolve(`@nomosui/react/${css}`)",
       "console.log('core import ok')",
     ].join('\n'),
   )
   run('node', ['import.mjs'], { cwd: tmp })
-  ok("le cœur s'importe (Button + catalogue + CSS/tokens en sous-exports)")
+  ok("the core imports (Button + catalogue + CSS/tokens as sub-exports)")
 
   // 4. Le serveur MCP démarre depuis le bin installé, et lit une vue.
   writeFileSync(
@@ -66,25 +66,25 @@ try {
       "const client = new Client({ name: 'smoke', version: '0.0.0' })",
       "await client.connect(new StdioClientTransport({ command: bin }))",
       'const { tools } = await client.listTools()',
-      "if (tools.length < 30) { console.error(`trop peu d'outils: ${tools.length}`); process.exit(1) }",
+      "if (tools.length < 30) { console.error(`too few tools: ${tools.length}`); process.exit(1) }",
       "const view = await client.readResource({ uri: 'ui://nomos/badge' })",
       "const html = view.contents[0].text",
-      "if (!html.includes('nomos-view') || !html.includes('.bg-primary')) { console.error('vue incomplète'); process.exit(1) }",
+      "if (!html.includes('nomos-view') || !html.includes('.bg-primary')) { console.error('incomplete view'); process.exit(1) }",
       "await client.close()",
       "console.log('mcp ok')",
     ].join('\n'),
   )
   run('node', ['mcp.mjs'], { cwd: tmp })
-  ok('le serveur MCP démarre et sert une vue stylée (ui://nomos/badge)')
+  ok('the MCP server starts and serves a styled view (ui://nomos/badge)')
 } catch (error) {
-  fail('smoke consommateur', error.message)
+  fail('consumer smoke', error.message)
 } finally {
   rmSync(tmp, { recursive: true, force: true })
   if (tarball) rmSync(tarball, { force: true })
 }
 
 if (failures > 0) {
-  console.error('\nsmoke consommateur : ÉCHEC')
+  console.error('\nconsumer smoke: FAILED')
   process.exit(1)
 }
-console.log('\nsmoke consommateur : OK')
+console.log('\nconsumer smoke: OK')

@@ -66,7 +66,7 @@ export function buildAppView({
 }): string {
   const data = JSON.stringify({ name, props, client })
   return `<!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -164,13 +164,13 @@ function walk(dir) {
 function assertSelfContained() {
   for (const jsPath of [path.join(DIST, 'index.js'), path.join(DIST, 'mcp', 'bin.js')]) {
     const js = readFileSync(jsPath, 'utf8')
-    if (js.includes('@nomos/')) throw new Error(`${path.relative(DS, jsPath)} garde un alias @nomos/*`)
+    if (js.includes('@nomos/')) throw new Error(`${path.relative(DS, jsPath)} keeps an @nomos/* alias`)
     if (js.includes('@nomosui/react/')) {
-      throw new Error(`${path.relative(DS, jsPath)} garde une auto-référence de paquet`)
+      throw new Error(`${path.relative(DS, jsPath)} keeps a package self-reference`)
     }
   }
   const bin = readFileSync(path.join(DIST, 'mcp', 'bin.js'), 'utf8')
-  if (!bin.startsWith('#!/usr/bin/env node')) throw new Error('dist/mcp/bin.js n’a pas de shebang')
+  if (!bin.startsWith('#!/usr/bin/env node')) throw new Error('dist/mcp/bin.js has no shebang')
 
   const broken = []
   for (const file of walk(TYPES).filter((f) => f.endsWith('.d.ts'))) {
@@ -182,7 +182,7 @@ function assertSelfContained() {
       }
     }
   }
-  if (broken.length) throw new Error(`types non résolus :\n  ${broken.join('\n  ')}`)
+  if (broken.length) throw new Error(`unresolved types:\n  ${broken.join('\n  ')}`)
 }
 
 /** Un spécificateur relatif de type résout-il ? `.mjs` → son `build.d.mts` voisin. */
@@ -204,11 +204,11 @@ function assertExportsShipped() {
     const rel = typeof target === 'string' ? target : target.default
     const normalized = rel.replace(/^\.\//, '')
     if (!existsSync(path.join(DS, rel))) {
-      throw new Error(`exports["${subpath}"] pointe un fichier absent : ${rel}`)
+      throw new Error(`exports["${subpath}"] points to a missing file: ${rel}`)
     }
     const root = normalized.split('/')[0]
     if (!files.has(root) && !files.has(normalized)) {
-      throw new Error(`exports["${subpath}"] (${rel}) n'est pas couvert par "files"`)
+      throw new Error(`exports["${subpath}"] (${rel}) is not covered by "files"`)
     }
   }
 }
@@ -222,5 +222,5 @@ assertSelfContained()
 assertExportsShipped()
 
 console.log(
-  `écrit   dist/index.js + dist/mcp/bin.js + ${rewritten} fichiers de types + sous-exports (auto-suffisant)`,
+  `wrote   dist/index.js + dist/mcp/bin.js + ${rewritten} type files + sub-exports (self-contained)`,
 )

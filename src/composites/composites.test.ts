@@ -13,6 +13,6 @@ describe('les scènes composites', () => {
   })
 
   it('dit ce qui est connu quand le nom est introuvable', () => {
-    expect(() => findComposite('inconnu')).toThrow(/introuvable/)
+    expect(() => findComposite('inconnu')).toThrow(/not found/)
   })
 })

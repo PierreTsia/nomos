@@ -451,11 +451,11 @@ export const catalogueEntries: CatalogueEntry[] = [
 export function validateCatalogue(entries: CatalogueEntry[]): CatalogueEntry[] {
   const seen = new Set<string>()
   return entries.map((entry) => {
-    const name = entry.manifest?.name ?? '(sans nom)'
+    const name = entry.manifest?.name ?? '(unnamed)'
     const parsed = componentManifestSchema.safeParse(entry.manifest)
     if (!parsed.success) throw new Error(errorMessage(name, parsed.error))
     if (seen.has(parsed.data.name)) {
-      throw new Error(`Catalogue : deux manifestes portent le nom \`${parsed.data.name}\`.`)
+      throw new Error(`Catalogue: two manifests share the name \`${parsed.data.name}\`.`)
     }
     seen.add(parsed.data.name)
     return { ...entry, manifest: parsed.data }
@@ -473,7 +473,7 @@ export function findComponent(name: string): CatalogueEntry {
   const entry = catalogue.find((candidate) => candidate.manifest.name === name)
   if (!entry) {
     throw new Error(
-      `Catalogue : composant introuvable : \`${name}\` (connus : ${componentNames.join(', ')}).`,
+      `Catalogue: component not found: \`${name}\` (known: ${componentNames.join(', ')}).`,
     )
   }
   return entry

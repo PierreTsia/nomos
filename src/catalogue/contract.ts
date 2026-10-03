@@ -38,7 +38,7 @@ export const componentUsageSchema = z.strictObject({
 export const componentManifestSchema = z.strictObject({
   name: z
     .string()
-    .regex(/^[a-z][a-z0-9-]*$/, 'le nom du composant est en kebab-case, comme son dossier'),
+    .regex(/^[a-z][a-z0-9-]*$/, 'the component name is kebab-case, like its folder'),
   title: z.string().min(1),
   summary: z.string().min(1),
   level: z.enum(['jeton', 'primitive', 'bloc']),
@@ -52,7 +52,7 @@ export const componentManifestSchema = z.strictObject({
   example: z.record(z.string(), z.unknown()).optional(),
   usages: z
     .array(componentUsageSchema)
-    .min(1, "un manifeste porte des usages (l'intention), pas seulement des props"),
+    .min(1, 'a manifest lists usages (the intent), not just props'),
 })
 
 export type ComponentManifest = z.infer<typeof componentManifestSchema>
@@ -65,5 +65,5 @@ export function errorMessage(schemaName: string, error: z.ZodError): string {
   const issues = error.issues
     .map((issue) => `${issue.path.join('.') || '(racine)'} : ${issue.message}`)
     .join(' ; ')
-  return `Catalogue : le manifeste de \`${schemaName}\` ne respecte pas le contrat — ${issues}`
+  return `Catalogue: the manifest of \`${schemaName}\` does not satisfy the contract — ${issues}`
 }

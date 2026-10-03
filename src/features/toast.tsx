@@ -43,7 +43,7 @@ const ToastContext = createContext<ToastApi | null>(null)
 
 export function useToast(): ToastApi {
   const api = useContext(ToastContext)
-  if (!api) throw new Error('useToast doit être utilisé sous <ToastProvider>.')
+  if (!api) throw new Error('useToast must be used under <ToastProvider>.')
   return api
 }
 
