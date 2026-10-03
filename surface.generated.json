@@ -1,5 +1,5 @@
 {
-  "$description": "Surface publique de Nomos. Un consommateur en dépend : ne la changez pas sans le vouloir, et éditez ce fichier dans la même PR.",
+  "$description": "The public surface of Nomos. A consumer depends on it: do not change it without meaning to, and edit this file in the same PR.",
   "exports": [
     "Accordion",
     "AccordionContent",

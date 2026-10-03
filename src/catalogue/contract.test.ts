@@ -15,7 +15,7 @@ describe('le contrat du manifeste', () => {
     const result = componentManifestSchema.safeParse({ ...badgeManifest, usages: [] })
 
     expect(result.success).toBe(false)
-    expect(JSON.stringify(result.error?.issues)).toContain('des usages')
+    expect(JSON.stringify(result.error?.issues)).toContain('lists usages')
   })
 
   it('refuse un champ inconnu au lieu de l’ignorer', () => {

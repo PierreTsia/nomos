@@ -49,7 +49,7 @@ export function createDesignSystemServer({
   server.registerResource(
     'tokens',
     TOKENS_URI,
-    { title: 'Tokens du design system', mimeType: 'application/json' },
+    { title: 'Design system tokens', mimeType: 'application/json' },
     (uri) => json(uri.href, tokensResource),
   )
 
@@ -67,7 +67,7 @@ export function createDesignSystemServer({
     server.registerResource(
       `view:${manifest.name}`,
       appViewUri(manifest.name),
-      { title: `${manifest.title} — vue`, mimeType: APP_VIEW_MIME },
+      { title: `${manifest.title} — view`, mimeType: APP_VIEW_MIME },
       (uri) => ({
         contents: [{ uri: uri.href, mimeType: APP_VIEW_MIME, text: appViewFor(manifest.name, tokensDoc) }],
       }),
@@ -79,7 +79,7 @@ export function createDesignSystemServer({
     server.registerResource(
       `scene:${composite.name}`,
       compositeViewUri(composite.name),
-      { title: `${composite.title} — scène`, mimeType: APP_VIEW_MIME },
+      { title: `${composite.title} — scene`, mimeType: APP_VIEW_MIME },
       (uri) => ({
         contents: [
           { uri: uri.href, mimeType: APP_VIEW_MIME, text: compositeViewFor(composite.name, tokensDoc) },
@@ -91,14 +91,14 @@ export function createDesignSystemServer({
   server.registerTool(
     'list_components',
     {
-      title: 'Lister les composants du design system',
+      title: 'List the design system components',
       description: [
-        'USAGE — quand il faut savoir quelles briques existent et laquelle prendre. La recherche est locale et déterministe : elle filtre sur le nom, le titre, le résumé et l’intention des usages, sans appel d’API.',
-        'INPUTS — `query` (optionnel) : un mot à chercher, ex. « badge », « table », « surcouche ».',
-        'OUTPUT — la liste des composants qui correspondent : nom, titre, niveau et résumé.',
-        'EXAMPLES — `list_components {}` liste tout ; `list_components {"query":"filtre"}` retrouve le filtre à facettes.',
+        'USAGE — when you need to know which bricks exist and which one to pick. The search is local and deterministic: it filters on the name, the title, the summary and the intent of the usages, with no API call.',
+        'INPUTS — `query` (optional): a word to search for, e.g. "badge", "table", "overlay".',
+        'OUTPUT — the matching components: name, title, level and summary.',
+        'EXAMPLES — `list_components {}` lists everything; `list_components {"query":"filter"}` finds the facet filter.',
       ].join('\n'),
-      inputSchema: { query: z.string().optional().describe('Le mot à chercher.') },
+      inputSchema: { query: z.string().optional().describe('The word to search for.') },
     },
     ({ query }) => text(listComponents(query)),
   )
@@ -106,14 +106,14 @@ export function createDesignSystemServer({
   server.registerTool(
     'get_component',
     {
-      title: 'Décrire un composant du design system',
+      title: 'Describe a design system component',
       description: [
-        'USAGE — quand il faut le contrat complet d’une brique avant de l’utiliser : ses props, ses variantes, ses usages.',
-        'INPUTS — `name` : le nom du composant, tel que rendu par `list_components`.',
-        'OUTPUT — le manifeste du composant (props, variantes, exemple, usages).',
-        'EXAMPLES — `get_component {"name":"badge"}` ; enchaîner depuis `list_components`.',
+        'USAGE — when you need the full contract of a brick before using it: its props, its variants, its usages.',
+        'INPUTS — `name`: the component name, as returned by `list_components`.',
+        'OUTPUT — the component manifest (props, variants, example, usages).',
+        'EXAMPLES — `get_component {"name":"badge"}`; chain from `list_components`.',
       ].join('\n'),
-      inputSchema: { name: z.string().describe('Le nom du composant.') },
+      inputSchema: { name: z.string().describe('The component name.') },
     },
     ({ name }) => {
       try {
@@ -127,14 +127,14 @@ export function createDesignSystemServer({
   server.registerTool(
     'preview_component',
     {
-      title: 'Prévisualiser un composant du design system',
+      title: 'Preview a design system component',
       description: [
-        'USAGE — quand il faut la recette de rendu d’une brique : de quoi la poser dans une maquette ou du code.',
-        'INPUTS — `name` : le nom du composant.',
-        'OUTPUT — son exemple de props, ses variantes et ses usages (le rendu visuel packagé viendra ailleurs).',
-        'EXAMPLES — `preview_component {"name":"meter"}` pour les props d’exemple d’un Meter.',
+        'USAGE — when you need the rendering recipe of a brick: enough to drop it into a mock-up or code.',
+        'INPUTS — `name`: the component name.',
+        'OUTPUT — its example props, its variants and its usages (the packaged visual render will come elsewhere).',
+        'EXAMPLES — `preview_component {"name":"meter"}` for a Meter’s example props.',
       ].join('\n'),
-      inputSchema: { name: z.string().describe('Le nom du composant.') },
+      inputSchema: { name: z.string().describe('The component name.') },
     },
     ({ name }) => {
       try {
@@ -148,12 +148,12 @@ export function createDesignSystemServer({
   server.registerTool(
     'list_scenes',
     {
-      title: 'Lister les scènes composites du design system',
+      title: 'List the design system composite scenes',
       description: [
-        'USAGE — quand il faut une vue montée de plusieurs briques (un formulaire, une carte de statut), pas un seul composant.',
-        'INPUTS — aucun.',
-        'OUTPUT — les scènes disponibles : nom, titre, résumé.',
-        'EXAMPLES — `list_scenes {}` ; puis `render_scene_<nom>` pour la montrer.',
+        'USAGE — when you need a view assembled from several bricks (a form, a status card), not a single component.',
+        'INPUTS — none.',
+        'OUTPUT — the available scenes: name, title, summary.',
+        'EXAMPLES — `list_scenes {}`; then `render_scene_<name>` to show one.',
       ].join('\n'),
       inputSchema: {},
     },
@@ -165,18 +165,18 @@ export function createDesignSystemServer({
     server.registerTool(
       `render_${manifest.name}`,
       {
-        title: `Rendre ${manifest.title} en conversation`,
+        title: `Render ${manifest.title} in conversation`,
         description: [
-          'USAGE — quand il faut montrer un composant du design system dans la conversation, pas seulement le décrire.',
-          'INPUTS — `props` (optionnel) : les données à afficher (objet JSON). L’hôte les remet à la vue par `set-data` ; sans elles, la vue montre son exemple.',
-          'OUTPUT — la recette de rendu et les props ; l’hôte rend la vue référencée par `_meta.ui.resourceUri`.',
-          `EXAMPLES — \`render_${manifest.name} {}\` pour l’exemple ; \`render_${manifest.name} {"props":{"...":…}}\` pour des données.`,
+          'USAGE — when you need to show a design system component in the conversation, not just describe it.',
+          'INPUTS — `props` (optional): the data to display (JSON object). The host passes them to the view via `set-data`; without them, the view shows its example.',
+          'OUTPUT — the rendering recipe and the props; the host renders the view referenced by `_meta.ui.resourceUri`.',
+          `EXAMPLES — \`render_${manifest.name} {}\` for the example; \`render_${manifest.name} {"props":{"...":…}}\` for data.`,
         ].join('\n'),
         inputSchema: {
           props: z
             .record(z.string(), z.unknown())
             .optional()
-            .describe('Les données de la vue (props JSON, ADR 0023).'),
+            .describe('The view data (JSON props, ADR 0023).'),
         },
         _meta: { ui: { resourceUri: appViewUri(manifest.name) } },
       },
@@ -189,18 +189,18 @@ export function createDesignSystemServer({
     server.registerTool(
       `render_scene_${composite.name}`,
       {
-        title: `Rendre ${composite.title} en conversation`,
+        title: `Render ${composite.title} in conversation`,
         description: [
-          'USAGE — quand il faut montrer une scène composite du design system dans la conversation, pas seulement un composant.',
-          'INPUTS — `props` (optionnel) : les données de la scène (objet JSON), remises par `set-data`.',
-          'OUTPUT — la recette et les props ; l’hôte rend la vue référencée par `_meta.ui.resourceUri`.',
+          'USAGE — when you need to show a design system composite scene in the conversation, not just a component.',
+          'INPUTS — `props` (optional): the scene data (JSON object), passed via `set-data`.',
+          'OUTPUT — the recipe and the props; the host renders the view referenced by `_meta.ui.resourceUri`.',
           `EXAMPLES — \`render_scene_${composite.name} {}\`.`,
         ].join('\n'),
         inputSchema: {
           props: z
             .record(z.string(), z.unknown())
             .optional()
-            .describe('Les données de la scène (props JSON, ADR 0023).'),
+            .describe('The scene data (JSON props, ADR 0023).'),
         },
         _meta: { ui: { resourceUri: compositeViewUri(composite.name) } },
       },

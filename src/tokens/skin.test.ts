@@ -55,7 +55,7 @@ describe('le skin', () => {
       resolveSkin(defaultDoc, {
         semantic: { color: { backgrounds: { $value: 'x' } } },
       }),
-    ).toThrow(/emplacement inconnu/)
+    ).toThrow(/unknown slot/)
   })
 
   it('refuse une `primitive` dans un skin — le cœur garde les valeurs brutes', () => {

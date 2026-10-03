@@ -81,7 +81,7 @@ describe('tokens.json — la source unique', () => {
     delete broken.semantic.color.background.$value.light
 
     expect(() => resolve(broken, 'color.background', 'light')).toThrow(
-      /n'emplit pas l'emplacement/,
+      /does not fill the slot/,
     )
   })
 
@@ -89,14 +89,14 @@ describe('tokens.json — la source unique', () => {
     const broken = copy()
     broken.semantic.color.border.$value.dark = '{primitive.color.absent.100}'
 
-    expect(() => resolve(broken, 'color.border', 'dark')).toThrow(/qui n'existe pas/)
+    expect(() => resolve(broken, 'color.border', 'dark')).toThrow(/does not exist/)
   })
 
   it('échoue sur un alias cyclique', () => {
     const broken = copy()
     broken.semantic.color.border.$value.dark = '{semantic.color.border.$value.dark}'
 
-    expect(() => resolve(broken, 'color.border', 'dark')).toThrow(/pointe vers/)
+    expect(() => resolve(broken, 'color.border', 'dark')).toThrow(/points to/)
   })
 
   it('rend une couleur en triples HSL et une dimension en valeur + unité', () => {
@@ -113,7 +113,7 @@ describe('tokens.json — la source unique', () => {
   })
 
   it('refuse un tableau sans type plutôt que de rendre un blanc', () => {
-    expect(() => cssValue(['ui-sans-serif'])).toThrow(/exige le `\$type`/)
+    expect(() => cssValue(['ui-sans-serif'])).toThrow(/requires its token's .\$type./)
   })
 })
 

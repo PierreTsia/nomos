@@ -69,8 +69,8 @@ export function buildReferenceHost({
   data?: Record<string, unknown>
 }): string {
   return `<!doctype html>
-<html lang="fr">
-<head><meta charset="utf-8" /><title>Hôte de référence — ${viewUri}</title></head>
+<html lang="en">
+<head><meta charset="utf-8" /><title>Reference host — ${viewUri}</title></head>
 <body>
 <script>${hostScript(theme, density, data)}</script>
 <iframe

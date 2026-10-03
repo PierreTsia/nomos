@@ -13,7 +13,7 @@ export function resolveSkin(defaultDoc: Doc, overlay?: Doc): Doc {
 
   if (overlay.primitive) {
     throw new Error(
-      'skin : un skin ne porte pas de `primitive` — il ne remplace que des emplacements sémantiques (ADR 0022).',
+      'skin: a skin does not carry a `primitive` — it only replaces semantic slots (ADR 0022).',
     )
   }
 
@@ -27,7 +27,7 @@ export function resolveSkin(defaultDoc: Doc, overlay?: Doc): Doc {
     const base = known.get(path)
     if (!base) {
       throw new Error(
-        `skin : emplacement inconnu \`${path}\` — l'interface de thème est celle du défaut du cœur (ADR 0022).`,
+        `skin: unknown slot \`${path}\` — the theme interface is the core default's (ADR 0022).`,
       )
     }
     // Le type du défaut est repris si l'overlay ne le redonne pas (il n'est lu que pour

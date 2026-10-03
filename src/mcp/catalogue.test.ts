@@ -24,7 +24,7 @@ describe('la lecture du catalogue', () => {
 
   it('rend le manifeste d’un composant, et lève sur un nom inconnu', () => {
     expect(getComponent('badge').title).toBe('Badge')
-    expect(() => getComponent('grille')).toThrow(/introuvable/)
+    expect(() => getComponent('grille')).toThrow(/not found/)
   })
 
   it('rend la recette de rendu d’un composant', () => {

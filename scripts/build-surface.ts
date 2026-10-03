@@ -47,7 +47,7 @@ const tokens = JSON.parse(read('tokens/tokens.resource.json')) as {
 
 const surface = {
   $description:
-    'Surface publique de Nomos. Un consommateur en dépend : ne la changez pas sans le vouloir, et éditez ce fichier dans la même PR.',
+    'The public surface of Nomos. A consumer depends on it: do not change it without meaning to, and edit this file in the same PR.',
   exports: indexExports(),
   mcp: {
     tools: [
@@ -92,14 +92,14 @@ if (process.argv.includes('--check')) {
   }
   if (current !== next) {
     console.error(
-      'surface.generated.json est périmé (surface publique modifiée) : rejouer `npm run build:surface`.',
+      'surface.generated.json is stale (public surface changed): replay `npm run build:surface`.',
     )
     process.exit(1)
   }
-  console.log('à jour  surface.generated.json')
+  console.log('up to date  surface.generated.json')
 } else {
   writeFileSync(TARGET, next, 'utf8')
   console.log(
-    `écrit   surface.generated.json (${surface.exports.length} exports, ${surface.mcp.tools.length} outils)`,
+    `wrote   surface.generated.json (${surface.exports.length} exports, ${surface.mcp.tools.length} tools)`,
   )
 }

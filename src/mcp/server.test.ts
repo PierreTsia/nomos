@@ -165,7 +165,7 @@ describe('le serveur MCP du design system', () => {
       createDesignSystemServer({
         skin: { semantic: { color: { nope: { $value: 'x' } } } },
       }),
-    ).toThrow(/emplacement inconnu/)
+    ).toThrow(/unknown slot/)
   })
 
   it('render_<nom> et render_scene_<nom> portent les données de l’outil (ADR 0023)', async () => {
