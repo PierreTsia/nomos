@@ -8,7 +8,7 @@ import path from 'node:path'
  */
 const DS = path.resolve(import.meta.dirname, '..')
 const pkg = JSON.parse(readFileSync(path.join(DS, 'package.json'), 'utf8')) as {
-  exports: Record<string, string | { default?: string }>
+  exports: Record<string, string | { default?: string; source?: string }>
   files: string[]
 }
 
@@ -28,8 +28,12 @@ describe('les sous-exports du paquet', () => {
   it('pointe chaque sous-export vers un fichier livré', () => {
     for (const [subpath, target] of Object.entries(pkg.exports)) {
       if (subpath === '.') continue
-      const rel = typeof target === 'string' ? target : (target.default ?? '')
-      expect(existsSync(path.join(DS, rel)), subpath).toBe(true)
+      const entry = typeof target === 'string' ? { default: target } : target
+      // Les sous-exports compilés vivent dans `dist` (absent avant `build:package`) : on
+      // vérifie leur `source`, livré dans le dépôt.
+      const rel = entry.default?.startsWith('./dist/') ? entry.source : entry.default
+      expect(rel, subpath).toBeDefined()
+      expect(existsSync(path.join(DS, rel as string)), subpath).toBe(true)
     }
   })
 
