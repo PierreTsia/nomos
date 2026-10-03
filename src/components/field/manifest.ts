@@ -65,5 +65,10 @@ export const fieldManifest: ComponentManifest = {
       use: '<Field label="Adresse" error={message}>…</Field>',
       avoid: 'passing the rule or the offending field: the core only knows the final text',
     },
+    {
+      when: 'wire a core control to its message',
+      use: 'nest Input, Textarea, NumberField, SearchField or a Select trigger: it inherits aria-invalid and aria-describedby',
+      avoid: 'expecting the same from an arbitrary child outside the core: it must set its own ARIA',
+    },
   ],
 }
