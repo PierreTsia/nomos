@@ -12,6 +12,7 @@ export const fr = {
     label: 'Langue',
   },
   nav: {
+    catalogue: 'Catalogue',
     tokens: 'Tokens',
     docs: 'Docs',
     npm: 'npm',
@@ -25,7 +26,7 @@ export const fr = {
   },
   sidebar: {
     ariaLabel: 'Catalogue',
-    tokensGroup: 'Tokens',
+    overview: 'Vue d’ensemble',
     docsGroup: 'Docs',
     browse: 'Parcourir le catalogue',
   },
@@ -111,6 +112,31 @@ export const fr = {
     statsTiers: 'deux étages de tokens',
     statsThemes: 'clair et sombre',
     statsLicense: 'MIT',
+    agent: {
+      kicker: 'agent d’abord',
+      title: 'Un design system qu’une machine peut bâtir',
+      lead: 'Le même inventaire se rend à un humain et à un agent. Un agent découvre une brique, lit son manifeste et écrit une UI cohérente — sans archéologie de captures.',
+      flow: [
+        {
+          title: 'Découvrir',
+          body: 'L’agent liste le catalogue via le serveur MCP et choisit une brique selon ce à quoi elle sert.',
+        },
+        {
+          title: 'Lire le manifeste',
+          body: 'Props, variantes et usages reviennent en données — le manifeste même que ce site rend.',
+        },
+        {
+          title: 'Rendre',
+          body: 'Il écrit le composant depuis la vraie API, et la vue ui:// montre le résultat.',
+        },
+      ],
+      getsLabel: 'Ce qu’il va chercher',
+      gets: [
+        'Le serveur MCP stdio (nomos-mcp)',
+        'Les vues ui://nomos/<name>',
+        'Le skill livré',
+      ],
+    },
     inventoryKicker: 'l’inventaire',
     inventoryTitle: 'Un inventaire, trois visages',
     inventoryBody:
@@ -134,8 +160,21 @@ export const fr = {
         body: 'Votre agent de code lit l’inventaire et écrit avec vos composants, pas à côté.',
       },
     ],
-    everyBrickTitle: 'Toutes les briques',
-    everyBrickLead: (count: number) =>
-      `Les ${count}. Choisissez-en une : sa page raconte toute l’histoire.`,
+    boundary: {
+      kicker: 'la frontière',
+      title: 'Les imports vont dans un seul sens',
+      body: 'Une app peut importer Nomos ; Nomos n’importe jamais de code d’app. Un mot produit appartient à l’app, pas au cœur (ADR 0002).',
+      skinTitle: 'Les valeurs changent, pas les noms',
+      skinBody: 'Une app se re-marque en remplissant les valeurs de tokens — un skin, jamais un fork (ADR 0022).',
+    },
+    showcaseTitle: 'Quelques briques',
+    showcaseLead: 'Six d’entre elles, en direct. Le catalogue les contient toutes.',
+    browseAll: 'Voir tout le catalogue →',
+    entriesTitle: 'Où aller ensuite',
+  },
+  catalogue: {
+    title: 'Catalogue',
+    lead: (count: number) =>
+      `Les ${count} briques de l’inventaire, groupées par niveau. Choisissez-en une : sa page raconte toute l’histoire.`,
   },
 } satisfies Dictionary

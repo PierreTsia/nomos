@@ -1,4 +1,5 @@
 import {
+  Badge,
   Button,
   Card,
   Code,
@@ -9,27 +10,25 @@ import {
   Text,
 } from '@nomosui/react'
 
-import { bricks, findBrick, levels } from '../catalogue'
+import { bricks, findBrick } from '../catalogue'
 import { useI18n } from '../i18n'
 import { Preview } from './preview'
 
 const INSTALL = 'npm i @nomosui/react'
 
-/**
- * The six bricks the home showcases with a live render. Overlay bricks (dialog, sheet,
- * popover…) carry `defaultOpen` examples and would stack open on one page, so they stay on
- * their own page; the full inventory below holds every brick.
- */
+/** The six bricks the home showcases with a live render; the full grid lives on `#/catalogue`. */
 const featured = ['button', 'card', 'table', 'tabs', 'timeline', 'alert']
 
 /** The brand dot: the site wants the teal accent, which no Kicker tone carries. */
 const accentDot = '[--kicker-dot:var(--color-primary)]'
 
-export function Landing() {
+/**
+ * The marketing home (`#/`) — the front door (issue #57): the name, the agent-first
+ * promise and the one-inventory story, then entry points to the catalogue and the docs.
+ * The full catalogue grid lives on its own route (`#/catalogue`, ADR 0005).
+ */
+export function Home() {
   const { t } = useI18n()
-  const groups = levels
-    .map((level) => ({ level, group: bricks.filter((brick) => brick.level === level) }))
-    .filter(({ group }) => group.length > 0)
 
   return (
     <div className="flex flex-col">
@@ -72,7 +71,7 @@ export function Landing() {
 
         <div className="mb-14 mt-9 flex w-full flex-col items-center justify-center gap-3.5 sm:w-auto sm:flex-row">
           <Button asChild className="w-full rounded-full sm:w-auto">
-            <a href="#catalog">{t.landing.browseCatalog}</a>
+            <a href="#/catalogue">{t.landing.browseCatalog}</a>
           </Button>
           <Button asChild variant="outline" className="w-full rounded-full sm:w-auto">
             <a href="#/docs/getting-started">{t.landing.readDocs}</a>
@@ -90,7 +89,44 @@ export function Landing() {
         </div>
       </section>
 
-      <section id="catalog" className="py-16">
+      <section className="flex flex-col gap-8 rounded-lg border border-border bg-card p-6 sm:p-10">
+        <header className="flex flex-col gap-2">
+          <Kicker dot className={accentDot}>
+            {t.landing.agent.kicker}
+          </Kicker>
+          <Heading level={2} className="max-w-3xl text-3xl tracking-tight">
+            {t.landing.agent.title}
+          </Heading>
+          <Text className="max-w-2xl text-muted-foreground">{t.landing.agent.lead}</Text>
+        </header>
+
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          {t.landing.agent.flow.map((step, index) => (
+            <div key={step.title} className="flex flex-col gap-2">
+              <span className="font-mono text-xs text-primary">{index + 1}</span>
+              <Heading level={4}>{step.title}</Heading>
+              <Text size="caption" className="text-muted-foreground">
+                {step.body}
+              </Text>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-col gap-3 border-t border-border pt-6">
+          <Text size="caption" className="font-medium text-muted-foreground">
+            {t.landing.agent.getsLabel}
+          </Text>
+          <div className="flex flex-wrap gap-2">
+            {t.landing.agent.gets.map((item) => (
+              <Badge key={item} variant="outline" className="font-mono">
+                {item}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16">
         <header className="mb-12 flex flex-col gap-4 border-b border-border pb-6 md:flex-row md:items-end md:justify-between">
           <div>
             <Kicker dot className={accentDot}>
@@ -107,6 +143,51 @@ export function Landing() {
             <span className="size-1.5 rounded-full bg-primary" />
             {t.landing.generated}
           </div>
+        </header>
+
+        <div className="rounded-lg border border-border bg-card p-6 sm:p-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {t.landing.renderings.map((rendering) => (
+              <div key={rendering.kicker} className="space-y-1.5">
+                <Kicker dot className={accentDot}>
+                  {rendering.kicker}
+                </Kicker>
+                <Heading level={4}>{rendering.title}</Heading>
+                <Text size="caption" className="text-muted-foreground">
+                  {rendering.body}
+                </Text>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-6 border-t border-border py-16">
+        <Kicker dot className={accentDot}>
+          {t.landing.boundary.kicker}
+        </Kicker>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <Card>
+            <div className="flex flex-col gap-2 p-6">
+              <Heading level={4}>{t.landing.boundary.title}</Heading>
+              <Text className="text-muted-foreground">{t.landing.boundary.body}</Text>
+            </div>
+          </Card>
+          <Card>
+            <div className="flex flex-col gap-2 p-6">
+              <Heading level={4}>{t.landing.boundary.skinTitle}</Heading>
+              <Text className="text-muted-foreground">{t.landing.boundary.skinBody}</Text>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      <section className="flex flex-col gap-8 border-t border-border py-16">
+        <header className="flex flex-col gap-1.5">
+          <Heading level={2} className="text-3xl tracking-tight">
+            {t.landing.showcaseTitle}
+          </Heading>
+          <Text className="max-w-2xl text-muted-foreground">{t.landing.showcaseLead}</Text>
         </header>
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -143,59 +224,23 @@ export function Landing() {
           })}
         </div>
 
-        <div className="mt-14 rounded-lg border border-border bg-card p-6 sm:p-8">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {t.landing.renderings.map((rendering) => (
-              <div key={rendering.kicker} className="space-y-1.5">
-                <Kicker dot className={accentDot}>
-                  {rendering.kicker}
-                </Kicker>
-                <Heading level={4}>{rendering.title}</Heading>
-                <Text size="caption" className="text-muted-foreground">
-                  {rendering.body}
-                </Text>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Link href="#/catalogue" className="self-start text-sm">
+          {t.landing.browseAll}
+        </Link>
       </section>
 
-      <section id="all" className="flex flex-col gap-8 border-t border-border py-16">
-        <header className="flex flex-col gap-1.5">
-          <Heading level={2} className="text-3xl tracking-tight">
-            {t.landing.everyBrickTitle}
-          </Heading>
-          <Text className="max-w-2xl text-muted-foreground">
-            {t.landing.everyBrickLead(bricks.length)}
-          </Text>
-        </header>
-
-        {groups.map(({ level, group }) => (
-          <div key={level} className="flex flex-col gap-3">
-            <Kicker>
-              {t.levels[level]} · {group.length}
-            </Kicker>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {group.map((brick) => (
-                <Link
-                  key={brick.name}
-                  href={`#/brick/${brick.name}`}
-                  className="block text-foreground hover:no-underline"
-                >
-                  <Card className="h-full transition-colors hover:border-ring">
-                    <div className="flex flex-col gap-3 p-6">
-                      <div className="flex items-center justify-between gap-2">
-                        <Heading level={4}>{brick.title}</Heading>
-                        <Code className="text-xs">{brick.name}</Code>
-                      </div>
-                      <Text className="text-muted-foreground">{brick.summary}</Text>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
+      <section className="flex flex-col items-center gap-4 border-t border-border py-16 text-center">
+        <Heading level={2} className="text-2xl tracking-tight">
+          {t.landing.entriesTitle}
+        </Heading>
+        <div className="flex w-full flex-col items-center justify-center gap-3.5 sm:w-auto sm:flex-row">
+          <Button asChild className="w-full rounded-full sm:w-auto">
+            <a href="#/catalogue">{t.landing.browseCatalog}</a>
+          </Button>
+          <Button asChild variant="outline" className="w-full rounded-full sm:w-auto">
+            <a href="#/docs/getting-started">{t.landing.readDocs}</a>
+          </Button>
+        </div>
       </section>
     </div>
   )

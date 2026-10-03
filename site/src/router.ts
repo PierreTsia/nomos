@@ -10,6 +10,7 @@ export const isDocsSlug = (value: string): value is DocsSlug => DOCS.includes(va
 
 export type Route =
   | { kind: 'home' }
+  | { kind: 'catalogue' }
   | { kind: 'tokens' }
   | { kind: 'brick'; name: string }
   | { kind: 'docs'; slug: DocsSlug }
@@ -17,6 +18,7 @@ export type Route =
 export function parseHash(hash: string): Route {
   const path = hash.replace(/^#/, '') || '/'
   if (path === '/') return { kind: 'home' }
+  if (path === '/catalogue') return { kind: 'catalogue' }
   if (path === '/tokens') return { kind: 'tokens' }
   const brick = /^\/brick\/(.+)$/.exec(path)
   if (brick) return { kind: 'brick', name: brick[1] }

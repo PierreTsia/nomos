@@ -51,7 +51,10 @@ export function SidebarNav({ route }: { route: Route }) {
   const { t } = useI18n()
   return (
     <nav className="flex flex-col gap-6" aria-label={t.sidebar.ariaLabel}>
-      <Group title={t.sidebar.tokensGroup}>
+      <Group title={t.sidebar.overview}>
+        <Item href="#/catalogue" active={route.kind === 'catalogue'}>
+          {t.nav.catalogue}
+        </Item>
         <Item href="#/tokens" active={route.kind === 'tokens'}>
           {t.nav.tokens}
         </Item>

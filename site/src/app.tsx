@@ -4,7 +4,8 @@ import { Sidebar } from './components/sidebar'
 import { useI18n } from './i18n'
 import { LanguageSwitch } from './i18n/language-switch'
 import { DocsPage } from './pages/docs'
-import { Landing } from './pages/landing'
+import { Home } from './pages/home'
+import { CataloguePage } from './pages/catalogue'
 import { BrickPage } from './pages/brick'
 import { TokensPage } from './pages/tokens'
 import { useRoute } from './router'
@@ -37,6 +38,9 @@ export function App() {
         brand={<Wordmark />}
         nav={
           <>
+            <Link href="#/catalogue" className={quietLink}>
+              {t.nav.catalogue}
+            </Link>
             <Link href="#/tokens" className={quietLink}>
               {t.nav.tokens}
             </Link>
@@ -60,11 +64,12 @@ export function App() {
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8">
         {route.kind === 'home' ? (
-          <Landing />
+          <Home />
         ) : (
           <div className="flex flex-col gap-6 lg:flex-row lg:gap-10">
             <Sidebar route={route} />
             <div className="min-w-0 flex-1">
+              {route.kind === 'catalogue' ? <CataloguePage /> : null}
               {route.kind === 'tokens' ? <TokensPage /> : null}
               {route.kind === 'brick' ? <BrickPage name={route.name} /> : null}
               {route.kind === 'docs' ? <DocsPage slug={route.slug} /> : null}
@@ -84,7 +89,7 @@ export function App() {
             <Link href={NPM} target="_blank" rel="noreferrer" className={quietLink}>
               {t.nav.npm}
             </Link>
-            <Link href="#/" className={quietLink}>
+            <Link href="#/catalogue" className={quietLink}>
               {t.footer.catalog}
             </Link>
             <Link href="#/tokens" className={quietLink}>
