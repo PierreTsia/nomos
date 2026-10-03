@@ -102,7 +102,7 @@ export function Sidebar({ route }: { route: Route }) {
   return (
     <>
       <aside className="hidden w-56 shrink-0 lg:block">
-        <div className="sticky top-20">
+        <div className="sticky top-20 max-h-[calc(100dvh-6rem)] overflow-y-auto">
           <SidebarNav route={route} />
         </div>
       </aside>

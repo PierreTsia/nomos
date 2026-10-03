@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { Footer, Link, Navbar } from '@nomosui/react'
 
 import { Sidebar } from './components/sidebar'
@@ -30,6 +32,11 @@ function Wordmark() {
 export function App() {
   const route = useRoute()
   const { t } = useI18n()
+
+  // A route change lands at the top of the content; the sidebar scroll is its own.
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [route])
 
   return (
     <div className="flex min-h-dvh flex-col bg-background text-foreground">

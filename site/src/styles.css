@@ -2,11 +2,36 @@
 @import '@nomosui/react/tokens/tokens.generated.css';
 @import '@nomosui/react/tokens/theme.css';
 
+/* With NOMOS_LOCAL=1 the components come from the local source; scan it too. */
+@source '../../src';
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* A themed scrollbar instead of the OS default: thin, token-coloured, it follows the mode. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    background-clip: content-box;
+    border: 2px solid transparent;
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-muted-foreground);
   }
 }

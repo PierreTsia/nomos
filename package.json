@@ -51,6 +51,7 @@
     "build:package": "node scripts/build-package.mjs",
     "prepublishOnly": "npm run build:package",
     "smoke:consumer": "node scripts/smoke-consumer.mjs",
+    "dev:preview": "NOMOS_LOCAL=1 npm --prefix site run dev -- --port 5177 --open /chat.html",
     "changeset": "changeset",
     "release": "changeset publish"
   },
