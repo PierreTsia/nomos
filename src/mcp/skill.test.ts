@@ -13,7 +13,7 @@ import { componentNames } from '@nomos/mcp/catalogue'
 const SKILL = path.resolve(import.meta.dirname, '..', '..', 'SKILL.md')
 
 const INVENTORY =
-  /<!--\s*inventaire\s*:\s*début[^>]*-->([\s\S]*?)<!--\s*inventaire\s*:\s*fin\s*-->/
+  /<!--\s*inventory\s*:\s*start[^>]*-->([\s\S]*?)<!--\s*inventory\s*:\s*end\s*-->/
 
 function skillText(): string {
   return readFileSync(SKILL, 'utf8')

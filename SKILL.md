@@ -1,171 +1,166 @@
 ---
 name: nomos
-description: Choisir la brique du design system Nomos pour un usage donné — atomes (Badge, Chip, Meter, Freshness, Table, Button, Input, champ, blocs de formulaire), coquille de table, vocabulaire de tons, tokens et densité — et interroger le catalogue par le serveur MCP local, y compris les vues `ui://` rendues en conversation.
+description: Pick the right Nomos design-system brick for a given use — atoms (Badge, Chip, Meter, Freshness, Table, Button, Input, field, form blocks), table shell, tone vocabulary, tokens and density — and query the catalogue through the local MCP server, including `ui://` views rendered in conversation.
 ---
 
-# Le design system Nomos
+# The Nomos design system
 
-Un **cœur app-agnostique** (la racine de ce dépôt) : il ne connaît ni l'état d'une
-app, ni son i18n, ni son router, ni ses query-params. Dès qu'il faut nommer un produit
-pour expliquer une brique, elle appartient à l'app, pas au cœur.
+An **app-agnostic core** (the root of this repo): it knows neither an app's state, nor its
+i18n, nor its router, nor its query params. As soon as a product word is needed to explain a
+brick, it belongs to the app, not the core.
 
-## Quelle brique prendre
+## Which brick to pick
 
-### Qualifier, situer
+### Qualify, situate
 
-- **Qualifier d'un mot court** (un statut, un domaine) → `Badge`. Le ton vient d'une
-  classe de `toneClasses`, jamais d'un mot produit.
-- **Qualifier de façon retirable** (un filtre actif) → `Chip`, avec `onRemove` ; sans
-  action, un `Chip` nu. Un statut qu'on ne retire pas reste un `Badge`.
-- **Situer une valeur sur une échelle**, avec un seuil → `Meter` (barre large) ou
-  `CompactMeter` (cellule dense). Le texte du seuil est injecté par l'appelant.
-- **Dire l'âge d'une donnée** → `Freshness` ; l'âge est déjà formaté, `stale` est décidé
-  par l'appelant.
-- **Montrer l'avancement d'une tâche** (un total, sans seuil) → `ProgressBar`, sémantique
-  `progressbar`.
-- **Mettre un chiffre en avant** → `Counter` (suffixe et libellé fournis par l'app).
-- **Recueillir ou montrer une note** → `Rating` : interactif seulement si l'app fournit
-  `onValueChange`, sinon un affichage.
-- **Lister des événements datés** → `Timeline` (frise, présentation seule ; le format de
-  la date vient de l'app). Un point porte un état — `done` (défaut) ou `past` (grisé) —
-  et un `past` exige un `stateLabel` fourni par l'app : la couleur seule ne suffit pas.
-- **Nommer un contrôle iconique, glisser une aide courte** → `Tooltip` en famille (un
-  `TooltipProvider` autour de plusieurs, `Tooltip`, `TooltipTrigger`, `TooltipContent`).
-  Jamais pour une information essentielle : elle n'est ni au clavier seul ni au tactile.
-- **Représenter une personne par son image** → `Avatar` (le texte alternatif et le repli
-  viennent de l'app ; natif `<img>` + `onError`, sans dépendance).
-- **Coiffer un titre d'une accroche courte** → `Kicker` (un libellé en majuscules, un point
-  de ton optionnel via `dot` ; le texte est injecté par l'appelant).
+- **Qualify with a short word** (a status, a domain) → `Badge`. The tone comes from a
+  `toneClasses` class, never from a product word.
+- **Qualify removably** (an active filter) → `Chip`, with `onRemove`; with no action, a bare
+  `Chip`. A status you can't remove stays a `Badge`.
+- **Place a value on a scale**, with a threshold → `Meter` (wide bar) or `CompactMeter`
+  (dense cell). The threshold text is injected by the caller.
+- **State the age of a datum** → `Freshness`; the age is already formatted, `stale` is
+  decided by the caller.
+- **Show a task's progress** (a total, no threshold) → `ProgressBar`, `progressbar`
+  semantics.
+- **Highlight a number** → `Counter` (suffix and label provided by the app).
+- **Collect or show a rating** → `Rating`: interactive only if the app provides
+  `onValueChange`, otherwise a display.
+- **List dated events** → `Timeline` (a rail, presentation only; the date format comes from
+  the app). A point carries a state — `done` (default) or `past` (greyed) — and a `past`
+  requires a `stateLabel` provided by the app: colour alone is not enough.
+- **Name an icon control, tuck away a short hint** → `Tooltip` as a family (a
+  `TooltipProvider` around several, `Tooltip`, `TooltipTrigger`, `TooltipContent`). Never for
+  essential information: it is neither keyboard-only nor touch accessible.
+- **Represent a person by their image** → `Avatar` (alt text and fallback come from the app;
+  native `<img>` + `onError`, no dependency).
+- **Cap a title with a short hook** → `Kicker` (an uppercase label, an optional tone dot via
+  `dot`; the text is injected by the caller).
 
-### Agir, saisir
+### Act, input
 
-- **Agir** → `Button` (`variant` = le ton, `size` = la densité ; `asChild` pour poser le
-  style sur un lien).
-- **Naviguer vers une URL** → `Link` (un `<a>` ; `href` et libellé injectés, le cœur ne
-  porte aucun routing ; `asChild` pour poser le style sur un composant de routing de l'app).
-- **Copier un texte** → `CopyButton` (`value` à copier, `label`/`copiedLabel` et `icon`
-  injectés ; le libellé transitoire revient seul après ~2 s).
-- **Saisir une ligne** → `Input` ; **un nombre borné** → `NumberField` (`step`, `min`,
-  `max` du natif) ; **chercher avec icône et effacement** → `SearchField` ; **plusieurs
-  lignes** → `Textarea`.
-- **Cocher** → `Checkbox` (option indépendante) ; **basculer tout de suite** → `Switch` ;
-  **choisir une seule option parmi quelques-unes** → `RadioGroup` ; **une bascule
-  ponctuelle** (mode, filtre) → `Toggle`, **un segment** → `ToggleGroup`. Tous sont
-  contrôlés par props : l'état reste dans l'app.
-- **Choisir une valeur unique parmi une liste d'options** → `Select` en parts
-  (`SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem` ; les libellés et les
-  valeurs viennent de l'app). Pour des actions, c'est un `DropdownMenu`.
+- **Act** → `Button` (`variant` = the tone, `size` = the density; `asChild` to put the style
+  on a link).
+- **Navigate to a URL** → `Link` (an `<a>`; `href` and label injected, the core carries no
+  routing; `asChild` to put the style on an app routing component).
+- **Copy a text** → `CopyButton` (`value` to copy, `label`/`copiedLabel` and `icon`
+  injected; the transient label returns on its own after ~2 s).
+- **Input one line** → `Input`; **a bounded number** → `NumberField` (`step`, `min`, `max`
+  from the native element); **search with an icon and a clear button** → `SearchField`;
+  **several lines** → `Textarea`.
+- **Check** → `Checkbox` (independent option); **toggle right away** → `Switch`; **choose a
+  single option among a few** → `RadioGroup`; **a one-off toggle** (mode, filter) → `Toggle`,
+  **a segment** → `ToggleGroup`. All are controlled by props: the state stays in the app.
+- **Choose a single value from a list of options** → `Select` as parts (`SelectTrigger`,
+  `SelectValue`, `SelectContent`, `SelectItem`; labels and values come from the app). For
+  actions, it's a `DropdownMenu`.
 
-### Structurer
+### Structure
 
-- **Une surface** (titre, corps, pied) → les parts de `Card`.
-- **L'en-tête d'un site** (marque, navigation, actions) → `Navbar` : une barre sticky en
-  haut, bordure basse, fond du cœur. Les slots `brand`, `nav` et `actions` sont injectés
-  par l'app — aucun `href` ni mot produit dans le cœur (ADR 0030).
-- **Un état vide, ou une panne à nommer** → `EmptyState` (la carte centrée ; le `detail`
-  brut nomme la vraie panne, plutôt qu'un zéro silencieux).
-- **Un pied de page** (marque, rangée de liens, ligne légale) → `Footer` : des emplacements
-  injectés (`brand`, `links`, `legal`), sans routing ni libellé propre au cœur.
-- **Une information inline** qui demande l'attention sans bloquer → `Alert` (le ton vient
-  du cœur ; `onClose` va avec `closeLabel`).
-- **Séparer deux contenus** → `Separator` ; **tenir la place d'un contenu qui charge** →
+- **A surface** (title, body, footer) → the parts of `Card`.
+- **A site header** (brand, navigation, actions) → `Navbar`: a sticky bar at the top, a
+  bottom border, the core's background. The `brand`, `nav` and `actions` slots are injected
+  by the app — no `href` and no product word in the core (ADR 0030).
+- **An empty state, or a failure to name** → `EmptyState` (the centred card; the raw `detail`
+  names the real failure, rather than a silent zero).
+- **A footer** (brand, link row, legal line) → `Footer`: injected slots (`brand`, `links`,
+  `legal`), with no routing or core-specific label.
+- **Inline information** that asks for attention without blocking → `Alert` (the tone comes
+  from the core; `onClose` goes with `closeLabel`).
+- **Separate two contents** → `Separator`; **hold the place of loading content** →
   `Skeleton`.
-- **Un contenu riche ou interactif dans une surface flottante au clic** → `Popover`
-  (`PopoverTrigger`, `PopoverContent`, `PopoverAnchor` pour s'ancrer ailleurs). Pour un
-  texte court au survol, c'est une `Tooltip`.
-- **Révéler un détail à la demande** → `Collapsible` (`CollapsibleTrigger`,
-  `CollapsibleContent`) ; **des sections repliables, une à la fois** → `Accordion`
-  (`AccordionItem`, `AccordionTrigger`, `AccordionContent`, `type` single/multiple).
-- **Basculer entre des vues sœurs** → `Tabs` (`TabsList`, `TabsTrigger`, `TabsContent`) ;
-  **borner une sous-vue dense dans une hauteur fixe** → `ScrollArea` (purement cosmétique,
-  le défilement reste natif).
-- **Prévenir sans bloquer** → `Toast` via `useToast().show({ message })` (la file et
-  l'auto-dismiss vivent dans `ToastProvider`).
-- **Regrouper des actions derrière un déclencheur compact** → `DropdownMenu` en parts
-  (`DropdownMenuTrigger`, `DropdownMenuContent`, `DropdownMenuItem`, à cocher, radio,
-  sous-menu ; les libellés et les actions viennent de l'app). Pour choisir une valeur de
-  formulaire, c'est un `Select`.
-- **Demander une décision dans une modale centrée** → `Dialog` (déclencheur, titre,
-  description, corps, pied ; le libellé de fermeture vient de l'app). L'empilement, le
-  voile et le mouvement viennent des tokens, jamais d'une valeur en dur.
-- **Confirmer une action destructive** → `AlertDialog` (`AlertDialogTrigger`,
-  `AlertDialogContent`, `AlertDialogAction`, `AlertDialogCancel` ; deux issues
-  explicites). Il ne se ferme pas au clic hors surface.
-- **Montrer un contenu ancré à un bord** → `Sheet` en parts (`SheetTrigger`, `SheetContent`
-  avec `side`, `SheetHeader`, `SheetFooter`) ; `side="bottom"` est le **drawer** — le même
-  panneau, un côté différent, pas un atome à part.
-- **Parcourir une hiérarchie** → `Tree` (navigation, un nœud actif) ou `SelectionTree`
-  (sélection multiple) ; ouverture et sélection sont contrôlées par props, le focus
-  clavier (rôle `tree`, flèches) est interne.
+- **Rich or interactive content in a floating surface on click** → `Popover`
+  (`PopoverTrigger`, `PopoverContent`, `PopoverAnchor` to anchor elsewhere). For a short text
+  on hover, it's a `Tooltip`.
+- **Reveal a detail on demand** → `Collapsible` (`CollapsibleTrigger`, `CollapsibleContent`);
+  **collapsible sections, one at a time** → `Accordion` (`AccordionItem`, `AccordionTrigger`,
+  `AccordionContent`, `type` single/multiple).
+- **Switch between sibling views** → `Tabs` (`TabsList`, `TabsTrigger`, `TabsContent`);
+  **bound a dense sub-view to a fixed height** → `ScrollArea` (purely cosmetic, scrolling
+  stays native).
+- **Warn without blocking** → `Toast` via `useToast().show({ message })` (the queue and
+  auto-dismiss live in `ToastProvider`).
+- **Group actions behind a compact trigger** → `DropdownMenu` as parts
+  (`DropdownMenuTrigger`, `DropdownMenuContent`, `DropdownMenuItem`, checkable, radio,
+  submenu; labels and actions come from the app). To choose a form value, it's a `Select`.
+- **Ask for a decision in a centred modal** → `Dialog` (trigger, title, description, body,
+  footer; the close label comes from the app). Stacking, overlay and motion come from the
+  tokens, never from a hard-coded value.
+- **Confirm a destructive action** → `AlertDialog` (`AlertDialogTrigger`,
+  `AlertDialogContent`, `AlertDialogAction`, `AlertDialogCancel`; two explicit outcomes). It
+  does not close on an outside click.
+- **Show content anchored to an edge** → `Sheet` as parts (`SheetTrigger`, `SheetContent`
+  with `side`, `SheetHeader`, `SheetFooter`); `side="bottom"` is the **drawer** — the same
+  panel, a different side, not a separate atom.
+- **Browse a hierarchy** → `Tree` (navigation, one active node) or `SelectionTree`
+  (multi-selection); opening and selection are controlled by props, keyboard focus (`tree`
+  role, arrows) is internal.
 
-### Écrire
+### Write
 
-- **Titrer une section** → `Heading` : `level` choisit la balise `h1`..`h6` **et** la taille
-  sémantique (display, title, lead, body, caption, micro). La hiérarchie du document se
-  décide par le niveau, jamais par la taille.
-- **Écrire le texte courant** → `Text` : `size` lit l'échelle sémantique (`lead`, `body`,
-  `caption`, `micro`), `as` choisit `p` (défaut) ou `span` pour un texte inline. Les tailles
-  viennent des tokens, jamais d'un utilitaire ad-hoc.
-- **Montrer un extrait de code** → `Code` (inline, dans une phrase) ou `CodeBlock` (bloc
-  scrollable avec bouton de copie ; `code` est le texte copié, `children` le rendu, les
-  libellés sont injectés). La coloration syntaxique reste à l'app.
+- **Title a section** → `Heading`: `level` chooses the `h1`..`h6` tag **and** the semantic
+  size (display, title, lead, body, caption, micro). Document hierarchy is decided by the
+  level, never by the size.
+- **Write body text** → `Text`: `size` reads the semantic scale (`lead`, `body`, `caption`,
+  `micro`), `as` chooses `p` (default) or `span` for inline text. Sizes come from the tokens,
+  never from an ad-hoc utility.
+- **Show a code excerpt** → `Code` (inline, in a sentence) or `CodeBlock` (scrollable block
+  with a copy button; `code` is the copied text, `children` the rendering, labels are
+  injected). Syntax highlighting stays with the app.
 
-### Formulaire
+### Form
 
-- **Mettre en page** → `Form` (grille de champs + zone d'actions, `columns` pour deux
-  colonnes). Aucune validation, aucun état, aucun texte.
-- **Un emplacement de champ** (libellé, contrôle, aide ou erreur) → `Field` ; **nommer un
-  contrôle seul** → `Label` (`htmlFor`) ; **regrouper des champs apparentés** →
-  `Fieldset` (`legend` fourni par l'app). Le message d'erreur est injecté, jamais calculé
-  par le cœur. Le `Field` associe lui-même le contrôle à son message (`aria-invalid`,
-  `aria-describedby`) pour les contrôles du cœur : `Input`, `Textarea`, `NumberField`,
-  `SearchField` et le déclencheur de `Select`.
+- **Lay out** → `Form` (grid of fields + action area, `columns` for two columns). No
+  validation, no state, no text.
+- **A field slot** (label, control, hint or error) → `Field`; **name a control alone** →
+  `Label` (`htmlFor`); **group related fields** → `Fieldset` (`legend` provided by the app).
+  The error message is injected, never computed by the core. `Field` itself associates the
+  control with its message (`aria-invalid`, `aria-describedby`) for the core controls:
+  `Input`, `Textarea`, `NumberField`, `SearchField` and the `Select` trigger.
 
 ### Tables
 
-- **Une grille dense de lignes** → les parts de `Table` (`Table`, `TableHeader`,
-  `TableBody`, `TableRow`, `TableHead`, `TableCell`), importables séparément.
-- **Filtrer par une dimension** → `FacetFilter` (options, sélection et libellé « effacer »
-  injectés) ; **rechercher, compter, gérer les colonnes** → `DataTableToolbar` ;
-  **naviguer dans une page** → `DataTablePagination` (indépendante de la table).
-- **Une table pilotée** (colonnes, facettes, tri, pagination, détail de ligne) → la
-  feature `FacetedDataTable` : elle possède le comportement et le **placement** du détail
-  (surcouche `overlay` ou dépli `inline`), l'app fournit le contenu et les `labels`.
+- **A dense grid of rows** → the parts of `Table` (`Table`, `TableHeader`, `TableBody`,
+  `TableRow`, `TableHead`, `TableCell`), importable separately.
+- **Filter by a dimension** → `FacetFilter` (options, selection and the "clear" label
+  injected); **search, count, manage columns** → `DataTableToolbar`; **navigate a page** →
+  `DataTablePagination` (independent of the table).
+- **A driven table** (columns, facets, sorting, pagination, row detail) → the
+  `FacetedDataTable` feature: it owns the behaviour and the **placement** of the detail
+  (`overlay` layer or `inline` expansion), the app provides the content and the `labels`.
 
 ### Conversation
 
-- **Brancher une conversation** → la feature `useChatThread({ transport, initialMessages })` :
-  elle possède la **machine à états** — ajout optimiste du tour, assemblage des deltas,
-  `send`, `stop`, `retry`/`regenerate`, `replace`, erreur — et **rien du transport**
-  (ADR 0032). L'app injecte un `ChatTransport` (une fonction `send`) : le cœur n'appelle
-  aucun modèle, ne connaît aucun endpoint, n'affiche aucune erreur réseau (ADR 0018). Un
-  message porte un rôle et des **parts** (`text`, `reasoning`, `tool`, `data`) : un signal
-  structuré est une part de premier ordre, jamais un sentinelle pêché dans la prose.
-- **La fenêtre du fil** → `Conversation` : une région `log` vivante ancrée en bas, le
-  défilement tenu par le cœur, la hauteur par l'app. **Un message** → `Message` : le
-  placement et le ton du rôle, le contenu en `parts`, et `renderPart` pour que l'app
-  garde markdown, coloration et artefact métier. **La saisie** → `Composer` : contrôlé par
-  props (`value` + `onChange`), `Entrée` envoie, `Maj+Entrée` coupe la ligne, garde IME ;
-  `busy` + `onStop` pour interrompre. **Attendre la réponse** → `TypingIndicator` (libellé
-  injecté, région `status`).
+- **Wire up a conversation** → the `useChatThread({ transport, initialMessages })` feature:
+  it owns the **state machine** — optimistic turn append, delta assembly, `send`, `stop`,
+  `retry`/`regenerate`, `replace`, error — and **nothing of the transport** (ADR 0032). The
+  app injects a `ChatTransport` (a `send` function): the core calls no model, knows no
+  endpoint, shows no network error (ADR 0018). A message carries a role and **parts**
+  (`text`, `reasoning`, `tool`, `data`): a structured signal is a first-class part, never a
+  sentinel fished out of the prose.
+- **The thread window** → `Conversation`: a live `log` region anchored at the bottom, the
+  scrolling held by the core, the height by the app. **A message** → `Message`: the placement
+  and tone of the role, the content in `parts`, and `renderPart` so the app keeps markdown,
+  highlighting and business artefacts. **The input** → `Composer`: controlled by props
+  (`value` + `onChange`), `Enter` sends, `Shift+Enter` breaks the line, IME guard; `busy` +
+  `onStop` to interrupt. **Wait for the reply** → `TypingIndicator` (label injected, `status`
+  region).
 
-### Tons et tokens
+### Tones and tokens
 
-- **Un ton de statut** → `toneClasses` (`neutral`, `info`, `progress`, `attention`,
-  `warning`, `danger`, `success`). C'est une **intention**, pas une couleur.
-- **Couleurs, espacement, typographie** → les tokens (`tokens.json`, source unique). Le
-  thème et la densité se posent sur la **racine du rendu** (`data-theme`, `data-density`),
-  jamais sur `:root`.
+- **A status tone** → `toneClasses` (`neutral`, `info`, `progress`, `attention`, `warning`,
+  `danger`, `success`). It is an **intention**, not a colour.
+- **Colours, spacing, typography** → the tokens (`tokens.json`, single source). The theme and
+  density are set on the **render root** (`data-theme`, `data-density`), never on `:root`.
 
-Le tri par défaut est porté par la colonne (`meta.defaultSort`), jamais par le cœur.
+The default sort is carried by the column (`meta.defaultSort`), never by the core.
 
-## L'inventaire
+## The inventory
 
-La liste exacte des briques du catalogue, tenue par test (`src/mcp/skill.test.ts`) : une
-brique ajoutée au catalogue sans être ici fait rougir, et une ligne qui n'existe plus
-aussi.
+The exact list of catalogue bricks, held by test (`src/mcp/skill.test.ts`): a brick added to
+the catalogue without being here turns red, and a line that no longer exists does too.
 
-<!-- inventaire : début — tenu par src/mcp/skill.test.ts -->
+<!-- inventory: start — kept by src/mcp/skill.test.ts -->
 accordion
 alert
 alert-dialog
@@ -224,44 +219,42 @@ toggle-group
 tooltip
 tree
 typing-indicator
-<!-- inventaire : fin -->
+<!-- inventory: end -->
 
-## Interroger le catalogue
+## Querying the catalogue
 
-Le serveur MCP local sert le même inventaire que la page de style, en lecture seule :
+The local MCP server serves the same inventory as the style page, read-only:
 
 ```sh
-npm run mcp   # stdio, sans jeton
+npm run mcp   # stdio, no token
 ```
 
-- `list_components { query? }` — quelles briques existent, et laquelle correspond à un mot.
-- `get_component { name }` — le contrat complet d'une brique (props, variantes, usages).
-- `preview_component { name }` — sa recette de rendu (exemple de props, variantes, usages).
-- `list_scenes` — les **scènes composites** disponibles.
-- `render_<nom>` / `render_scene_<nom>` — renvoient la recette, **portent les données**
-  (`props`, optionnel) et **référencent la vue** par `_meta.ui.resourceUri`.
+- `list_components { query? }` — which bricks exist, and which one matches a word.
+- `get_component { name }` — the full contract of a brick (props, variants, usages).
+- `preview_component { name }` — its rendering recipe (example props, variants, usages).
+- `list_scenes` — the available **composite scenes**.
+- `render_<name>` / `render_scene_<name>` — return the recipe, **carry the data** (`props`,
+  optional) and **reference the view** via `_meta.ui.resourceUri`.
 
-Les ressources portent les mêmes données que les outils : `nomos://tokens` (l'inventaire
-aplati par mode) et `nomos://component/<nom>` (le manifeste).
+Resources carry the same data as the tools: `nomos://tokens` (the inventory flattened by
+mode) and `nomos://component/<name>` (the manifest).
 
-## Le rendu en conversation
+## Rendering in conversation
 
-Au-delà du manifeste, chaque brique a une **vue** servie en `ui://nomos/<nom>` — un
-document auto-suffisant (`text/html;profile=mcp-app`) que l'hôte rend dans un iframe
-sandboxé. Une **scène composite** (`ui://nomos/composite/<nom>`) assemble plusieurs
-briques en un écran qui a du sens (un formulaire, une carte de statut). Les scènes
-sont aussi exportées sur la surface publique JS (`composites`, `compositeNames`,
-`findComposite`, ADR 0031) : le serveur MCP et le site rendent la **même** source,
-et leur copie par défaut est neutre — elle s'injecte par props.
+Beyond the manifest, each brick has a **view** served at `ui://nomos/<name>` — a
+self-contained document (`text/html;profile=mcp-app`) the host renders in a sandboxed iframe.
+A **composite scene** (`ui://nomos/composite/<name>`) assembles several bricks into a screen
+that makes sense (a form, a status card). Scenes are also exported on the public JS surface
+(`composites`, `compositeNames`, `findComposite`, ADR 0031): the MCP server and the site
+render the **same** source, and their default copy is neutral — it is injected via props.
 
-La vue **émet des intentions** (`ready`, `select`, `change`, `error`) et ne mute jamais
-l'état : l'hôte décide. Il lui pousse l'apparence (`set-view` : thème, densité) et les
-**données** (`set-data`, ADR 0023) — les `props` que l'outil de rendu a portées.
+The view **emits intentions** (`ready`, `select`, `change`, `error`) and never mutates state:
+the host decides. It pushes it the appearance (`set-view`: theme, density) and the **data**
+(`set-data`, ADR 0023) — the `props` the render tool carried.
 
-## Si tu changes le design system
+## If you change the design system
 
-Un changement qui change **l'usage** d'une brique met cette skill à jour dans le même
-changement : la liste de l'inventaire et la prose. Un composant ajouté au catalogue sans
-son manifeste (props, variantes, usages) fait rougir le test de cohérence
-(`src/catalogue/coherence.test.ts`) ; une brique absente de l'inventaire fait rougir
-`src/mcp/skill.test.ts`.
+A change that changes a brick's **usage** updates this skill in the same change: the inventory
+list and the prose. A component added to the catalogue without its manifest (props, variants,
+usages) turns the coherence test red (`src/catalogue/coherence.test.ts`); a brick missing from
+the inventory turns `src/mcp/skill.test.ts` red.
