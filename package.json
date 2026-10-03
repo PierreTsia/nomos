@@ -1,7 +1,7 @@
 {
   "name": "@nomosui/react",
   "private": false,
-  "version": "0.8.1",
+  "version": "0.8.2",
   "type": "module",
   "description": "An app-agnostic design system, built in public: a core of tokens and components exposed to humans and agents.",
   "repository": {

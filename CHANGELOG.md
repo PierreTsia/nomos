@@ -1,5 +1,11 @@
 # @nomosui/react
 
+## 0.8.2
+
+### Patch Changes
+
+- bdf454a: Translate the exposed strings to English (ADR 0026): the MCP tool and resource metadata, the view documents' `lang`, the runtime error messages, the declared `$description`s and the generator output. No API change.
+
 ## 0.8.1
 
 ### Patch Changes
