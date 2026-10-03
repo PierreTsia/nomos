@@ -1,25 +1,32 @@
-import { readFileSync } from 'node:fs'
-import path from 'node:path'
 import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 
 import { findComponent } from '@nomos/catalogue/registry'
 import { findComposite } from '@nomos/composites'
 import { renderCss } from '@nomos/tokens/build.mjs'
+import type { TokensDocument } from '@nomos/tokens/build.mjs'
 import { VIEW_CSS } from '@nomos/mcp/view-css.generated'
 import { VIEW_BUNDLE } from '@nomos/mcp/view.generated'
 import { VIEW_DATA_ID, VIEW_ROOT_ID } from '@nomos/mcp/view-contract'
 
 /**
- * Les vues MCP Apps du design system (ADR 0013) : un composant du catalogue servi comme
- * ressource auto-suffisante (`text/html;profile=mcp-app`). Le document porte le markup
+ * Les vues MCP Apps du design system (ADR 0013, 0033) : un composant du catalogue servi
+ * comme ressource auto-suffisante (`text/html;profile=mcp-app`). Le document porte le markup
  * pré-rendu (repli sans JS), le CSS inline — les **valeurs** de tokens du skin *et* la
  * **couche utilitaires** du cœur (`VIEW_CSS`, ADR 0022) — les props en JSON et le bundle
  * qui monte le composant dans l'iframe, thème et densité sur sa **propre** racine.
  *
+ * Ce module est **pur** : il prend le document de tokens déjà résolu et ne lit aucun
+ * fichier, pour qu'un consommateur (serveur ou edge) puisse assembler une vue (ADR 0034).
+ * Le chargement du défaut du cœur vit dans `@nomos/mcp/default-tokens` — réservé au serveur
+ * MCP.
+ *
  * Aucune couche composant ne connaît `postMessage` : le pont vit dans `view/bridge.ts`,
  * bundlé avec la vue.
  */
+
+/** Un document DTCG déjà parsé (le défaut du cœur ou un skin résolu). */
+export type TokenDoc = TokensDocument
 
 export const APP_VIEW_MIME = 'text/html;profile=mcp-app'
 export const appViewUri = (name: string) => `ui://nomos/${name}`
@@ -82,19 +89,8 @@ ${VIEW_CSS}</style>
 `
 }
 
-type TokenDoc = Record<string, unknown>
-
-const TOKENS_SOURCE = path.resolve(import.meta.dirname, '..', '..', 'tokens', 'tokens.json')
-let defaultTokens: TokenDoc | null = null
-
-/** Le document de tokens par défaut du cœur (`tokens.json`), lu une fois. */
-export function loadDefaultTokens(): TokenDoc {
-  defaultTokens ??= JSON.parse(readFileSync(TOKENS_SOURCE, 'utf8')) as TokenDoc
-  return defaultTokens
-}
-
-/** La vue d'un composant, dans les tokens du **skin** donné (défaut du cœur sinon, ADR 0022). */
-export function appViewFor(name: string, tokens: TokenDoc = loadDefaultTokens()): string {
+/** La vue d'un composant, dans les tokens du **skin** donné (ADR 0022). */
+export function appViewFor(name: string, tokens: TokenDoc): string {
   const { client, props } = viewProps(name)
   return buildAppView({ name, markup: renderComponentMarkup(name), css: renderCss(tokens), client, props })
 }
@@ -105,7 +101,7 @@ export function renderCompositeMarkup(name: string): string {
 }
 
 /** La vue d'une scène composite : markup pré-rendu en repli, montée client pour recevoir des données (ADR 0023). */
-export function compositeViewFor(name: string, tokens: TokenDoc = loadDefaultTokens()): string {
+export function compositeViewFor(name: string, tokens: TokenDoc): string {
   return buildAppView({
     name: `composite:${name}`,
     markup: renderCompositeMarkup(name),

@@ -1,4 +1,5 @@
 import { semanticTokens } from '@nomos/tokens/build.mjs'
+import type { TokensDocument } from '@nomos/tokens/build.mjs'
 
 /**
  * Le contrat de skin (ADR 0022) : un skin est un **overlay sémantique** posé par-dessus le
@@ -6,9 +7,7 @@ import { semanticTokens } from '@nomos/tokens/build.mjs'
  * défaut, un emplacement **inconnu** lève (l'interface de thème est celle du défaut), et un
  * skin qui porterait une `primitive` lève aussi : le cœur garde les valeurs brutes.
  */
-type Doc = Record<string, unknown>
-
-export function resolveSkin(defaultDoc: Doc, overlay?: Doc): Doc {
+export function resolveSkin(defaultDoc: TokensDocument, overlay?: TokensDocument): TokensDocument {
   if (overlay == null) return defaultDoc
 
   if (overlay.primitive) {
@@ -21,7 +20,7 @@ export function resolveSkin(defaultDoc: Doc, overlay?: Doc): Doc {
   const overlaid = semanticTokens(overlay)
   if (overlaid.size === 0) return defaultDoc
 
-  const merged = structuredClone(defaultDoc) as Doc & { semantic?: Record<string, unknown> }
+  const merged = structuredClone(defaultDoc) as TokensDocument
   merged.semantic ??= {}
   for (const [path, token] of overlaid) {
     const base = known.get(path)

@@ -5,8 +5,8 @@ import {
   appViewUri,
   compositeViewFor,
   compositeViewUri,
-  loadDefaultTokens,
 } from '@nomos/mcp/app-view'
+import { loadDefaultTokens } from '@nomos/mcp/default-tokens'
 import { buildReferenceHost } from '@nomos/mcp/reference-host'
 import { resolveSkin } from '@nomos/tokens/skin'
 

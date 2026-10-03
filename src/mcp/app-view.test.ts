@@ -11,9 +11,40 @@ import {
   renderCompositeMarkup,
 } from '@nomos/mcp/app-view'
 import { buildReferenceHost } from '@nomos/mcp/reference-host'
-import { installViewBridge } from '@nomos/mcp/view/bridge'
+import { loadDefaultTokens } from '@nomos/mcp/default-tokens'
+import { emitIntent, installViewBridge } from '@nomos/mcp/view/bridge'
+import {
+  UI_HOST_CONTEXT_CHANGED,
+  UI_INITIALIZE,
+  UI_INITIALIZED,
+  UI_MESSAGE,
+  UI_TOOL_INPUT,
+  UI_TOOL_RESULT,
+  type JsonRpcMessage,
+} from '@nomos/mcp/view-contract'
 import { VIEW_CSS } from '@nomos/mcp/view-css.generated'
-import { VIEW_SOURCE } from '@nomos/mcp/view-contract'
+
+/** Le défaut du cœur, lu une fois : le builder prend un document de tokens déjà résolu. */
+const tokens = loadDefaultTokens()
+
+/** Une fenêtre factice : on lit ce que la vue poste et on lui pousse des messages d'hôte. */
+function fakeWindow() {
+  const listeners: Array<(event: MessageEvent) => void> = []
+  const posted: JsonRpcMessage[] = []
+  const win = {
+    parent: { postMessage: (message: JsonRpcMessage) => posted.push(message) },
+    addEventListener: (_type: string, listener: (event: MessageEvent) => void) =>
+      listeners.push(listener),
+  } as unknown as Window
+  const dispatch = (data: unknown) =>
+    listeners.forEach((listener) => listener(new MessageEvent('message', { data })))
+  return { win, posted, dispatch }
+}
+
+function viewRoot(): HTMLElement {
+  document.body.innerHTML = '<div id="nomos-view"></div>'
+  return document.getElementById('nomos-view') as HTMLElement
+}
 
 /**
  * Les vues MCP Apps (ADR 0013) : un document auto-suffisant, un pont qui n'émet que des
@@ -25,7 +56,7 @@ describe('les vues MCP Apps', () => {
   })
 
   it('embarque tokens, markup, props et bundle, thème et densité sur sa propre racine', () => {
-    const view = appViewFor('freshness')
+    const view = appViewFor('freshness', tokens)
 
     expect(view).toContain('--nomos-color-background')
     expect(view).toContain('2 hours ago')
@@ -39,7 +70,7 @@ describe('les vues MCP Apps', () => {
   })
 
   it('porte la couche utilitaires du cœur, sinon les composants ne sont pas stylés (ADR 0022)', () => {
-    const view = appViewFor('badge')
+    const view = appViewFor('badge', tokens)
 
     expect(view).toContain('.bg-primary')
     expect(view).toContain('.inline-flex')
@@ -53,11 +84,11 @@ describe('les vues MCP Apps', () => {
     expect(VIEW_CSS).toContain('@keyframes nomos-fade-in')
     expect(VIEW_CSS).toContain('@keyframes nomos-slide-in-right')
 
-    expect(compositeViewFor('overlay')).toContain('data-component="composite:overlay"')
+    expect(compositeViewFor('overlay', tokens)).toContain('data-component="composite:overlay"')
   })
 
   it('laisse un élément React pré-rendu seul (pas de vue client)', () => {
-    const view = appViewFor('table')
+    const view = appViewFor('table', tokens)
 
     expect(view).toContain('"client":false')
   })
@@ -65,52 +96,116 @@ describe('les vues MCP Apps', () => {
   it('pré-rend une scène composite et la monte client pour recevoir des données (ADR 0023)', () => {
     expect(renderCompositeMarkup('form')).toContain('Save')
 
-    const view = compositeViewFor('form')
+    const view = compositeViewFor('form', tokens)
     expect(view).toContain('data-component="composite:form"')
     expect(view).toContain('"client":true')
     expect(compositeViewUri('form')).toBe('ui://nomos/composite/form')
   })
 
-  it('le pont émet des intentions, et `set-view` ne fait que poser des attributs', () => {
-    document.body.innerHTML = '<div id="nomos-view"></div>'
-    const root = document.getElementById('nomos-view') as HTMLElement
-    const posted: unknown[] = []
+  it('le pont ouvre la poignée de main MCP Apps et pose le contexte de l’hôte', () => {
+    const root = viewRoot()
+    const { win, posted, dispatch } = fakeWindow()
 
-    installViewBridge(window, root, (action, detail) => {
-      posted.push({ source: VIEW_SOURCE, type: 'intent', action, detail: detail ?? null })
+    installViewBridge(win, root, () => {})
+
+    expect(posted[0]).toMatchObject({ jsonrpc: '2.0', method: UI_INITIALIZE })
+    expect(posted[0]).toMatchObject({ params: { appInfo: { name: 'nomos-view' } } })
+
+    dispatch({
+      jsonrpc: '2.0',
+      id: (posted[0] as { id: string }).id,
+      result: { hostContext: { theme: 'light', density: 'compact' } },
     })
 
-    expect(posted[0]).toMatchObject({ type: 'intent', action: 'ready' })
-
-    root.click()
-    expect(posted[1]).toMatchObject({ type: 'intent', action: 'select' })
-
-    window.dispatchEvent(
-      new MessageEvent('message', {
-        data: { source: VIEW_SOURCE, type: 'set-view', theme: 'light', density: 'compact' },
-      }),
-    )
     expect(root.getAttribute('data-theme')).toBe('light')
     expect(root.getAttribute('data-density')).toBe('compact')
+    expect(posted[1]).toMatchObject({ jsonrpc: '2.0', method: UI_INITIALIZED })
   })
 
-  it('le pont relaie les données poussées par l’hôte (ADR 0023)', () => {
-    document.body.innerHTML = '<div id="nomos-view"></div>'
-    const root = document.getElementById('nomos-view') as HTMLElement
+  it('le pont re-rend la vue sur le résultat de l’outil, sans muter l’hôte (ADR 0023)', () => {
+    const root = viewRoot()
+    const { win, dispatch } = fakeWindow()
     const received: Record<string, unknown>[] = []
 
-    installViewBridge(window, root, () => {}, (data) => received.push(data))
+    installViewBridge(win, root, () => {}, (data) => received.push(data))
 
-    window.dispatchEvent(
-      new MessageEvent('message', {
-        data: { source: VIEW_SOURCE, type: 'set-data', data: { children: 'GL' } },
-      }),
-    )
+    dispatch({
+      jsonrpc: '2.0',
+      method: UI_TOOL_INPUT,
+      params: { arguments: { props: { children: 'A' } } },
+    })
+    dispatch({
+      jsonrpc: '2.0',
+      method: UI_TOOL_RESULT,
+      params: { structuredContent: { props: { children: 'GL' } } },
+    })
 
-    expect(received).toEqual([{ children: 'GL' }])
+    expect(received).toEqual([{ children: 'A' }, { children: 'GL' }])
   })
 
-  it('l’hôte de référence sandboxe la vue et lui pousse son apparence', () => {
+  it('ignore un structuredContent sans `props` (ADR 0023)', () => {
+    const root = viewRoot()
+    const { win, dispatch } = fakeWindow()
+    const received: Record<string, unknown>[] = []
+
+    installViewBridge(win, root, () => {}, (data) => received.push(data))
+    dispatch({
+      jsonrpc: '2.0',
+      method: UI_TOOL_RESULT,
+      params: { structuredContent: { children: 'GL' } },
+    })
+
+    expect(received).toEqual([])
+  })
+
+  it('un changement de contexte de l’hôte repose le thème (SEP-1865)', () => {
+    const root = viewRoot()
+    const { win, dispatch } = fakeWindow()
+
+    installViewBridge(win, root, () => {})
+    dispatch({ jsonrpc: '2.0', method: UI_HOST_CONTEXT_CHANGED, params: { theme: 'light' } })
+
+    expect(root.getAttribute('data-theme')).toBe('light')
+  })
+
+  it('une intention devient un message pour l’hôte (SEP-1865)', () => {
+    const { win, posted } = fakeWindow()
+
+    emitIntent(win, 'select', null)
+
+    expect(posted[0]).toMatchObject({
+      jsonrpc: '2.0',
+      method: UI_MESSAGE,
+      params: { role: 'user', content: [{ type: 'text' }] },
+    })
+    const text = (posted[0] as { params: { content: [{ text: string }] } }).params.content[0].text
+    expect(JSON.parse(text)).toEqual({ action: 'select', detail: null })
+  })
+
+  it('un échec de rendu part en log, pas en message de conversation', () => {
+    const { win, posted } = fakeWindow()
+
+    emitIntent(win, 'error', 'boom')
+
+    expect(posted[0]).toMatchObject({
+      jsonrpc: '2.0',
+      method: 'notifications/message',
+      params: { level: 'error', data: 'boom' },
+    })
+  })
+
+  it('le pont recueille toutes les intentions, piloté par les clics', () => {
+    const root = viewRoot()
+    const { win } = fakeWindow()
+    const intents: string[] = []
+
+    installViewBridge(win, root, (action) => intents.push(action))
+    root.click()
+
+    expect(intents).toEqual(['select'])
+  })
+
+  it('l’hôte de référence sandboxe la vue et parle le dialecte MCP Apps', () => {
     const host = buildReferenceHost({
       viewUri: appViewUri('freshness'),
       viewHtml: '<div id="nomos-view">vue</div>',
@@ -121,8 +216,10 @@ describe('les vues MCP Apps', () => {
     expect(host).toContain('sandbox="allow-scripts"')
     expect(host).not.toContain('allow-same-origin')
     expect(host).toContain('&lt;div id=&quot;nomos-view&quot;&gt;')
-    expect(host).toContain("theme: 'light'")
-    expect(host).toContain("density: 'compact'")
+    expect(host).toContain("method === 'ui/initialize'")
+    expect(host).toContain("method: 'ui/notifications/tool-result'")
+    expect(host).toContain("theme: THEME")
+    expect(host).toContain("density: DENSITY")
   })
 
   it('aucun composant du cœur ne touche une API d’extension', () => {

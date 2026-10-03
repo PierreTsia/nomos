@@ -6,6 +6,7 @@ import { catalogue } from '@nomos/catalogue/registry'
 import { appViewUri, compositeViewUri } from '@nomos/mcp/app-view'
 import { composites } from '@nomos/composites'
 import { TOKENS_URI, componentUri } from '@nomos/mcp/server'
+import { INTENTS } from '@nomos/mcp/view-contract'
 
 /**
  * Le **snapshot de la surface publique** de Nomos (ADR 0024). Il liste ce dont un
@@ -20,14 +21,20 @@ const TARGET = path.join(DS, 'surface.generated.json')
 
 const read = (rel: string) => readFileSync(path.join(DS, rel), 'utf8')
 
-/** Les noms exportés de `src/index.ts` (valeurs et types) — la surface JS. */
-function indexExports(): string[] {
+/** Les noms exportés d'un module (valeurs et types). */
+function exportsOf(rel: string): string[] {
+  const source = read(rel)
   const names = new Set<string>()
-  for (const match of read('src/index.ts').matchAll(/export\s+(?:type\s+)?\{([^}]+)\}/g)) {
+  for (const match of source.matchAll(/export\s+(?:type\s+)?\{([^}]+)\}/g)) {
     for (const raw of match[1].split(',')) {
       const name = raw.trim().replace(/^type\s+/, '').split(/\s+as\s+/).pop()?.trim()
       if (name) names.add(name)
     }
+  }
+  for (const match of source.matchAll(
+    /export\s+(?:function|const|class|type|interface)\s+([A-Za-z0-9_]+)/g,
+  )) {
+    names.add(match[1])
   }
   return [...names].sort()
 }
@@ -48,7 +55,11 @@ const tokens = JSON.parse(read('tokens/tokens.resource.json')) as {
 const surface = {
   $description:
     'The public surface of Nomos. A consumer depends on it: do not change it without meaning to, and edit this file in the same PR.',
-  exports: indexExports(),
+  exports: exportsOf('src/index.ts'),
+  view: {
+    entry: './view',
+    exports: exportsOf('src/view/index.ts'),
+  },
   mcp: {
     tools: [
       'get_component',
@@ -66,11 +77,8 @@ const surface = {
     ].sort(),
   },
   messages: {
-    host: literals(read('src/mcp/view-contract.ts'), /type:\s*'([a-z-]+)'/g),
-    intents: literals(
-      read('src/mcp/view/bridge.ts') + read('src/mcp/view/entry.tsx'),
-      /emit\('([a-z]+)'/g,
-    ),
+    methods: literals(read('src/mcp/view-contract.ts'), /'(ui\/[^']+|notifications\/message)'/g),
+    intents: [...INTENTS].sort(),
   },
   tokens: {
     modes: [...tokens.modes].sort(),

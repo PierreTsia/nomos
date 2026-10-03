@@ -248,9 +248,10 @@ that makes sense (a form, a status card). Scenes are also exported on the public
 (`composites`, `compositeNames`, `findComposite`, ADR 0031): the MCP server and the site
 render the **same** source, and their default copy is neutral — it is injected via props.
 
-The view **emits intentions** (`ready`, `select`, `change`, `error`) and never mutates state:
-the host decides. It pushes it the appearance (`set-view`: theme, density) and the **data**
-(`set-data`, ADR 0023) — the `props` the render tool carried.
+The view speaks the **MCP Apps** dialect (ADR 0033): it opens the `ui/initialize` handshake,
+the host answers with its context (theme, density) and pushes the tool result
+(`ui/notifications/tool-result`) — the `props` the render tool carried (ADR 0023). It never
+mutates state: an interaction becomes a `ui/message` intention the host arbitrates.
 
 ## If you change the design system
 

@@ -19,6 +19,13 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
+    "./view": {
+      "types": "./dist/types/view/index.d.ts",
+      "source": "./src/view/index.ts",
+      "import": "./dist/view.js",
+      "default": "./dist/view.js"
+    },
+    "./view.css": "./view.generated.css",
     "./tokens/theme.css": "./tokens/theme.css",
     "./tokens/tokens.generated.css": "./tokens/tokens.generated.css",
     "./tokens/tokens.json": "./tokens/tokens.json"
@@ -26,6 +33,7 @@
   "files": [
     "dist",
     "tokens",
+    "view.generated.css",
     "SKILL.md",
     "README.md",
     "scripts/install-skill.mjs"

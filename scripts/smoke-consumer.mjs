@@ -76,6 +76,26 @@ try {
   )
   run('node', ['mcp.mjs'], { cwd: tmp })
   ok('the MCP server starts and serves a styled view (ui://nomos/badge)')
+
+  // 5. Un consommateur externe rend une vue dans son propre skin (ADR 0034).
+  writeFileSync(
+    path.join(tmp, 'view.mjs'),
+    [
+      "import { renderView, appViewUri } from '@nomosui/react/view'",
+      "import { createRequire } from 'node:module'",
+      "const require = createRequire(import.meta.url)",
+      "require.resolve('@nomosui/react/view.css')",
+      "const skin = { semantic: { color: { background: { $value: { dark: '174 100% 39%', light: '174 100% 39%' } } } } }",
+      "const html = renderView({ name: 'badge', skin })",
+      "if (!html.includes('--nomos-color-background: 174 100% 39%;')) { console.error('skin value absent'); process.exit(1) }",
+      "if (!html.includes('.bg-primary')) { console.error('utilities absent'); process.exit(1) }",
+      "if (!html.includes('nomos-view')) { console.error('incomplete view'); process.exit(1) }",
+      "if (appViewUri('badge') !== 'ui://nomos/badge') { console.error('uri'); process.exit(1) }",
+      "console.log('view ok')",
+    ].join('\n'),
+  )
+  run('node', ['view.mjs'], { cwd: tmp })
+  ok('an external consumer renders a skinned view (@nomosui/react/view + view.css)')
 } catch (error) {
   fail('consumer smoke', error.message)
 } finally {

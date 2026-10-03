@@ -15,6 +15,7 @@ npm-debug.log*
 .vscode/*
 !.vscode/extensions.json
 
-# Local opencode tooling
-.opencode/
+# Local opencode tooling — only the agents are committed
+.opencode/*
+!.opencode/agents/
 tui.json
