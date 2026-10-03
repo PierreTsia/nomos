@@ -1,5 +1,32 @@
 # @nomosui/react
 
+## 0.8.0
+
+### Minor Changes
+
+- 861e670: Add a conversation surface. The headless controller `useChatThread` and its
+  transport-agnostic contract (`ChatMessage`, `ChatPart`, `ChatTransport`, `ChatDelta`,
+  labels and statuses); and four catalogued bricks — `Conversation` (scroll-anchored
+  `log` region), `Message` (role, parts, injected avatar/actions/timestamp,
+  `renderPart`), `Composer` (controlled textarea, Enter/Shift+Enter, IME guard,
+  send/stop) and `TypingIndicator`.
+  
+  The heart owns the thread state machine and the message-parts model; the app owns
+  the model call, the network, persistence, errors and i18n (ADR 0018, 0032). The
+  contract is streaming-ready: a transport returns either an async iterable of deltas
+  or a single message. Purely additive; no existing API changes.
+
+### Patch Changes
+
+- 281e0bb: Translate the component manifests to English (summary, prop/variant descriptions, usages, examples), so the catalogue site and the MCP server serve English copy (ADR 0026). No API change.
+- 96b7504: Associate a `Field`'s message with its control. The error now carries an `id` and
+  `role="alert"`, the hint carries an `id`, and the core controls (`Input`, `Textarea`,
+  `NumberField`, `SearchField`, `SelectTrigger`) inherit `aria-invalid` and
+  `aria-describedby` — so a screen reader announces the error and marks the field
+  invalid. A caller's own `aria-describedby` is kept alongside the field's message, and
+  `aria-invalid` is `true` whenever the field shows an error. The label↔control
+  association (`htmlFor`) is unchanged. Fixes #91.
+
 ## 0.7.0
 
 ### Minor Changes
