@@ -10,8 +10,8 @@
   `default`, `secondary` and `destructive` variants carried a `hover:bg-*/80`
   recolour. When a caller overrode the resting tone — e.g.
   `<Badge className="bg-primary/10 text-primary">` — the inherited hover flipped the
-  background to primary/80 while the text stayed primary, leaving rouille on rouille
-  (measured ≈1.5:1, below AA). The label also showed the text caret, as a `<div>`
+  background to primary/80 while the text stayed primary, leaving same hue on same
+  hue (measured ≈1.5:1, below AA). The label also showed the text caret, as a `<div>`
   with `cursor: auto` resolves to the I-beam over its text.
   
   - the `hover:bg-*/80` backgrounds are dropped from all variants;
