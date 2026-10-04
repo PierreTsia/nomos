@@ -34,4 +34,19 @@ describe('Badge', () => {
       outline.firstElementChild?.className,
     )
   })
+
+  it('never recolours on hover — a badge is a non-interactive label', () => {
+    // The manifest says "non-interactive label": a `hover:` background flips the
+    // tone under the caller's custom colour, leaving text on same-hue background.
+    for (const variant of ['default', 'secondary', 'destructive', 'outline'] as const) {
+      const { container } = render(<Badge variant={variant}>label</Badge>)
+      expect(container.firstElementChild?.className).not.toMatch(/(^|\s)hover:bg-/)
+    }
+  })
+
+  it('shows the default cursor, not the text caret', () => {
+    render(<Badge>label</Badge>)
+
+    expect(screen.getByText('label')).toHaveClass('cursor-default')
+  })
 })
