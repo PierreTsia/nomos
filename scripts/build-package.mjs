@@ -54,7 +54,12 @@ const alias = {
   '@nomos': path.join(DS, 'src'),
 }
 
-/** Le cœur : un bundle ESM unique. */
+/** Le cœur : un arbre ESM **par module** (`preserveModules`), pas un bundle unique. Un
+ *  consommateur qui importe une brique ne doit pas embarquer les ~60 autres : sous un
+ *  unique fichier, l'appel de module `validateCatalogue(...)` (`src/catalogue/registry.ts`)
+ *  épingle tout l'index et zod quel que soit l'import, et `sideEffects: false` ne peut pas
+ *  l'élaguer (le module est gardé, ses appels internes avec). En sortie par module, le
+ *  module du catalogue devient élaguable quand personne ne l'importe (ADR 0035). */
 async function buildCore() {
   await build({
     configFile: false,
@@ -67,7 +72,14 @@ async function buildCore() {
       emptyOutDir: true,
       minify: false,
       lib: { entry: path.join(DS, 'src', 'index.ts'), formats: ['es'], fileName: () => 'index.js' },
-      rollupOptions: { external },
+      rollupOptions: {
+        external,
+        output: {
+          preserveModules: true,
+          preserveModulesRoot: path.join(DS, 'src'),
+          entryFileNames: '[name].js',
+        },
+      },
     },
   })
 }

@@ -7,13 +7,17 @@
  * unitaires ne voient pas.
  */
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const DS = path.resolve(HERE, '..')
+const pkg = JSON.parse(readFileSync(path.join(DS, 'package.json'), 'utf8'))
+// Le SDK MCP n'est plus une dépendance du paquet (le bin l'inline, ADR 0035) : le
+// consommateur qui veut s'en servir comme **client** l'installe lui-même.
+const sdkSpec = `@modelcontextprotocol/sdk@${pkg.devDependencies?.['@modelcontextprotocol/sdk'] ?? '^1.31.0'}`
 
 const run = (command, args, options) =>
   execFileSync(command, args, { stdio: 'inherit', ...options })
@@ -38,7 +42,7 @@ try {
     path.join(tmp, 'package.json'),
     JSON.stringify({ name: 'nomos-smoke-consumer', private: true, type: 'module' }, null, 2),
   )
-  run('npm', ['install', tarball, '--silent', '--no-audit', '--no-fund'], { cwd: tmp })
+  run('npm', ['install', tarball, sdkSpec, '--silent', '--no-audit', '--no-fund'], { cwd: tmp })
 
   // 3. Le cœur s'importe (runtime).
   writeFileSync(
