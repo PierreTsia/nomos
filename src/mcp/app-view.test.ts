@@ -12,12 +12,13 @@ import {
 } from '@nomos/mcp/app-view'
 import { buildReferenceHost } from '@nomos/mcp/reference-host'
 import { loadDefaultTokens } from '@nomos/mcp/default-tokens'
-import { emitIntent, installViewBridge } from '@nomos/mcp/view/bridge'
+import { emitIntent, installViewBridge, observeSize, reportSize } from '@nomos/mcp/view/bridge'
 import {
   UI_HOST_CONTEXT_CHANGED,
   UI_INITIALIZE,
   UI_INITIALIZED,
   UI_MESSAGE,
+  UI_SIZE_CHANGED,
   UI_TOOL_INPUT,
   UI_TOOL_RESULT,
   type JsonRpcMessage,
@@ -205,6 +206,65 @@ describe('les vues MCP Apps', () => {
     expect(intents).toEqual(['select'])
   })
 
+  it('rapporte la taille de sa racine à l’hôte (ui/notifications/size-changed, SEP-1865)', () => {
+    const { win, posted } = fakeWindow()
+    const root = {
+      getBoundingClientRect: () => ({ width: 320.4, height: 47.1 }),
+    } as unknown as HTMLElement
+
+    reportSize(win, root)
+
+    expect(posted[0]).toMatchObject({
+      jsonrpc: '2.0',
+      method: UI_SIZE_CHANGED,
+      params: { width: 321, height: 48 },
+    })
+  })
+
+  it('observe la taille et la rapporte à chaque changement, observer injectable (jsdom sans ResizeObserver)', () => {
+    const { win, posted } = fakeWindow()
+    const observed: Element[] = []
+    let callback: (() => void) | undefined
+    let disconnected = false
+    class FakeObserver {
+      constructor(next: () => void) {
+        callback = next
+      }
+      observe = (target: Element) => observed.push(target)
+      disconnect = () => {
+        disconnected = true
+      }
+    }
+    const root = {
+      getBoundingClientRect: () => ({ width: 10, height: 20 }),
+    } as unknown as HTMLElement
+
+    const stop = observeSize(win, root, FakeObserver)
+
+    expect(observed).toEqual([root])
+    expect(posted).toHaveLength(0)
+    callback?.()
+    expect(posted[0]).toMatchObject({ method: UI_SIZE_CHANGED, params: { width: 10, height: 20 } })
+    stop()
+    expect(disconnected).toBe(true)
+  })
+
+  it('le pont rapporte la taille une fois la poignée de main terminée (SEP-1865)', () => {
+    const root = viewRoot()
+    const { win, posted, dispatch } = fakeWindow()
+
+    installViewBridge(win, root, () => {})
+    dispatch({
+      jsonrpc: '2.0',
+      id: (posted[0] as { id: string }).id,
+      result: { hostContext: {} },
+    })
+
+    expect(posted.some((message) => (message as { method?: string }).method === UI_SIZE_CHANGED)).toBe(
+      true,
+    )
+  })
+
   it('l’hôte de référence sandboxe la vue et parle le dialecte MCP Apps', () => {
     const host = buildReferenceHost({
       viewUri: appViewUri('freshness'),
@@ -218,6 +278,7 @@ describe('les vues MCP Apps', () => {
     expect(host).toContain('&lt;div id=&quot;nomos-view&quot;&gt;')
     expect(host).toContain("method === 'ui/initialize'")
     expect(host).toContain("method: 'ui/notifications/tool-result'")
+    expect(host).toContain("method === 'ui/notifications/size-changed'")
     expect(host).toContain("theme: THEME")
     expect(host).toContain("density: DENSITY")
   })

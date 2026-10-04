@@ -10,11 +10,13 @@
 @import '../../tokens/theme.css';
 
 @source '../components';
+@source '../lib';
 @source './composites.tsx';
 
 /* Le raccord porte aussi la source du paquet compilé (pour les consommateurs). Les vues,
- * elles, restent sur leur liste curatée : on exclut le bundle. */
-@source not '../../dist/index.js';
+ * elles, restent sur leur liste curatée : on annule le `dist` du raccord (ADR 0035) — une
+ * vue ne scanne pas le code de l'app, ni les briques qu'elle ne rend pas. */
+@source not '../../dist';
 
 @layer base {
   *,

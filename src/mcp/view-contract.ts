@@ -19,6 +19,8 @@ export const UI_TOOL_INPUT = 'ui/notifications/tool-input'
 export const UI_TOOL_RESULT = 'ui/notifications/tool-result'
 /** The host notifies a context change (theme, display mode). */
 export const UI_HOST_CONTEXT_CHANGED = 'ui/notifications/host-context-changed'
+/** The view reports its own size so the host can fit the frame (SEP-1865). */
+export const UI_SIZE_CHANGED = 'ui/notifications/size-changed'
 /** A view interaction reaches the host as a message (SEP-1865). */
 export const UI_MESSAGE = 'ui/message'
 /** A failed render is a log, not a conversation message (standard MCP logging). */

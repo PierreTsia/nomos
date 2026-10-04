@@ -25,6 +25,10 @@ jobs:
       # the JS keeps an internal alias or if a type does not resolve.
       - run: npm run build:package
 
+      # The published tree must stay shakeable: importing one brick cannot pull the
+      # catalogue (the #104 blocker for a real consumer).
+      - run: npm run size:check
+
       # Committed generated artifacts. CI fails if one has drifted from its source
       # (tokens, MCP view, view CSS, public surface).
       - run: npm run tokens:check

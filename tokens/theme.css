@@ -10,8 +10,12 @@
  * Tailwind du consommateur ne scanne pas (il ignore `node_modules`). Cette source déclare
  * le paquet à lui-même — sans elle, un consommateur qui ne scanne que son propre code perd
  * `bg-popover`, `z-popover`, `shadow-md`… et la surcouche se rend transparente (ADR 0027).
+ * Le dossier est un arbre par module (`preserveModules`, ADR 0035) : on scanne tout `dist`
+ * sauf le bundle du serveur MCP (aucune classe). Un dossier élargit la source sans jamais
+ * en oublier un : la liste exhaustive des répertoires serait le prochain défaut silencieux.
  */
-@source '../dist/index.js';
+@source '../dist';
+@source not '../dist/mcp';
 
 @theme {
   /*

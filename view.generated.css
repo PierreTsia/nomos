@@ -62,11 +62,23 @@
     --color-card-foreground: hsl(var(--nomos-color-card-foreground));
     --color-scrim: hsl(var(--nomos-color-scrim));
     --color-status-info: hsl(var(--nomos-color-status-info));
+    --color-status-info-surface: hsl(var(--nomos-color-status-info-surface));
+    --color-status-info-ink: hsl(var(--nomos-color-status-info-ink));
     --color-status-progress: hsl(var(--nomos-color-status-progress));
+    --color-status-progress-surface: hsl(var(--nomos-color-status-progress-surface));
+    --color-status-progress-ink: hsl(var(--nomos-color-status-progress-ink));
     --color-status-attention: hsl(var(--nomos-color-status-attention));
+    --color-status-attention-surface: hsl(var(--nomos-color-status-attention-surface));
+    --color-status-attention-ink: hsl(var(--nomos-color-status-attention-ink));
     --color-status-warning: hsl(var(--nomos-color-status-warning));
+    --color-status-warning-surface: hsl(var(--nomos-color-status-warning-surface));
+    --color-status-warning-ink: hsl(var(--nomos-color-status-warning-ink));
     --color-status-danger: hsl(var(--nomos-color-status-danger));
+    --color-status-danger-surface: hsl(var(--nomos-color-status-danger-surface));
+    --color-status-danger-ink: hsl(var(--nomos-color-status-danger-ink));
     --color-status-success: hsl(var(--nomos-color-status-success));
+    --color-status-success-surface: hsl(var(--nomos-color-status-success-surface));
+    --color-status-success-ink: hsl(var(--nomos-color-status-success-ink));
     --text-micro: var(--nomos-type-size-micro);
     --text-micro--line-height: var(--nomos-type-leading-micro);
     --text-caption: var(--nomos-type-size-caption);
@@ -844,6 +856,42 @@
   .border-primary {
     border-color: var(--color-primary);
   }
+  .border-status-attention\/30 {
+    border-color: color-mix(in srgb, hsl(var(--nomos-color-status-attention)) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-status-attention) 30%, transparent);
+    }
+  }
+  .border-status-danger\/30 {
+    border-color: color-mix(in srgb, hsl(var(--nomos-color-status-danger)) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-status-danger) 30%, transparent);
+    }
+  }
+  .border-status-info\/30 {
+    border-color: color-mix(in srgb, hsl(var(--nomos-color-status-info)) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-status-info) 30%, transparent);
+    }
+  }
+  .border-status-progress\/30 {
+    border-color: color-mix(in srgb, hsl(var(--nomos-color-status-progress)) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-status-progress) 30%, transparent);
+    }
+  }
+  .border-status-success\/30 {
+    border-color: color-mix(in srgb, hsl(var(--nomos-color-status-success)) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-status-success) 30%, transparent);
+    }
+  }
+  .border-status-warning\/30 {
+    border-color: color-mix(in srgb, hsl(var(--nomos-color-status-warning)) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-status-warning) 30%, transparent);
+    }
+  }
   .border-transparent {
     border-color: transparent;
   }
@@ -909,6 +957,24 @@
   }
   .bg-secondary {
     background-color: var(--color-secondary);
+  }
+  .bg-status-attention-surface {
+    background-color: var(--color-status-attention-surface);
+  }
+  .bg-status-danger-surface {
+    background-color: var(--color-status-danger-surface);
+  }
+  .bg-status-info-surface {
+    background-color: var(--color-status-info-surface);
+  }
+  .bg-status-progress-surface {
+    background-color: var(--color-status-progress-surface);
+  }
+  .bg-status-success-surface {
+    background-color: var(--color-status-success-surface);
+  }
+  .bg-status-warning-surface {
+    background-color: var(--color-status-warning-surface);
   }
   .bg-transparent {
     background-color: transparent;
@@ -1147,6 +1213,24 @@
   }
   .text-secondary-foreground {
     color: var(--color-secondary-foreground);
+  }
+  .text-status-attention-ink {
+    color: var(--color-status-attention-ink);
+  }
+  .text-status-danger-ink {
+    color: var(--color-status-danger-ink);
+  }
+  .text-status-info-ink {
+    color: var(--color-status-info-ink);
+  }
+  .text-status-progress-ink {
+    color: var(--color-status-progress-ink);
+  }
+  .text-status-success-ink {
+    color: var(--color-status-success-ink);
+  }
+  .text-status-warning-ink {
+    color: var(--color-status-warning-ink);
   }
   .uppercase {
     text-transform: uppercase;

@@ -250,7 +250,8 @@ render the **same** source, and their default copy is neutral — it is injected
 
 The view speaks the **MCP Apps** dialect (ADR 0033): it opens the `ui/initialize` handshake,
 the host answers with its context (theme, density) and pushes the tool result
-(`ui/notifications/tool-result`) — the `props` the render tool carried (ADR 0023). It never
+(`ui/notifications/tool-result`) — the `props` the render tool carried (ADR 0023). It reports
+its own size (`ui/notifications/size-changed`) so the host fits the frame. It never
 mutates state: an interaction becomes a `ui/message` intention the host arbitrates.
 
 ## If you change the design system

@@ -5,6 +5,7 @@ import {
   UI_INITIALIZED,
   UI_MESSAGE,
   UI_PROTOCOL_VERSION,
+  UI_SIZE_CHANGED,
   UI_TOOL_INPUT,
   UI_TOOL_RESULT,
   type HostContext,
@@ -79,6 +80,36 @@ function toolResultProps(result: ToolResult | undefined): Record<string, unknown
   return null
 }
 
+/** La taille que la vue rapporte : la **racine de montage**, pas le document — un hôte
+ *  inline veut la hauteur du contenu (SEP-1865, `ui/notifications/size-changed`). Le pont
+ *  est injectable : jsdom n'a pas de `ResizeObserver`, et un test veut un observer factice. */
+type SizeObserver = { observe(target: Element): void; disconnect(): void }
+type SizeObserverCtor = new (callback: () => void) => SizeObserver
+
+export function reportSize(win: Window, root: HTMLElement): void {
+  const rect = root.getBoundingClientRect()
+  send(win, {
+    jsonrpc: '2.0',
+    method: UI_SIZE_CHANGED,
+    params: { width: Math.ceil(rect.width), height: Math.ceil(rect.height) },
+  })
+}
+
+/** Rapporte la taille, puis à chaque redimensionnement. Sans `ResizeObserver` (vieux hôte,
+ *  jsdom), seule la mesure initiale compte et l'arrêt est un no-op. */
+export function observeSize(
+  win: Window,
+  root: HTMLElement,
+  Observer: SizeObserverCtor | undefined = (
+    globalThis as { ResizeObserver?: SizeObserverCtor }
+  ).ResizeObserver,
+): () => void {
+  if (typeof Observer !== 'function') return () => {}
+  const observer = new Observer(() => reportSize(win, root))
+  observer.observe(root)
+  return () => observer.disconnect()
+}
+
 export function installViewBridge(
   win: Window,
   root: HTMLElement,
@@ -104,6 +135,9 @@ export function installViewBridge(
       if (!initialized) {
         initialized = true
         send(win, { jsonrpc: '2.0', method: UI_INITIALIZED, params: {} })
+        // La vue connaît sa taille une fois prête : l'hôte ajuste sa frame (SEP-1865).
+        reportSize(win, root)
+        observeSize(win, root)
       }
       return
     }

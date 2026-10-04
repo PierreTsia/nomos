@@ -40,14 +40,15 @@ not here (ADR 0002, 0010). Inside the package, imports go through `@nomos/*` and
 - `npm run mcp` — the stdio MCP server against the source (no token needed)
 - Generators (commit the artifact they write): `npm run tokens` · `build:view` ·
   `build:view-css` · `build:surface`
-- Package: `npm run build:package` · `npm run smoke:consumer`
+- Package: `npm run build:package` · `npm run size:check` · `npm run smoke:consumer`
 
 ## CI is the contract
 
 `.github/workflows/ci.yml` runs `test`, `lint`, `typecheck`, `build:package`, then
-the **drift gates** `tokens:check`, `view:check`, `view-css:check`,
-`surface:check`, then `smoke:consumer`. A generated artifact that has drifted from
-its source fails CI — replay the generator and commit the result in the same PR.
+`size:check` (the published tree stays shakeable), then the **drift gates** `tokens:check`,
+`view:check`, `view-css:check`, `surface:check`, then `smoke:consumer`. A generated artifact
+that has drifted from its source fails CI — replay the generator and commit the result in the
+same PR.
 
 ## Public surface & releases (ADR 0024, 0026)
 
