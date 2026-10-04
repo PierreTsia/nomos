@@ -12,7 +12,7 @@ rolldown PWA): `import { Badge }` brought the ~60 components, Radix,
 `@tanstack/react-table` and zod (+208 kB), and simply installing the package
 cost +225 kB elsewhere. Nomos is a design system built to be consumed brick by
 brick (ADR 0005); a distribution that cannot shake taxes every adopter and
-**suspends** the mijote adoption (epic E32, `mijote#178`).
+**suspends** real adoption (the E32 repro).
 
 This epic makes the published package a **tree-shakeable module graph** and
 removes a server dependency from a consumer's install, verified by a consumer
@@ -20,8 +20,7 @@ build guard.
 
 ## Context & Problem
 
-**Who is affected:** an adopter app (mijote, GymLogic) and any bundler that
-resolves the package.
+**Who is affected:** an adopter app and any bundler that resolves the package.
 
 **Current state:**
 - `build:package` emits a single `dist/index.js` bundle (254 kB).

@@ -63,8 +63,8 @@ or exceeds a ceiling. CI runs `size:check` after `build:package`. Contract tests
 
 A minimal consumer here does **not** reproduce the `@supabase/supabase-js`
 de-tree-shaking on mere presence (measured: delta 0). Open a separate
-`diagnostic` ticket pinned to the E32 repro (`mijote#184`) if the regression
-survives slice 3 in mijote; do not claim the AC before that.
+`diagnostic` ticket if the regression survives slice 3 in the adopter's E32
+repro; do not claim the AC before that.
 
 ## Verification
 

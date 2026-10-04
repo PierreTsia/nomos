@@ -16,27 +16,24 @@ import { fileURLToPath } from 'node:url'
 
 import { build } from 'vite'
 
+import { makeExternal } from './external.mjs'
+
 const DS = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const DIST_ENTRY = path.join(DS, 'dist', 'index.js')
 
 const CEILING_BYTES = 24 * 1024
-/** Des chaînes présentes seulement si le catalogue (et zod) entrent dans le bundle. */
-const FORBIDDEN = ['FacetedDataTable', 'Catalogue: two manifests share the name']
+/** Des symboles présents seulement si le module du catalogue (et zod) entre dans le bundle. */
+const FORBIDDEN = ['FacetedDataTable', 'findComponent', 'compositeNames', 'componentManifestSchema']
 
 const pkg = JSON.parse(readFileSync(path.join(DS, 'package.json'), 'utf8'))
-const deps = Object.keys(pkg.dependencies ?? {})
-const external = (id) =>
-  deps.some((dep) => id === dep || id.startsWith(`${dep}/`)) ||
-  id === 'react' ||
-  id === 'react-dom' ||
-  id.startsWith('react/') ||
-  id.startsWith('react-dom/') ||
-  id.startsWith('node:')
+const external = makeExternal(Object.keys(pkg.dependencies ?? {}))
 
 const tmp = mkdtempSync(path.join(os.tmpdir(), 'nomos-size-'))
 const outDir = path.join(tmp, 'out')
 const entry = path.join(tmp, 'entry.js')
 writeFileSync(entry, "import { Badge } from '@nomosui/react'\nconsole.log(Badge)\n")
+
+let failure = ''
 
 try {
   await build({
@@ -58,18 +55,17 @@ try {
   const leaked = FORBIDDEN.filter((marker) => bundle.includes(marker))
 
   if (leaked.length) {
-    console.error(
-      `tree-shaking: importing Badge pulled the catalogue (markers: ${leaked.join(', ')}).`,
-    )
-    process.exit(1)
+    failure = `tree-shaking: importing Badge pulled the catalogue (markers: ${leaked.join(', ')}).`
+  } else if (bytes > CEILING_BYTES) {
+    failure = `tree-shaking: importing Badge produced ${bytes} B (> ${CEILING_BYTES} B) — the barrel is not shaken.`
+  } else {
+    console.log(`up to date  tree-shaking (Badge alone → ${bytes} B, no catalogue leak)`)
   }
-  if (bytes > CEILING_BYTES) {
-    console.error(
-      `tree-shaking: importing Badge produced ${bytes} B (> ${CEILING_BYTES} B) — the barrel is not shaken.`,
-    )
-    process.exit(1)
-  }
-  console.log(`up to date  tree-shaking (Badge alone → ${bytes} B, no catalogue leak)`)
 } finally {
   rmSync(tmp, { recursive: true, force: true })
+}
+
+if (failure) {
+  console.error(failure)
+  process.exitCode = 1
 }

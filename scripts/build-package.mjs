@@ -28,6 +28,8 @@ import { fileURLToPath } from 'node:url'
 
 import { build } from 'vite'
 
+import { makeExternal } from './external.mjs'
+
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const DS = path.resolve(HERE, '..')
 const DIST = path.join(DS, 'dist')
@@ -38,16 +40,7 @@ const pkg = JSON.parse(readFileSync(path.join(DS, 'package.json'), 'utf8'))
 const deps = Object.keys(pkg.dependencies ?? {})
 
 /** Toute dépendance externe : elle est installée par le consommateur, pas inlinée. */
-function external(id) {
-  return (
-    deps.some((dep) => id === dep || id.startsWith(`${dep}/`)) ||
-    id === 'react' ||
-    id === 'react-dom' ||
-    id.startsWith('react/') ||
-    id.startsWith('react-dom/') ||
-    id.startsWith('node:')
-  )
-}
+const external = makeExternal(deps)
 
 const alias = {
   '@nomos/derived': path.join(DS, 'tokens'),
@@ -197,11 +190,10 @@ function walk(dir) {
  * non distribuable (une nouvelle source d'alias, un fichier manquant).
  */
 function assertSelfContained() {
-  for (const jsPath of [
-    path.join(DIST, 'index.js'),
-    path.join(DIST, 'mcp', 'bin.js'),
-    path.join(DIST, 'view.js'),
-  ]) {
+  // Le cœur est un arbre par module (`preserveModules`) : on parcourt **tous** les `.js`
+  // de `dist`, pas seulement l'entrée — un alias `@nomos/*` oublié dans un module interne
+  // ne résoudrait pas chez un consommateur, sans bruit.
+  for (const jsPath of walk(DIST).filter((file) => file.endsWith('.js'))) {
     const js = readFileSync(jsPath, 'utf8')
     if (js.includes('@nomos/')) throw new Error(`${path.relative(DS, jsPath)} keeps an @nomos/* alias`)
     if (js.includes('@nomosui/react/')) {

@@ -48,7 +48,9 @@ describe('les sous-exports du paquet', () => {
     // scanne pas (il ignore node_modules) : sans cette source, `bg-popover`, `z-popover`,
     // `shadow-md`… ne se compilent pas et la surcouche se rend transparente.
     const theme = readFileSync(path.join(DS, 'tokens/theme.css'), 'utf8')
-    expect(theme).toMatch(/@source\s+['"]\.\.\/dist\/components['"]/)
+    // Une source **large** (`dist`), pas une liste de répertoires qui oublierait le prochain.
+    expect(theme).toMatch(/@source\s+['"]\.\.\/dist['"]/)
+    expect(theme).toMatch(/@source\s+not\s+['"]\.\.\/dist\/mcp['"]/)
   })
 
   it('est élagable : `sideEffects` ne protège que le CSS (ADR 0035)', () => {
