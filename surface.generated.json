@@ -503,6 +503,7 @@
       "ui/message",
       "ui/notifications/host-context-changed",
       "ui/notifications/initialized",
+      "ui/notifications/size-changed",
       "ui/notifications/tool-input",
       "ui/notifications/tool-result"
     ],

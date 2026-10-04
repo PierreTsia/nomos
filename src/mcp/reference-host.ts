@@ -68,6 +68,15 @@ function hostScript(theme: string, density: string, data?: Record<string, unknow
       return
     }
 
+    // La vue rapporte sa taille : l'hôte ajuste la hauteur de la frame (SEP-1865).
+    if (message.method === 'ui/notifications/size-changed') {
+      var frame = document.getElementById(${JSON.stringify(HOST_FRAME_ID)})
+      if (frame && message.params && message.params.height) {
+        frame.style.height = message.params.height + 'px'
+      }
+      return
+    }
+
     // Une intention est un message de la vue : on la recueille et on répond (SEP-1865).
     if (message.method === 'ui/message') {
       try {
