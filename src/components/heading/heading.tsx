@@ -21,9 +21,16 @@ export const headingVariantsConfig = {
       '5': 'text-caption font-strong',
       '6': 'text-micro font-strong',
     },
+    tone: {
+      default: '',
+      muted: 'text-muted-foreground',
+      primary: 'text-primary',
+      danger: 'text-destructive',
+    },
   },
   defaultVariants: {
     level: '2' as const,
+    tone: 'default' as const,
   },
 }
 
@@ -41,8 +48,8 @@ export type HeadingProps = HTMLAttributes<HTMLHeadingElement> &
  * Le titre : la balise suit le niveau (`h1`..`h6`), la taille suit l'échelle sémantique.
  * Présentation seule — le texte vient de l'appelant.
  */
-export const Heading = ({ level = 2, className, ...props }: HeadingProps) => {
+export const Heading = ({ level = 2, tone, className, ...props }: HeadingProps) => {
   const Tag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   const levelKey = String(level) as keyof typeof headingVariantsConfig.variants.level
-  return <Tag className={cn(headingVariants({ level: levelKey }), className)} {...props} />
+  return <Tag className={cn(headingVariants({ level: levelKey, tone }), className)} {...props} />
 }

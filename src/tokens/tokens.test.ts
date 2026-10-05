@@ -112,6 +112,14 @@ describe('tokens.json — la source unique', () => {
     expect(cssValue([0.4, 0, 0.2, 1], 'cubicBezier')).toBe('cubic-bezier(0.4, 0, 0.2, 1)')
   })
 
+  it('rend une ombre (mono- et multi-couche) en texte CSS', () => {
+    const layer = { color: 'rgb(0 0 0 / 0.1)', offsetX: '0px', offsetY: '1px', blur: '2px', spread: '0px' }
+    expect(cssValue([layer], 'shadow')).toBe('0px 1px 2px 0px rgb(0 0 0 / 0.1)')
+    expect(cssValue([layer, { ...layer, offsetY: '4px' }], 'shadow')).toBe(
+      '0px 1px 2px 0px rgb(0 0 0 / 0.1), 0px 4px 2px 0px rgb(0 0 0 / 0.1)',
+    )
+  })
+
   it('refuse un tableau sans type plutôt que de rendre un blanc', () => {
     expect(() => cssValue(['ui-sans-serif'])).toThrow(/requires its token's .\$type./)
   })
@@ -136,6 +144,8 @@ describe('les rendus dérivés', () => {
     })
     expect(perMode[1]).toEqual(perMode[0])
     expect(perMode[0]).toContain('--nomos-color-background')
+    expect(perMode[0]).toContain('--nomos-color-outline')
+    expect(perMode[0]).toContain('--nomos-elevation-md')
   })
 })
 

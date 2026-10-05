@@ -35,6 +35,14 @@ describe('Heading', () => {
     expect(title.querySelector('h2')).toHaveClass('text-title')
   })
 
+  it('reads its tone from the semantic palette', () => {
+    const { container: muted } = render(<Heading tone="muted">secondaire</Heading>)
+    const { container: danger } = render(<Heading tone="danger">erreur</Heading>)
+
+    expect(muted.querySelector('h2')).toHaveClass('text-muted-foreground')
+    expect(danger.querySelector('h2')).toHaveClass('text-destructive')
+  })
+
   it('lets the application merge its own classes', () => {
     render(<Heading className="section-title">Titre</Heading>)
 

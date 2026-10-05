@@ -50,6 +50,20 @@ describe('Sheet', () => {
     )
   })
 
+  it('turns the bottom side into a bottom-sheet', () => {
+    render(
+      <Sheet defaultOpen>
+        <SheetContent side="bottom">
+          <SheetTitle>Drawer</SheetTitle>
+        </SheetContent>
+      </Sheet>,
+    )
+
+    const dialog = screen.getByRole('dialog')
+    expect(dialog).toHaveClass('rounded-t-lg')
+    expect(dialog.className).toContain('safe-area-inset-bottom')
+  })
+
   it('lets the application merge its own classes on the surface', () => {
     render(
       <Sheet defaultOpen>

@@ -21,6 +21,14 @@ export const headingManifest: ComponentManifest = {
         "The hierarchy level: it renders the corresponding `h1`..`h6` tag and reads the " +
         "semantic size (display, title, lead, body, caption, micro).",
     },
+    {
+      name: 'tone',
+      values: ['default', 'muted', 'primary', 'danger'],
+      default: 'default',
+      description:
+        'The ink of the heading, from the semantic palette: `muted` for a discreet title, ' +
+        '`primary` for emphasis, `danger` for an error. Never a raw colour.',
+    },
   ],
   props: [
     {

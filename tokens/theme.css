@@ -29,6 +29,7 @@
   --color-border: hsl(var(--nomos-color-border));
   --color-input: hsl(var(--nomos-color-input));
   --color-ring: hsl(var(--nomos-color-ring));
+  --color-outline: hsl(var(--nomos-color-outline));
   --color-background: hsl(var(--nomos-color-background));
   --color-foreground: hsl(var(--nomos-color-foreground));
 
@@ -80,6 +81,15 @@
   --radius-sm: var(--nomos-radius-chip);
 
   /*
+    L'élévation (ADR 0004) : les couches flottantes lisent `shadow-sm/md/lg`, que Tailwind
+    dérive de ces variables. Aucune valeur n'est écrite ici — un skin remplace l'emplacement
+    sémantique, jamais ce nom.
+  */
+  --shadow-sm: var(--nomos-elevation-sm);
+  --shadow-md: var(--nomos-elevation-md);
+  --shadow-lg: var(--nomos-elevation-lg);
+
+  /*
     L'échelle typographique sémantique (ADR 0004) : `text-body`, `text-title`… lisent la
     taille **et** l'interligne des tokens, `font-strong` lit le poids. Aucune valeur n'est
     écrite ici — un skin change les valeurs, jamais ces noms.
@@ -102,6 +112,16 @@
   --font-weight-strong: var(--nomos-type-weight-strong);
 
   --font-sans: var(--nomos-type-family-sans);
+}
+
+/*
+  Les variables de composition d'une `Card` (ADR 0004). La coquille les surcharge selon ses
+  variantes `padding`/`gap` ; les parts les lisent. Un défaut sur `:root` évite qu'une part
+  rendue hors d'une `Card` (elles sont importables seules) perde sa respiration.
+*/
+:root {
+  --nomos-card-pad: calc(var(--spacing) * 6);
+  --nomos-card-gap: 0px;
 }
 
 /*

@@ -13,8 +13,9 @@ brick, it belongs to the app, not the core.
 
 ### Qualify, situate
 
-- **Qualify with a short word** (a status, a domain) → `Badge`. The tone comes from a
-  `toneClasses` class, never from a product word.
+- **Qualify with a short word** (a status, a domain) → `Badge` (`variant` = the tone, with
+  `subtle` for a tinted one; `size`/`shape` for a compact or square label). The tone comes
+  from the core, never from a product word.
 - **Qualify removably** (an active filter) → `Chip`, with `onRemove`; with no action, a bare
   `Chip`. A status you can't remove stays a `Badge`.
 - **Place a value on a scale**, with a threshold → `Meter` (wide bar) or `CompactMeter`
@@ -39,25 +40,27 @@ brick, it belongs to the app, not the core.
 
 ### Act, input
 
-- **Act** → `Button` (`variant` = the tone, `size` = the density; `asChild` to put the style
-  on a link).
+- **Act** → `Button` (`variant` = the tone, `size` = the density — `touch` for a mobile CTA,
+  `shape="pill"` for a rounded action; `asChild` to put the style on a link).
 - **Navigate to a URL** → `Link` (an `<a>`; `href` and label injected, the core carries no
   routing; `asChild` to put the style on an app routing component).
 - **Copy a text** → `CopyButton` (`value` to copy, `label`/`copiedLabel` and `icon`
   injected; the transient label returns on its own after ~2 s).
-- **Input one line** → `Input`; **a bounded number** → `NumberField` (`step`, `min`, `max`
-  from the native element); **search with an icon and a clear button** → `SearchField`;
-  **several lines** → `Textarea`.
+- **Input one line** → `Input` (`size`, `variant="flush"` for an inline field,
+  `icon="leading"` to reserve the icon padding); **a bounded number** → `NumberField`
+  (`step`, `min`, `max` from the native element); **search with an icon and a clear button**
+  → `SearchField`; **several lines** → `Textarea`.
 - **Check** → `Checkbox` (independent option); **toggle right away** → `Switch`; **choose a
   single option among a few** → `RadioGroup`; **a one-off toggle** (mode, filter) → `Toggle`,
   **a segment** → `ToggleGroup`. All are controlled by props: the state stays in the app.
-- **Choose a single value from a list of options** → `Select` as parts (`SelectTrigger`,
-  `SelectValue`, `SelectContent`, `SelectItem`; labels and values come from the app). For
-  actions, it's a `DropdownMenu`.
+- **Choose a single value from a list of options** → `Select` as parts (`SelectTrigger` with
+  `size`/`variant="flush"`, `SelectValue`, `SelectContent`, `SelectItem`; labels and values
+  come from the app). For actions, it's a `DropdownMenu`.
 
 ### Structure
 
-- **A surface** (title, body, footer) → the parts of `Card`.
+- **A surface** (title, body, footer) → the parts of `Card` (`padding`, `gap` and `variant`
+  control its breathing room and border tone, no caller `p-*`/`gap-*`).
 - **A site header** (brand, navigation, actions) → `Navbar`: a sticky bar at the top, a
   bottom border, the core's background. The `brand`, `nav` and `actions` slots are injected
   by the app — no `href` and no product word in the core (ADR 0030).
@@ -90,8 +93,9 @@ brick, it belongs to the app, not the core.
   `AlertDialogContent`, `AlertDialogAction`, `AlertDialogCancel`; two explicit outcomes). It
   does not close on an outside click.
 - **Show content anchored to an edge** → `Sheet` as parts (`SheetTrigger`, `SheetContent`
-  with `side`, `SheetHeader`, `SheetFooter`); `side="bottom"` is the **drawer** — the same
-  panel, a different side, not a separate atom.
+  with `side`, `SheetHeader`, `SheetFooter`); `side="bottom"` is the **bottom-sheet**
+  (rounded top, safe-area padding, capped height) — the same panel, a different side, not a
+  separate atom.
 - **Browse a hierarchy** → `Tree` (navigation, one active node) or `SelectionTree`
   (multi-selection); opening and selection are controlled by props, keyboard focus (`tree`
   role, arrows) is internal.
@@ -99,11 +103,15 @@ brick, it belongs to the app, not the core.
 ### Write
 
 - **Title a section** → `Heading`: `level` chooses the `h1`..`h6` tag **and** the semantic
-  size (display, title, lead, body, caption, micro). Document hierarchy is decided by the
-  level, never by the size.
-- **Write body text** → `Text`: `size` reads the semantic scale (`lead`, `body`, `caption`,
-  `micro`), `as` chooses `p` (default) or `span` for inline text. Sizes come from the tokens,
-  never from an ad-hoc utility.
+  size (display, title, lead, body, caption, micro); `tone` sets its ink
+  (default/muted/primary/danger). Document hierarchy is decided by the level, never by the
+  size.
+- **Write body text** → `Text`: `size` reads the semantic scale (`micro`, `caption`, `body`,
+  `lead`, `title`, `display` — the same six `Heading` reads) and `tone` its ink
+  (default/muted/primary/danger), `as` chooses `p` (default) or `span` for inline text.
+  Sizes and ink come from the tokens, never from an ad-hoc utility. The scale maps onto the
+  Tailwind steps an adopter migrates from: `micro`→`text-[11px]`, `caption`→`text-xs`,
+  `body`→`text-sm`, `lead`→`text-base`, `title`→`text-lg`, `display`→`text-2xl`.
 - **Show a code excerpt** → `Code` (inline, in a sentence) or `CodeBlock` (scrollable block
   with a copy button; `code` is the copied text, `children` the rendering, labels are
   injected). Syntax highlighting stays with the app.

@@ -18,6 +18,16 @@ describe('Button', () => {
     expect(primary.firstElementChild?.className).not.toEqual(outline.firstElementChild?.className)
   })
 
+  it('exposes the shape and the touch/icon sizes', () => {
+    const { container: pill } = render(<Button shape="pill">x</Button>)
+    const { container: touch } = render(<Button size="touch">x</Button>)
+    const { container: iconLg } = render(<Button size="icon-lg">x</Button>)
+
+    expect(pill.firstElementChild).toHaveClass('rounded-full')
+    expect(touch.firstElementChild).toHaveClass('h-12')
+    expect(iconLg.firstElementChild).toHaveClass('w-12')
+  })
+
   it('lets the application merge its own classes', () => {
     render(<Button className="w-full">x</Button>)
 

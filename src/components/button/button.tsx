@@ -23,12 +23,19 @@ export const buttonVariantsConfig = {
       default: 'h-10 px-4 py-2',
       sm: 'h-9 rounded-md px-3',
       lg: 'h-11 rounded-md px-8',
+      touch: 'h-12 px-6',
       icon: 'h-10 w-10',
+      'icon-lg': 'h-12 w-12',
+    },
+    shape: {
+      default: '',
+      pill: 'rounded-full',
     },
   },
   defaultVariants: {
     variant: 'default' as const,
     size: 'default' as const,
+    shape: 'default' as const,
   },
 }
 
@@ -43,7 +50,7 @@ export type ButtonProps = ComponentProps<'button'> &
     asChild?: boolean
   }
 
-export function Button({ className, variant, size, asChild = false, ...props }: ButtonProps) {
+export function Button({ className, variant, size, shape, asChild = false, ...props }: ButtonProps) {
   const Comp = asChild ? Slot : 'button'
-  return <Comp className={cn(buttonVariants({ variant, size, className }))} {...props} />
+  return <Comp className={cn(buttonVariants({ variant, size, shape, className }))} {...props} />
 }

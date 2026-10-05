@@ -22,7 +22,7 @@ import { Heading, headingVariantsConfig } from '@nomos/components/heading/headin
 import { headingManifest } from '@nomos/components/heading/manifest'
 import { Text, textVariantsConfig } from '@nomos/components/text/text'
 import { textManifest } from '@nomos/components/text/manifest'
-import { Card } from '@nomos/components/card/card'
+import { Card, cardVariantsConfig } from '@nomos/components/card/card'
 import { cardManifest } from '@nomos/components/card/manifest'
 import { Dialog } from '@nomos/components/dialog/dialog'
 import { dialogManifest } from '@nomos/components/dialog/manifest'
@@ -56,7 +56,7 @@ import { Form } from '@nomos/components/form/form'
 import { formManifest } from '@nomos/components/form/manifest'
 import { Freshness } from '@nomos/components/freshness/freshness'
 import { freshnessManifest } from '@nomos/components/freshness/manifest'
-import { Input } from '@nomos/components/input/input'
+import { Input, inputVariantsConfig } from '@nomos/components/input/input'
 import { inputManifest } from '@nomos/components/input/manifest'
 import { Label } from '@nomos/components/label/label'
 import { labelManifest } from '@nomos/components/label/manifest'
@@ -76,7 +76,7 @@ import { RadioGroup } from '@nomos/components/radio/radio'
 import { radioManifest } from '@nomos/components/radio/manifest'
 import { SearchField } from '@nomos/components/search-field/search-field'
 import { searchFieldManifest } from '@nomos/components/search-field/manifest'
-import { Select } from '@nomos/components/select/select'
+import { Select, selectTriggerVariantsConfig } from '@nomos/components/select/select'
 import { selectManifest } from '@nomos/components/select/manifest'
 import { Separator } from '@nomos/components/separator/separator'
 import { separatorManifest } from '@nomos/components/separator/manifest'
@@ -185,17 +185,25 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: badgeManifest,
     component: Badge as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: { variant: badgeVariantsConfig },
+    variantsConfig: {
+      variant: badgeVariantsConfig,
+      size: badgeVariantsConfig,
+      shape: badgeVariantsConfig,
+    },
   },
   {
     manifest: buttonManifest,
     component: Button as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: { variant: buttonVariantsConfig, size: buttonVariantsConfig },
+    variantsConfig: { variant: buttonVariantsConfig, size: buttonVariantsConfig, shape: buttonVariantsConfig },
   },
   {
     manifest: cardManifest,
     component: Card as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: {},
+    variantsConfig: {
+      padding: cardVariantsConfig,
+      gap: cardVariantsConfig,
+      variant: cardVariantsConfig,
+    },
   },
   {
     manifest: dialogManifest,
@@ -248,7 +256,11 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: inputManifest,
     component: Input as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: {},
+    variantsConfig: {
+      size: inputVariantsConfig,
+      variant: inputVariantsConfig,
+      icon: inputVariantsConfig,
+    },
   },
   {
     manifest: numberFieldManifest,
@@ -268,7 +280,10 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: selectManifest,
     component: Select as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: {},
+    variantsConfig: {
+      size: selectTriggerVariantsConfig,
+      variant: selectTriggerVariantsConfig,
+    },
   },
   {
     manifest: labelManifest,
@@ -415,12 +430,12 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: headingManifest,
     component: Heading as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: { level: headingVariantsConfig },
+    variantsConfig: { level: headingVariantsConfig, tone: headingVariantsConfig },
   },
   {
     manifest: textManifest,
     component: Text as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: { size: textVariantsConfig },
+    variantsConfig: { size: textVariantsConfig, tone: textVariantsConfig },
   },
   {
     manifest: conversationManifest,

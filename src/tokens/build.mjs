@@ -127,6 +127,11 @@ export function resolve(doc, path, mode) {
   return raw
 }
 
+/** Rend une ombre DTCG (`$type: shadow`) en texte CSS. */
+function cssShadow(shadow) {
+  return `${shadow.offsetX} ${shadow.offsetY} ${shadow.blur} ${shadow.spread} ${shadow.color}`
+}
+
 /** Rend une valeur DTCG en texte CSS. `type` n'est lu que pour une valeur tableau. */
 export function cssValue(value, type) {
   if (typeof value === 'string') return value
@@ -134,6 +139,7 @@ export function cssValue(value, type) {
   if (Array.isArray(value)) {
     if (type === 'fontFamily') return value.map((f) => (f.includes(' ') ? `"${f}"` : f)).join(', ')
     if (type === 'cubicBezier' && value.length === 4) return `cubic-bezier(${value.join(', ')})`
+    if (type === 'shadow') return value.map(cssShadow).join(', ')
     throw new Error(
       type
         ? `tokens.json: array value not rendered for type \`${type}\`.`

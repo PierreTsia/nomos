@@ -28,6 +28,18 @@ describe('Card', () => {
     expect(screen.getByText('pied')).toBeInTheDocument()
   })
 
+  it('controls its padding, gap and border tone by variant', () => {
+    const { container: flush } = render(<Card padding="flush">x</Card>)
+    const { container: comfy } = render(<Card gap="comfy">x</Card>)
+    const { container: muted } = render(<Card variant="muted">x</Card>)
+
+    expect(flush.firstElementChild?.className).toContain('[--nomos-card-pad:0px]')
+    expect(comfy.firstElementChild?.className).toContain(
+      '[--nomos-card-gap:calc(var(--spacing)*4)]',
+    )
+    expect(muted.firstElementChild).toHaveClass('border-border/50')
+  })
+
   it('lets the application merge its own classes', () => {
     render(<Card className="shadow-none">contenu</Card>)
 

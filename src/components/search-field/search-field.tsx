@@ -32,7 +32,8 @@ export function SearchField({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
-        className="pl-9 pr-9"
+        icon="leading"
+        className="pr-9"
       />
       {value ? (
         <button

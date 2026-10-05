@@ -21,7 +21,7 @@ export const copyButtonManifest: ComponentManifest = {
     },
     {
       name: 'size',
-      values: ['default', 'sm', 'lg', 'icon'],
+      values: ['default', 'sm', 'lg', 'touch', 'icon', 'icon-lg'],
       default: 'default',
       description: 'The size of the control, taken from the Button.',
     },

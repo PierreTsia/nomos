@@ -52,7 +52,8 @@ export const sheetManifest: ComponentManifest = {
       values: ['top', 'right', 'bottom', 'left'],
       default: 'right',
       description:
-        'The edge the panel anchors to — `bottom` is the drawer; usage decides, not taste.',
+        'The edge the panel anchors to — `bottom` is the bottom-sheet (rounded top, ' +
+        'safe-area padding, capped height); usage decides, not taste.',
     },
   ],
   props: [

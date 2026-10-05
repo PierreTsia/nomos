@@ -6,7 +6,8 @@ export const numberFieldManifest: ComponentManifest = {
   title: 'NumberField',
   summary:
     "A number field (`<input type=\"number\">`): the step and bounds come from the " +
-    "native control (`step`, `min`, `max`). The value and callback remain with the caller.",
+    "native control (`step`, `min`, `max`). The value and callback remain with the caller. " +
+    "It forwards `Input`'s `size`, `variant` and `icon` variants.",
   level: 'primitive',
   example: { placeholder: '0', step: 1, min: 0, max: 10 },
   variants: [],

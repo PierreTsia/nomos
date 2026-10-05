@@ -43,7 +43,7 @@ export const sheetVariantsConfig = {
     side: {
       top: "inset-x-0 top-0 border-b data-[state=closed]:animate-slide-out-top data-[state=open]:animate-slide-in-top",
       bottom:
-        "inset-x-0 bottom-0 border-t data-[state=closed]:animate-slide-out-bottom data-[state=open]:animate-slide-in-bottom",
+        "inset-x-0 bottom-0 rounded-t-lg border-t pb-[calc(var(--spacing)*8+env(safe-area-inset-bottom))] max-h-[85dvh] data-[state=closed]:animate-slide-out-bottom data-[state=open]:animate-slide-in-bottom",
       left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:animate-slide-out-left data-[state=open]:animate-slide-in-left sm:max-w-sm",
       right:
         "inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:animate-slide-out-right data-[state=open]:animate-slide-in-right sm:max-w-sm",

@@ -38,7 +38,21 @@ export const selectManifest: ComponentManifest = {
       ),
     ),
   },
-  variants: [],
+  variants: [
+    {
+      name: 'size',
+      values: ['sm', 'md', 'lg'],
+      default: 'md',
+      description:
+        'The height of the trigger, from the density scale (ADR 0008), not a fixed length.',
+    },
+    {
+      name: 'variant',
+      values: ['default', 'flush'],
+      default: 'default',
+      description: '`flush` drops the frame of the trigger for an inline select.',
+    },
+  ],
   props: [
     {
       name: 'children',

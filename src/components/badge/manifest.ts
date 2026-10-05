@@ -15,10 +15,23 @@ export const badgeManifest: ComponentManifest = {
   variants: [
     {
       name: 'variant',
-      values: ['default', 'secondary', 'destructive', 'outline'],
+      values: ['default', 'secondary', 'destructive', 'outline', 'subtle'],
       default: 'default',
       description:
-        "The tone of the label — it is what the caller chooses according to usage, not taste.",
+        "The tone of the label — it is what the caller chooses according to usage, not taste. " +
+        "`subtle` is the tinted tone (primary ink on a primary-tinted surface).",
+    },
+    {
+      name: 'size',
+      values: ['default', 'sm', 'xs'],
+      default: 'default',
+      description: 'The size of the label, from the default to the most compact.',
+    },
+    {
+      name: 'shape',
+      values: ['default', 'square'],
+      default: 'default',
+      description: 'The shape: fully rounded (`default`), or the chip radius (`square`).',
     },
   ],
   props: [
@@ -59,6 +72,11 @@ export const badgeManifest: ComponentManifest = {
       when: "information to qualify without shouting (count, category)",
       use: 'variant="outline"',
       avoid: "variant=\"destructive\" to qualify without urgency: the tone must state the real severity",
+    },
+    {
+      when: 'a category or a difficulty, tinted in the brand ink',
+      use: 'variant="subtle"',
+      avoid: 'a raw `bg-primary/10 text-primary`: the tinted tone is the `subtle` variant',
     },
   ],
 }
