@@ -29,6 +29,9 @@ function probeFor(type: string, baseline: unknown): unknown {
   if (type.includes('[]')) return baseline
   if (/^number/.test(type)) return typeof baseline === 'number' ? baseline + 1 : 1
   if (/^boolean/.test(type)) return !baseline
+  // Une prop objet (un type nommé, une `Date`…) se sonde avec l'exemple : un `'sonde'`
+  // la ferait exploser pour la mauvaise raison.
+  if (baseline !== undefined && typeof baseline === 'object') return baseline
   return 'sonde'
 }
 

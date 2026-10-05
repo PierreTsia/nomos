@@ -24,6 +24,8 @@ import { Text, textVariantsConfig } from '@nomos/components/text/text'
 import { textManifest } from '@nomos/components/text/manifest'
 import { Card, cardVariantsConfig } from '@nomos/components/card/card'
 import { cardManifest } from '@nomos/components/card/manifest'
+import { Calendar } from '@nomos/components/calendar/calendar'
+import { calendarManifest } from '@nomos/components/calendar/manifest'
 import { Dialog } from '@nomos/components/dialog/dialog'
 import { dialogManifest } from '@nomos/components/dialog/manifest'
 import { DropdownMenu } from '@nomos/components/dropdown-menu/dropdown-menu'
@@ -204,6 +206,11 @@ export const catalogueEntries: CatalogueEntry[] = [
       gap: cardVariantsConfig,
       variant: cardVariantsConfig,
     },
+  },
+  {
+    manifest: calendarManifest,
+    component: Calendar as unknown as ComponentType<Record<string, unknown>>,
+    variantsConfig: {},
   },
   {
     manifest: dialogManifest,
