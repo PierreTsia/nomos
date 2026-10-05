@@ -12,7 +12,26 @@ export const inputManifest: ComponentManifest = {
     "HTML attribute of an `<input>`; the value and change handling stay with the caller.",
   level: 'primitive',
   example: { placeholder: 'search' },
-  variants: [],
+  variants: [
+    {
+      name: 'size',
+      values: ['sm', 'md', 'lg'],
+      default: 'md',
+      description: 'The height of the field, from the density scale (ADR 0008), not a fixed length.',
+    },
+    {
+      name: 'variant',
+      values: ['default', 'flush'],
+      default: 'default',
+      description: '`flush` drops the frame for an inline field (search, in-place edit).',
+    },
+    {
+      name: 'icon',
+      values: ['none', 'leading'],
+      default: 'none',
+      description: '`leading` reserves the left padding for an icon, instead of a caller `pl-*`.',
+    },
+  ],
   props: [
     {
       name: 'className',

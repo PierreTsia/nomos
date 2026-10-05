@@ -15,10 +15,22 @@ export const badgeVariantsConfig = {
       secondary: 'border-transparent bg-secondary text-secondary-foreground',
       destructive: 'border-transparent bg-destructive text-destructive-foreground',
       outline: 'text-foreground',
+      subtle: 'border-transparent bg-primary/10 text-primary',
+    },
+    size: {
+      default: '',
+      sm: 'px-2 py-0.5 text-caption',
+      xs: 'px-1.5 py-0.5 text-micro',
+    },
+    shape: {
+      default: 'rounded-full',
+      square: 'rounded',
     },
   },
   defaultVariants: {
     variant: 'default' as const,
+    size: 'default' as const,
+    shape: 'default' as const,
   },
 }
 
@@ -30,6 +42,6 @@ export const badgeVariants = cva(
 export type BadgeProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof badgeVariants>
 
-export const Badge = ({ className, variant, ...props }: BadgeProps) => (
-  <div className={cn(badgeVariants({ variant }), className)} {...props} />
+export const Badge = ({ className, variant, size, shape, ...props }: BadgeProps) => (
+  <div className={cn(badgeVariants({ variant, size, shape }), className)} {...props} />
 )

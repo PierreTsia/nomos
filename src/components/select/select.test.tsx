@@ -27,6 +27,23 @@ describe('Select', () => {
     expect(screen.getByText('Ouverte')).toBeInTheDocument()
   })
 
+  it('exposes the trigger size and the flush variant', () => {
+    render(
+      <Select defaultValue="open">
+        <SelectTrigger size="sm" variant="flush">
+          <SelectValue placeholder="Statut" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="open">Ouverte</SelectItem>
+        </SelectContent>
+      </Select>,
+    )
+
+    const trigger = screen.getByRole('combobox')
+    expect(trigger).toHaveClass('h-9')
+    expect(trigger).toHaveClass('border-0')
+  })
+
   it('disables the trigger when the select is disabled', () => {
     render(
       <Select disabled>

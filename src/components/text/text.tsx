@@ -20,9 +20,16 @@ export const textVariantsConfig = {
       title: 'text-title',
       display: 'text-display',
     },
+    tone: {
+      default: '',
+      muted: 'text-muted-foreground',
+      primary: 'text-primary',
+      danger: 'text-destructive',
+    },
   },
   defaultVariants: {
     size: 'body' as const,
+    tone: 'default' as const,
   },
 }
 
@@ -38,6 +45,6 @@ export type TextProps = HTMLAttributes<HTMLElement> &
  * Le texte courant : un paragraphe ou un `span`, à la taille sémantique choisie.
  * Présentation seule — le contenu vient de l'appelant.
  */
-export const Text = ({ size, as: Tag = 'p', className, ...props }: TextProps) => (
-  <Tag className={cn(textVariants({ size }), className)} {...props} />
+export const Text = ({ size, tone, as: Tag = 'p', className, ...props }: TextProps) => (
+  <Tag className={cn(textVariants({ size, tone }), className)} {...props} />
 )

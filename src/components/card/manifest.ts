@@ -30,7 +30,27 @@ export const cardManifest: ComponentManifest = {
       createElement(CardContent, null, 'The content of the card.'),
     ),
   },
-  variants: [],
+  variants: [
+    {
+      name: 'padding',
+      values: ['default', 'compact', 'flush'],
+      default: 'default',
+      description:
+        'The breathing room of the parts, from the default to none (`flush`), driven by a variable — no caller `p-*`.',
+    },
+    {
+      name: 'gap',
+      values: ['default', 'comfy'],
+      default: 'default',
+      description: 'The gap between the parts: none by default, `comfy` to separate them.',
+    },
+    {
+      name: 'variant',
+      values: ['default', 'muted'],
+      default: 'default',
+      description: '`muted` draws a more discreet border than the default.',
+    },
+  ],
   props: [
     {
       name: 'className',

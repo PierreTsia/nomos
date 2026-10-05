@@ -1,5 +1,6 @@
 import * as React from "react"
 import * as SelectPrimitive from "@radix-ui/react-select"
+import { cva, type VariantProps } from "class-variance-authority"
 import { Check, ChevronDown, ChevronUp } from "lucide-react"
 
 import { useFieldControl } from "@nomos/components/field/field"
@@ -16,10 +17,42 @@ const SelectGroup = SelectPrimitive.Group
 
 const SelectValue = SelectPrimitive.Value
 
+/**
+ * La config des variantes du déclencheur. Les hauteurs suivent l'échelle `--spacing`, que
+ * la densité multiplie (ADR 0008) ; `flush` retire le cadre pour un trigger inline.
+ * Exportée pour que le catalogue la confronte au manifeste (ADR 0005).
+ */
+export const selectTriggerVariantsConfig = {
+  variants: {
+    size: {
+      sm: "h-9 px-2.5 text-caption",
+      md: "h-10 px-3 py-2 text-sm",
+      lg: "h-11 px-4 text-body",
+    },
+    variant: {
+      default: "",
+      flush:
+        "border-0 bg-transparent shadow-none focus:ring-0 focus:ring-offset-0",
+    },
+  },
+  defaultVariants: {
+    size: "md" as const,
+    variant: "default" as const,
+  },
+}
+
+export const selectTriggerVariants = cva(
+  "flex w-full items-center justify-between rounded-md border border-input bg-background ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+  selectTriggerVariantsConfig,
+)
+
+type SelectTriggerProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> &
+  VariantProps<typeof selectTriggerVariants>
+
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, "aria-describedby": ariaDescribedBy, "aria-invalid": ariaInvalid, ...props }, ref) => {
+  SelectTriggerProps
+>(({ className, children, size, variant, "aria-describedby": ariaDescribedBy, "aria-invalid": ariaInvalid, ...props }, ref) => {
   const field = useFieldControl()
   const describedBy =
     [ariaDescribedBy, field["aria-describedby"]].filter(Boolean).join(" ") || undefined
@@ -29,10 +62,7 @@ const SelectTrigger = React.forwardRef<
       ref={ref}
       aria-invalid={field["aria-invalid"] ?? ariaInvalid}
       aria-describedby={describedBy}
-      className={cn(
-        "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
-        className
-      )}
+      className={cn(selectTriggerVariants({ size, variant }), className)}
       {...props}
     >
       {children}

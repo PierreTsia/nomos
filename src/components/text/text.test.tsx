@@ -33,6 +33,14 @@ describe('Text', () => {
     expect(display.querySelector('p')).toHaveClass('text-display')
   })
 
+  it('reads its tone from the semantic palette', () => {
+    const { container: muted } = render(<Text tone="muted">secondaire</Text>)
+    const { container: danger } = render(<Text tone="danger">erreur</Text>)
+
+    expect(muted.querySelector('p')).toHaveClass('text-muted-foreground')
+    expect(danger.querySelector('p')).toHaveClass('text-destructive')
+  })
+
   it('defaults to the body size', () => {
     const { container } = render(<Text>corps</Text>)
 

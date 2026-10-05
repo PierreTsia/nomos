@@ -44,6 +44,16 @@ describe('Badge', () => {
     }
   })
 
+  it('exposes size, shape and the subtle tone', () => {
+    const { container: subtle } = render(<Badge variant="subtle">x</Badge>)
+    const { container: xs } = render(<Badge size="xs">x</Badge>)
+    const { container: square } = render(<Badge shape="square">x</Badge>)
+
+    expect(subtle.firstElementChild).toHaveClass('text-primary')
+    expect(xs.firstElementChild).toHaveClass('text-micro')
+    expect(square.firstElementChild).toHaveClass('rounded')
+  })
+
   it('shows the default cursor, not the text caret', () => {
     render(<Badge>label</Badge>)
 

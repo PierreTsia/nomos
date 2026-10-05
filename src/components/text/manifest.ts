@@ -22,6 +22,14 @@ export const textManifest: ComponentManifest = {
         'body copy, `lead` for a standfirst, `title` and `display` for large inline text ' +
         '(the same six steps `Heading` reads at its top ranks).',
     },
+    {
+      name: 'tone',
+      values: ['default', 'muted', 'primary', 'danger'],
+      default: 'default',
+      description:
+        'The ink of the text, from the semantic palette: `muted` for secondary mentions, ' +
+        '`primary` for a link-like emphasis, `danger` for an error. Never a raw colour.',
+    },
   ],
   props: [
     {
@@ -61,6 +69,11 @@ export const textManifest: ComponentManifest = {
       when: 'large inline text that is not a document heading',
       use: 'size="title"',
       avoid: 'a `title`/`display` where a `Heading` is meant: hierarchy goes through `Heading`',
+    },
+    {
+      when: 'secondary text whose ink is the muted tone',
+      use: 'tone="muted"',
+      avoid: 'a raw `text-muted-foreground` class: the ink is a variant, not a caller class',
     },
     {
       when: 'a secondary mention (caption, help, timestamp)',

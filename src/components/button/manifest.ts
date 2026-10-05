@@ -22,9 +22,17 @@ export const buttonManifest: ComponentManifest = {
     },
     {
       name: 'size',
-      values: ['default', 'sm', 'lg', 'icon'],
+      values: ['default', 'sm', 'lg', 'touch', 'icon', 'icon-lg'],
       default: 'default',
-      description: 'The size of the control, from the most discreet to the largest, or icon-only.',
+      description:
+        'The size of the control, from the most discreet to the largest; `touch` is the ' +
+        'mobile CTA height, `icon`/`icon-lg` the square icon-only sizes.',
+    },
+    {
+      name: 'shape',
+      values: ['default', 'pill'],
+      default: 'default',
+      description: 'The shape of the control: the default control radius, or fully rounded (`pill`).',
     },
   ],
   props: [
@@ -65,6 +73,11 @@ export const buttonManifest: ComponentManifest = {
       when: 'a lone icon (close, paginate)',
       use: 'size="icon" + aria-label',
       avoid: 'an `icon` without `aria-label`: the button becomes mute for a screen reader',
+    },
+    {
+      when: 'a fully rounded action (mobile CTA, tag-like)',
+      use: 'shape="pill"',
+      avoid: 'a `pill` where the control radius signals a form action',
     },
     {
       when: 'apply the button style to a link or another element',
