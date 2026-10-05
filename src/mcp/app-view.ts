@@ -42,10 +42,10 @@ export function renderComponentMarkup(name: string): string {
 }
 
 /**
- * Un exemple qui contient un élément React **ou une fonction** ne survit pas à un
- * `JSON.stringify` : la vue reste pré-rendue plutôt que d'envoyer au client un exemple
- * amputé (une prop fonction lue par le composant — des libellés, un formateur — serait
- * perdue).
+ * Une valeur qui ne survit pas à `JSON.stringify` : un élément React, ou une fonction
+ * **imbriquée** (un objet de libellés, un formateur lu par le composant). Un rappel
+ * d'exemple **de premier niveau** ne compte pas : il est retiré comme avant, et la vue
+ * reste montée client (elle fournit ses propres gestionnaires).
  */
 function containsUnserializable(value: unknown): boolean {
   if (typeof value === 'function') return true
@@ -57,7 +57,10 @@ function containsUnserializable(value: unknown): boolean {
 
 function viewProps(name: string): { client: boolean; props: Record<string, unknown> } {
   const example = (findComponent(name).manifest.example ?? {}) as Record<string, unknown>
-  if (containsUnserializable(example)) return { client: false, props: {} }
+  const losesOnSerialization = Object.values(example).some(
+    (value) => typeof value === 'object' && value !== null && containsUnserializable(value),
+  )
+  if (losesOnSerialization) return { client: false, props: {} }
   return { client: true, props: JSON.parse(JSON.stringify(example)) as Record<string, unknown> }
 }
 

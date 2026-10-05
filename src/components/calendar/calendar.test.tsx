@@ -143,13 +143,27 @@ describe('Calendar', () => {
       />,
     )
 
-    expect(screen.getByRole('button', { name: '2026-3-5' })).toHaveAttribute(
-      'aria-selected',
-      'true',
-    )
+    expect(
+      screen.getByRole('button', { name: '2026-3-5' }).closest('[role="gridcell"]'),
+    ).toHaveAttribute('aria-selected', 'true')
 
     await user.click(screen.getByRole('button', { name: '2026-3-6' }))
     expect(onSelect).toHaveBeenCalledWith(new Date(2026, 2, 6))
+  })
+
+  it('does not skip a month on PageDown from the 31st', () => {
+    const onMonthChange = vi.fn()
+    render(
+      <Calendar
+        month={new Date(2026, 0, 1)}
+        onMonthChange={onMonthChange}
+        labels={labels}
+        selected={new Date(2026, 0, 31)}
+      />,
+    )
+
+    fireEvent.keyDown(screen.getByRole('button', { name: '2026-1-31' }), { key: 'PageDown' })
+    expect(onMonthChange).toHaveBeenCalledWith(new Date(2026, 1, 28))
   })
 
   it('disables a day the predicate rejects, and refuses the pick', async () => {

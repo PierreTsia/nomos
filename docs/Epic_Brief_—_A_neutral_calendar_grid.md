@@ -65,7 +65,7 @@ which has no date brick.
 3. `weekStartsOn`, `isDateDisabled`, `modifiers` + `modifierClassNames`, injected
    `labels` (already formatted), `autoFocus`, `showOutsideDays`, `className`.
 4. Full keyboard / ARIA behaviour: roving tabindex, arrows, Home/End, PageUp/Down,
-   `grid`/`gridcell` roles, `aria-selected`/`aria-disabled`, RTL.
+   `grid`/`gridcell` roles, `aria-selected`/`aria-disabled`.
 5. Catalogue companions, tests, `SKILL.md`, a changeset.
 
 **Out of scope:**
@@ -75,6 +75,8 @@ which has no date brick.
   already-formatted `labels`.
 - Range/multiple selection, multiple months, dropdown caption, week numbers — later,
   non-breaking.
+- RTL arrow direction — the grid lays out logically, but the arrow keys are not
+  direction-aware in v1.
 - Business rules (min/max semantics, timezone anchoring) — the app passes a predicate
   and handles time.
 

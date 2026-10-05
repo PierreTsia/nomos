@@ -19,9 +19,11 @@ export function addDays(date: Date, amount: number): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate() + amount)
 }
 
-/** La date décalée de `amount` mois, en conservant le jour demandé. */
+/** La date décalée de `amount` mois, en conservant le jour — borné au dernier du mois visé. */
 export function addMonths(date: Date, amount: number): Date {
-  return new Date(date.getFullYear(), date.getMonth() + amount, date.getDate())
+  const target = new Date(date.getFullYear(), date.getMonth() + amount, 1)
+  const day = Math.min(date.getDate(), endOfMonth(target).getDate())
+  return new Date(target.getFullYear(), target.getMonth(), day)
 }
 
 /** Vrai si les deux dates tombent le même jour local. */

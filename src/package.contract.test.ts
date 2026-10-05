@@ -65,4 +65,13 @@ describe('les sous-exports du paquet', () => {
     // `dependencies` alourdirait l'installation de chaque consommateur du cœur sans raison.
     expect(pkg.dependencies?.['@modelcontextprotocol/sdk']).toBeUndefined()
   })
+
+  it('garde une librairie de dates hors du cœur (ADR 0036)', () => {
+    // Le `Calendar` est neutre : les helpers de date du cœur sont maison, et une app porte
+    // son ancrage de fuseau. Aucune librairie de dates dans les dépendances d'un consommateur.
+    const deps = Object.keys(pkg.dependencies ?? {})
+    for (const library of ['react-day-picker', 'date-fns', 'dayjs', 'luxon', 'moment']) {
+      expect(deps, library).not.toContain(library)
+    }
+  })
 })

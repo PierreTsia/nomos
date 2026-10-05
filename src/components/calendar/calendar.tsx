@@ -10,6 +10,8 @@ import {
   isSameDay,
   isSameMonth,
   monthMatrix,
+  startOfMonth,
+  startOfWeek,
 } from '@nomos/components/calendar/date'
 
 /**
@@ -27,8 +29,6 @@ export type CalendarLabels = {
   previous: string
   /** Le libellé accessible du bouton « mois suivant ». */
   next: string
-  /** Le nom accessible de la grille ; par défaut, la légende du mois. */
-  grid?: string
 }
 
 export type CalendarProps = {
@@ -81,33 +81,46 @@ export function Calendar({
   const weeks = monthMatrix(month, weekStartsOn, showOutsideDays)
   const [focused, setFocused] = useState<Date>(() => selected ?? month)
   const gridRef = useRef<HTMLTableElement>(null)
-  const firstRender = useRef(true)
+  // Le focus programmatique ne se pose qu'après une navigation (ou au montage si
+  // `autoFocus`). Un ref d'**intention**, pas de « premier rendu » : sous StrictMode le
+  // montage s'exécute deux fois, et un drapeau de premier rendu volerait le focus.
+  const pendingFocus = useRef(autoFocus)
 
-  // Le jour porteur du tabindex : celui qu'on a focalisé, à condition qu'il soit dans le
-  // mois affiché — sinon le jour sélectionné, sinon le premier du mois. Dérivé, jamais
+  // Le premier jour activable du mois affiché — le repli quand le jour focalisé sort du
+  // mois ou tombe sur une date désactivée.
+  const firstEnabled = (): Date => {
+    for (const week of weeks) {
+      for (const date of week) {
+        if (date && !isDateDisabled?.(date)) return date
+      }
+    }
+    return startOfMonth(month)
+  }
+
+  // Le jour porteur du tabindex : celui qu'on a focalisé s'il est dans le mois, sinon le
+  // jour sélectionné (s'il est activable), sinon le premier jour activable. Dérivé, jamais
   // synchronisé par un effet (une prop `month` qui change ne doit pas écrire d'état).
-  const effectiveFocused = isSameMonth(focused, month)
+  const candidate = isSameMonth(focused, month)
     ? focused
     : selected && isSameMonth(selected, month)
       ? selected
-      : month
+      : firstEnabled()
+  const effectiveFocused = isDateDisabled?.(candidate) ? firstEnabled() : candidate
 
-  // Déplace le focus DOM après une navigation (ou au montage si `autoFocus`). Ne pose
-  // jamais d'état : c'est la seule raison d'être de cet effet.
+  // Déplace le focus DOM quand une navigation l'a demandé. Ne pose aucun état : c'est la
+  // seule raison d'être de cet effet.
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false
-      if (!autoFocus) return
-    }
-    const target = gridRef.current?.querySelector<HTMLButtonElement>(
-      `[data-day="${dayKey(effectiveFocused)}"]`,
-    )
-    target?.focus()
-  }, [effectiveFocused, autoFocus])
+    if (!pendingFocus.current) return
+    pendingFocus.current = false
+    gridRef.current
+      ?.querySelector<HTMLButtonElement>(`[data-day="${dayKey(effectiveFocused)}"]`)
+      ?.focus()
+  }, [effectiveFocused])
 
   const move = useCallback(
     (next: Date) => {
       if (isDateDisabled?.(next)) return
+      pendingFocus.current = true
       setFocused(next)
       if (next.getMonth() !== month.getMonth() || next.getFullYear() !== month.getFullYear()) {
         onMonthChange(next)
@@ -126,9 +139,9 @@ export function Calendar({
       PageDown: addMonths(date, 1),
     }
     if (event.key === 'Home' || event.key === 'End') {
-      const offset = (date.getDay() - weekStartsOn + 7) % 7
       event.preventDefault()
-      move(event.key === 'Home' ? addDays(date, -offset) : addDays(date, 6 - offset))
+      const start = startOfWeek(date, weekStartsOn)
+      move(event.key === 'Home' ? start : addDays(start, 6))
       return
     }
     const next = moves[event.key]
@@ -168,7 +181,7 @@ export function Calendar({
       <table
         ref={gridRef}
         role="grid"
-        aria-label={labels.grid ?? labels.month(month)}
+        aria-label={labels.month(month)}
         className="w-full border-collapse"
       >
         <thead>
@@ -201,12 +214,11 @@ export function Calendar({
                   .join(' ')
 
                 return (
-                  <td key={dayIndex} role="gridcell" className="p-0 text-center">
+                  <td key={dayIndex} role="gridcell" aria-selected={isSelected} className="p-0 text-center">
                     <button
                       type="button"
                       data-day={dayKey(date)}
                       aria-label={labels.day(date)}
-                      aria-selected={isSelected}
                       aria-disabled={disabled || undefined}
                       disabled={disabled}
                       tabIndex={isSameDay(date, effectiveFocused) ? 0 : -1}

@@ -30,7 +30,8 @@ function probeFor(type: string, baseline: unknown): unknown {
   if (/^number/.test(type)) return typeof baseline === 'number' ? baseline + 1 : 1
   if (/^boolean/.test(type)) return !baseline
   // Une prop objet (un type nommé, une `Date`…) se sonde avec l'exemple : un `'sonde'`
-  // la ferait exploser pour la mauvaise raison.
+  // la ferait exploser pour la mauvaise raison. Plafond connu : un futur `check: 'rendered'`
+  // sur une prop objet resterait insatisfiable (avec et sans l'exemple rendent pareil).
   if (baseline !== undefined && typeof baseline === 'object') return baseline
   return 'sonde'
 }

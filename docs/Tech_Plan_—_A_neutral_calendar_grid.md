@@ -27,13 +27,13 @@ arithmetic on local `Date`.
 type CalendarLabels = {
   /** The caption, already localized, e.g. `March 2026`. */
   month: (month: Date) => string
+  /** The accessible name of a day button, e.g. `5 March 2026`. */
+  day: (date: Date) => string
   /** Seven weekday labels, already ordered to match `weekStartsOn`. */
   weekdays: readonly string[]
   /** Accessible labels for the two navigation buttons. */
   previous: string
   next: string
-  /** Optional accessible name for the grid; defaults to `month(month)`. */
-  grid?: string
 }
 
 type CalendarProps = {
@@ -59,7 +59,7 @@ type CalendarProps = {
 - `src/components/calendar/date.ts` — pure, dependency-free, unit-tested helpers:
   `startOfMonth`, `endOfMonth`, `addDays`, `addMonths`, `isSameDay`, `isSameMonth`,
   `startOfWeek(date, weekStartsOn)`, `dayKey(date)` (local `YYYY-MM-DD`),
-  `monthMatrix(month, weekStartsOn, showOutsideDays): Date[][]`.
+  `monthMatrix(month, weekStartsOn, showOutsideDays): (Date | null)[][]`.
   **Local time only**: a day is bucketed by its local Y/M/D; the core never converts to
   UTC (the app owns timezone anchoring).
 - `src/components/calendar/calendar.tsx` — the grid. Roving-tabindex focus kept in a
@@ -71,7 +71,8 @@ type CalendarProps = {
   role="gridcell">`, day `<button>` with `aria-selected` / `aria-disabled` / `disabled`,
   caption `role="status" aria-live="polite"`, nav buttons `aria-label`.
 - Styling from tokens only (`text-*`, `bg-*`, `size-*`, `--spacing`); no fixed length
-  (ADR 0008). RTL: the layout is logical (grid handles it).
+  (ADR 0008). RTL arrow direction is out of v1 (the layout is logical, the keys are not
+  direction-aware).
 
 ## Slices
 

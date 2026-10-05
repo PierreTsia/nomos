@@ -37,6 +37,12 @@ describe('les helpers de date du calendrier', () => {
     expect(isSameDay(addMonths(day(2026, 11, 15), 1), day(2027, 0, 15))).toBe(true)
   })
 
+  it('borne le jour au dernier du mois visé (pas de débordement)', () => {
+    expect(isSameDay(addMonths(day(2026, 0, 31), 1), day(2026, 1, 28))).toBe(true)
+    expect(isSameDay(addMonths(day(2026, 2, 31), 1), day(2026, 3, 30))).toBe(true)
+    expect(isSameDay(addMonths(day(2026, 0, 31), -1), day(2025, 11, 31))).toBe(true)
+  })
+
   it('compare un jour et un mois', () => {
     expect(isSameDay(day(2026, 2, 5), day(2026, 2, 5))).toBe(true)
     expect(isSameDay(day(2026, 2, 5), day(2026, 2, 6))).toBe(false)
