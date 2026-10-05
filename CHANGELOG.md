@@ -1,5 +1,66 @@
 # @nomosui/react
 
+## 0.11.0
+
+### Minor Changes
+
+- 93e0378: Six bricks gain the variants an adopter had to fake with Tailwind utilities — the
+  E32 recensement (mijote adoption) turned the recurring `className` patterns into core
+  variants:
+  
+  - **Button** — `shape="pill"`, sizes `touch` (mobile CTA) and `icon-lg`.
+  - **Text / Heading** — `tone` (`default|muted|primary|danger`), from the semantic palette.
+  - **Badge** — `size` (`default|sm|xs`), `shape` (`default|square`) and the `subtle` tone
+    (primary ink on a primary-tinted surface).
+  - **Input / SelectTrigger** — `size` (`sm|md|lg`, from the density scale, no fixed height),
+    `variant="flush"` for inline fields, and `icon="leading"` to reserve the icon padding
+    without a caller `pl-*` (`SearchField` now uses it).
+  - **Card** — `padding` (`default|compact|flush`), `gap` (`default|comfy`) and `variant`
+    (`default|muted`, a more discreet border). Padding and gap go through `--card-pad` /
+    `--card-gap`, so no caller `p-*`/`gap-*`.
+  - **Sheet** — `side="bottom"` is now a **bottom-sheet**: rounded top, safe-area bottom
+    padding and a capped height.
+  
+  Also fixes `cn`: it declared no theme, so tailwind-merge classed the semantic sizes
+  (`text-lead`, `text-body`…) as *text colours* and dropped them whenever a colour followed.
+  The Nomos scale is now declared, matching `tokens/theme.css`.
+  
+  **Migration note** — the public exports are unchanged and the new variant groups extend
+  existing props (`shape`/`tone`/`size`/`padding`/`gap`). Two behavioural changes:
+  
+  - `side="bottom"` becomes a bottom-sheet (rounded top, safe-area bottom padding, capped
+    height, full width). An adopter that styled its own drawer can drop those utilities.
+  - `Card` is now `flex flex-col` with a `--nomos-card-pad`/`--nomos-card-gap` pair (defaulted
+    on `:root`): its children become flex items. A plain `<Card>` keeps its spacing, and a
+    `Card*` part rendered outside a `Card` still gets the default padding.
+- 9b38ba3: The heart opens two generic semantic slots — **`outline`** and **`elevation`** — so a skin
+  can restyle borders and floating-layer shadows without the app reaching for classes:
+  
+  - `--nomos-color-outline`: a discrete border tone (a border variant can read `border-outline`);
+  - `--nomos-elevation-sm|md|lg`: the shadows the overlay bricks already use.
+  
+  `tokens/theme.css` now bridges both: `--color-outline` and `--shadow-sm|md|lg` read the
+  tokens, so `dialog`, `sheet`, `popover`, `toast`, `tooltip`, `select`, `dropdown-menu` and
+  `alert-dialog` keep their `shadow-*` class and become skinnable with no component change.
+  
+  **Migration note** — additive: the public exports are unchanged and the new names
+  (`--nomos-color-outline`, `--nomos-elevation-sm|md|lg`) extend the token surface. The
+  default `elevation` values mirror Tailwind's default `shadow-sm|md|lg`, so a consumer that
+  did not customize shadows sees no visual change.
+  
+  **Caveat — colored shadows**: a shadow is now a token value, so the Tailwind
+  `--tw-shadow-color` hook is no longer substituted. A consumer that wrote e.g.
+  `shadow-md shadow-red-500` (a colored or arbitrary shadow) loses the color; the token
+  carries its own `rgb(0 0 0 / …)`. A consumer whose skin changed Tailwind's shadows directly
+  should move those values onto the `elevation` slot.
+- 9b38ba3: `Text.size` now covers the full semantic scale: `micro`, `caption`, `body`, `lead`, `title`,
+  `display`. It previously stopped at `lead`, so a `Text` that needed `text-2xl`/`text-lg` had
+  no role to read and the adopter fell back to a Tailwind utility. `Text` and `Heading` now
+  read the same six steps; hierarchy still goes through `Heading`, the size prop is for text.
+  
+  **Migration note** — additive: `title` and `display` are new values on an existing prop; the
+  default stays `body` and the existing four values are unchanged.
+
 ## 0.10.1
 
 ### Patch Changes
