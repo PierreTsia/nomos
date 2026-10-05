@@ -7,7 +7,8 @@ import { cn } from '@nomos/lib/cn'
 /**
  * La config des variantes est exportée à côté de `inputVariants` : le catalogue la lit
  * pour vérifier que le manifeste ne dérive pas des props réelles (ADR 0005). Les hauteurs
- * suivent l'échelle `--spacing`, que la densité multiplie (ADR 0008) : aucun `h-[…]` figé.
+ * suivent l'échelle `--spacing`, que la densité multiplie (ADR 0008) : aucune hauteur
+ * figée en dur.
  */
 export const inputVariantsConfig = {
   variants: {

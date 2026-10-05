@@ -33,8 +33,10 @@ describe('Card', () => {
     const { container: comfy } = render(<Card gap="comfy">x</Card>)
     const { container: muted } = render(<Card variant="muted">x</Card>)
 
-    expect(flush.firstElementChild?.className).toContain('[--card-pad:0px]')
-    expect(comfy.firstElementChild?.className).toContain('[--card-gap:calc(var(--spacing)*4)]')
+    expect(flush.firstElementChild?.className).toContain('[--nomos-card-pad:0px]')
+    expect(comfy.firstElementChild?.className).toContain(
+      '[--nomos-card-gap:calc(var(--spacing)*4)]',
+    )
     expect(muted.firstElementChild).toHaveClass('border-border/50')
   })
 

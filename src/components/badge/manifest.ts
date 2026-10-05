@@ -31,7 +31,7 @@ export const badgeManifest: ComponentManifest = {
       name: 'shape',
       values: ['default', 'square'],
       default: 'default',
-      description: 'The shape: fully rounded (`default`), or the field radius (`square`).',
+      description: 'The shape: fully rounded (`default`), or the chip radius (`square`).',
     },
   ],
   props: [

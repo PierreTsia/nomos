@@ -9,20 +9,20 @@ import { cn } from '@nomos/lib/cn'
  * nomme un produit, les textes viennent de l'appelant.
  *
  * Le padding et le gap des parts passent par deux variables posées sur la coquille
- * (`--card-pad`, `--card-gap`) : une variante change la respiration de toute la carte sans
- * que l'appelant n'écrive `p-*`/`gap-*`, et sans valeur figée (ADR 0008 — la densité
- * multiplie `--spacing`).
+ * (`--nomos-card-pad`, `--nomos-card-gap`, défaut sur `:root` dans `theme.css`) : une
+ * variante change la respiration de toute la carte sans que l'appelant n'écrive `p-*`/`gap-*`,
+ * et sans valeur figée (ADR 0008 — la densité multiplie `--spacing`).
  */
 export const cardVariantsConfig = {
   variants: {
     padding: {
-      default: '[--card-pad:calc(var(--spacing)*6)]',
-      compact: '[--card-pad:calc(var(--spacing)*4)]',
-      flush: '[--card-pad:0px]',
+      default: '[--nomos-card-pad:calc(var(--spacing)*6)]',
+      compact: '[--nomos-card-pad:calc(var(--spacing)*4)]',
+      flush: '[--nomos-card-pad:0px]',
     },
     gap: {
-      default: '[--card-gap:0px]',
-      comfy: '[--card-gap:calc(var(--spacing)*4)]',
+      default: '[--nomos-card-gap:0px]',
+      comfy: '[--nomos-card-gap:calc(var(--spacing)*4)]',
     },
     variant: {
       default: '',
@@ -37,7 +37,7 @@ export const cardVariantsConfig = {
 }
 
 export const cardVariants = cva(
-  'flex flex-col gap-(--card-gap) rounded-lg border bg-card text-card-foreground shadow-sm',
+  'flex flex-col gap-(--nomos-card-gap) rounded-lg border bg-card text-card-foreground shadow-sm',
   cardVariantsConfig,
 )
 
@@ -48,7 +48,7 @@ export function Card({ className, padding, gap, variant, ...props }: CardProps) 
 }
 
 export function CardHeader({ className, ...props }: ComponentProps<'div'>) {
-  return <div className={cn('flex flex-col gap-1.5 p-(--card-pad)', className)} {...props} />
+  return <div className={cn('flex flex-col gap-1.5 p-(--nomos-card-pad)', className)} {...props} />
 }
 
 export function CardTitle({ className, ...props }: ComponentProps<'div'>) {
@@ -65,9 +65,9 @@ export function CardDescription({ className, ...props }: ComponentProps<'div'>) 
 }
 
 export function CardContent({ className, ...props }: ComponentProps<'div'>) {
-  return <div className={cn('p-(--card-pad) pt-0', className)} {...props} />
+  return <div className={cn('p-(--nomos-card-pad) pt-0', className)} {...props} />
 }
 
 export function CardFooter({ className, ...props }: ComponentProps<'div'>) {
-  return <div className={cn('flex items-center p-(--card-pad) pt-0', className)} {...props} />
+  return <div className={cn('flex items-center p-(--nomos-card-pad) pt-0', className)} {...props} />
 }

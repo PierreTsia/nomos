@@ -115,6 +115,16 @@
 }
 
 /*
+  Les variables de composition d'une `Card` (ADR 0004). La coquille les surcharge selon ses
+  variantes `padding`/`gap` ; les parts les lisent. Un défaut sur `:root` évite qu'une part
+  rendue hors d'une `Card` (elles sont importables seules) perde sa respiration.
+*/
+:root {
+  --nomos-card-pad: calc(var(--spacing) * 6);
+  --nomos-card-gap: 0px;
+}
+
+/*
   L'empilement et le mouvement (ADR 0027). Les noms sont ceux du cœur, les valeurs sont
   des tokens : `z-overlay` lit `--nomos-z-overlay`, chaque animation lit une durée et une
   courbe. Aucune valeur de temps n'est écrite ici — une app les remplace par le skin.

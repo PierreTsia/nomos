@@ -24,7 +24,7 @@ export const badgeVariantsConfig = {
     },
     shape: {
       default: 'rounded-full',
-      square: 'rounded',
+      square: 'rounded-sm',
     },
   },
   defaultVariants: {

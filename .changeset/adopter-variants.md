@@ -23,7 +23,11 @@ Also fixes `cn`: it declared no theme, so tailwind-merge classed the semantic si
 (`text-lead`, `text-body`…) as *text colours* and dropped them whenever a colour followed.
 The Nomos scale is now declared, matching `tokens/theme.css`.
 
-**Migration note** — additive: the public exports are unchanged, the new variant groups
-extend existing props (`shape`/`tone`/`size`/`padding`/`gap`), and `side="bottom"` changes
-only the panel's default styling (a drawer becomes a bottom-sheet). An adopter that already
-applies the equivalent utilities can drop them.
+**Migration note** — the public exports are unchanged and the new variant groups extend
+existing props (`shape`/`tone`/`size`/`padding`/`gap`). Two behavioural changes:
+
+- `side="bottom"` becomes a bottom-sheet (rounded top, safe-area bottom padding, capped
+  height, full width). An adopter that styled its own drawer can drop those utilities.
+- `Card` is now `flex flex-col` with a `--nomos-card-pad`/`--nomos-card-gap` pair (defaulted
+  on `:root`): its children become flex items. A plain `<Card>` keeps its spacing, and a
+  `Card*` part rendered outside a `Card` still gets the default padding.

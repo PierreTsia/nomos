@@ -51,7 +51,7 @@ describe('Badge', () => {
 
     expect(subtle.firstElementChild).toHaveClass('text-primary')
     expect(xs.firstElementChild).toHaveClass('text-micro')
-    expect(square.firstElementChild).toHaveClass('rounded')
+    expect(square.firstElementChild).toHaveClass('rounded-sm')
   })
 
   it('shows the default cursor, not the text caret', () => {

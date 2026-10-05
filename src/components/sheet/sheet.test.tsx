@@ -60,7 +60,7 @@ describe('Sheet', () => {
     )
 
     const dialog = screen.getByRole('dialog')
-    expect(dialog).toHaveClass('rounded-t-3xl')
+    expect(dialog).toHaveClass('rounded-t-lg')
     expect(dialog.className).toContain('safe-area-inset-bottom')
   })
 
