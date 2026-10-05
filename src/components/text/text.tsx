@@ -17,6 +17,8 @@ export const textVariantsConfig = {
       body: 'text-body',
       caption: 'text-caption',
       micro: 'text-micro',
+      title: 'text-title',
+      display: 'text-display',
     },
   },
   defaultVariants: {

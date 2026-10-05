@@ -24,9 +24,13 @@ describe('Text', () => {
   it('reads its size from the semantic scale', () => {
     const { container: lead } = render(<Text size="lead">accroche</Text>)
     const { container: caption } = render(<Text size="caption">légende</Text>)
+    const { container: title } = render(<Text size="title">titre</Text>)
+    const { container: display } = render(<Text size="display">grand</Text>)
 
     expect(lead.querySelector('p')).toHaveClass('text-lead')
     expect(caption.querySelector('p')).toHaveClass('text-caption')
+    expect(title.querySelector('p')).toHaveClass('text-title')
+    expect(display.querySelector('p')).toHaveClass('text-display')
   })
 
   it('defaults to the body size', () => {

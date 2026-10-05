@@ -29,6 +29,7 @@
   --color-border: hsl(var(--nomos-color-border));
   --color-input: hsl(var(--nomos-color-input));
   --color-ring: hsl(var(--nomos-color-ring));
+  --color-outline: hsl(var(--nomos-color-outline));
   --color-background: hsl(var(--nomos-color-background));
   --color-foreground: hsl(var(--nomos-color-foreground));
 
@@ -78,6 +79,15 @@
   --radius-lg: var(--nomos-radius-control);
   --radius-md: var(--nomos-radius-field);
   --radius-sm: var(--nomos-radius-chip);
+
+  /*
+    L'élévation (ADR 0004) : les couches flottantes lisent `shadow-sm/md/lg`, que Tailwind
+    dérive de ces variables. Aucune valeur n'est écrite ici — un skin remplace l'emplacement
+    sémantique, jamais ce nom.
+  */
+  --shadow-sm: var(--nomos-elevation-sm);
+  --shadow-md: var(--nomos-elevation-md);
+  --shadow-lg: var(--nomos-elevation-lg);
 
   /*
     L'échelle typographique sémantique (ADR 0004) : `text-body`, `text-title`… lisent la

@@ -101,9 +101,12 @@ brick, it belongs to the app, not the core.
 - **Title a section** → `Heading`: `level` chooses the `h1`..`h6` tag **and** the semantic
   size (display, title, lead, body, caption, micro). Document hierarchy is decided by the
   level, never by the size.
-- **Write body text** → `Text`: `size` reads the semantic scale (`lead`, `body`, `caption`,
-  `micro`), `as` chooses `p` (default) or `span` for inline text. Sizes come from the tokens,
-  never from an ad-hoc utility.
+- **Write body text** → `Text`: `size` reads the semantic scale (`micro`, `caption`, `body`,
+  `lead`, `title`, `display` — the same six `Heading` reads), `as` chooses `p` (default) or
+  `span` for inline text. Sizes come from the tokens, never from an ad-hoc utility. The
+  scale maps onto the Tailwind steps an adopter migrates from: `micro`→`text-[11px]`,
+  `caption`→`text-xs`, `body`→`text-sm`, `lead`→`text-base`, `title`→`text-lg`,
+  `display`→`text-2xl`.
 - **Show a code excerpt** → `Code` (inline, in a sentence) or `CodeBlock` (scrollable block
   with a copy button; `code` is the copied text, `children` the rendering, labels are
   injected). Syntax highlighting stays with the app.
