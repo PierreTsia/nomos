@@ -41,19 +41,26 @@ export function renderComponentMarkup(name: string): string {
   return renderToStaticMarkup(createElement(component, rest, (children ?? undefined) as never))
 }
 
-/** Un exemple qui contient un élément React ne se sérialise pas : la vue reste pré-rendue. */
-function containsElement(value: unknown): boolean {
+/**
+ * Une valeur qui ne survit pas à `JSON.stringify` : un élément React, ou une fonction
+ * **imbriquée** (un objet de libellés, un formateur lu par le composant). Un rappel
+ * d'exemple **de premier niveau** ne compte pas : il est retiré comme avant, et la vue
+ * reste montée client (elle fournit ses propres gestionnaires).
+ */
+function containsUnserializable(value: unknown): boolean {
+  if (typeof value === 'function') return true
   if (value === null || typeof value !== 'object') return false
   if ('$$typeof' in (value as object)) return true
-  if (Array.isArray(value)) return value.some(containsElement)
-  return Object.values(value as Record<string, unknown>).some(containsElement)
+  if (Array.isArray(value)) return value.some(containsUnserializable)
+  return Object.values(value as Record<string, unknown>).some(containsUnserializable)
 }
 
 function viewProps(name: string): { client: boolean; props: Record<string, unknown> } {
   const example = (findComponent(name).manifest.example ?? {}) as Record<string, unknown>
-  if (containsElement(example)) return { client: false, props: {} }
-  // Les fonctions (rappels d'exemple) tombent ici : la vue fournit les siennes, qui
-  // émettent des intentions.
+  const losesOnSerialization = Object.values(example).some(
+    (value) => typeof value === 'object' && value !== null && containsUnserializable(value),
+  )
+  if (losesOnSerialization) return { client: false, props: {} }
   return { client: true, props: JSON.parse(JSON.stringify(example)) as Record<string, unknown> }
 }
 

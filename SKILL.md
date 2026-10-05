@@ -56,6 +56,11 @@ brick, it belongs to the app, not the core.
 - **Choose a single value from a list of options** → `Select` as parts (`SelectTrigger` with
   `size`/`variant="flush"`, `SelectValue`, `SelectContent`, `SelectItem`; labels and values
   come from the app). For actions, it's a `DropdownMenu`.
+- **Choose a date, or show a month** → `Calendar`: a single-month grid (`month`/
+  `onMonthChange`, `selected`/`onSelect`), with keyboard and ARIA built in. Its `labels`
+  (month caption, day names, nav) are **injected already formatted** — the core has no
+  locale or date library. Compose it with `Popover` for a date picker; the input, the
+  popover and the validation stay app-side (ADR 0036).
 
 ### Structure
 
@@ -175,6 +180,7 @@ alert-dialog
 avatar
 badge
 button
+calendar
 card
 checkbox
 chip

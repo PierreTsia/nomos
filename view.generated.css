@@ -91,6 +91,7 @@
     --text-title--line-height: var(--nomos-type-leading-title);
     --text-display: var(--nomos-type-size-display);
     --text-display--line-height: var(--nomos-type-leading-display);
+    --font-weight-regular: var(--nomos-type-weight-regular);
     --font-weight-strong: var(--nomos-type-weight-strong);
   }
 }
@@ -667,6 +668,9 @@
   .caption-bottom {
     caption-side: bottom;
   }
+  .border-collapse {
+    border-collapse: collapse;
+  }
   .origin-\[--radix-dropdown-menu-content-transform-origin\] {
     transform-origin: --radix-dropdown-menu-content-transform-origin;
   }
@@ -1012,6 +1016,9 @@
   .p-\(--nomos-card-pad\) {
     padding: var(--nomos-card-pad);
   }
+  .p-0 {
+    padding: 0px;
+  }
   .p-0\.5 {
     padding: calc(var(--spacing) * 0.5);
   }
@@ -1184,6 +1191,10 @@
   .font-medium {
     --tw-font-weight: var(--font-weight-medium);
     font-weight: var(--font-weight-medium);
+  }
+  .font-regular {
+    --tw-font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-regular);
   }
   .font-semibold {
     --tw-font-weight: var(--font-weight-semibold);

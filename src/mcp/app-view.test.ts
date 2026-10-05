@@ -94,6 +94,14 @@ describe('les vues MCP Apps', () => {
     expect(view).toContain('"client":false')
   })
 
+  it('pré-rend un exemple dont une fonction est imbriquée (des libellés), pour ne pas perdre la prop', () => {
+    expect(appViewFor('calendar', tokens)).toContain('"client":false')
+  })
+
+  it('garde monté client un exemple qui ne porte qu’un rappel de premier niveau', () => {
+    expect(appViewFor('checkbox', tokens)).toContain('"client":true')
+  })
+
   it('pré-rend une scène composite et la monte client pour recevoir des données (ADR 0023)', () => {
     expect(renderCompositeMarkup('form')).toContain('Save')
 

@@ -77,6 +77,10 @@ export {
 } from '@nomos/components/card/card'
 export { cardManifest } from '@nomos/components/card/manifest'
 
+export { Calendar } from '@nomos/components/calendar/calendar'
+export type { CalendarLabels, CalendarProps } from '@nomos/components/calendar/calendar'
+export { calendarManifest } from '@nomos/components/calendar/manifest'
+
 export { Dialog } from '@nomos/components/dialog/dialog'
 export type { DialogProps } from '@nomos/components/dialog/dialog'
 export { dialogManifest } from '@nomos/components/dialog/manifest'
