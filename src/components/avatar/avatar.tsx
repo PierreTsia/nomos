@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useState, type ImgHTMLAttributes, type ReactNode } from 'react'
 
 import { cn } from '@nomos/lib/cn'
 
@@ -11,6 +11,8 @@ export type AvatarProps = {
   fallback: ReactNode
   /** Les classes de l'appelant, fusionnées après celles du cœur. */
   className?: string
+  /** Des attributs natifs `<img>` transmis à l'image interne (`referrerPolicy`, `loading`, …). */
+  imgProps?: ImgHTMLAttributes<HTMLImageElement>
 }
 
 /**
@@ -18,9 +20,10 @@ export type AvatarProps = {
  * (`<img>` + `onError`) — aucune dépendance, pas de Radix (ADR 0002, 0019). Le repli et
  * le texte alternatif viennent de l'app.
  */
-export function Avatar({ src, alt, fallback, className }: AvatarProps) {
+export function Avatar({ src, alt, fallback, className, imgProps }: AvatarProps) {
   const [failed, setFailed] = useState(false)
   const showImage = Boolean(src) && !failed
+  const { className: imgClassName, ...restImgProps } = imgProps ?? {}
 
   return (
     <span
@@ -31,10 +34,11 @@ export function Avatar({ src, alt, fallback, className }: AvatarProps) {
     >
       {showImage ? (
         <img
+          {...restImgProps}
           src={src}
           alt={alt}
           onError={() => setFailed(true)}
-          className="aspect-square size-full object-cover"
+          className={cn('aspect-square size-full object-cover', imgClassName)}
         />
       ) : (
         <span role="img" aria-label={alt} className="flex size-full items-center justify-center">
