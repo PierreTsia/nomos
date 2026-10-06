@@ -19,6 +19,15 @@ npm test
   change to the package. A breaking change (surface, tokens, MCP contract) needs a migration
   note.
 
+## Review and QA before merge
+
+A PR merges only on a **traced review and a traced QA pass, both bound to the head commit**.
+Run the `@reviewer` agent (diff, ADRs, ponytail, one `## Reviewer report` comment + a
+`review:*` label) and the `@qa` agent (renders the views/site in a browser, screenshots, one
+`## QA report` comment + a `qa:*` label). A push invalidates both; replay them. CI's
+`pr-review-gate` blocks the merge until both markers name the current head. See
+[`docs/pr-review.md`](docs/pr-review.md).
+
 ## Ground rules
 
 - **App-agnostic.** Nothing in the core may name a product. If explaining a component needs
