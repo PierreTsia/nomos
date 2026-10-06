@@ -45,6 +45,14 @@ export const avatarManifest: ComponentManifest = {
       check: 'class',
       description: 'The caller\'s classes, merged after the core ones.',
     },
+    {
+      name: 'imgProps',
+      type: 'ImgHTMLAttributes<HTMLImageElement>',
+      required: false,
+      check: 'accepted',
+      description:
+        'Extra native `<img>` attributes forwarded to the internal image (referrerPolicy, loading, …).',
+    },
   ],
   usages: [
     {

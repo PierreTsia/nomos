@@ -23,4 +23,19 @@ describe('Avatar', () => {
 
     expect(screen.getByText('PT')).toBeInTheDocument()
   })
+
+  it('forwards native image props to the internal image', () => {
+    render(
+      <Avatar
+        src="/me.png"
+        alt="Photo de profil"
+        fallback="PT"
+        imgProps={{ referrerPolicy: 'no-referrer', loading: 'lazy' }}
+      />,
+    )
+
+    const image = screen.getByRole('img', { name: 'Photo de profil' })
+    expect(image).toHaveAttribute('referrerpolicy', 'no-referrer')
+    expect(image).toHaveAttribute('loading', 'lazy')
+  })
 })
