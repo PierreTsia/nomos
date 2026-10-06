@@ -24,18 +24,21 @@ jobs:
     # An issue_comment event fires for plain issues too; only PRs are gated.
     if: github.event_name == 'pull_request' || github.event.issue.pull_request
     steps:
-      - name: Dependabot PRs are handled by their own flow
-        if: github.actor == 'dependabot[bot]'
-        run: echo "Dependabot — review gate skipped."
-
       - name: Require a review and a QA report on the head commit
-        if: github.actor != 'dependabot[bot]'
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           PR: ${{ github.event.pull_request.number || github.event.issue.number }}
         run: |
           set -euo pipefail
+
+          # Dependabot PRs are exempt. Key on the PR author, not the event actor: the gate
+          # also fires on issue_comment and labeled events, where github.actor is the
+          # commenter / bot, not the PR author.
+          if [ "$(gh pr view "$PR" --repo "$REPO" --json author --jq .author.login)" = 'dependabot[bot]' ]; then
+            echo "Dependabot — review gate skipped."
+            exit 0
+          fi
 
           SHA="$(gh pr view "$PR" --repo "$REPO" --json headRefOid --jq .headRefOid)"
           labels="$(gh pr view "$PR" --repo "$REPO" --json labels --jq '.labels[].name')"
