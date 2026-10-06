@@ -50,6 +50,12 @@ not here (ADR 0002, 0010). Inside the package, imports go through `@nomos/*` and
 that has drifted from its source fails CI — replay the generator and commit the result in the
 same PR.
 
+`.github/workflows/pr-review-gate.yml` is the **merge gate**: a PR stays red until `@reviewer`
+and `@qa` have left a review and a QA report, both bound to the head commit
+(`<!-- review sha=… -->`, `<!-- qa sha=… -->` + `review:*` / `qa:*` labels). A push
+invalidates both — replay them. `main` is protected and requires `verify`, `site` and
+`pr-review-gate`. See [`docs/pr-review.md`](docs/pr-review.md).
+
 ## Public surface & releases (ADR 0024, 0026)
 
 The public surface is the `src/index.ts` exports, the `--nomos-*` token **names**,

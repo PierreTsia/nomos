@@ -1,0 +1,84 @@
+name: PR review gate
+
+# Nomos merges only on a traced review AND a traced QA pass, both bound to the head commit.
+# @reviewer posts `<!-- review sha=<head> verdict=… -->` + a `review:*` label; @qa posts
+# `<!-- qa sha=<head> verdict=… -->` + a `qa:*` label. This job fails until both markers name
+# the current head and both verdicts are green. It re-runs when the head moves, when a label
+# moves, and when a comment lands (the marker lives in a comment), so a replayed review on a
+# new SHA can turn it back to green. See docs/pr-review.md.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled, edited]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+
+jobs:
+  gate:
+    name: pr-review-gate
+    runs-on: ubuntu-latest
+    # An issue_comment event fires for plain issues too; only PRs are gated.
+    if: github.event_name == 'pull_request' || github.event.issue.pull_request
+    steps:
+      - name: Require a review and a QA report on the head commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number || github.event.issue.number }}
+        run: |
+          set -euo pipefail
+
+          # Dependabot PRs are exempt. Key on the PR author, not the event actor: the gate
+          # also fires on issue_comment and labeled events, where github.actor is the
+          # commenter / bot, not the PR author.
+          if [ "$(gh pr view "$PR" --repo "$REPO" --json author --jq .author.login)" = 'dependabot[bot]' ]; then
+            echo "Dependabot — review gate skipped."
+            exit 0
+          fi
+
+          SHA="$(gh pr view "$PR" --repo "$REPO" --json headRefOid --jq .headRefOid)"
+          labels="$(gh pr view "$PR" --repo "$REPO" --json labels --jq '.labels[].name')"
+          comments="$(gh pr view "$PR" --repo "$REPO" --json comments --jq '.comments[].body')"
+
+          has_label() { [[ $'\n'"$labels"$'\n' == *$'\n'"$1"$'\n'* ]]; }
+          has_marker() { [[ "$comments" == *"$1"* ]]; }
+
+          fail=0
+          echo "Head commit: $SHA"
+
+          # --- Review (local rule: docs/pr-review.md) ---
+          if ! has_marker "<!-- review sha=$SHA verdict="; then
+            echo "::error::No reviewer report bound to head $SHA. Run @reviewer on this commit, then re-run."
+            fail=1
+          fi
+          if ! has_label "review:approved" && ! has_label "review:trivial"; then
+            echo "::error::Missing review verdict label — expected review:approved or review:trivial."
+            fail=1
+          fi
+          if has_label "review:changes-requested"; then
+            echo "::error::review:changes-requested is set — the review must be replayed and pass."
+            fail=1
+          fi
+
+          # --- QA ---
+          if ! has_marker "<!-- qa sha=$SHA verdict="; then
+            echo "::error::No QA report bound to head $SHA. Run @qa on this commit, then re-run."
+            fail=1
+          fi
+          if ! has_label "qa:passed"; then
+            echo "::error::Missing qa:passed — the browser pass must run and pass."
+            fail=1
+          fi
+          if has_label "qa:failed" || has_label "qa:blocked"; then
+            echo "::error::QA did not pass (qa:failed or qa:blocked is set)."
+            fail=1
+          fi
+
+          if [ "$fail" -eq 0 ]; then
+            echo "Review and QA are traced on the head commit."
+          fi
+          exit "$fail"
