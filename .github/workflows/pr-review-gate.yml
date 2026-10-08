@@ -34,11 +34,14 @@ jobs:
 
           # Dependabot PRs are exempt. Key on the PR author, not the event actor: the gate
           # also fires on issue_comment and labeled events, where github.actor is the
-          # commenter / bot, not the PR author.
-          if [ "$(gh pr view "$PR" --repo "$REPO" --json author --jq .author.login)" = 'dependabot[bot]' ]; then
-            echo "Dependabot — review gate skipped."
-            exit 0
-          fi
+          # commenter / bot, not the PR author. The login is `dependabot[bot]` on the web
+          # but `app/dependabot` from the REST/GraphQL API — accept both.
+          case "$(gh pr view "$PR" --repo "$REPO" --json author --jq .author.login)" in
+            'dependabot[bot]' | 'app/dependabot')
+              echo "Dependabot — review gate skipped."
+              exit 0
+              ;;
+          esac
 
           SHA="$(gh pr view "$PR" --repo "$REPO" --json headRefOid --jq .headRefOid)"
           labels="$(gh pr view "$PR" --repo "$REPO" --json labels --jq '.labels[].name')"
