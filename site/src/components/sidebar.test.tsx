@@ -21,8 +21,8 @@ describe('catalogue sidebar', () => {
       )
     }
 
-    // Catalogue + Tokens + every brick + every docs page, and nothing invented.
-    expect(screen.getAllByRole('link')).toHaveLength(catalogue.length + 2 + docsSlugs.length)
+    // Catalogue + Gallery + Tokens + every brick + every docs page, and nothing invented.
+    expect(screen.getAllByRole('link')).toHaveLength(catalogue.length + 3 + docsSlugs.length)
   })
 
   it('groups bricks by level', () => {

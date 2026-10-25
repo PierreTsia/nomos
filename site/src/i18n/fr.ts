@@ -13,6 +13,7 @@ export const fr = {
   },
   nav: {
     catalogue: 'Catalogue',
+    gallery: 'Galerie',
     tokens: 'Tokens',
     docs: 'Docs',
     npm: 'npm',
@@ -75,11 +76,21 @@ export const fr = {
     title: 'Tokens',
     lead: 'Les noms que chaque composant parle. Les valeurs vivent dans un seul fichier, et un skin les remplace (ADR 0003, 0004).',
   },
+  gallery: {
+    title: 'Galerie de layouts',
+    lead: 'Des écrans entiers assemblés à partir des briques, chacun avec sa source. Copie-le et fais-le tien.',
+    source: 'Source',
+  },
   brick: {
     unknown: (name: string) => `Brique inconnue « ${name} ».`,
     allBricks: '← Toutes les briques',
-    previewTitle: 'Aperçu',
-    previewCardTitle: 'Rendu avec son exemple',
+    interfaceTitle: 'Interface',
+    interfaceCardTitle: 'Rendu avec son exemple',
+    scenarioTitle: 'Mise en situation',
+    scenarioCardTitle: 'La brique en contexte',
+    snippetsTitle: 'Snippets',
+    snippetInterface: 'Interface',
+    snippetScenario: 'Scénario',
   },
   manifest: {
     props: (count: number) => `Props · ${count}`,

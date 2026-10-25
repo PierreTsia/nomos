@@ -17,6 +17,7 @@ export const en = {
   },
   nav: {
     catalogue: 'Catalogue',
+    gallery: 'Gallery',
     tokens: 'Tokens',
     docs: 'Docs',
     npm: 'npm',
@@ -79,11 +80,21 @@ export const en = {
     title: 'Tokens',
     lead: 'The names every component speaks in. The values live in one file, and a skin replaces them (ADR 0003, 0004).',
   },
+  gallery: {
+    title: 'Layout gallery',
+    lead: 'Whole screens assembled from the bricks, each with its source. Copy one and make it yours.',
+    source: 'Source',
+  },
   brick: {
     unknown: (name: string) => `Unknown brick « ${name} ».`,
     allBricks: '← All bricks',
-    previewTitle: 'Preview',
-    previewCardTitle: 'Rendered with its example',
+    interfaceTitle: 'Interface',
+    interfaceCardTitle: 'Rendered with its example',
+    scenarioTitle: 'Scenario',
+    scenarioCardTitle: 'The brick in context',
+    snippetsTitle: 'Snippets',
+    snippetInterface: 'Interface',
+    snippetScenario: 'Scenario',
   },
   manifest: {
     props: (count: number) => `Props · ${count}`,
