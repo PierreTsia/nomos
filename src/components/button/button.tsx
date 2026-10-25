@@ -20,16 +20,22 @@ export const buttonVariantsConfig = {
       link: 'text-primary underline-offset-4 hover:underline',
     },
     size: {
-      default: 'h-10 px-4 py-2',
+      xs: 'h-8 rounded-md px-2.5',
       sm: 'h-9 rounded-md px-3',
+      default: 'h-10 px-4 py-2',
       lg: 'h-11 rounded-md px-8',
+      xl: 'h-14 px-9',
+      '2xl': 'h-16 px-10',
       touch: 'h-12 px-6',
+      'icon-xs': 'h-7 w-7',
+      'icon-sm': 'h-8 w-8',
       icon: 'h-10 w-10',
       'icon-lg': 'h-12 w-12',
     },
     shape: {
       default: '',
       pill: 'rounded-full',
+      soft: 'rounded-xl',
     },
   },
   defaultVariants: {

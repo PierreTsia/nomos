@@ -28,6 +28,18 @@ describe('Button', () => {
     expect(iconLg.firstElementChild).toHaveClass('w-12')
   })
 
+  it('exposes the extended size scale and the soft shape', () => {
+    const { container: xs } = render(<Button size="xs">x</Button>)
+    const { container: xl } = render(<Button size="xl">x</Button>)
+    const { container: iconSm } = render(<Button size="icon-sm">x</Button>)
+    const { container: soft } = render(<Button shape="soft">x</Button>)
+
+    expect(xs.firstElementChild).toHaveClass('h-8')
+    expect(xl.firstElementChild).toHaveClass('h-14')
+    expect(iconSm.firstElementChild).toHaveClass('h-8')
+    expect(soft.firstElementChild).toHaveClass('rounded-xl')
+  })
+
   it('lets the application merge its own classes', () => {
     render(<Button className="w-full">x</Button>)
 

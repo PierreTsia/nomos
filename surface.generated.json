@@ -214,6 +214,8 @@
     "alertDialogManifest",
     "alertManifest",
     "avatarManifest",
+    "avatarVariants",
+    "avatarVariantsConfig",
     "badgeManifest",
     "badgeVariants",
     "badgeVariantsConfig",

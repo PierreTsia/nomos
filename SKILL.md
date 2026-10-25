@@ -33,15 +33,16 @@ brick, it belongs to the app, not the core.
 - **Name an icon control, tuck away a short hint** → `Tooltip` as a family (a
   `TooltipProvider` around several, `Tooltip`, `TooltipTrigger`, `TooltipContent`). Never for
   essential information: it is neither keyboard-only nor touch accessible.
-- **Represent a person by their image** → `Avatar` (alt text and fallback come from the app;
-  native `<img>` + `onError`, no dependency).
+- **Represent a person by their image** → `Avatar` (`size` = `sm`/`default`/`lg`; alt text and
+  fallback come from the app; native `<img>` + `onError`, no dependency).
 - **Cap a title with a short hook** → `Kicker` (an uppercase label, an optional tone dot via
   `dot`; the text is injected by the caller).
 
 ### Act, input
 
-- **Act** → `Button` (`variant` = the tone, `size` = the density — `touch` for a mobile CTA,
-  `shape="pill"` for a rounded action; `asChild` to put the style on a link).
+- **Act** → `Button` (`variant` = the tone, `size` = the density — `xs`→`2xl` for text
+  controls, `touch` for a mobile CTA, `icon-xs`→`icon-lg` for icon-only; `shape` = `pill`
+  or `soft` for rounded corners; `asChild` to put the style on a link).
 - **Navigate to a URL** → `Link` (an `<a>`; `href` and label injected, the core carries no
   routing; `asChild` to put the style on an app routing component).
 - **Copy a text** → `CopyButton` (`value` to copy, `label`/`copiedLabel` and `icon`

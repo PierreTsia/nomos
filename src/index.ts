@@ -24,7 +24,7 @@ export {
 } from '@nomos/components/alert-dialog/alert-dialog'
 export { alertDialogManifest } from '@nomos/components/alert-dialog/manifest'
 
-export { Avatar } from '@nomos/components/avatar/avatar'
+export { Avatar, avatarVariants, avatarVariantsConfig } from '@nomos/components/avatar/avatar'
 export type { AvatarProps } from '@nomos/components/avatar/avatar'
 export { avatarManifest } from '@nomos/components/avatar/manifest'
 
