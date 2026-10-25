@@ -35,6 +35,27 @@ describe('Heading', () => {
     expect(title.querySelector('h2')).toHaveClass('text-title')
   })
 
+  it('decouples the size from the level, keeping the tag', () => {
+    const { container } = render(
+      <Heading level={2} size="body">
+        Titre visuellement discret
+      </Heading>,
+    )
+
+    const heading = container.querySelector('h2')
+    expect(heading).toHaveClass('text-body')
+    expect(heading).not.toHaveClass('text-title')
+  })
+
+  it('reads its weight from the semantic scale, strong by default', () => {
+    const { container: byDefault } = render(<Heading>Titre</Heading>)
+    const { container: medium } = render(<Heading weight="medium">Titre</Heading>)
+
+    expect(byDefault.querySelector('h2')).toHaveClass('font-strong')
+    expect(medium.querySelector('h2')).toHaveClass('font-medium')
+    expect(medium.querySelector('h2')).not.toHaveClass('font-strong')
+  })
+
   it('reads its tone from the semantic palette', () => {
     const { container: muted } = render(<Heading tone="muted">secondaire</Heading>)
     const { container: danger } = render(<Heading tone="danger">erreur</Heading>)

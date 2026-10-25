@@ -437,12 +437,21 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: headingManifest,
     component: Heading as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: { level: headingVariantsConfig, tone: headingVariantsConfig },
+    variantsConfig: {
+      level: headingVariantsConfig,
+      size: headingVariantsConfig,
+      weight: headingVariantsConfig,
+      tone: headingVariantsConfig,
+    },
   },
   {
     manifest: textManifest,
     component: Text as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: { size: textVariantsConfig, tone: textVariantsConfig },
+    variantsConfig: {
+      size: textVariantsConfig,
+      tone: textVariantsConfig,
+      weight: textVariantsConfig,
+    },
   },
   {
     manifest: conversationManifest,

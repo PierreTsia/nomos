@@ -108,13 +108,16 @@ brick, it belongs to the app, not the core.
 
 ### Write
 
-- **Title a section** → `Heading`: `level` chooses the `h1`..`h6` tag **and** the semantic
-  size (display, title, lead, body, caption, micro); `tone` sets its ink
+- **Title a section** → `Heading`: `level` chooses the `h1`..`h6` tag **and** the default
+  semantic size (display, title, lead, body, caption, micro); `size` decouples the visual
+  size from the tag (keep the document hierarchy, render another size); `weight`
+  (regular/medium/strong, strong by default) and `tone` set its ink
   (default/muted/primary/danger). Document hierarchy is decided by the level, never by the
   size.
 - **Write body text** → `Text`: `size` reads the semantic scale (`micro`, `caption`, `body`,
-  `lead`, `title`, `display` — the same six `Heading` reads) and `tone` its ink
-  (default/muted/primary/danger), `as` chooses `p` (default) or `span` for inline text.
+  `lead`, `title`, `display` — the same six `Heading` reads), `weight`
+  (regular/medium/strong) and `tone` its ink (default/muted/primary/danger), `as` chooses
+  `p` (default) or `span` for inline text.
   Sizes and ink come from the tokens, never from an ad-hoc utility. The scale maps onto the
   Tailwind steps an adopter migrates from: `micro`→`text-[11px]`, `caption`→`text-xs`,
   `body`→`text-sm`, `lead`→`text-base`, `title`→`text-lg`, `display`→`text-2xl`.

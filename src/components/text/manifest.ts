@@ -30,6 +30,14 @@ export const textManifest: ComponentManifest = {
         'The ink of the text, from the semantic palette: `muted` for secondary mentions, ' +
         '`primary` for a link-like emphasis, `danger` for an error. Never a raw colour.',
     },
+    {
+      name: 'weight',
+      values: ['regular', 'medium', 'strong'],
+      default: 'regular',
+      description:
+        'The weight, from the semantic scale: `regular` for body copy, `medium` for a soft ' +
+        'emphasis, `strong` for inline emphasis. Never a raw `font-bold`.',
+    },
   ],
   props: [
     {
@@ -84,6 +92,11 @@ export const textManifest: ComponentManifest = {
       when: 'inline text within a sentence',
       use: 'as="span"',
       avoid: 'a `span` for a whole paragraph: the browser loses the structure',
+    },
+    {
+      when: 'emphasising a word inside body copy',
+      use: 'as="span" weight="strong"',
+      avoid: 'a raw `font-bold` class: the weight is a variant, not a caller class',
     },
   ],
 }
