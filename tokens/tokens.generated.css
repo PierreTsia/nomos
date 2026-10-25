@@ -51,6 +51,8 @@
     --nomos-radius-control: 0.625rem;
     --nomos-radius-field: 0.5rem;
     --nomos-radius-chip: 0.375rem;
+    --nomos-radius-surface: 0.75rem;
+    --nomos-radius-sheet: 1.5rem;
     --nomos-z-overlay: 50;
     --nomos-z-popover: 60;
     --nomos-z-tooltip: 70;
@@ -137,6 +139,8 @@
       --nomos-radius-control: 0.625rem;
       --nomos-radius-field: 0.5rem;
       --nomos-radius-chip: 0.375rem;
+      --nomos-radius-surface: 0.75rem;
+      --nomos-radius-sheet: 1.5rem;
       --nomos-z-overlay: 50;
       --nomos-z-popover: 60;
       --nomos-z-tooltip: 70;
@@ -222,6 +226,8 @@
     --nomos-radius-control: 0.625rem;
     --nomos-radius-field: 0.5rem;
     --nomos-radius-chip: 0.375rem;
+    --nomos-radius-surface: 0.75rem;
+    --nomos-radius-sheet: 1.5rem;
     --nomos-z-overlay: 50;
     --nomos-z-popover: 60;
     --nomos-z-tooltip: 70;
@@ -306,6 +312,8 @@
     --nomos-radius-control: 0.625rem;
     --nomos-radius-field: 0.5rem;
     --nomos-radius-chip: 0.375rem;
+    --nomos-radius-surface: 0.75rem;
+    --nomos-radius-sheet: 1.5rem;
     --nomos-z-overlay: 50;
     --nomos-z-popover: 60;
     --nomos-z-tooltip: 70;

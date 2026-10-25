@@ -67,7 +67,7 @@ describe('Sheet', () => {
   it('lets the bottom-sheet radius be set, and only on the bottom side', () => {
     const { unmount } = render(
       <Sheet defaultOpen>
-        <SheetContent side="bottom" radius="3xl">
+        <SheetContent side="bottom" radius="sheet">
           <SheetTitle>Drawer</SheetTitle>
         </SheetContent>
       </Sheet>,
@@ -80,7 +80,7 @@ describe('Sheet', () => {
 
     render(
       <Sheet defaultOpen>
-        <SheetContent side="right" radius="3xl">
+        <SheetContent side="right" radius="sheet">
           <SheetTitle>Panneau</SheetTitle>
         </SheetContent>
       </Sheet>,

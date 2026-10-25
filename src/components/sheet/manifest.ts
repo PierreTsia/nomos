@@ -57,11 +57,12 @@ export const sheetManifest: ComponentManifest = {
     },
     {
       name: 'radius',
-      values: ['default', 'xl', '2xl', '3xl', 'none'],
+      values: ['default', 'sheet', 'none'],
       default: 'default',
       description:
         'The top corner of the bottom-sheet (`side="bottom"` only): `default` is the ' +
-        'control radius, `none` is square. Ignored on the other sides.',
+        'control radius, `sheet` the large drawer radius, `none` is square. Ignored on the ' +
+        'other sides.',
     },
   ],
   props: [
@@ -115,7 +116,7 @@ export const sheetManifest: ComponentManifest = {
     },
     {
       when: 'the bottom-sheet top corner must differ from the default',
-      use: 'side="bottom" radius="xl"',
+      use: 'side="bottom" radius="sheet"',
       avoid: 'a `rounded-t-*` class on the `className`: the radius is a variant when non-default',
     },
     {

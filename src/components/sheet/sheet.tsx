@@ -50,19 +50,16 @@ export const sheetVariantsConfig = {
     },
     // Le rayon du bottom-sheet : la classe vit dans les compoundVariants pour ne
     // s'appliquer qu'à `side="bottom"` — un panneau latéral n'a pas de coin haut à arrondir.
+    // Les valeurs lisent les tokens (`rounded-t-lg` = control, `rounded-t-3xl` = sheet).
     radius: {
       default: "",
-      xl: "",
-      "2xl": "",
-      "3xl": "",
+      sheet: "",
       none: "",
     },
   },
   compoundVariants: [
     { side: "bottom" as const, radius: "default" as const, class: "rounded-t-lg" },
-    { side: "bottom" as const, radius: "xl" as const, class: "rounded-t-xl" },
-    { side: "bottom" as const, radius: "2xl" as const, class: "rounded-t-2xl" },
-    { side: "bottom" as const, radius: "3xl" as const, class: "rounded-t-3xl" },
+    { side: "bottom" as const, radius: "sheet" as const, class: "rounded-t-3xl" },
     { side: "bottom" as const, radius: "none" as const, class: "rounded-none" },
   ],
   defaultVariants: {
