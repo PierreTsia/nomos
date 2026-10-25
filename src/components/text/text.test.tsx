@@ -41,6 +41,14 @@ describe('Text', () => {
     expect(danger.querySelector('p')).toHaveClass('text-destructive')
   })
 
+  it('reads its weight from the semantic scale', () => {
+    const { container: medium } = render(<Text weight="medium">corps</Text>)
+    const { container: strong } = render(<Text weight="strong">corps</Text>)
+
+    expect(medium.querySelector('p')).toHaveClass('font-medium')
+    expect(strong.querySelector('p')).toHaveClass('font-strong')
+  })
+
   it('defaults to the body size', () => {
     const { container } = render(<Text>corps</Text>)
 

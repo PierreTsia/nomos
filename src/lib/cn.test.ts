@@ -32,3 +32,30 @@ describe('cn — l’échelle typographique du cœur', () => {
     expect(cn('text-lead', 'text-body')).toBe('text-body')
   })
 })
+
+/**
+ * La même garde pour l'échelle des poids : `font-regular`/`font-strong` sont des noms du
+ * cœur, pas des poids Tailwind, donc tailwind-merge les classerait comme famille de police
+ * (et les effacerait) sans la déclaration. La source unique reste `tokens/theme.css`.
+ */
+describe('cn — l’échelle des poids du cœur', () => {
+  const theme = readFileSync(
+    path.resolve(import.meta.dirname, '..', '..', 'tokens', 'theme.css'),
+    'utf8',
+  )
+  const weights = [...theme.matchAll(/--font-weight-([a-z]+):/g)].map((match) => match[1])
+
+  it('déclare au moins un poids', () => {
+    expect(weights.length).toBeGreaterThan(0)
+  })
+
+  it('garde chaque poids quand une famille de police le suit', () => {
+    for (const weight of weights) {
+      expect(cn(`font-${weight}`, 'font-sans'), `font-${weight}`).toContain(`font-${weight}`)
+    }
+  })
+
+  it('résout deux poids qui se contredisent', () => {
+    expect(cn('font-medium', 'font-strong')).toBe('font-strong')
+  })
+})

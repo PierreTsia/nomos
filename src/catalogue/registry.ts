@@ -4,7 +4,7 @@ import { Alert } from '@nomos/components/alert/alert'
 import { alertManifest } from '@nomos/components/alert/manifest'
 import { AlertDialog } from '@nomos/components/alert-dialog/alert-dialog'
 import { alertDialogManifest } from '@nomos/components/alert-dialog/manifest'
-import { Avatar } from '@nomos/components/avatar/avatar'
+import { Avatar, avatarVariantsConfig } from '@nomos/components/avatar/avatar'
 import { avatarManifest } from '@nomos/components/avatar/manifest'
 import { ScrollArea } from '@nomos/components/scroll-area/scroll-area'
 import { scrollAreaManifest } from '@nomos/components/scroll-area/manifest'
@@ -157,7 +157,7 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: avatarManifest,
     component: Avatar as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: {},
+    variantsConfig: { size: avatarVariantsConfig },
   },
   {
     manifest: scrollAreaManifest,
@@ -355,7 +355,7 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: sheetManifest,
     component: Sheet as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: { side: sheetVariantsConfig },
+    variantsConfig: { side: sheetVariantsConfig, radius: sheetVariantsConfig },
   },
   {
     manifest: skeletonManifest,
@@ -437,12 +437,21 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: headingManifest,
     component: Heading as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: { level: headingVariantsConfig, tone: headingVariantsConfig },
+    variantsConfig: {
+      level: headingVariantsConfig,
+      size: headingVariantsConfig,
+      weight: headingVariantsConfig,
+      tone: headingVariantsConfig,
+    },
   },
   {
     manifest: textManifest,
     component: Text as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: { size: textVariantsConfig, tone: textVariantsConfig },
+    variantsConfig: {
+      size: textVariantsConfig,
+      tone: textVariantsConfig,
+      weight: textVariantsConfig,
+    },
   },
   {
     manifest: conversationManifest,

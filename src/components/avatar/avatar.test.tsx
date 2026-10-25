@@ -24,6 +24,14 @@ describe('Avatar', () => {
     expect(screen.getByText('PT')).toBeInTheDocument()
   })
 
+  it('exposes the size scale (sm / default / lg)', () => {
+    const { container: sm } = render(<Avatar size="sm" alt="Photo de profil" fallback="PT" />)
+    const { container: lg } = render(<Avatar size="lg" alt="Photo de profil" fallback="PT" />)
+
+    expect(sm.firstElementChild).toHaveClass('size-8')
+    expect(lg.firstElementChild).toHaveClass('size-12')
+  })
+
   it('forwards native image props to the internal image', () => {
     render(
       <Avatar

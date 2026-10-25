@@ -1,15 +1,16 @@
 import type { ComponentManifest } from '@nomos/catalogue/contract'
 
 /**
- * Le manifeste du Titre (ADR 0005). `level` est la seule variante : elle choisit à la fois
- * la balise (`h1`..`h6`) et la taille sémantique, pour qu'un seul mot dise la hiérarchie.
+ * Le manifeste du Titre (ADR 0005). `level` choisit la balise (`h1`..`h6`) et la taille
+ * sémantique par défaut ; `size` la découple quand la structure et la taille divergent,
+ * `weight` lit l'échelle des poids.
  */
 export const headingManifest: ComponentManifest = {
   name: 'heading',
   title: 'Heading',
   summary:
-    'A section heading. The level (`level`) chooses the `h1`..`h6` tag and the ' +
-    "semantic size; the text comes from the caller.",
+    'A section heading. The level (`level`) chooses the `h1`..`h6` tag and the default ' +
+    'semantic size; `size` decouples the visual size from the tag. The text comes from the caller.',
   level: 'primitive',
   example: { level: 2, children: 'Section heading' },
   variants: [
@@ -19,7 +20,21 @@ export const headingManifest: ComponentManifest = {
       default: '2',
       description:
         "The hierarchy level: it renders the corresponding `h1`..`h6` tag and reads the " +
-        "semantic size (display, title, lead, body, caption, micro).",
+        "default semantic size (display, title, lead, body, caption, micro).",
+    },
+    {
+      name: 'size',
+      values: ['micro', 'caption', 'body', 'lead', 'title', 'display'],
+      description:
+        'The visual size, decoupled from the level: keep the tag for the document structure ' +
+        'while rendering a different size. Unset, it follows the level.',
+    },
+    {
+      name: 'weight',
+      values: ['regular', 'medium', 'strong'],
+      default: 'strong',
+      description:
+        'The weight, from the semantic scale: `strong` by default (a heading). Never a raw `font-bold`.',
     },
     {
       name: 'tone',
@@ -61,6 +76,11 @@ export const headingManifest: ComponentManifest = {
       when: 'a block or card subheading',
       use: 'level={3}',
       avoid: 'a `level` chosen for its size rather than the document structure',
+    },
+    {
+      when: 'the visual size must differ from the document level',
+      use: 'level={2} size="body"',
+      avoid: 'a `text-*` class on the `className`: the size is a variant, and the level keeps the tag',
     },
   ],
 }

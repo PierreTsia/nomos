@@ -64,6 +64,31 @@ describe('Sheet', () => {
     expect(dialog.className).toContain('safe-area-inset-bottom')
   })
 
+  it('lets the bottom-sheet radius be set, and only on the bottom side', () => {
+    const { unmount } = render(
+      <Sheet defaultOpen>
+        <SheetContent side="bottom" radius="sheet">
+          <SheetTitle>Drawer</SheetTitle>
+        </SheetContent>
+      </Sheet>,
+    )
+
+    const bottom = screen.getByRole('dialog')
+    expect(bottom).toHaveClass('rounded-t-3xl')
+    expect(bottom).not.toHaveClass('rounded-t-lg')
+    unmount()
+
+    render(
+      <Sheet defaultOpen>
+        <SheetContent side="right" radius="sheet">
+          <SheetTitle>Panneau</SheetTitle>
+        </SheetContent>
+      </Sheet>,
+    )
+
+    expect(screen.getByRole('dialog')).not.toHaveClass('rounded-t-3xl')
+  })
+
   it('lets the application merge its own classes on the surface', () => {
     render(
       <Sheet defaultOpen>

@@ -43,14 +43,28 @@ export const sheetVariantsConfig = {
     side: {
       top: "inset-x-0 top-0 border-b data-[state=closed]:animate-slide-out-top data-[state=open]:animate-slide-in-top",
       bottom:
-        "inset-x-0 bottom-0 rounded-t-lg border-t pb-[calc(var(--spacing)*8+env(safe-area-inset-bottom))] max-h-[85dvh] data-[state=closed]:animate-slide-out-bottom data-[state=open]:animate-slide-in-bottom",
+        "inset-x-0 bottom-0 border-t pb-[calc(var(--spacing)*8+env(safe-area-inset-bottom))] max-h-[85dvh] data-[state=closed]:animate-slide-out-bottom data-[state=open]:animate-slide-in-bottom",
       left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:animate-slide-out-left data-[state=open]:animate-slide-in-left sm:max-w-sm",
       right:
         "inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:animate-slide-out-right data-[state=open]:animate-slide-in-right sm:max-w-sm",
     },
+    // Le rayon du bottom-sheet : la classe vit dans les compoundVariants pour ne
+    // s'appliquer qu'à `side="bottom"` — un panneau latéral n'a pas de coin haut à arrondir.
+    // Les valeurs lisent les tokens (`rounded-t-lg` = control, `rounded-t-3xl` = sheet).
+    radius: {
+      default: "",
+      sheet: "",
+      none: "",
+    },
   },
+  compoundVariants: [
+    { side: "bottom" as const, radius: "default" as const, class: "rounded-t-lg" },
+    { side: "bottom" as const, radius: "sheet" as const, class: "rounded-t-3xl" },
+    { side: "bottom" as const, radius: "none" as const, class: "rounded-none" },
+  ],
   defaultVariants: {
     side: "right" as const,
+    radius: "default" as const,
   },
 }
 
@@ -63,12 +77,12 @@ interface SheetContentProps
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", className, children, ...props }, ref) => (
+>(({ side = "right", radius, className, children, ...props }, ref) => (
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Content
       ref={ref}
-      className={cn(sheetVariants({ side }), className)}
+      className={cn(sheetVariants({ side, radius }), className)}
       {...props}
     >
       {children}

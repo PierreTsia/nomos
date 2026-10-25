@@ -79,6 +79,8 @@
   --radius-lg: var(--nomos-radius-control);
   --radius-md: var(--nomos-radius-field);
   --radius-sm: var(--nomos-radius-chip);
+  --radius-xl: var(--nomos-radius-surface);
+  --radius-3xl: var(--nomos-radius-sheet);
 
   /*
     L'élévation (ADR 0004) : les couches flottantes lisent `shadow-sm/md/lg`, que Tailwind

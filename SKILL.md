@@ -33,15 +33,16 @@ brick, it belongs to the app, not the core.
 - **Name an icon control, tuck away a short hint** → `Tooltip` as a family (a
   `TooltipProvider` around several, `Tooltip`, `TooltipTrigger`, `TooltipContent`). Never for
   essential information: it is neither keyboard-only nor touch accessible.
-- **Represent a person by their image** → `Avatar` (alt text and fallback come from the app;
-  native `<img>` + `onError`, no dependency).
+- **Represent a person by their image** → `Avatar` (`size` = `sm`/`default`/`lg`; alt text and
+  fallback come from the app; native `<img>` + `onError`, no dependency).
 - **Cap a title with a short hook** → `Kicker` (an uppercase label, an optional tone dot via
   `dot`; the text is injected by the caller).
 
 ### Act, input
 
-- **Act** → `Button` (`variant` = the tone, `size` = the density — `touch` for a mobile CTA,
-  `shape="pill"` for a rounded action; `asChild` to put the style on a link).
+- **Act** → `Button` (`variant` = the tone, `size` = the density — `xs`→`2xl` for text
+  controls, `touch` for a mobile CTA, `icon-xs`→`icon-lg` for icon-only; `shape` = `pill`
+  or `soft` for rounded corners; `asChild` to put the style on a link).
 - **Navigate to a URL** → `Link` (an `<a>`; `href` and label injected, the core carries no
   routing; `asChild` to put the style on an app routing component).
 - **Copy a text** → `CopyButton` (`value` to copy, `label`/`copiedLabel` and `icon`
@@ -98,22 +99,25 @@ brick, it belongs to the app, not the core.
   `AlertDialogContent`, `AlertDialogAction`, `AlertDialogCancel`; two explicit outcomes). It
   does not close on an outside click.
 - **Show content anchored to an edge** → `Sheet` as parts (`SheetTrigger`, `SheetContent`
-  with `side`, `SheetHeader`, `SheetFooter`); `side="bottom"` is the **bottom-sheet**
-  (rounded top, safe-area padding, capped height) — the same panel, a different side, not a
-  separate atom.
+  with `side`, `radius`, `SheetHeader`, `SheetFooter`); `side="bottom"` is the **bottom-sheet**
+  (rounded top, safe-area padding, capped height), its top corner set by `radius` — the same
+  panel, a different side, not a separate atom.
 - **Browse a hierarchy** → `Tree` (navigation, one active node) or `SelectionTree`
   (multi-selection); opening and selection are controlled by props, keyboard focus (`tree`
   role, arrows) is internal.
 
 ### Write
 
-- **Title a section** → `Heading`: `level` chooses the `h1`..`h6` tag **and** the semantic
-  size (display, title, lead, body, caption, micro); `tone` sets its ink
+- **Title a section** → `Heading`: `level` chooses the `h1`..`h6` tag **and** the default
+  semantic size (display, title, lead, body, caption, micro); `size` decouples the visual
+  size from the tag (keep the document hierarchy, render another size); `weight`
+  (regular/medium/strong, strong by default) and `tone` set its ink
   (default/muted/primary/danger). Document hierarchy is decided by the level, never by the
   size.
 - **Write body text** → `Text`: `size` reads the semantic scale (`micro`, `caption`, `body`,
-  `lead`, `title`, `display` — the same six `Heading` reads) and `tone` its ink
-  (default/muted/primary/danger), `as` chooses `p` (default) or `span` for inline text.
+  `lead`, `title`, `display` — the same six `Heading` reads), `weight`
+  (regular/medium/strong) and `tone` its ink (default/muted/primary/danger), `as` chooses
+  `p` (default) or `span` for inline text.
   Sizes and ink come from the tokens, never from an ad-hoc utility. The scale maps onto the
   Tailwind steps an adopter migrates from: `micro`→`text-[11px]`, `caption`→`text-xs`,
   `body`→`text-sm`, `lead`→`text-base`, `title`→`text-lg`, `display`→`text-2xl`.

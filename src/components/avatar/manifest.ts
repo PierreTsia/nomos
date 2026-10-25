@@ -15,7 +15,16 @@ export const avatarManifest: ComponentManifest = {
     alt: 'Profile photo',
     fallback: 'PT',
   },
-  variants: [],
+  variants: [
+    {
+      name: 'size',
+      values: ['sm', 'default', 'lg'],
+      default: 'default',
+      description:
+        'The size of the round box: `sm` for dense lists, `default` for most cases, ' +
+        '`lg` for a profile header.',
+    },
+  ],
   props: [
     {
       name: 'src',
@@ -59,6 +68,11 @@ export const avatarManifest: ComponentManifest = {
       when: 'represent a person or an entity by their image',
       use: 'a `src` and a `fallback` (initials) provided by the app',
       avoid: 'wait for an image that can fail: always a `fallback`',
+    },
+    {
+      when: 'the avatar sits in a dense list or a byline',
+      use: 'size="sm"',
+      avoid: 'a `size-*` class on the `className`: the size is a variant, not an override',
     },
     {
       when: 'a decorative image with no person behind it',
