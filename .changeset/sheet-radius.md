@@ -1,0 +1,13 @@
+---
+"@nomosui/react": minor
+---
+
+`Sheet` gains a **`radius`** axis on the bottom-sheet (#134). `side="bottom"` no longer
+hardcodes `rounded-t-lg`: `radius` sets the top corner (`default`, `xl`, `2xl`, `3xl`,
+`none`), applied to the bottom side only — other sides are unaffected. The default keeps
+today's rendering.
+
+The `Input` / `SelectTrigger` `size` descriptions now state the retarget explicitly: a
+`size` moves the height **and** the padding and text size together, by design (ADR 0008);
+there is no height-only axis. An adopter that takes a `size` accepts the typography that
+comes with it.

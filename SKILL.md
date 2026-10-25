@@ -99,9 +99,9 @@ brick, it belongs to the app, not the core.
   `AlertDialogContent`, `AlertDialogAction`, `AlertDialogCancel`; two explicit outcomes). It
   does not close on an outside click.
 - **Show content anchored to an edge** → `Sheet` as parts (`SheetTrigger`, `SheetContent`
-  with `side`, `SheetHeader`, `SheetFooter`); `side="bottom"` is the **bottom-sheet**
-  (rounded top, safe-area padding, capped height) — the same panel, a different side, not a
-  separate atom.
+  with `side`, `radius`, `SheetHeader`, `SheetFooter`); `side="bottom"` is the **bottom-sheet**
+  (rounded top, safe-area padding, capped height), its top corner set by `radius` — the same
+  panel, a different side, not a separate atom.
 - **Browse a hierarchy** → `Tree` (navigation, one active node) or `SelectionTree`
   (multi-selection); opening and selection are controlled by props, keyboard focus (`tree`
   role, arrows) is internal.

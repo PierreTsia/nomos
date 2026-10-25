@@ -355,7 +355,7 @@ export const catalogueEntries: CatalogueEntry[] = [
   {
     manifest: sheetManifest,
     component: Sheet as unknown as ComponentType<Record<string, unknown>>,
-    variantsConfig: { side: sheetVariantsConfig },
+    variantsConfig: { side: sheetVariantsConfig, radius: sheetVariantsConfig },
   },
   {
     manifest: skeletonManifest,

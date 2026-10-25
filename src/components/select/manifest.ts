@@ -44,7 +44,9 @@ export const selectManifest: ComponentManifest = {
       values: ['sm', 'md', 'lg'],
       default: 'md',
       description:
-        'The height of the trigger, from the density scale (ADR 0008), not a fixed length.',
+        'The density of the trigger from the scale (ADR 0008): the height **and** the ' +
+        'padding and text size move together — adopting a `size` intentionally retargets the ' +
+        'typography, there is no height-only axis.',
     },
     {
       name: 'variant',
