@@ -1,8 +1,13 @@
+import { createElement } from 'react'
+
 import type { ComponentManifest } from '@nomos/catalogue/contract'
+import { Message } from '@nomos/components/message/message'
 
 /**
  * Le manifeste de la fenêtre de conversation (ADR 0005, 0032). Le cœur possède le
- * défilement et la région `log` ; l'app le contenu, l'état vide et la hauteur.
+ * défilement et la région `log` ; l'app le contenu, l'état vide et la hauteur. L'exemple
+ * porte donc de vrais messages **et** une hauteur : le viewport est en `h-full`, un exemple
+ * sans hauteur ne montrerait rien (view MCP comme aperçu du site).
  */
 export const conversationManifest: ComponentManifest = {
   name: 'conversation',
@@ -12,7 +17,23 @@ export const conversationManifest: ComponentManifest = {
     'owns the scrolling (stay at the bottom when a message arrives, return on demand); the ' +
     'app owns the content, the empty state and the height.',
   level: 'bloc',
-  example: { label: 'Conversation' },
+  example: {
+    label: 'Conversation',
+    className: 'h-64',
+    scrollToBottomLabel: 'Scroll to the latest message',
+    children: [
+      createElement(Message, {
+        key: 'user',
+        role: 'user',
+        parts: [{ type: 'text', text: 'How do I wire the tokens?' }],
+      }),
+      createElement(Message, {
+        key: 'assistant',
+        role: 'assistant',
+        parts: [{ type: 'text', text: 'Import the token values, then the theme bridge.' }],
+      }),
+    ],
+  },
   variants: [],
   props: [
     {
