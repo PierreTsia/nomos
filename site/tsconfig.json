@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "verbatimModuleSyntax": true,
+    "allowImportingTsExtensions": true,
     "moduleDetection": "force",
     "noEmit": true,
     "strict": true,

@@ -37,19 +37,27 @@ describe('snippetFromExample', () => {
     )
   })
 
-  it('rend des enfants en éléments, sur plusieurs lignes', () => {
+  it('rend des enfants en éléments, sur plusieurs lignes, sans balise Fragment', () => {
     const snippet = snippetFromExample('Card', {
-      children: createElement(Fragment, null, createElement('span', null, 'x')),
+      children: createElement(
+        Fragment,
+        null,
+        createElement('span', null, 'Title'),
+        createElement('p', null, 'Body'),
+      ),
     })
     expect(snippet).toContain('<Card>')
-    expect(snippet).toContain('<span>x</span>')
+    expect(snippet).toContain('<span>Title</span>')
+    expect(snippet).toContain('<p>Body</p>')
+    expect(snippet).not.toContain('Fragment')
+    expect(snippet).not.toContain('<Component')
   })
 
   it('nomme la brique à partir de son composant, même sans titre JSX', () => {
     expect(snippetFromExample('ProgressBar', { value: 60 })).toBe('<ProgressBar value={60} />')
   })
 
-  it('génère un snippet pour chaque exemple du catalogue', () => {
+  it('génère un snippet valide pour chaque exemple du catalogue', () => {
     for (const { manifest, component } of catalogue) {
       const example = manifest.example
       if (!example) continue
@@ -58,6 +66,29 @@ describe('snippetFromExample', () => {
       const snippet = snippetFromExample(name, example as Record<string, unknown>)
       expect(snippet, manifest.name).toMatch(/^<[A-Z]/)
       expect(snippet, manifest.name).toContain(`<${name}`)
+      // Aucune balise fantôme : un `Fragment` ne doit pas fuir en `<Fragment>`/`<Component>`,
+      // et chaque balise ouvrante doit porter un nom (pas de `<>` nu ni de `<` cassé).
+      expect(snippet, manifest.name).not.toContain('<Component')
+      expect(snippet, manifest.name).not.toContain('<Fragment')
     }
+  })
+
+  it('nomme les balises imbriquées des exemples en createElement', () => {
+    const card = catalogue.find((entry) => entry.manifest.name === 'card')!
+    const snippet = snippetFromExample(
+      'Card',
+      card.manifest.example as Record<string, unknown>,
+    )
+    expect(snippet).toContain('<CardHeader')
+    expect(snippet).toContain('<CardTitle')
+    expect(snippet).not.toContain('Component')
+
+    const alertDialog = catalogue.find((entry) => entry.manifest.name === 'alert-dialog')!
+    const dialogSnippet = snippetFromExample(
+      'AlertDialog',
+      alertDialog.manifest.example as Record<string, unknown>,
+    )
+    expect(dialogSnippet).toContain('<AlertDialogTrigger')
+    expect(dialogSnippet).not.toContain('Component')
   })
 })

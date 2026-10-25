@@ -1,31 +1,44 @@
 import { render } from '@testing-library/react'
+import { catalogue } from '@nomosui/react'
 import { describe, expect, it } from 'vitest'
+import { brickSnippets, sceneSnippets } from 'virtual:nomos-snippets'
 
 import { scenarioFor, scenarioNames, scenes } from './scenarios'
 
 /**
- * La garde des scénarios (#59) : chaque exemple de brique se rend (donc compile dans le
- * build du site) et son fichier `?raw` est non vide — le snippet n'est jamais mort, c'est
- * le fichier qui a été rendu. Les scènes de la galerie (#41) ont la même garantie.
+ * La garde des snippets (#59) : chaque exemple de brique se rend (donc compile dans le
+ * build du site) et porte un snippet coloré non vide — le snippet est le fichier qui a été
+ * rendu, il ne peut pas être mort. Les scènes de la galerie (#41) ont la même garantie.
  */
 describe('scénarios de brique', () => {
   it('déclare au moins un scénario', () => {
     expect(scenarioNames.length).toBeGreaterThan(0)
   })
 
-  it('rend chaque scénario et expose son fichier source', () => {
+  it('rend chaque scénario et expose son snippet coloré', () => {
     for (const name of scenarioNames) {
-      const scenario = scenarioFor(name)
-      expect(scenario, name).toBeDefined()
-      const Example = scenario!.Example
-      const { container } = render(<Example />)
+      const Scenario = scenarioFor(name)!
+      expect(Scenario, name).toBeDefined()
+      const { container } = render(<Scenario />)
       expect(container.innerHTML, name).not.toBe('')
-      expect(scenario!.source, name).toContain('export default')
+      const code = brickSnippets[name]?.scenario
+      expect(code, name).toBeDefined()
+      expect(code!.raw, name).toContain('export default')
+      expect(code!.html, name).toContain('var(--color')
     }
   })
 
   it('rend un scénario absent sans planter (opt-in)', () => {
     expect(scenarioFor('does-not-exist')).toBeUndefined()
+  })
+
+  it("chaque exemple du catalogue a un snippet d'interface coloré", () => {
+    for (const { manifest } of catalogue) {
+      if (!manifest.example) continue
+      const code = brickSnippets[manifest.name]?.interface
+      expect(code, manifest.name).toBeDefined()
+      expect(code!.html, manifest.name).toContain('var(--color')
+    }
   })
 })
 
@@ -34,11 +47,13 @@ describe('scènes de la galerie', () => {
     expect(scenes.length).toBeGreaterThan(0)
   })
 
-  it('chaque scène a un titre, un résumé, une source et se rend', () => {
+  it('chaque scène a un titre, un résumé, un snippet et se rend', () => {
     for (const scene of scenes) {
       expect(scene.title, scene.name).toBeTruthy()
       expect(scene.summary, scene.name).toBeTruthy()
-      expect(scene.source, scene.name).toContain('export default')
+      const code = sceneSnippets[scene.name]
+      expect(code, scene.name).toBeDefined()
+      expect(code.raw, scene.name).toContain('export default')
       const Example = scene.Example
       const { container } = render(<Example />)
       expect(container.innerHTML, scene.name).not.toBe('')

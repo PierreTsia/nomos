@@ -2,48 +2,39 @@ import type { ComponentType } from 'react'
 
 /**
  * Le registre des **scénarios** (le beat 2 de #59). La scène d'une brique vit dans
- * `src/examples/<brique>.tsx` : le site la **rend** et montre son **fichier entier** via
- * `?raw` — le même fichier, donc le snippet ne peut pas être mort (il compile dans le build).
+ * `src/examples/<brique>.tsx` : le site la **rend**, et son code coloré vient du module
+ * `virtual:nomos-snippets` (généré au build depuis le même fichier) — donc le snippet ne
+ * peut pas être mort.
  *
- * Opt-in (#59) : une brique sans fichier n'a pas de beat 2, la page enchaîne 1 → 3. Le
- * `?raw` ne s'applique jamais au beat 1, qui reste `manifest.example` généré (`snippet.ts`).
+ * Opt-in (#59) : une brique sans fichier n'a pas de beat 2, la page enchaîne 1 → 3.
  */
 
 type Module = { default: ComponentType }
 type SceneModule = Module & { title: string; summary: string }
 
 const modules = import.meta.glob('./examples/*.tsx', { eager: true }) as Record<string, Module>
-const sources = import.meta.glob('./examples/*.tsx', {
-  query: '?raw',
-  import: 'default',
-  eager: true,
-}) as Record<string, string>
-
 const sceneModules = import.meta.glob('./examples/scenes/*.tsx', { eager: true }) as Record<
   string,
   SceneModule
 >
-const sceneSources = import.meta.glob('./examples/scenes/*.tsx', {
-  query: '?raw',
-  import: 'default',
-  eager: true,
-}) as Record<string, string>
 
-/** Les briques qui portent un scénario (le beat 2), dérivées du glob. */
-export const scenarioNames: string[] = Object.keys(modules).map((path) =>
-  path.replace('./examples/', '').replace('.tsx', ''),
+/** Le composant de scénario par brique, dérivé du glob (optionnel : toutes n'en ont pas). */
+export const scenarioComponents: Record<string, ComponentType> = Object.fromEntries(
+  Object.entries(modules).map(([path, mod]) => [
+    path.replace('./examples/', '').replace('.tsx', ''),
+    mod.default,
+  ]),
 )
 
-export type Scenario = { Example: ComponentType; source: string }
+/** Les briques qui portent un scénario (le beat 2). */
+export const scenarioNames: string[] = Object.keys(scenarioComponents)
 
-/** Le scénario d'une brique, ou `undefined` si elle n'en a pas (le beat 2 est optionnel). */
-export function scenarioFor(brick: string): Scenario | undefined {
-  const path = `./examples/${brick}.tsx`
-  const mod = modules[path]
-  return mod ? { Example: mod.default, source: sources[path] } : undefined
+/** Le composant de scénario d'une brique, ou `undefined` (le beat 2 est optionnel). */
+export function scenarioFor(brick: string): ComponentType | undefined {
+  return scenarioComponents[brick]
 }
 
-export type Scene = { name: string; title: string; summary: string; Example: ComponentType; source: string }
+export type Scene = { name: string; title: string; summary: string; Example: ComponentType }
 
 /** Les scènes « écran entier » de la galerie (#41), dérivées de leurs fichiers. */
 export const scenes: Scene[] = Object.entries(sceneModules)
@@ -52,6 +43,5 @@ export const scenes: Scene[] = Object.entries(sceneModules)
     title: mod.title,
     summary: mod.summary,
     Example: mod.default,
-    source: sceneSources[path],
   }))
   .sort((a, b) => a.name.localeCompare(b.name))

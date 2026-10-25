@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
 import { Badge, Card, CardContent, CardHeader, CardTitle, CodeBlock } from '@nomosui/react'
+import { brickSnippets, type SnippetCode } from 'virtual:nomos-snippets'
 
 import { findBrick } from '../catalogue'
 import { PrevNext } from '../components/prev-next'
 import { useI18n } from '../i18n'
-import { scenarioFor } from '../scenarios'
-import { componentName, snippetFromExample } from '../snippet'
+import { scenarioComponents } from '../scenarios'
 import { ManifestDocs } from './manifest'
 import { Preview } from './preview'
 
@@ -24,12 +24,14 @@ function Beat({ title, cardTitle, children }: { title: string; cardTitle: string
   )
 }
 
-/** Un snippet copiable : un libellé, puis le `CodeBlock` du cœur (dogfood). */
-function Snippet({ label, code }: { label: string; code: string }) {
+/** Un snippet copiable : un libellé, puis le `CodeBlock` du cœur au contenu coloré au build. */
+function Snippet({ label, code }: { label: string; code: SnippetCode }) {
   return (
     <div className="flex flex-col gap-2">
       <p className="text-sm font-medium text-muted-foreground">{label}</p>
-      <CodeBlock code={code} />
+      <CodeBlock code={code.raw}>
+        <span dangerouslySetInnerHTML={{ __html: code.html }} />
+      </CodeBlock>
     </div>
   )
 }
@@ -49,12 +51,10 @@ export function BrickPage({ name }: { name: string }) {
     )
   }
 
-  const { manifest, component } = brick.entry
-  const example = manifest.example as Record<string, unknown> | undefined
-  const interfaceSnippet = example
-    ? snippetFromExample(componentName(component, brick.title), example)
-    : null
-  const scenario = scenarioFor(brick.name)
+  const { manifest } = brick.entry
+  const snippets = brickSnippets[brick.name] ?? {}
+  const Scenario = scenarioComponents[brick.name]
+  const hasSnippets = Boolean(snippets.interface || snippets.scenario)
 
   return (
     <article className="flex flex-col gap-8">
@@ -71,19 +71,23 @@ export function BrickPage({ name }: { name: string }) {
         <Preview entry={brick.entry} />
       </Beat>
 
-      {scenario ? (
+      {Scenario ? (
         <Beat title={t.brick.scenarioTitle} cardTitle={t.brick.scenarioCardTitle}>
-          <scenario.Example />
+          <Scenario />
         </Beat>
       ) : null}
 
-      {interfaceSnippet ? (
+      {hasSnippets ? (
         <section className="flex flex-col gap-3">
           <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
             {t.brick.snippetsTitle}
           </h2>
-          <Snippet label={t.brick.snippetInterface} code={interfaceSnippet} />
-          {scenario ? <Snippet label={t.brick.snippetScenario} code={scenario.source} /> : null}
+          {snippets.interface ? (
+            <Snippet label={t.brick.snippetInterface} code={snippets.interface} />
+          ) : null}
+          {snippets.scenario ? (
+            <Snippet label={t.brick.snippetScenario} code={snippets.scenario} />
+          ) : null}
         </section>
       ) : null}
 
