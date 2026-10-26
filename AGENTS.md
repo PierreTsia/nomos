@@ -68,8 +68,9 @@ is immutable.
 
 ## Conventions
 
-- **English.** README, ADRs, CONTRIBUTING, skill and commits are English (ADR 0026);
-  the code comments are still the French of the port — leave them unless you touch them.
+- **English.** README, ADRs, CONTRIBUTING, skill, commits **and code comments** are
+  English (ADR 0026). The heart was ported with French comments: translate them
+  **opportunistically**, when you touch a file — never a mass rewrite of untouched files.
 - **Tests colocated** (`*.test.ts` / `*.test.tsx` beside the code), red → green →
   refactor. A change to a contract starts with its test. Catalogue invariants are
   held by `src/catalogue/*.test.ts` and `src/mcp/skill.test.ts`: a component added

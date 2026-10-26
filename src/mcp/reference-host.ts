@@ -1,9 +1,9 @@
 /**
- * L'hôte de référence (ADR 0033, aligné sur MCP Apps) : la forme minimale du contrat. Il
- * rend la vue dans un iframe **sandboxé** (`allow-scripts`, jamais `allow-same-origin`),
- * répond à sa poignée de main (`ui/initialize`) avec son contexte, lui pousse le résultat
- * de l'outil (`ui/notifications/tool-result`) et recueille ses intentions (`ui/message`).
- * C'est un exemple pour un hôte, pas une dépendance.
+ * The reference host (ADR 0033, aligned with MCP Apps): the minimal shape of the contract.
+ * It renders the view in a **sandboxed** iframe (`allow-scripts`, never `allow-same-origin`),
+ * answers its handshake (`ui/initialize`) with its context, pushes it the tool result
+ * (`ui/notifications/tool-result`) and collects its intents (`ui/message`). It is an
+ * example for a host, not a dependency.
  */
 
 export const HOST_FRAME_ID = 'nomos-view-frame'
@@ -28,14 +28,14 @@ function hostScript(theme: string, density: string, data?: Record<string, unknow
   function send(target, message) {
     if (target) target.postMessage(message, '*')
   }
-  // Le listener est posé tout de suite : une vue peut ouvrir sa poignée de main avant que
-  // le parent n'ait fini de se construire, et on ne veut pas la rater.
+  // The listener is installed right away: a view may open its handshake before the parent
+  // has finished building, and we do not want to miss it.
   window.addEventListener('message', function (event) {
     var message = event.data
     if (!message || message.jsonrpc !== '2.0') return
     var source = event.source
 
-    // La poignée de main (SEP-1865) : l'hôte répond avec son contexte (thème, densité).
+    // The handshake (SEP-1865): the host answers with its context (theme, density).
     if (message.method === 'ui/initialize') {
       send(source, {
         jsonrpc: '2.0',
@@ -50,25 +50,28 @@ function hostScript(theme: string, density: string, data?: Record<string, unknow
       return
     }
 
-    // La vue est prête : l'hôte lui porte les données de l'outil, puis son résultat (ADR 0023).
+    // The view is ready: the host carries it the tool data, then its result (ADR 0023).
+    // With no data, it does not fabricate empty props: such a result would wipe the
+    // pre-rendered markup of a view that has nothing to mount client-side.
     if (message.method === 'ui/notifications/initialized') {
+      var payload = DATA ? { props: DATA } : {}
       send(source, {
         jsonrpc: '2.0',
         method: 'ui/notifications/tool-input',
-        params: { arguments: { props: DATA || {} } },
+        params: { arguments: payload },
       })
       send(source, {
         jsonrpc: '2.0',
         method: 'ui/notifications/tool-result',
         params: {
-          content: [{ type: 'text', text: JSON.stringify({ props: DATA || {} }) }],
-          structuredContent: { props: DATA || {} },
+          content: [{ type: 'text', text: JSON.stringify(payload) }],
+          structuredContent: payload,
         },
       })
       return
     }
 
-    // La vue rapporte sa taille : l'hôte ajuste la hauteur de la frame (SEP-1865).
+    // The view reports its size: the host fits the frame height (SEP-1865).
     if (message.method === 'ui/notifications/size-changed') {
       var frame = document.getElementById(${JSON.stringify(HOST_FRAME_ID)})
       if (frame && message.params && message.params.height) {
@@ -77,7 +80,7 @@ function hostScript(theme: string, density: string, data?: Record<string, unknow
       return
     }
 
-    // Une intention est un message de la vue : on la recueille et on répond (SEP-1865).
+    // An intent is a message from the view: we collect it and answer (SEP-1865).
     if (message.method === 'ui/message') {
       try {
         intents.push(JSON.parse(message.params.content[0].text))
@@ -91,7 +94,7 @@ function hostScript(theme: string, density: string, data?: Record<string, unknow
 `
 }
 
-/** La page hôte : un iframe sandboxé portant la vue, et le pont qui relaie ses intentions. */
+/** The host page: a sandboxed iframe carrying the view, and the bridge relaying its intents. */
 export function buildReferenceHost({
   viewUri,
   viewHtml,
@@ -103,7 +106,7 @@ export function buildReferenceHost({
   viewHtml: string
   theme?: string
   density?: string
-  /** Les données que l'hôte pousse à la vue après montage (ADR 0023). */
+  /** The data the host pushes to the view after mount (ADR 0023). */
   data?: Record<string, unknown>
 }): string {
   return `<!doctype html>
