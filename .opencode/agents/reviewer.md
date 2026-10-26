@@ -20,7 +20,7 @@ permission:
     "gh pr checks*": allow
     "gh pr list*": allow
     "gh issue view*": allow
-    "gh api *": ask
+    "gh api *": allow
     "gh pr comment *": allow
     "gh pr edit * --add-label *": allow
     "gh pr edit * --remove-label *": allow
