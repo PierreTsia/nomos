@@ -300,6 +300,11 @@
     "useToast",
     "validateCatalogue"
   ],
+  "bins": [
+    "create-nomos-app",
+    "nomos-mcp",
+    "nomos-skill"
+  ],
   "view": {
     "entry": "./view",
     "exports": [

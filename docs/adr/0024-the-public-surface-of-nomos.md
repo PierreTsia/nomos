@@ -15,6 +15,8 @@ nothing said which were protected.
    - **the MCP contract** — the tool names, the URIs (`ui://nomos/…`,
      `nomos://component/…`, `nomos://tokens`), the message literals (`set-view`,
      `set-data`, the intentions) (ADR 0013, 0019, 0023);
+   - **the installed binaries** — the `bin` names a consumer invokes (`nomos-mcp`,
+     `nomos-skill`, `create-nomos-app`), frozen by `surface.generated.json` (ADR 0038);
    - **the skill** shipped with the package (ADR 0007).
 
 2. **What is internal**: the `@nomos/*` and `@nomos/derived/*` aliases, the source
