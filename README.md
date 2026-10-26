@@ -57,7 +57,7 @@ npm run smoke:consumer    # installs the tarball in a fresh project and exercise
 ## Roadmap
 
 The milestones — v1.0 (a public static site, docs and a component showcase) and v2.0
-(an app-bootstrapper MCP, the north star) — live in [`ROADMAP.md`](ROADMAP.md).
+(a starter template and a skill, the north star) — live in [`ROADMAP.md`](ROADMAP.md).
 
 ## Decisions
 
