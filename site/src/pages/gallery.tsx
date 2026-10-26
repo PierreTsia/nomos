@@ -8,6 +8,11 @@ import { scenes } from '../scenarios'
  * The layout gallery (#41): whole screens assembled from the bricks, each rendered and shown
  * in highlighted source (built at build time from the same file), so copyable and never dead.
  * The scenes live in `src/examples/scenes/`.
+ *
+ * These scenes are **site-owned**, deliberately distinct from the MCP's
+ * `ui://nomos/composite/*` scenes (ADR 0019/0031): a composite is a view that takes host
+ * props and is not copyable, while a gallery scene compiles in the site build and is. The
+ * two are not the same source on purpose — "one source, N renderings" holds per artefact.
  */
 export function GalleryPage() {
   const { t } = useI18n()
