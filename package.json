@@ -40,11 +40,13 @@
     "view.generated.css",
     "SKILL.md",
     "README.md",
-    "scripts/install-skill.mjs"
+    "scripts/install-skill.mjs",
+    "scripts/create-nomos-app.mjs"
   ],
   "bin": {
     "nomos-mcp": "./dist/mcp/bin.js",
-    "nomos-skill": "./scripts/install-skill.mjs"
+    "nomos-skill": "./scripts/install-skill.mjs",
+    "create-nomos-app": "./scripts/create-nomos-app.mjs"
   },
   "scripts": {
     "mcp": "tsx src/mcp/bin.ts",

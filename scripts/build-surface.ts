@@ -10,10 +10,11 @@ import { INTENTS } from '@nomos/mcp/view-contract'
 
 /**
  * Le **snapshot de la surface publique** de Nomos (ADR 0024). Il liste ce dont un
- * consommateur dépend — les exports JS, les noms d'outils et d'URIs MCP, les littéraux des
- * messages, les emplacements de tokens — et un `surface:check` en CI rougit à toute dérive :
- * **on ne peut pas changer la surface sans éditer ce fichier dans la même PR**, c'est l'acte
- * de documenter. Même idiome que `tokens:check` / `view:check`.
+ * consommateur dépend — les exports JS, les binaires installés, les noms d'outils et
+ * d'URIs MCP, les littéraux des messages, les emplacements de tokens — et un
+ * `surface:check` en CI rougit à toute dérive : **on ne peut pas changer la surface sans
+ * éditer ce fichier dans la même PR**, c'est l'acte de documenter. Même idiome que
+ * `tokens:check` / `view:check`.
  */
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const DS = path.resolve(HERE, '..')
@@ -46,6 +47,8 @@ function literals(text: string, re: RegExp): string[] {
 const componentNames = catalogue.map((entry) => entry.manifest.name)
 const sceneNames = composites.map((composite) => composite.name)
 
+const pkg = JSON.parse(read('package.json')) as { bin?: Record<string, string> }
+
 const tokens = JSON.parse(read('tokens/tokens.resource.json')) as {
   modes: string[]
   densities: Record<string, unknown>
@@ -56,6 +59,8 @@ const surface = {
   $description:
     'The public surface of Nomos. A consumer depends on it: do not change it without meaning to, and edit this file in the same PR.',
   exports: exportsOf('src/index.ts'),
+  // The installed binaries a consumer invokes: their names are the contract (ADR 0024).
+  bins: Object.keys(pkg.bin ?? {}).sort(),
   view: {
     entry: './view',
     exports: exportsOf('src/view/index.ts'),
