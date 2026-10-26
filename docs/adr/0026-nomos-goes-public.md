@@ -29,8 +29,11 @@ and **refines** ADR 0025 (the CSS and theme follow the heart, simply re-scoped).
    there.
 
 3. **MIT licence, English language.** The public repo is MIT. Its prose — README,
-   ADRs, CONTRIBUTING, skill, commits — switches to **English**. The private
-   dashboard's prose stays French; only the **Nomos** artifacts flip.
+   ADRs, CONTRIBUTING, skill, commits **and code comments** — switches to
+   **English**. The private dashboard's prose stays French; only the **Nomos**
+   artifacts flip. The heart was ported from the dashboard with French comments:
+   they are translated **opportunistically**, when a file is touched — no mass
+   rewrite of untouched files (the code, not the comment, is the contract).
 
 4. **The package name: `@nomosui/react`.** The name `nomos` (spelling, CSS prefix
    `--nomos-*`, MCP server `nomos`, `nomos://` URIs) does not move (ADR 0017). Only

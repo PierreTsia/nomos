@@ -4,10 +4,10 @@ import type { ComponentManifest } from '@nomos/catalogue/contract'
 import { Message } from '@nomos/components/message/message'
 
 /**
- * Le manifeste de la fenêtre de conversation (ADR 0005, 0032). Le cœur possède le
- * défilement et la région `log` ; l'app le contenu, l'état vide et la hauteur. L'exemple
- * porte donc de vrais messages **et** une hauteur : le viewport est en `h-full`, un exemple
- * sans hauteur ne montrerait rien (view MCP comme aperçu du site).
+ * The conversation window manifest (ADR 0005, 0032). The core owns the scrolling and the
+ * `log` region; the app owns the content, the empty state and the height. So the example
+ * carries real messages **and** a height: the viewport is `h-full`, and an example without a
+ * height would show nothing (MCP view as well as the catalogue preview).
  */
 export const conversationManifest: ComponentManifest = {
   name: 'conversation',
