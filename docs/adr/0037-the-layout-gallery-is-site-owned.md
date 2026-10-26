@@ -13,8 +13,9 @@ gallery without the one thing it exists for.
 ## Decisions
 
 1. **The layout gallery's scenes are site-owned.** They live in
-   `site/examples/scenes/*.tsx`, are rendered by the site, and are shown in full via
-   `?raw` (highlighted at build time) so the snippet is the file that compiled — never
+   `site/src/examples/scenes/*.tsx`, are rendered by the site, and are shown in full,
+   highlighted at build time by a Vite plugin that reads the file and runs Shiki
+   (`site/plugins/nomos-snippets.ts`) — the snippet is the file that compiled, never
    dead. This **supersedes decision 1 of ADR 0031** for the gallery: the site does not
    read the composite source to build its gallery.
 
