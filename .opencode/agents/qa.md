@@ -64,7 +64,7 @@ this allow-list:
 
 - `docs/**`, any `**/*.md` (README, AGENTS.md, SKILL.md, CHANGELOG, ADRs, Epic Briefs, Tech Plans)
 - `LICENSE`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CONTRIBUTING.md`, `CODEOWNERS`
-- `.opencode/**`, `.changeset/**`, `.idea/**`, `.gitignore`
+- `.opencode/**`, `.changeset/**`, `.idea/**`, `.gitignore`, `e2e/**`, `playwright.config.ts`
 
 It is an **allow-list**: any path not named above means run the full pass. A single
 runtime-affecting file makes the whole diff runtime-affecting, even if every other file is docs.
@@ -111,12 +111,12 @@ pre-rendered markup in the document must still show — ADR 0013/0033).
 
 ## 3. Write the QA spec
 
-Create **one** throwaway spec, `e2e/qa_<slug>.spec.ts` (slug = PR number or scope, e.g.
-`qa_131-calendar.spec.ts`). Rules:
+Create **one** throwaway spec, `e2e/qa-<slug>.spec.ts` (slug = PR number or scope, e.g.
+`qa-131-calendar.spec.ts`). Rules:
 
-> The name uses an underscore, not a hyphen: `.gitignore` ignores `e2e/qa-*.spec.ts`, and
-> Playwright respects `.gitignore`, so a `qa-…` spec is invisible to the runner ("No tests
-> found"). `qa_…` stays discoverable.
+> The spec lives in `e2e/`, which `playwright.config.ts` scopes discovery to, and `.gitignore`
+> ignores `e2e/*.spec.*` — so it is never committed. Do **not** add another Playwright config
+> or a `webServer`: a bare `npx playwright test <spec>` from the repo root finds it.
 
 - `import { test, expect } from "@playwright/test"` (no repo fixture exists — write it plainly).
 - A test that opens the generated HTML and asserts the rendered result, and a sibling that runs
@@ -126,7 +126,8 @@ Create **one** throwaway spec, `e2e/qa_<slug>.spec.ts` (slug = PR number or scop
   JSON line (`QA_CONSOLE_ERRORS=…`) so the report can quote them. **Any console/page error is a
   finding.**
 - Screenshots are evidence, not decoration: every screenshot is backed by an `expect(...)`.
-- Do not wire a `webServer` or a `playwright.config.ts`; open the `file://` URL directly.
+- Do not wire a `webServer`; a committed `playwright.config.ts` scopes discovery to `e2e/`.
+  Open the `file://` URL directly.
 
 For the site surface, start it local-first (`NOMOS_LOCAL=1 npm --prefix site run dev -- --port
 5177`), navigate to `http://localhost:5177/#/brick/<name>`, screenshot, then stop it. Do not hit
@@ -135,12 +136,12 @@ the deployed site for a PR's code.
 ## 4. Run it
 
 ```bash
-npx playwright test e2e/qa_<slug>.spec.ts --reporter=line
+npx playwright test qa-<slug>.spec.ts
 ```
 
-The runner finds `e2e/qa_<slug>.spec.ts` by its `.spec.ts` name. If Chromium is missing,
-`npx playwright install chromium` once (browsers may already be cached). If a selector fails,
-read the error context / DOM and adapt the spec — do not give up at the first miss.
+The runner finds `e2e/qa-<slug>.spec.ts` (the config scopes discovery to `e2e/`). If Chromium
+is missing, `npx playwright install chromium` once (browsers may already be cached). If a
+selector fails, read the error context / DOM and adapt the spec — do not give up at the first miss.
 
 ## 5. Report + verify (label and comment only when a PR was named)
 
@@ -180,7 +181,7 @@ the changed paths, and say nothing was rendered.
 
 ## 7. Cleanup
 
-- Delete the throwaway spec (`rm e2e/qa_<slug>.spec.ts`) — leave no QA file in the repo.
+- Delete the throwaway spec (`rm e2e/qa-<slug>.spec.ts`) — leave no QA file in the repo.
 - Keep the screenshots in `/tmp/qa-<slug>/`; remove any generated `view-*.html`.
 - Restore the branch you started on; stop any site server you started.
 
