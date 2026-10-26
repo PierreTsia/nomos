@@ -4,10 +4,9 @@ import path from 'node:path'
 import { componentNames } from '@nomos/mcp/catalogue'
 
 /**
- * La skill du paquet (#11) est la prose qui dit quelle brique prendre pour quel usage.
- * Ce test la tient au contact du catalogue : elle doit inventorier exactement les
- * briques qui existent — pas une de moins (une brique non couverte rougit), pas une
- * de plus (une brique citée qui n'existe plus rougit).
+ * The package's skill (#11) is the prose that says which brick to reach for. This test holds
+ * it against the catalogue: it must inventory exactly the bricks that exist — not one fewer
+ * (an uncovered brick turns red), not one more (a cited brick that no longer exists does too).
  */
 
 const SKILL = path.resolve(import.meta.dirname, '..', '..', 'SKILL.md')
@@ -30,12 +29,12 @@ function inventory(text: string): string[] {
     .filter((line) => line && !line.startsWith('#'))
 }
 
-describe('la skill du design system', () => {
-  it('inventorie exactement les briques du catalogue', () => {
+describe('the design-system skill', () => {
+  it('inventories exactly the catalogue bricks', () => {
     expect(inventory(skillText()).sort()).toEqual([...componentNames].sort())
   })
 
-  it('décrit la surface agentique v2 : vues `ui://` et scènes composites', () => {
+  it('describes the v2 agentic surface: `ui://` views and composite scenes', () => {
     const text = skillText()
 
     expect(text).toContain('ui://nomos/')
@@ -43,7 +42,7 @@ describe('la skill du design system', () => {
     expect(text).toContain('render_scene_')
   })
 
-  it('porte la recette de bootstrap : prompt → scaffold → bricks → skin → run', () => {
+  it('carries the bootstrapper recipe: prompt → scaffold → bricks → skin → run', () => {
     const block = skillText().match(BOOTSTRAPPER)?.[1] ?? ''
 
     expect(block).toContain('templates/starter')
