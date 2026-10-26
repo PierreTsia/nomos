@@ -6,9 +6,9 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  // `site/` is an ancillary (ADR 0028): a consumer of the package, never linted by the
-  // core — it carries its own config and its own CI job.
-  globalIgnores(['dist', '**/dist', '.view-dist', 'site']),
+  // `site/` and `templates/` are ancillaries (ADR 0028): consumers of the package, never
+  // linted by the core — each carries its own config and its own CI job.
+  globalIgnores(['dist', '**/dist', '.view-dist', 'site', 'templates']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
