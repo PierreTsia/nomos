@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Installe la skill « nomos » livrée avec le paquet (#54) : copie son `SKILL.md`, puis le
- * starter `templates/starter` à côté, là où un hôte lit ses skills — pour que la recette de
- * bootstrap (ADR 0038) ait le squelette d'app sur disque. Par défaut `~/.claude/skills/nomos` ;
- * `--dir <dossier>` pour un autre hôte (opencode, etc.).
+ * Installs the "nomos" skill shipped with the package (#54): copies its `SKILL.md`, then the
+ * `templates/starter` app beside it, where a host reads its skills — so the bootstrapper
+ * recipe (ADR 0038) finds the app skeleton on disk. Defaults to `~/.claude/skills/nomos`;
+ * `--dir <folder>` for another host (opencode, …).
  */
 import { copyFileSync, cpSync, existsSync, mkdirSync } from 'node:fs'
 import os from 'node:os'
@@ -30,8 +30,8 @@ const skillDest = path.join(targetDir, 'SKILL.md')
 copyFileSync(skillSource, skillDest)
 console.log(`Skill "nomos" installed: ${skillDest}`)
 
-// Le starter accompagne la skill pour que l'hôte puisse le copier (ADR 0038). Il n'est pas
-// installé (pas de node_modules/dist) : seuls les fichiers sources le sont.
+// The starter accompanies the skill so the host can copy it (ADR 0038). It ships unbuilt:
+// only source files, no node_modules/dist.
 if (existsSync(starterSource)) {
   const starterDest = path.join(targetDir, 'templates', 'starter')
   cpSync(starterSource, starterDest, {
@@ -39,4 +39,6 @@ if (existsSync(starterSource)) {
     filter: (src) => !/(^|[\\/])(node_modules|dist)([\\/]|$)/.test(src),
   })
   console.log(`Starter installed: ${starterDest}`)
+} else {
+  console.warn('No templates/starter beside the skill — skipped (an older tarball).')
 }
