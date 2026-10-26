@@ -44,12 +44,12 @@ async function pushToolResult(props: Record<string, unknown>) {
   })
 }
 
-describe("l'entrée de la vue et les données de l'hôte", () => {
+describe('the view entry and the host data', () => {
   afterEach(() => {
     vi.resetModules()
   })
 
-  it('garde le markup pré-rendu d’une vue client:false face à des props entrantes vides', async () => {
+  it('keeps the pre-rendered markup of a client:false view when the host pushes empty props', async () => {
     const markup = renderToStaticMarkup(
       <Conversation label="Conversation" className="h-64">
         <Message role="user" parts={[{ type: 'text', text: 'Hello there' }]} />
@@ -63,7 +63,7 @@ describe("l'entrée de la vue et les données de l'hôte", () => {
     expect(root.textContent).toContain('Hello there')
   })
 
-  it('re-rend une vue client:true quand l’hôte pousse des props', async () => {
+  it('re-renders a client:true view when the host pushes props', async () => {
     const root = mount({
       name: 'badge',
       client: true,
