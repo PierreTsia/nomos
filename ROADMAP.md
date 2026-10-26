@@ -23,25 +23,31 @@ A human can discover, understand and copy Nomos **without running the MCP**.
 one inventory, several renderings, held by the existing coherence tests so no page can
 rot. The `1.0` **version stamp** stays governed by ADR 0024, dec. 4.
 
-## v2.0 — The north star: an app-bootstrapper MCP
+## v2.0 — The north star: a starter template and a skill
 
-An agent scaffolds a **whole application built on Nomos** from a prompt.
+An agent scaffolds a **whole application built on Nomos** from a prompt — by
+**copying a starter and following a recipe**, not by running a generator.
 
-- **An MCP server** — a sibling of today's read-only catalogue server — that takes a
-  brief and emits a runnable app: routes, pages and layout composed from the
-  primitives, plus a **skin** (the token overlay the app owns, ADR 0022), wired and
-  ready to run.
-- The pattern follows the **app-bootstrapper of the reference design system**. The
-  reference stays unnamed here (ADR 0006, 0026).
-- **Why v2**: today Nomos hands a human the bricks; the north star hands an agent the
-  **house**. The showcase (v1.0) proves the bricks compose; the bootstrapper **uses**
-  them.
+- **A starter template** (`templates/starter`): a runnable, three-page Nomos app —
+  a shell, a router, a list with `FacetedDataTable`, a form, and a **skin** (the
+  token overlay the app owns, ADR 0022) it derives its CSS from. An ancillary of
+  the repo (ADR 0028), shipped in the tarball so an adopter and the host agent
+  receive it.
+- **A bootstrapper recipe in the skill**: prompt → scaffold → bricks → skin → run.
+  The host agent orchestrates; Nomos ships the material, not a runtime.
+- **The existing read-only MCP** is the authoritative catalogue the agent consults
+  to pick bricks — unchanged, no new tool or URI (ADR 0013, 0024).
 
-**Non-goal**: Nomos stays **app-agnostic**. The bootstrapper emits an app that imports
-Nomos; app state, i18n, router and data never enter the heart (ADR 0002).
+**No generator enters the package.** There is no LLM client, no API call, no brief
+parser, no app emitter in the heart; the orchestrator is the host agent, not Nomos
+(ADR 0038). The north star hands an agent the **house** — and it stays
+app-agnostic while doing it.
+
+**Non-goal**: Nomos stays **app-agnostic**. The starter imports Nomos; app state,
+i18n, router, layout and data never enter the heart (ADR 0002, 0038).
 
 ## References
 
 ADR 0002 (app-agnostic core), 0005 (catalogue), 0006 (unnamed reference), 0013 / 0019
 (the MCP contract), 0022 (skin), 0024 (public surface and the 1.0 policy), 0026 (built
-in public).
+in public), 0028 (repo ancillaries), 0038 (the bootstrapper is a template and a skill).
