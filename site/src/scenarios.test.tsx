@@ -10,12 +10,12 @@ import { scenarioFor, scenarioNames, scenes } from './scenarios'
  * carries a non-empty highlighted snippet — the snippet is the file that was rendered, it
  * cannot be dead. The gallery scenes (#41) get the same guarantee.
  */
-describe('scénarios de brique', () => {
-  it('déclare au moins un scénario', () => {
+describe('brick scenarios', () => {
+  it('declares at least one scenario', () => {
     expect(scenarioNames.length).toBeGreaterThan(0)
   })
 
-  it('rend chaque scénario et expose son snippet coloré', () => {
+  it('renders each scenario and exposes its highlighted snippet', () => {
     for (const name of scenarioNames) {
       const Scenario = scenarioFor(name)!
       expect(Scenario, name).toBeDefined()
@@ -28,11 +28,11 @@ describe('scénarios de brique', () => {
     }
   })
 
-  it('rend un scénario absent sans planter (opt-in)', () => {
+  it('renders a missing scenario without crashing (opt-in)', () => {
     expect(scenarioFor('does-not-exist')).toBeUndefined()
   })
 
-  it("chaque exemple du catalogue a un snippet d'interface coloré", () => {
+  it('every catalogue example has a highlighted interface snippet', () => {
     for (const { manifest } of catalogue) {
       if (!manifest.example) continue
       const code = brickSnippets[manifest.name]?.interface
@@ -42,12 +42,12 @@ describe('scénarios de brique', () => {
   })
 })
 
-describe('scènes de la galerie', () => {
-  it('déclare au moins une scène', () => {
+describe('gallery scenes', () => {
+  it('declares at least one scene', () => {
     expect(scenes.length).toBeGreaterThan(0)
   })
 
-  it('chaque scène a un titre, un résumé, un snippet et se rend', () => {
+  it('every scene has a title, a summary, a snippet and renders', () => {
     for (const scene of scenes) {
       expect(scene.title, scene.name).toBeTruthy()
       expect(scene.summary, scene.name).toBeTruthy()

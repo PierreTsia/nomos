@@ -11,32 +11,32 @@ import { snippetFromExample } from './snippet'
  * It is the guard that replaces the "no dead snippet" of a hand-written file.
  */
 describe('snippetFromExample', () => {
-  it('rend un enfant texte et les props en attributs', () => {
+  it('renders a text child and props as attributes', () => {
     expect(snippetFromExample('Button', { variant: 'outline', children: 'Save' })).toBe(
       '<Button variant="outline">Save</Button>',
     )
   })
 
-  it('rend un élément auto-fermé sans enfant', () => {
+  it('renders a self-closing element with no child', () => {
     expect(snippetFromExample('Input', { placeholder: 'search' })).toBe(
       '<Input placeholder="search" />',
     )
   })
 
-  it('rend les nombres en accolades et les booléens vrais nus', () => {
+  it('renders numbers in braces and true booleans bare', () => {
     expect(snippetFromExample('Counter', { value: 128, suffix: 'issues' })).toBe(
       '<Counter value={128} suffix="issues" />',
     )
     expect(snippetFromExample('Checkbox', { checked: true })).toBe('<Checkbox checked />')
   })
 
-  it('rend une fonction en `() => {}`', () => {
+  it('renders a function as `() => {}`', () => {
     expect(snippetFromExample('Switch', { checked: true, onCheckedChange: () => {} })).toBe(
       '<Switch checked onCheckedChange={() => {}} />',
     )
   })
 
-  it('rend des enfants en éléments, sur plusieurs lignes, sans balise Fragment', () => {
+  it('renders element children on several lines, with no Fragment tag', () => {
     const snippet = snippetFromExample('Card', {
       children: createElement(
         Fragment,
@@ -52,11 +52,11 @@ describe('snippetFromExample', () => {
     expect(snippet).not.toContain('<Component')
   })
 
-  it('nomme la brique à partir de son composant, même sans titre JSX', () => {
+  it('names the brick from its component, even without a JSX title', () => {
     expect(snippetFromExample('ProgressBar', { value: 60 })).toBe('<ProgressBar value={60} />')
   })
 
-  it('génère un snippet valide pour chaque exemple du catalogue', () => {
+  it('generates a valid snippet for every catalogue example', () => {
     for (const { manifest, component } of catalogue) {
       const example = manifest.example
       if (!example) continue
@@ -72,7 +72,7 @@ describe('snippetFromExample', () => {
     }
   })
 
-  it('nomme les balises imbriquées des exemples en createElement', () => {
+  it('names the nested tags of createElement examples', () => {
     const card = catalogue.find((entry) => entry.manifest.name === 'card')!
     const snippet = snippetFromExample(
       'Card',

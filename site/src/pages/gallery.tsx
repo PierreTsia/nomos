@@ -10,9 +10,10 @@ import { scenes } from '../scenarios'
  * The scenes live in `src/examples/scenes/`.
  *
  * These scenes are **site-owned**, deliberately distinct from the MCP's
- * `ui://nomos/composite/*` scenes (ADR 0019/0031): a composite is a view that takes host
- * props and is not copyable, while a gallery scene compiles in the site build and is. The
- * two are not the same source on purpose — "one source, N renderings" holds per artefact.
+ * `ui://nomos/composite/*` scenes (ADR 0037, superseding ADR 0031 dec. 1 for the gallery):
+ * a composite is a view that takes host props and is not copyable, while a gallery scene
+ * compiles in the site build and is. The published package ships no TSX, so the site could
+ * render a composite but never show its source — the one thing this gallery is for.
  */
 export function GalleryPage() {
   const { t } = useI18n()
