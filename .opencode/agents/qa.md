@@ -64,7 +64,7 @@ this allow-list:
 
 - `docs/**`, any `**/*.md` (README, AGENTS.md, SKILL.md, CHANGELOG, ADRs, Epic Briefs, Tech Plans)
 - `LICENSE`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CONTRIBUTING.md`, `CODEOWNERS`
-- `.opencode/**`, `.changeset/**`, `.idea/**`, `.gitignore`
+- `.opencode/**`, `.changeset/**`, `.idea/**`, `.gitignore`, `e2e/**`, `playwright.config.ts`
 
 It is an **allow-list**: any path not named above means run the full pass. A single
 runtime-affecting file makes the whole diff runtime-affecting, even if every other file is docs.
