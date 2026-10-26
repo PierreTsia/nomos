@@ -239,6 +239,33 @@ tree
 typing-indicator
 <!-- inventory: end -->
 
+## Bootstrapping an app
+
+<!-- bootstrapper: start — kept by src/mcp/skill.test.ts -->
+When asked to build an app ("a todo list", "three pages and a table"), Nomos ships the
+**material** — a starter template and this skill — and **the host agent orchestrates**. There
+is no generator runtime in the package: Nomos performs none of these steps (ADR 0038).
+
+The recipe, in five beats:
+
+1. **Prompt** — read the ask as intents (an entity, a list, a form, a status), not as a spec.
+   Name the pages the app needs.
+2. **Scaffold** — copy `templates/starter` (shipped beside this skill by `nomos-skill`, and in
+   the tarball; or `create-nomos-app`) into the target directory and rename the app. It is a
+   Vite + React 19 + Tailwind v4 app that imports `@nomosui/react`; the app owns its layout,
+   router and state (ADR 0002).
+3. **Bricks** — map each intent to catalogue bricks (the section above; `list_components` /
+   `get_component` on the MCP are authoritative). Compose the pages from `Navbar`, `Card`,
+   `FacetedDataTable`, `Field`/`Input`, `ToastProvider` and so on, and pass **English labels
+   as props** — the core has no i18n.
+4. **Skin** — give the app its identity by editing `skin.json` (a semantic token overlay) and
+   letting `scripts/skin.build.mjs` derive the CSS via `renderCss(resolveSkin(tokens, skin))`
+   (ADR 0022/0025). Every colour lives here — never a literal in the code.
+5. **Run** — `npm install`, then `npm run dev`. The app is built **only** from catalogued
+   bricks and a skin. Nomos stays read-only throughout: the MCP answers, it never writes. The
+   boundary holds — the app imports Nomos, never the reverse.
+<!-- bootstrapper: end -->
+
 ## Querying the catalogue
 
 The local MCP server serves the same inventory as the style page, read-only:
