@@ -2,7 +2,8 @@
 
 > Source: `ROADMAP.md` (v2.0, the north star). This brief records the epic; its
 > slices are opened as issues from here. The v1.0 public site is its sibling
-> (`Epic_Brief_—_Public_catalogue_site_and_docs.md`).
+> (`Epic_Brief_—_Public_catalogue_site_and_docs.md`). Tech Plan:
+> `Tech_Plan_—_App_bootstrapper.md`.
 
 ## Summary
 
