@@ -1,5 +1,95 @@
 # @nomosui/react
 
+## 0.14.0
+
+### Minor Changes
+
+- b13af0d: `Avatar` gains a **`size`** scale (`sm` / `default` / `lg`), closing #138. A consumer no
+  longer sets the box with a `size-8`/`size-9` utility class on the primitive: `sm` is the
+  dense size (`size-8`), `default` the current `size-10`, `lg` a profile-header `size-12`.
+  `avatarVariants` and `avatarVariantsConfig` join the public exports, as for the other
+  cva bricks.
+- b13af0d: `Button` extends its **`size`** and **`shape`** scales, closing #130's residual gaps (the
+  `className` the adopter kept after the adoption migration):
+  
+  - **`size`** gains `xs` (h-8, compact inline chip), `xl` (h-14) and `2xl` (h-16, large
+    full-width CTA), and the square icon sizes `icon-xs` (h-7) / `icon-sm` (h-8), alongside
+    the existing `sm`/`default`/`lg`/`touch`/`icon`/`icon-lg`.
+  - **`shape`** gains `soft` (`rounded-xl`, a non-pill rounded corner; token-backed via
+    `--nomos-radius-surface`).
+  
+  `CopyButton` reuses the Button config, so it inherits the same size scale; its manifest is
+  brought in line. No export is removed.
+  
+  **Out of scope** (also noted on the issue): `#130`'s `size-9` icon square (the core keeps a
+  four-step icon ladder, 7/8/10/12, `xs` already at 32px) and `rounded-2xl` (a single `soft`
+  corner is offered) stay app-level overrides.
+- 1116006: **New binary `create-nomos-app`**: it copies the packaged `templates/starter` into a target
+  directory and substitutes the app name — no network, no LLM, no generator runtime (ADR 0038).
+  An adopter gets a runnable Nomos app with one command.
+  
+  **Migration** — additive, nothing to change. `bin` gains an entry, and the `bin` names are now
+  part of the frozen public surface (`surface.generated.json`); the previously undisclosed
+  `nomos-mcp` and `nomos-skill` are documented there too.
+- b13af0d: `Sheet` gains a **`radius`** axis on the bottom-sheet (#134). `side="bottom"` no longer
+  hardcodes `rounded-t-lg`: `radius` sets the top corner (`default`, `sheet`, `none`),
+  applied to the bottom side only — other sides are unaffected. The default keeps today's
+  rendering.
+  
+  Two radius **tokens** join the theme contract so a skin can retarget the larger corners
+  (ADR 0002/0004): `--nomos-radius-surface` (12px, the Button `soft` corner) and
+  `--nomos-radius-sheet` (24px, the bottom-sheet top). `tokens/theme.css` maps them onto
+  Tailwind's `--radius-xl` / `--radius-3xl`.
+  
+  The `Input` / `SelectTrigger` `size` descriptions now state the retarget explicitly: a
+  `size` moves the height **and** the padding and text size together, by design (ADR 0008);
+  there is no height-only axis. An adopter that takes a `size` accepts the typography that
+  comes with it.
+- d0f3f4c: The package now ships the **app starter** (`templates/starter`) in the tarball, so an adopter
+  receives a runnable Nomos app to copy and fill (ADR 0028, 0038). `smoke:consumer` asserts the
+  template is present in the packed tarball and on disk after install.
+- b13af0d: `Text` and `Heading` gain the axes #133 asked for, the ones still faked with a Tailwind
+  utility after the adoption type-scale migration:
+  
+  - **`Heading`** gains **`size`**, decoupling the visual size from `level`: an adopter keeps
+    the `h2` tag for the document structure while rendering a smaller size (`<Heading level={2}
+    size="body">`), instead of a `text-*` class. Unset, the size still follows the level.
+  - **`Text` and `Heading`** gain **`weight`** (`regular` / `medium` / `strong`, from the token
+    scale): `Text` defaults to `regular`, `Heading` to `strong` (its previous fixed weight).
+    No raw `font-bold`; `font-bold` (700) has no token and stays out of the core.
+  - `cn` declares the `font-weight` group, so `font-regular`/`font-medium`/`font-strong` merge
+    like the semantic sizes.
+  
+  **Out of scope** (also noted on the issue):
+  
+  - tone opacity (`text-muted-foreground/70` — a contrast smell, not a core axis) and the
+    20px `text-xl` step (not a semantic step);
+  - the `Badge` asks — the extended palette (`sage`, `ai`, `accent` — app semantic slots, the
+    app's skin, not the app-agnostic core, ADR 0002/0006), the `text-[10px]` size (below the
+    `micro` step) and the large `px-4 py-1 text-sm` pill (no semantic step), all app-level
+    overrides.
+
+### Patch Changes
+
+- 883a0cc: The skill gains a **bootstrapper recipe** (ADR 0038): prompt → scaffold
+  (`templates/starter`) → bricks → skin → run. It tells an agent how to assemble an app, not
+  only which brick to reach for; the read-only MCP stays the authoritative catalogue.
+- 732bc4c: `Conversation`'s manifest **example** now carries real content: two `Message`
+  children and a height (`className="h-64"`). The viewport is `h-full`, so the previous
+  example (`{ label: 'Conversation' }`) rendered nothing — the `ui://nomos/conversation`
+  view and the catalogue preview were both empty.
+  
+  The view entry no longer re-renders a **`client:false`** view on incoming host props:
+  such a view is a pre-rendered artefact (its example does not serialize), and a host
+  pushing `{}` used to wipe it — the empty view an MCP host showed for `Conversation` and
+  every other element-bearing example (`Table`, …). The reference host no longer fabricates
+  empty props either. No API change; the shipped view is regenerated.
+- d55b8ea: `nomos-skill` now installs `templates/starter` beside `SKILL.md`, so the bootstrapper recipe
+  (ADR 0038) finds the app skeleton on disk. The whole starter is copied without its
+  dependencies; the host installs them.
+- b267134: No runtime change: the design-system skill test (`src/mcp/skill.test.ts`) is translated to
+  English (ADR 0026).
+
 ## 0.13.2
 
 ### Patch Changes
