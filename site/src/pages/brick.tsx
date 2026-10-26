@@ -1,10 +1,40 @@
-import { Badge, Card, CardContent, CardHeader, CardTitle } from '@nomosui/react'
+import type { ReactNode } from 'react'
+import { Badge, Card, CardContent, CardHeader, CardTitle, CodeBlock } from '@nomosui/react'
+import { brickSnippets, type SnippetCode } from 'virtual:nomos-snippets'
 
 import { findBrick } from '../catalogue'
 import { PrevNext } from '../components/prev-next'
 import { useI18n } from '../i18n'
+import { scenarioComponents } from '../scenarios'
 import { ManifestDocs } from './manifest'
 import { Preview } from './preview'
+
+/** A page beat: a title, a card rendering the brick (or the code). */
+function Beat({ title, cardTitle, children }: { title: string; cardTitle: string; children: ReactNode }) {
+  return (
+    <section className="flex flex-col gap-3">
+      <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">{title}</h2>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">{cardTitle}</CardTitle>
+        </CardHeader>
+        <CardContent className="flex min-h-32 items-center justify-center">{children}</CardContent>
+      </Card>
+    </section>
+  )
+}
+
+/** A copyable snippet: a label, then the core's `CodeBlock` with build-time highlighted content. */
+function Snippet({ label, code }: { label: string; code: SnippetCode }) {
+  return (
+    <div className="flex flex-col gap-2">
+      <p className="text-sm font-medium text-muted-foreground">{label}</p>
+      <CodeBlock code={code.raw}>
+        <span dangerouslySetInnerHTML={{ __html: code.html }} />
+      </CodeBlock>
+    </div>
+  )
+}
 
 export function BrickPage({ name }: { name: string }) {
   const { t } = useI18n()
@@ -21,6 +51,11 @@ export function BrickPage({ name }: { name: string }) {
     )
   }
 
+  const { manifest } = brick.entry
+  const snippets = brickSnippets[brick.name] ?? {}
+  const Scenario = scenarioComponents[brick.name]
+  const hasSnippets = Boolean(snippets.interface || snippets.scenario)
+
   return (
     <article className="flex flex-col gap-8">
       <header className="flex flex-col gap-2">
@@ -32,21 +67,31 @@ export function BrickPage({ name }: { name: string }) {
         <p className="max-w-2xl text-muted-foreground">{brick.summary}</p>
       </header>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-          {t.brick.previewTitle}
-        </h2>
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">{t.brick.previewCardTitle}</CardTitle>
-          </CardHeader>
-          <CardContent className="flex min-h-32 items-center justify-center">
-            <Preview entry={brick.entry} />
-          </CardContent>
-        </Card>
-      </section>
+      <Beat title={t.brick.interfaceTitle} cardTitle={t.brick.interfaceCardTitle}>
+        <Preview entry={brick.entry} />
+      </Beat>
 
-      <ManifestDocs manifest={brick.entry.manifest} />
+      {Scenario ? (
+        <Beat title={t.brick.scenarioTitle} cardTitle={t.brick.scenarioCardTitle}>
+          <Scenario />
+        </Beat>
+      ) : null}
+
+      {hasSnippets ? (
+        <section className="flex flex-col gap-3">
+          <h2 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
+            {t.brick.snippetsTitle}
+          </h2>
+          {snippets.interface ? (
+            <Snippet label={t.brick.snippetInterface} code={snippets.interface} />
+          ) : null}
+          {snippets.scenario ? (
+            <Snippet label={t.brick.snippetScenario} code={snippets.scenario} />
+          ) : null}
+        </section>
+      ) : null}
+
+      <ManifestDocs manifest={manifest} />
 
       <PrevNext name={brick.name} />
     </article>

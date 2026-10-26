@@ -55,6 +55,9 @@ export function SidebarNav({ route }: { route: Route }) {
         <Item href="#/catalogue" active={route.kind === 'catalogue'}>
           {t.nav.catalogue}
         </Item>
+        <Item href="#/gallery" active={route.kind === 'gallery'}>
+          {t.nav.gallery}
+        </Item>
         <Item href="#/tokens" active={route.kind === 'tokens'}>
           {t.nav.tokens}
         </Item>

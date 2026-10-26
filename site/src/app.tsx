@@ -8,6 +8,7 @@ import { LanguageSwitch } from './i18n/language-switch'
 import { DocsPage } from './pages/docs'
 import { Home } from './pages/home'
 import { CataloguePage } from './pages/catalogue'
+import { GalleryPage } from './pages/gallery'
 import { BrickPage } from './pages/brick'
 import { TokensPage } from './pages/tokens'
 import { useRoute } from './router'
@@ -48,6 +49,9 @@ export function App() {
             <Link href="#/catalogue" className={quietLink}>
               {t.nav.catalogue}
             </Link>
+            <Link href="#/gallery" className={quietLink}>
+              {t.nav.gallery}
+            </Link>
             <Link href="#/tokens" className={quietLink}>
               {t.nav.tokens}
             </Link>
@@ -77,6 +81,7 @@ export function App() {
             <Sidebar route={route} />
             <div className="min-w-0 flex-1">
               {route.kind === 'catalogue' ? <CataloguePage /> : null}
+              {route.kind === 'gallery' ? <GalleryPage /> : null}
               {route.kind === 'tokens' ? <TokensPage /> : null}
               {route.kind === 'brick' ? <BrickPage name={route.name} /> : null}
               {route.kind === 'docs' ? <DocsPage slug={route.slug} /> : null}

@@ -13,7 +13,9 @@ drift.
 1. **The composite scenes join the public JS surface.** They move to
    `src/composites/` and `src/index.ts` exports `composites`, `compositeNames`,
    `findComposite` and the `Composite` type. The MCP server and the site read the
-   **same** source: one inventory, two renderings.
+   **same** source: one inventory, two renderings. *(For the site's layout gallery
+   this decision is **superseded by ADR 0037**: the gallery uses site-owned, copyable
+   scenes; the composites stay public for consumers and the MCP.)*
 
 2. **They stay app-agnostic** (ADR 0002). Their default copy is neutral, in
    English, and names no product; the copy is **injectable by props**, so an app
