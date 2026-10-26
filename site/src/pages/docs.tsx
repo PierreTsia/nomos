@@ -61,7 +61,7 @@ function Starter() {
       <Section title={t.docs.starter.scaffoldTitle}>
         <p>{t.docs.starter.scaffoldBody}</p>
         <Code>{`# with the bundled CLI
-npx create-nomos-app my-app
+npx --package @nomosui/react create-nomos-app my-app
 
 # or copy the template by hand
 cp -r node_modules/@nomosui/react/templates/starter my-app`}</Code>

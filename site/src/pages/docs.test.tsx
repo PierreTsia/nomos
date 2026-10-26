@@ -5,9 +5,16 @@ import { en } from '../i18n/en'
 import { DocsPage } from './docs'
 
 describe('DocsPage — start from the starter', () => {
-  it('renders the scaffold step', () => {
+  it('renders every step of the recipe', () => {
     render(<DocsPage slug="starter" />)
-    expect(screen.getByText(en.docs.starter.scaffoldTitle)).toBeTruthy()
-    expect(screen.getByText(en.docs.starter.runTitle)).toBeTruthy()
+    for (const title of [
+      en.docs.starter.scaffoldTitle,
+      en.docs.starter.renameTitle,
+      en.docs.starter.fillTitle,
+      en.docs.starter.skinTitle,
+      en.docs.starter.runTitle,
+    ]) {
+      expect(screen.getByText(title)).toBeTruthy()
+    }
   })
 })
