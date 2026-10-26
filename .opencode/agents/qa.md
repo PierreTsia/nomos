@@ -40,6 +40,50 @@ The caller names what to QA: a PR (number/URL), a branch, a brick, or "current b
 - **Nothing given** → current branch + `git diff --stat origin/main...HEAD`; clean on `main` →
   nothing to QA, stop.
 
+### 1a. Classify the diff — docs-only short-circuit (do this before rendering anything)
+
+Read the changed paths:
+
+```bash
+gh pr view <N> --json files --jq '.files[].path'   # PR
+git diff --name-only origin/main...HEAD            # branch / current branch
+```
+
+Decide whether the change is **runtime-affecting** or **docs-only**.
+
+**Runtime-affecting — run the full pass (sections 2–7)** if ANY path is under:
+
+- `src/**` — components, composites, features, mcp, tokens, view, lib, catalogue
+- `tokens/**`, `view.generated.css`, `surface.generated.json`
+- `scripts/**`, `site/**`
+- `package.json`, `package-lock.json`, any `dist/**`
+- `.github/workflows/**`
+
+**Docs-only / non-runtime — short-circuit to an early `qa:passed`** only when EVERY path is on
+this allow-list:
+
+- `docs/**`, any `**/*.md` (README, AGENTS.md, SKILL.md, CHANGELOG, ADRs, Epic Briefs, Tech Plans)
+- `LICENSE`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, `CONTRIBUTING.md`, `CODEOWNERS`
+- `.opencode/**`, `.changeset/**`, `.idea/**`, `.gitignore`
+
+It is an **allow-list**: any path not named above means run the full pass. A single
+runtime-affecting file makes the whole diff runtime-affecting, even if every other file is docs.
+
+**On short-circuit**, skip sections 2 (generate views), 3 (write spec) and 4 (run) entirely — no
+views, no spec, no browser, no site server. Go straight to reporting:
+
+- post EXACTLY ONE comment, marker first, bound to the current `headRefOid` (when a PR was named):
+  `<!-- qa sha=<headRefOid> verdict=passed -->` then `## QA report` stating the change is
+  docs-only with no runtime surface — nothing to render — and listing the changed paths;
+- apply `qa:passed` and remove the other two `qa:*` labels, exactly as in section 5;
+- when NO PR was named, return the same report to the caller and skip the label and the comment.
+
+This short-circuit applies **only to a strictly non-runtime diff**. A diff that touches runtime
+files still runs the full browser pass; a missing build still tags `qa:blocked`; a failed
+assertion still tags `qa:failed`.
+
+`headRefOid` from step 1 is the SHA the marker binds to.
+
 From the diff, pick the **surfaces to render**:
 
 - a touched `src/components/<name>/` → view `ui://nomos/<name>` (target `<name>`);
@@ -48,8 +92,6 @@ From the diff, pick the **surfaces to render**:
 - a touched token / skin → render the default brick **and** the same brick under a skin
   (`NOMOS_SKIN`);
 - the site (`site/`) or chrome → also open the catalogue page `#/brick/<name>`.
-
-`headRefOid` from step 1 is the SHA the marker binds to.
 
 ## 2. Generate the views
 
@@ -69,8 +111,12 @@ pre-rendered markup in the document must still show — ADR 0013/0033).
 
 ## 3. Write the QA spec
 
-Create **one** throwaway spec, `e2e/qa-<slug>.spec.ts` (slug = PR number or scope, e.g.
-`qa-131-calendar.spec.ts`). Rules:
+Create **one** throwaway spec, `e2e/qa_<slug>.spec.ts` (slug = PR number or scope, e.g.
+`qa_131-calendar.spec.ts`). Rules:
+
+> The name uses an underscore, not a hyphen: `.gitignore` ignores `e2e/qa-*.spec.ts`, and
+> Playwright respects `.gitignore`, so a `qa-…` spec is invisible to the runner ("No tests
+> found"). `qa_…` stays discoverable.
 
 - `import { test, expect } from "@playwright/test"` (no repo fixture exists — write it plainly).
 - A test that opens the generated HTML and asserts the rendered result, and a sibling that runs
@@ -89,14 +135,17 @@ the deployed site for a PR's code.
 ## 4. Run it
 
 ```bash
-npx playwright test e2e/qa-<slug>.spec.ts --reporter=line
+npx playwright test e2e/qa_<slug>.spec.ts --reporter=line
 ```
 
-The runner finds `e2e/qa-<slug>.spec.ts` by its `.spec.ts` name. If Chromium is missing,
+The runner finds `e2e/qa_<slug>.spec.ts` by its `.spec.ts` name. If Chromium is missing,
 `npx playwright install chromium` once (browsers may already be cached). If a selector fails,
 read the error context / DOM and adapt the spec — do not give up at the first miss.
 
 ## 5. Report + verify (label and comment only when a PR was named)
+
+A docs-only diff reaches this section directly from the §1a short-circuit, with a `passed`
+verdict and no screenshots.
 
 - **Tag** — exactly one of `qa:passed` / `qa:failed` / `qa:blocked`, removing the other two:
   ```bash
@@ -119,6 +168,9 @@ read the error context / DOM and adapt the spec — do not give up at the first 
 
 ## 6. Report (final message)
 
+On a docs-only short-circuit there are no screenshots and no surfaces: state the verdict, list
+the changed paths, and say nothing was rendered.
+
 1. **Screenshots** — every absolute path produced, in order, one-line caption each.
 2. **Step results** — per surface: pass/fail + the exact assertion that proved it (with JS / no
    JS / skin).
@@ -128,7 +180,7 @@ read the error context / DOM and adapt the spec — do not give up at the first 
 
 ## 7. Cleanup
 
-- Delete the throwaway spec (`rm e2e/qa-<slug>.spec.ts`) — leave no QA file in the repo.
+- Delete the throwaway spec (`rm e2e/qa_<slug>.spec.ts`) — leave no QA file in the repo.
 - Keep the screenshots in `/tmp/qa-<slug>/`; remove any generated `view-*.html`.
 - Restore the branch you started on; stop any site server you started.
 
