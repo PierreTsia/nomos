@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { App } from './App'
 
 describe('App', () => {
-  it('renders the starter heading and a catalogued brick', () => {
+  it('renders the shell with the dashboard as the default page', () => {
+    window.location.hash = ''
     render(<App />)
-    expect(screen.getByRole('heading', { name: 'Nomos starter' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'Get started' })).toBeInTheDocument()
+    expect(within(screen.getByRole('banner')).getByText('Nomos Starter')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Dashboard' })).toBeInTheDocument()
   })
 })
