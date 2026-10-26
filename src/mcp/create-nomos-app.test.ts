@@ -48,4 +48,18 @@ describe('create-nomos-app', () => {
       rmSync(root, { recursive: true, force: true })
     }
   })
+
+  it('refuses a target that is a file, not a directory', () => {
+    const root = mkdtempSync(path.join(os.tmpdir(), 'nomos-create-'))
+    const target = path.join(root, 'a-file')
+    try {
+      writeFileSync(target, 'x')
+
+      const result = spawnSync('node', [SCRIPT, target], { encoding: 'utf8' })
+      expect(result.status).toBe(1)
+      expect(result.stderr).toMatch(/not a directory/)
+    } finally {
+      rmSync(root, { recursive: true, force: true })
+    }
+  })
 })

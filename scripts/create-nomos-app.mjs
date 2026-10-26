@@ -4,7 +4,7 @@
  * substitutes the app name. Deliberately thin: no network, no LLM, no generator runtime
  * (ADR 0038). The host agent does the generation; this only scaffolds.
  */
-import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -33,12 +33,18 @@ const name =
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '') || 'nomos-app'
 
-if (existsSync(targetDir) && readdirSync(targetDir).length > 0) {
+const existing = statSync(targetDir, { throwIfNoEntry: false })
+if (existing && !existing.isDirectory()) {
+  console.error(`create-nomos-app: ${target} exists and is not a directory.`)
+  process.exit(1)
+}
+
+if (existing && readdirSync(targetDir).length > 0) {
   console.error(`create-nomos-app: ${target} exists and is not empty.`)
   process.exit(1)
 }
 
-mkdirSync(targetDir, { recursive: true })
+// `cpSync` creates the destination directory itself.
 cpSync(template, targetDir, {
   recursive: true,
   filter: (src) => !/(^|[\\/])(node_modules|dist)([\\/]|$)/.test(src),
