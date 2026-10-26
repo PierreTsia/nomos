@@ -15,6 +15,9 @@ const SKILL = path.resolve(import.meta.dirname, '..', '..', 'SKILL.md')
 const INVENTORY =
   /<!--\s*inventory\s*:\s*start[^>]*-->([\s\S]*?)<!--\s*inventory\s*:\s*end\s*-->/
 
+const BOOTSTRAPPER =
+  /<!--\s*bootstrapper\s*:\s*start[^>]*-->([\s\S]*?)<!--\s*bootstrapper\s*:\s*end\s*-->/
+
 function skillText(): string {
   return readFileSync(SKILL, 'utf8')
 }
@@ -38,5 +41,14 @@ describe('la skill du design system', () => {
     expect(text).toContain('ui://nomos/')
     expect(text).toContain('list_scenes')
     expect(text).toContain('render_scene_')
+  })
+
+  it('porte la recette de bootstrap : prompt → scaffold → bricks → skin → run', () => {
+    const block = skillText().match(BOOTSTRAPPER)?.[1] ?? ''
+
+    expect(block).toContain('templates/starter')
+    expect(block).toContain('skin.json')
+    expect(block).toContain('resolveSkin')
+    expect(block).toContain('npm run dev')
   })
 })
