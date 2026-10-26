@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+@import './skin.generated.css';
+@import '@nomosui/react/tokens/theme.css';
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

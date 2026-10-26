@@ -1,0 +1,36 @@
+{
+  "semantic": {
+    "color": {
+      "primary": {
+        "$type": "color",
+        "$value": {
+          "dark": { "colorSpace": "hsl", "components": [262, 83, 66] },
+          "light": { "colorSpace": "hsl", "components": [262, 83, 54] }
+        }
+      },
+      "ring": {
+        "$type": "color",
+        "$value": {
+          "dark": { "colorSpace": "hsl", "components": [262, 83, 66] },
+          "light": { "colorSpace": "hsl", "components": [262, 83, 54] }
+        }
+      },
+      "brand": {
+        "$type": "color",
+        "$value": {
+          "dark": "#8b6cff",
+          "light": "#6d4aff"
+        }
+      }
+    },
+    "radius": {
+      "control": {
+        "$type": "dimension",
+        "$value": {
+          "dark": { "value": 12, "unit": "px" },
+          "light": { "value": 12, "unit": "px" }
+        }
+      }
+    }
+  }
+}
