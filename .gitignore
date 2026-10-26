@@ -20,7 +20,8 @@ npm-debug.log*
 !.opencode/agents/
 tui.json
 
-# QA browser pass — the spec is throwaway, the outputs never ship
+# QA browser pass — the spec is throwaway, the outputs never ship. Discovery is scoped to
+# `e2e/` by playwright.config.ts; these specs are never committed.
 test-results
 playwright-report
-e2e/qa-*.spec.ts
+e2e/*.spec.*
