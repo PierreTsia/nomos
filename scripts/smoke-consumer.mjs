@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 /**
- * Le smoke du paquet **consommé** : `npm pack` le paquet, l'installe dans un projet
- * neuf, et vérifie ce qu'un consommateur obtient vraiment — importer une brique, démarrer
- * le serveur MCP (`nomos-mcp`) et lire une vue `ui://`. Attrape les régressions de
- * *packaging* (fichier manquant, export cassé, bin qui ne démarre pas) que les tests
- * unitaires ne voient pas.
+ * The smoke of the **consumed** package: it `npm pack`s the package, installs it in a fresh
+ * project, and checks what a consumer actually gets — importing a brick, starting the MCP
+ * server (`nomos-mcp`) and reading a `ui://` view. It catches the *packaging* regressions
+ * (a missing file, a broken export, a bin that does not start) that unit tests never see.
  */
 import { execFileSync } from 'node:child_process'
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -15,8 +14,8 @@ import { fileURLToPath } from 'node:url'
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const DS = path.resolve(HERE, '..')
 const pkg = JSON.parse(readFileSync(path.join(DS, 'package.json'), 'utf8'))
-// Le SDK MCP n'est plus une dépendance du paquet (le bin l'inline, ADR 0035) : le
-// consommateur qui veut s'en servir comme **client** l'installe lui-même.
+// The MCP SDK is no longer a dependency of the package (the bin inlines it, ADR 0035): a
+// consumer that wants to use it as a **client** installs it itself.
 const sdkSpec = `@modelcontextprotocol/sdk@${pkg.devDependencies?.['@modelcontextprotocol/sdk'] ?? '^1.31.0'}`
 
 const run = (command, args, options) =>
@@ -34,17 +33,36 @@ const fail = (label, detail) => {
 }
 
 try {
-  // 1. Le tarball, tel qu'il partirait.
+  // 1. The tarball, exactly as it would ship.
   tarball = path.join(DS, capture('npm', ['pack', '--silent'], { cwd: DS }).split('\n').pop())
 
-  // 2. Un consommateur neuf, qui n'a que ce tarball.
+  // 1b. The tarball carries the app starter (ADR 0028, 0038): an external consumer receives it.
+  const contents = capture('tar', ['-tzf', tarball])
+  if (contents.includes('package/templates/starter/package.json')) {
+    ok('the tarball ships templates/starter')
+  } else {
+    fail('the tarball is missing templates/starter')
+  }
+
+  // 2. A fresh consumer that has nothing but this tarball.
   writeFileSync(
     path.join(tmp, 'package.json'),
     JSON.stringify({ name: 'nomos-smoke-consumer', private: true, type: 'module' }, null, 2),
   )
   run('npm', ['install', tarball, sdkSpec, '--silent', '--no-audit', '--no-fund'], { cwd: tmp })
 
-  // 3. Le cœur s'importe (runtime).
+  // 2b. The starter lands on disk in the installed package, not only in the tarball listing.
+  if (
+    existsSync(
+      path.join(tmp, 'node_modules', '@nomosui/react', 'templates', 'starter', 'package.json'),
+    )
+  ) {
+    ok('the consumer receives templates/starter on disk')
+  } else {
+    fail('templates/starter absent from the installed package')
+  }
+
+  // 3. The core imports (runtime).
   writeFileSync(
     path.join(tmp, 'import.mjs'),
     [
@@ -60,7 +78,7 @@ try {
   run('node', ['import.mjs'], { cwd: tmp })
   ok("the core imports (Button + catalogue + CSS/tokens as sub-exports)")
 
-  // 4. Le serveur MCP démarre depuis le bin installé, et lit une vue.
+  // 4. The MCP server starts from the installed bin, and reads a view.
   writeFileSync(
     path.join(tmp, 'mcp.mjs'),
     [
@@ -81,7 +99,7 @@ try {
   run('node', ['mcp.mjs'], { cwd: tmp })
   ok('the MCP server starts and serves a styled view (ui://nomos/badge)')
 
-  // 5. Un consommateur externe rend une vue dans son propre skin (ADR 0034).
+  // 5. An external consumer renders a view in its own skin (ADR 0034).
   writeFileSync(
     path.join(tmp, 'view.mjs'),
     [

@@ -36,6 +36,7 @@
   "files": [
     "dist",
     "tokens",
+    "templates/starter",
     "view.generated.css",
     "SKILL.md",
     "README.md",
