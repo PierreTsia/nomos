@@ -5,9 +5,9 @@ import { useI18n } from '../i18n'
 import { scenes } from '../scenarios'
 
 /**
- * La galerie de layouts (#41) : des écrans entiers assemblés à partir des briques, chacun
- * rendu puis montré en source colorée (générée au build depuis le même fichier), donc
- * copiable et jamais mort. Les scènes vivent dans `src/examples/scenes/`.
+ * The layout gallery (#41): whole screens assembled from the bricks, each rendered and shown
+ * in highlighted source (built at build time from the same file), so copyable and never dead.
+ * The scenes live in `src/examples/scenes/`.
  */
 export function GalleryPage() {
   const { t } = useI18n()

@@ -1,6 +1,6 @@
 import { Button } from '@nomosui/react'
 
-/** Le beat 2 de `Button` : la brique en contexte, plusieurs tons côte à côte. */
+/** `Button`'s beat 2: the brick in context, several tones side by side. */
 export default function Example() {
   return (
     <div className="flex flex-wrap items-center gap-3">

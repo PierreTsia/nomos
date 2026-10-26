@@ -6,9 +6,9 @@ import { brickSnippets, sceneSnippets } from 'virtual:nomos-snippets'
 import { scenarioFor, scenarioNames, scenes } from './scenarios'
 
 /**
- * La garde des snippets (#59) : chaque exemple de brique se rend (donc compile dans le
- * build du site) et porte un snippet coloré non vide — le snippet est le fichier qui a été
- * rendu, il ne peut pas être mort. Les scènes de la galerie (#41) ont la même garantie.
+ * The snippet guard (#59): every brick example renders (so it compiles in the site build) and
+ * carries a non-empty highlighted snippet — the snippet is the file that was rendered, it
+ * cannot be dead. The gallery scenes (#41) get the same guarantee.
  */
 describe('scénarios de brique', () => {
   it('déclare au moins un scénario', () => {

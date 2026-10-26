@@ -3,21 +3,21 @@ import { Fragment, isValidElement, type ReactNode } from 'react'
 import * as nomos from '@nomosui/react'
 
 /**
- * Le snippet du **beat 1** : `manifest.example` sérialisé en JSX. C'est la seule source de
- * l'interface (le MCP lit le même objet), donc le snippet ne peut pas diverger du rendu —
- * il en est la projection textuelle. Aucune seconde source écrite à la main.
+ * The **beat 1** snippet: `manifest.example` serialized to JSX. It is the single source of
+ * the interface (the MCP reads the same object), so the snippet cannot drift from the render
+ * — it is its textual projection. No second, hand-written source.
  *
- * Portée : les props simples (chaîne, nombre, booléen), les rappels en `() => {}`, les
- * objets/tableaux en littéral, et les éléments React imbriqués (les exemples en
- * `createElement`). Un `Fragment` s'affiche comme ses enfants, sans balise (sinon on
- * produirait un `<Component>` fantôme). Le test balaie les 59 exemples.
+ * Scope: simple props (string, number, boolean), callbacks as `() => {}`, objects/arrays as
+ * a literal, and nested React elements (the `createElement` examples). A `Fragment` renders
+ * as its children, with no tag (otherwise a phantom `<Component>` would appear). The test
+ * sweeps all 59 examples.
  */
 
 /**
- * Le nom JSX d'un composant. Les parts en `forwardRef` du paquet n'ont ni `displayName` ni
- * `name` — mais elles **sont exportées**, et le `createElement` des manifestes emploie
- * l'objet exporté : on l'identifie par identité (WeakMap sur les exports). Repli sur
- * `displayName`/`name`, puis le titre.
+ * The JSX name of a component. The package's `forwardRef` parts have neither `displayName`
+ * nor `name` — but they **are exported**, and the manifests' `createElement` uses the
+ * exported object: it is identified by identity (a WeakMap over the exports). Falls back to
+ * `displayName`/`name`, then the title.
  */
 const EXPORT_NAMES = new WeakMap<object, string>()
 for (const [exportName, value] of Object.entries(nomos)) {
@@ -46,7 +46,7 @@ function isFragment(type: unknown): boolean {
   return type === Fragment || type === Symbol.for('react.fragment')
 }
 
-/** Une valeur de prop, hors `children`, en expression JSX (`attr={…}` ou `attr="…"`). */
+/** A prop value, outside `children`, as a JSX expression (`attr={…}` or `attr="…"`). */
 function attributeValue(value: unknown): string {
   if (typeof value === 'string') return JSON.stringify(value)
   if (typeof value === 'number' || typeof value === 'boolean' || value === null) {
@@ -64,8 +64,8 @@ function attributes(props: Record<string, unknown>): string {
 }
 
 /**
- * Le corps d'un `children` : du texte (inline) ou des lignes déjà indentées (block). Un
- * `Fragment` traverse sans ajouter de niveau ; un tableau aligne ses enfants.
+ * The body of a `children`: text (inline) or already-indented lines (block). A `Fragment`
+ * passes through without adding a level; an array lines its children up.
  */
 function bodyOf(children: ReactNode, indent: number): Body | null {
   if (typeof children === 'string' || typeof children === 'number') {
@@ -85,10 +85,10 @@ function bodyOf(children: ReactNode, indent: number): Body | null {
   return null
 }
 
-/** Un élément React en JSX, sa première ligne indentée sur `indent`. */
+/** A React element as JSX, its first line indented by `indent`. */
 function element(node: AnyElement, indent: number): string {
   if (isFragment(node.type)) {
-    // Transparent : ses enfants restent au niveau du parent (un cran au-dessus du fragment).
+    // Transparent: its children stay at the parent's level (one step above the fragment).
     const body = bodyOf(node.props.children as ReactNode, indent - 1)
     if (!body) return ''
     return 'inline' in body ? body.inline : body.block
@@ -106,7 +106,7 @@ function element(node: AnyElement, indent: number): string {
   return `${line}>\n${body.block}\n${pad(indent)}</${name}>`
 }
 
-/** Le JSX d'un exemple : `<Button variant="outline">Save</Button>`. */
+/** The JSX of an example: `<Button variant="outline">Save</Button>`. */
 export function snippetFromExample(name: string, example: Record<string, unknown>): string {
   return element({ type: name, props: example }, 0)
 }

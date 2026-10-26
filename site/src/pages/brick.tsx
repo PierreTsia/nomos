@@ -9,7 +9,7 @@ import { scenarioComponents } from '../scenarios'
 import { ManifestDocs } from './manifest'
 import { Preview } from './preview'
 
-/** Un temps de la page : un titre, une carte qui rend la brique (ou le code). */
+/** A page beat: a title, a card rendering the brick (or the code). */
 function Beat({ title, cardTitle, children }: { title: string; cardTitle: string; children: ReactNode }) {
   return (
     <section className="flex flex-col gap-3">
@@ -24,7 +24,7 @@ function Beat({ title, cardTitle, children }: { title: string; cardTitle: string
   )
 }
 
-/** Un snippet copiable : un libellé, puis le `CodeBlock` du cœur au contenu coloré au build. */
+/** A copyable snippet: a label, then the core's `CodeBlock` with build-time highlighted content. */
 function Snippet({ label, code }: { label: string; code: SnippetCode }) {
   return (
     <div className="flex flex-col gap-2">

@@ -6,10 +6,9 @@ import { catalogue } from '@nomosui/react'
 import { snippetFromExample } from './snippet'
 
 /**
- * Le snippet est **généré** depuis `manifest.example` (choix : pas de seconde source). Ce
- * test le prouve sur **tout** le catalogue : chaque exemple produit un JSX non vide qui
- * nomme la brique. C'est la garde qui remplace le « pas de snippet mort » d'un fichier écrit
- * à la main.
+ * The snippet is **generated** from `manifest.example` (a choice: no second source). This test
+ * proves it over the **whole** catalogue: every example yields non-empty JSX naming the brick.
+ * It is the guard that replaces the "no dead snippet" of a hand-written file.
  */
 describe('snippetFromExample', () => {
   it('rend un enfant texte et les props en attributs', () => {
@@ -66,8 +65,8 @@ describe('snippetFromExample', () => {
       const snippet = snippetFromExample(name, example as Record<string, unknown>)
       expect(snippet, manifest.name).toMatch(/^<[A-Z]/)
       expect(snippet, manifest.name).toContain(`<${name}`)
-      // Aucune balise fantôme : un `Fragment` ne doit pas fuir en `<Fragment>`/`<Component>`,
-      // et chaque balise ouvrante doit porter un nom (pas de `<>` nu ni de `<` cassé).
+      // No phantom tag: a `Fragment` must not leak as `<Fragment>`/`<Component>`, and every
+      // opening tag must carry a name (no bare `<>` and no broken `<`).
       expect(snippet, manifest.name).not.toContain('<Component')
       expect(snippet, manifest.name).not.toContain('<Fragment')
     }

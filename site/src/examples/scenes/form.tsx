@@ -13,7 +13,7 @@ import {
 export const title = 'A form in a card'
 export const summary = 'Fields, a grouped layout and actions — assembled from the core bricks.'
 
-/** Une scène « écran entier » : un formulaire complet dans une carte. */
+/** A whole-screen scene: a complete form inside a card. */
 export default function Example() {
   return (
     <Card className="w-full max-w-lg">

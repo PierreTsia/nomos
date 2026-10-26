@@ -9,12 +9,12 @@ import type { Plugin } from 'vite'
 import { componentName, snippetFromExample } from '../src/snippet.ts'
 
 /**
- * La coloration syntaxique des snippets, **au build** (et en dev), pour que le client n'en
- * porte pas le coût. Le thème est fait de **variables de tokens** : la coloration suit le
- * mode clair/sombre et le skin sans une seule couleur codée en dur (ADR 0003/0004).
+ * Snippet syntax highlighting, **at build time** (and in dev), so the client pays none of the
+ * cost. The theme is made of **token variables**: the colours follow light/dark and any skin,
+ * with no hardcoded colour (ADR 0003/0004).
  *
- * Le module virtuel `virtual:nomos-snippets` expose, par brique et par scène, la source
- * brute (à copier) et le HTML coloré (à afficher) — une source, déjà découpée en jetons.
+ * The `virtual:nomos-snippets` module exposes, per brick and per scene, the raw source (to
+ * copy) and the highlighted HTML (to show) — one source, already cut into tokens.
  */
 const VIRTUAL = 'virtual:nomos-snippets'
 const RESOLVED = '\0' + VIRTUAL
@@ -23,7 +23,7 @@ const here = path.dirname(fileURLToPath(import.meta.url))
 const EXAMPLES = path.resolve(here, '..', 'src', 'examples')
 const SCENES = path.join(EXAMPLES, 'scenes')
 
-/** Un thème Shiki en variables de tokens Nomos (aucune valeur en dur). */
+/** A Shiki theme made of Nomos token variables (no hardcoded value). */
 const NOMOS_THEME: ThemeRegistrationRaw = {
   name: 'nomos',
   type: 'light',
@@ -66,7 +66,7 @@ function getHighlighter() {
   return highlighter
 }
 
-/** Le HTML coloré des jetons, sans le `<pre><code>` que `CodeBlock` fournit déjà. */
+/** The highlighted token HTML, without the `<pre><code>` that `CodeBlock` already provides. */
 function highlight(hl: Highlighter, code: string): string {
   return hl
     .codeToHtml(code, { lang: 'tsx', theme: 'nomos' })
@@ -122,7 +122,7 @@ export function nomosSnippets(): Plugin {
       )
     },
     configureServer(server) {
-      // Un exemple touché (ou ajouté) invalide le module : la coloration se recalcule.
+      // A touched (or added) example invalidates the module: the highlighting is recomputed.
       server.watcher.add(EXAMPLES)
       const invalidate = (file: string) => {
         if (file.startsWith(EXAMPLES)) {

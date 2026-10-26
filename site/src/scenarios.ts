@@ -1,12 +1,12 @@
 import type { ComponentType } from 'react'
 
 /**
- * Le registre des **scénarios** (le beat 2 de #59). La scène d'une brique vit dans
- * `src/examples/<brique>.tsx` : le site la **rend**, et son code coloré vient du module
- * `virtual:nomos-snippets` (généré au build depuis le même fichier) — donc le snippet ne
- * peut pas être mort.
+ * The **scenario** registry (beat 2 of #59). A brick's scene lives in
+ * `src/examples/<brick>.tsx`: the site **renders** it, and its highlighted code comes from
+ * the `virtual:nomos-snippets` module (built at build time from the same file) — so the
+ * snippet cannot be dead.
  *
- * Opt-in (#59) : une brique sans fichier n'a pas de beat 2, la page enchaîne 1 → 3.
+ * Opt-in (#59): a brick with no file has no beat 2; the page goes 1 → 3.
  */
 
 type Module = { default: ComponentType }
@@ -18,7 +18,7 @@ const sceneModules = import.meta.glob('./examples/scenes/*.tsx', { eager: true }
   SceneModule
 >
 
-/** Le composant de scénario par brique, dérivé du glob (optionnel : toutes n'en ont pas). */
+/** The scenario component per brick, derived from the glob (optional: not every brick has one). */
 export const scenarioComponents: Record<string, ComponentType> = Object.fromEntries(
   Object.entries(modules).map(([path, mod]) => [
     path.replace('./examples/', '').replace('.tsx', ''),
@@ -26,17 +26,17 @@ export const scenarioComponents: Record<string, ComponentType> = Object.fromEntr
   ]),
 )
 
-/** Les briques qui portent un scénario (le beat 2). */
+/** The bricks that carry a scenario (beat 2). */
 export const scenarioNames: string[] = Object.keys(scenarioComponents)
 
-/** Le composant de scénario d'une brique, ou `undefined` (le beat 2 est optionnel). */
+/** A brick's scenario component, or `undefined` (beat 2 is optional). */
 export function scenarioFor(brick: string): ComponentType | undefined {
   return scenarioComponents[brick]
 }
 
 export type Scene = { name: string; title: string; summary: string; Example: ComponentType }
 
-/** Les scènes « écran entier » de la galerie (#41), dérivées de leurs fichiers. */
+/** The gallery's whole-screen scenes (#41), derived from their files. */
 export const scenes: Scene[] = Object.entries(sceneModules)
   .map(([path, mod]) => ({
     name: path.replace('./examples/scenes/', '').replace('.tsx', ''),
