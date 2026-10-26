@@ -37,8 +37,8 @@ export default defineConfig([
   {
     // The boundary, held by tooling and not by discipline (ADR 0002, 0003, 0028). Nomos
     // never imports app code, never through a relative path, never the router, and never
-    // the site ancillary: a relative path climbing two levels up is exactly where a
-    // boundary leaks.
+    // an ancillary (the site or the starter): a relative path climbing two levels up is
+    // exactly where a boundary leaks.
     files: ['src/**/*.{ts,tsx}'],
     rules: {
       'no-restricted-imports': [
@@ -55,9 +55,11 @@ export default defineConfig([
                 'react-router/*',
                 'nomos-site',
                 'site/*',
+                'nomos-starter',
+                'templates/*',
               ],
               message:
-                'Nomos never imports app code, never through a relative path, never the router, and never the site ancillary (ADR 0028).',
+                'Nomos never imports app code, never through a relative path, never the router, and never an ancillary (ADR 0028).',
             },
           ],
         },
