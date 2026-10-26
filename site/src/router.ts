@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
-export type DocsSlug = 'getting-started' | 'boundary' | 'contributing'
+export type DocsSlug = 'getting-started' | 'starter' | 'boundary' | 'contributing'
 
-const DOCS: DocsSlug[] = ['getting-started', 'boundary', 'contributing']
+const DOCS: DocsSlug[] = ['getting-started', 'starter', 'boundary', 'contributing']
 
 export const docsSlugs = DOCS
 

@@ -41,6 +41,7 @@ export const fr = {
     lead: 'Installez-le, branchez les tokens, et apprenez la règle qui garde les coutures propres : les imports vont dans un seul sens.',
     labels: {
       'getting-started': 'Démarrage',
+      starter: 'Partir du starter',
       boundary: 'La règle de frontière',
       contributing: 'Contribuer',
     },
@@ -54,6 +55,20 @@ export const fr = {
       skinTitle: 'À vous de jouer : le skin',
       skinBody:
         "L’identité d’une app est une surcouche, jamais un fork : un skin change les valeurs des tokens, jamais les noms (ADR 0022).",
+    },
+    starter: {
+      scaffoldTitle: 'Le générer',
+      scaffoldBody:
+        'On copie le starter, ou on le génère avec le CLI fourni — pas de générateur, pas de modèle, juste une copie.',
+      renameTitle: 'Renommer',
+      renameBody: 'Réglez le nom de l’app dans package.json et la marque dans la mise en page.',
+      fillTitle: 'Remplir les pages',
+      fillBody:
+        'Faites correspondre chaque intention à des briques du catalogue ; le catalogue ici et le serveur MCP font autorité. Passez les libellés en props — le cœur n’a pas d’i18n.',
+      skinTitle: 'L’habiller (skin)',
+      skinBody:
+        'Éditez skin.json, une surcouche sémantique ; le build en dérive le CSS de l’app (ADR 0022). Aucune couleur ne vit ailleurs.',
+      runTitle: 'Le lancer',
     },
     boundary: {
       title: 'Les imports vont dans un seul sens',

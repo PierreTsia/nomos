@@ -54,6 +54,36 @@ function GettingStarted() {
   )
 }
 
+function Starter() {
+  const { t } = useI18n()
+  return (
+    <>
+      <Section title={t.docs.starter.scaffoldTitle}>
+        <p>{t.docs.starter.scaffoldBody}</p>
+        <Code>{`# with the bundled CLI
+npx create-nomos-app my-app
+
+# or copy the template by hand
+cp -r node_modules/@nomosui/react/templates/starter my-app`}</Code>
+      </Section>
+      <Section title={t.docs.starter.renameTitle}>
+        <p>{t.docs.starter.renameBody}</p>
+      </Section>
+      <Section title={t.docs.starter.fillTitle}>
+        <p>{t.docs.starter.fillBody}</p>
+      </Section>
+      <Section title={t.docs.starter.skinTitle}>
+        <p>{t.docs.starter.skinBody}</p>
+      </Section>
+      <Section title={t.docs.starter.runTitle}>
+        <Code>{`cd my-app
+npm install
+npm run dev`}</Code>
+      </Section>
+    </>
+  )
+}
+
 function Boundary() {
   const { t } = useI18n()
   return (
@@ -116,6 +146,7 @@ export function DocsPage({ slug }: { slug: DocsSlug }) {
       </nav>
 
       {slug === 'getting-started' ? <GettingStarted /> : null}
+      {slug === 'starter' ? <Starter /> : null}
       {slug === 'boundary' ? <Boundary /> : null}
       {slug === 'contributing' ? <Contributing /> : null}
     </div>
