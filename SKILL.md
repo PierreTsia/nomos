@@ -250,10 +250,9 @@ The recipe, in five beats:
 
 1. **Prompt** — read the ask as intents (an entity, a list, a form, a status), not as a spec.
    Name the pages the app needs.
-2. **Scaffold** — copy `templates/starter` (shipped beside this skill by `nomos-skill`, and in
-   the tarball; or `create-nomos-app`) into the target directory and rename the app. It is a
-   Vite + React 19 + Tailwind v4 app that imports `@nomosui/react`; the app owns its layout,
-   router and state (ADR 0002).
+2. **Scaffold** — copy `templates/starter` (the repo's starter app) into the target
+   directory and rename it. It is a Vite + React 19 + Tailwind v4 app that imports
+   `@nomosui/react`; the app owns its layout, router and state (ADR 0002).
 3. **Bricks** — map each intent to catalogue bricks (the section above; `list_components` /
    `get_component` on the MCP are authoritative). Compose the pages from `Navbar`, `Card`,
    `FacetedDataTable`, `Field`/`Input`, `ToastProvider` and so on, and pass **English labels
