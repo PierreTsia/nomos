@@ -46,6 +46,7 @@ export const en = {
     lead: 'Install it, wire the tokens, and learn the one rule that keeps the seams clean: imports go one way.',
     labels: {
       'getting-started': 'Getting started',
+      starter: 'Start from the starter',
       boundary: 'The boundary rule',
       contributing: 'Contributing',
     },
@@ -59,6 +60,20 @@ export const en = {
       skinTitle: 'Make it yours: the skin',
       skinBody:
         "An app's identity is an overlay, never a fork: a skin changes token values, never the names (ADR 0022).",
+    },
+    starter: {
+      scaffoldTitle: 'Scaffold it',
+      scaffoldBody:
+        'An adopter copies the starter, or scaffolds it with the bundled CLI — no generator, no model, just a copy.',
+      renameTitle: 'Rename',
+      renameBody: 'Set the app name in package.json and the brand in the layout.',
+      fillTitle: 'Fill the pages',
+      fillBody:
+        'Map each intent to catalogued bricks; the catalogue here and the MCP server are authoritative. Pass labels as props — the core has no i18n.',
+      skinTitle: 'Skin it',
+      skinBody:
+        'Edit skin.json, a semantic overlay; the build derives the app CSS from it (ADR 0022). No colour lives anywhere else.',
+      runTitle: 'Run it',
     },
     boundary: {
       title: 'Imports go one way',
