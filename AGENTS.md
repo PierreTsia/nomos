@@ -56,11 +56,10 @@ issue** and **no red test, no code**. A bug skips `to-prd` and `to-issues` — t
 framing, a short plan (cause + acceptance criterion) is written, then `tdd` applies as-is: the
 test that reproduces the bug comes first.
 
-Flow skills live in `~/.agents/skills/` (global, read by OpenCode): `grilling`,
-`grill-with-docs`, `grill-me`, `to-prd`, `to-issues`, `implement`, `tdd`, `review`, `qa`. Read
-the effective inventory with `opencode debug skill` rather than naming a step from memory — an
-agent asked to load a skill that does not exist improvises, which is how code gets written
-without a plan.
+The flow skills are **global** — the skill directory OpenCode reads outside this repo; none of
+them live in this repository. Read the effective inventory with `opencode debug skill` rather
+than from a list that can drift, and never name a step from memory: an agent asked to load a
+skill that does not exist improvises, which is how code gets written without a plan.
 
 ## CI is the contract
 
