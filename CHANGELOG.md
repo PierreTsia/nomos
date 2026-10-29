@@ -1,5 +1,13 @@
 # @nomosui/react
 
+## 0.14.1
+
+### Patch Changes
+
+- 9661fd0: Bump the Radix UI primitives (`@radix-ui/react-alert-dialog`, `-dropdown-menu`, `-popover`,
+  `-separator`, `-tabs`, `-toggle`, `-toggle-group`) to their latest releases. The pre-rendered
+  `ui://` view is replayed in the same change; no API change.
+
 ## 0.14.0
 
 ### Minor Changes
