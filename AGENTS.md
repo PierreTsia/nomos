@@ -56,10 +56,10 @@ issue** and **no red test, no code**. A bug skips `to-prd` and `to-issues` — t
 framing, a short plan (cause + acceptance criterion) is written, then `tdd` applies as-is: the
 test that reproduces the bug comes first.
 
-The flow skills are **global** — the skill directory OpenCode reads outside this repo; none of
-them live in this repository. Read the effective inventory with `opencode debug skill` rather
-than from a list that can drift, and never name a step from memory: an agent asked to load a
-skill that does not exist improvises, which is how code gets written without a plan.
+The flow skills are **host-global** — whichever harness reads them, they live outside this
+repository; none of them live here. The effective inventory is read from the harness
+(`opencode debug skill`) rather than restated, because a restated list drifts: an agent asked
+to load a skill that does not exist improvises.
 
 ## CI is the contract
 
