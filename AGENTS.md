@@ -42,6 +42,26 @@ not here (ADR 0002, 0010). Inside the package, imports go through `@nomos/*` and
   `build:view-css` · `build:surface`
 - Package: `npm run build:package` · `npm run size:check` · `npm run smoke:consumer`
 
+## The flow — in order, artifacts before progress
+
+`grilling` (or `grill-with-docs` when the domain is touched: `CONTEXT.md` and an ADR) →
+`to-prd` (a PRD published to the issue tracker, carrying the implementation decisions and
+the test seams) → `to-issues` (vertical slices, one issue per shippable slice) →
+`implement` (a `tdd` loop, one commit per slice) → `review` (the `@reviewer` sub-agent) →
+QA (the `@qa` sub-agent).
+
+The grill is **HITL** (the maintainer answers) or **AFK** (the agent decides on his behalf and
+names its assumptions); outside the codebase, `grill-me`. Two ordering locks: **no PRD, no
+issue** and **no red test, no code**. A bug skips `to-prd` and `to-issues` — the issue is the
+framing, a short plan (cause + acceptance criterion) is written, then `tdd` applies as-is: the
+test that reproduces the bug comes first.
+
+Flow skills live in `~/.agents/skills/` (global, read by OpenCode): `grilling`,
+`grill-with-docs`, `grill-me`, `to-prd`, `to-issues`, `implement`, `tdd`, `review`, `qa`. Read
+the effective inventory with `opencode debug skill` rather than naming a step from memory — an
+agent asked to load a skill that does not exist improvises, which is how code gets written
+without a plan.
+
 ## CI is the contract
 
 `.github/workflows/ci.yml` runs `test`, `lint`, `typecheck`, `build:package`, then
