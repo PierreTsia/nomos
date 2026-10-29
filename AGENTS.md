@@ -42,6 +42,25 @@ not here (ADR 0002, 0010). Inside the package, imports go through `@nomos/*` and
   `build:view-css` · `build:surface`
 - Package: `npm run build:package` · `npm run size:check` · `npm run smoke:consumer`
 
+## The flow — in order, artifacts before progress
+
+`grilling` (or `grill-with-docs` when the domain is touched: `CONTEXT.md` and an ADR) →
+`to-prd` (a PRD published to the issue tracker, carrying the implementation decisions and
+the test seams) → `to-issues` (vertical slices, one issue per shippable slice) →
+`implement` (a `tdd` loop, one commit per slice) → `review` (the `@reviewer` sub-agent) →
+QA (the `@qa` sub-agent).
+
+The grill is **HITL** (the maintainer answers) or **AFK** (the agent decides on his behalf and
+names its assumptions); outside the codebase, `grill-me`. Two ordering locks: **no PRD, no
+issue** and **no red test, no code**. A bug skips `to-prd` and `to-issues` — the issue is the
+framing, a short plan (cause + acceptance criterion) is written, then `tdd` applies as-is: the
+test that reproduces the bug comes first.
+
+The flow skills are **host-global** — whichever harness reads them, they live outside this
+repository; none of them live here. The effective inventory is read from the harness
+(`opencode debug skill`) rather than restated, because a restated list drifts: an agent asked
+to load a skill that does not exist improvises.
+
 ## CI is the contract
 
 `.github/workflows/ci.yml` runs `test`, `lint`, `typecheck`, `build:package`, then
